@@ -129,20 +129,13 @@
     html,body{ height:100%; }
 
     html{
-      min-height: 100%;
-      height: -webkit-fill-available;
       scroll-behavior:smooth;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
     body{
-      min-width: 320px;
-      min-height: 100vh;
-      min-height: 100dvh;
-      min-height: -webkit-fill-available;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      overscroll-behavior-y: none;
     }
     html::-webkit-scrollbar,
     body::-webkit-scrollbar{
@@ -793,10 +786,9 @@
     .hero-stage{
       position: relative;
       z-index: 2;
-      min-height: 100vh;
-      min-height: 100svh;
-      min-height: 100dvh;
-      min-height: -webkit-fill-available;
+      height: 100vh;
+      height: 100svh;
+      height: 100dvh;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -1333,7 +1325,7 @@
       display: grid;
       place-items: center;
       pointer-events: none;
-      height: calc(100dvh - var(--cardStickyTop) - 12px);
+      height: calc(100vh - var(--cardStickyTop) - 12px);
       min-height: 520px;
     }
 
@@ -1368,212 +1360,6 @@
 
     body.is-locked{ overflow: hidden; touch-action: none; }
 
-    @supports (-webkit-touch-callout: none){
-      body::before{
-        background-attachment: scroll;
-      }
-      .hero-stage{
-        min-height: -webkit-fill-available;
-      }
-    }
-
-    @media (max-width: 1280px){
-      :root{
-        --padX: clamp(16px, 4.8vw, 72px);
-        --cardMaxW: 920px;
-      }
-      .tree{
-        width: min(78vw, 78vh);
-        height: min(78vw, 78vh);
-      }
-      .brand .name{
-        font-size: clamp(48px, 7vw, 112px);
-      }
-      .role{
-        max-width: 360px;
-      }
-    }
-
-    @media (max-width: 1100px){
-      :root{
-        --padX: clamp(16px, 4vw, 40px);
-        --cardStickyTop: calc(var(--headerH) + var(--safeT) + 18px);
-      }
-      .hero{
-        max-width: 980px;
-      }
-      .content{
-        gap: 28px;
-      }
-      .cards-track{
-        padding-left: calc(18px + var(--safeL));
-        padding-right: calc(18px + var(--safeR));
-      }
-    }
-
-    @media (max-width: 860px){
-      :root{
-        --headerH: 58px;
-        --cardMaxW: 100%;
-        --cardStickyTop: calc(var(--headerH) + var(--safeT) + 14px);
-        --cardScrollMaxH: calc(100dvh - var(--cardStickyTop) - 20px);
-      }
-      .hero-stage{
-        padding-left: calc(18px + var(--safeL));
-        padding-right: calc(18px + var(--safeR));
-      }
-      .content{
-        gap: 18px;
-      }
-      .brand .name .namewrap{
-        padding-inline: 2px;
-      }
-      .role .pill{
-        letter-spacing: 0.14em;
-      }
-      .cards-track{
-        padding-top: calc(var(--cardStickyTop) + 4px);
-        padding-left: calc(14px + var(--safeL));
-        padding-right: calc(14px + var(--safeR));
-        padding-bottom: calc(34px + var(--safeB));
-      }
-      .cards-stage{
-        min-height: calc(100dvh - var(--cardStickyTop) - 8px);
-      }
-      .section-card{
-        width: min(100%, calc(var(--wPx, 160) * 1px));
-      }
-      .card-inner{
-        padding: 20px 18px;
-      }
-      .card-title{
-        font-size: clamp(22px, 5vw, 32px);
-      }
-      .about .lead,
-      .about .body-copy,
-      .about .box{
-        padding: 16px;
-      }
-      .edu-top{
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .edu-meta{
-        white-space: normal;
-        flex-wrap: wrap;
-      }
-    }
-
-    @media (max-width: 640px){
-      :root{
-        --padX: 16px;
-        --treeYOffset: 18px;
-        --treeScale: 0.88;
-        --cardRadius: 16px;
-        --cardScrollTopPad: 8px;
-        --cardScrollBottomPad: 16px;
-        --cardEndSpacer: 44px;
-      }
-      .topbar{
-        padding-left: calc(12px + var(--safeL));
-        padding-right: calc(12px + var(--safeR));
-      }
-      .bar-title .bar-name{
-        font-size: 16px;
-      }
-      .logo-mark,
-      .logo-img{
-        width: 28px;
-        height: 28px;
-      }
-      .drawer{
-        width: min(100vw, calc(100vw - 12px));
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-      }
-      .hero-stage{
-        align-items: flex-end;
-        padding-top: calc(76px + var(--safeT));
-        padding-bottom: calc(42px + var(--safeB));
-      }
-      .hero{
-        max-width: 100%;
-      }
-      .content{
-        width: 100%;
-        gap: 14px;
-      }
-      .brand{
-        width: 100%;
-      }
-      .brand .name{
-        font-size: clamp(40px, 14vw, 68px);
-      }
-      .role{
-        width: 100%;
-        margin-top: 6px;
-      }
-      .role .pill{
-        font-size: clamp(12px, 3.2vw, 15px);
-        letter-spacing: 0.12em;
-      }
-      .tree{
-        width: min(94vw, 94vh);
-        height: min(94vw, 94vh);
-      }
-      .cards-track .track-spacer{
-        height: 300vh;
-      }
-      .card-kicker{
-        font-size: 11px;
-      }
-      .card-text,
-      .about .lead p,
-      .about .body-copy p,
-      .about .box p,
-      .about li,
-      .skill-item{
-        font-size: 14px;
-        line-height: 1.8;
-      }
-      .about .portrait{
-        min-height: 260px;
-      }
-      .about .grid{
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 420px){
-      :root{
-        --headerH: 56px;
-        --padX: 12px;
-      }
-      .menu-btn{
-        padding: 9px 11px;
-      }
-      .brand .name{
-        font-size: clamp(34px, 13vw, 54px);
-      }
-      .card-inner{
-        padding: 18px 14px;
-      }
-      .about .lead,
-      .about .body-copy,
-      .about .box{
-        padding: 14px;
-      }
-      .edu-item{
-        padding: 12px 10px;
-      }
-      .edu-name{
-        font-size: 13px;
-      }
-      .edu-inst,
-      .edu-desc{
-        font-size: 12.5px;
-      }
-    }
 
     @media (min-width: 980px){
       .topbar{
@@ -2579,79 +2365,6 @@
 
         return { used: true, moved, atEdge };
       }
-
-      function keyScrollAmount(key){
-        switch(key){
-          case "ArrowDown":
-          case "ArrowUp":
-            return 88;
-          case "PageDown":
-          case "PageUp":
-          case " ":
-            return Math.max(160, Math.round((window.innerHeight || 800) * 0.42));
-          case "Home":
-          case "End":
-            return Math.max(220, Math.round((window.innerHeight || 800) * 0.64));
-          default:
-            return 88;
-        }
-      }
-
-      function handleDirectionalInput(direction, amount){
-        const signed = Math.abs(amount || 88) * (direction > 0 ? 1 : -1);
-
-        if(flowStarted && !prefersReduced()){
-          const res = tryScrollInsideActiveCard(signed);
-          if(res.used && res.moved){
-            scheduleRender();
-            return true;
-          }
-
-          if((!res.used) || res.atEdge){
-            if(direction > 0) requestNext();
-            else requestPrev();
-            scheduleRender();
-            return true;
-          }
-          return true;
-        }
-
-        if(!flowStarted && inHeroViewport()){
-          lockBody();
-          handleDelta(signed * 1.8);
-          return true;
-        }
-
-        return false;
-      }
-
-      window.addEventListener("keydown", (e) => {
-        if(document.body.classList.contains("is-loading")) return;
-        if(overlay.classList.contains("is-open")) return;
-        if(e.defaultPrevented) return;
-
-        const target = e.target;
-        const tag = target && target.tagName ? target.tagName.toLowerCase() : "";
-        const isTypingField = target && (
-          tag === "input" ||
-          tag === "textarea" ||
-          tag === "select" ||
-          target.isContentEditable
-        );
-        if(isTypingField) return;
-
-        const key = e.key;
-        const navKeys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "];
-        if(!navKeys.includes(key)) return;
-
-        let direction = 0;
-        if(key === "ArrowDown" || key === "PageDown" || key === " " || key === "End") direction = 1;
-        if(key === "ArrowUp" || key === "PageUp" || key === "Home") direction = -1;
-        if(direction === 0) return;
-
-        const handled = handleDirectionalInput(direction, keyScrollAmount(key));
-        if(handled) e.preventDefault();
-      }, { passive: false });
 
       window.addEventListener("wheel", (e) => {
         if(document.body.classList.contains("is-loading")) return;
