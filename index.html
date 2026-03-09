@@ -12,6 +12,7 @@
   <style>
     :root{
       --brand:#1A5D66;
+
       --text:#0b0d0f;
       --muted:#26343a;
 
@@ -26,6 +27,7 @@
       --treeYOffset: clamp(10px, 2vh, 34px);
       --treeScale: 0.92;
       --treeOpacity: 0.92;
+
       --treeBreathDur: 14s;
       --treeBreathAmp: 0.045;
       --treePushZ: 60px;
@@ -41,14 +43,16 @@
       --menuBlur: 26px;
       --menuBorder: rgba(0,0,0,.07);
       --menuShadow: 0 22px 72px rgba(0,0,0,.18);
-      --menuEase: cubic-bezier(.16, 1, .18, 1);
 
+      --menuEase: cubic-bezier(.16, 1, .18, 1);
       --menuDrawerDur: 720ms;
       --menuBgDur: 520ms;
+
       --menuItemDur: 820ms;
       --menuItemEase: cubic-bezier(.16, 1, .16, 1);
       --menuItemStagger: 70ms;
       --menuItemDelayBase: 110ms;
+
       --menuItemOffsetX: 34px;
       --menuItemScaleXFrom: .78;
       --menuItemBlur: 1.4px;
@@ -63,6 +67,7 @@
       --stepDistanceDown: 320;
       --stepDistanceUp: 380;
       --deadZone: 2.5;
+
       --stepCooldown: 70ms;
 
       --easeDurName: 900ms;
@@ -70,18 +75,18 @@
 
       --liftName: 140px;
       --liftRole: 120px;
-
       --fadeBlur: 1.6px;
 
       --loaderDur: 3000ms;
-      --loaderLogoW: min(140px, 28vw);
+      --loaderLogoW: min(88px, 22vw);
+
       --loaderFade: 820ms;
       --loaderEase: cubic-bezier(.16, 1, .18, 1);
-
       --siteReveal: 980ms;
       --siteRevealEase: cubic-bezier(.14, 1, .16, 1);
 
       --cardStickyTop: calc(var(--headerH) + var(--safeT) + 26px);
+
       --cardFromVw: 10;
       --cardFullVw: 92;
       --cardMaxW: 980px;
@@ -89,6 +94,7 @@
       --cardLag: 0.55;
       --wheelScale: 0.55;
       --wheelTrigger: 135;
+
       --sceneLockMs: 1350ms;
 
       --cardScrollTopPad: 14px;
@@ -123,22 +129,15 @@
       --bubbleShadow: 0 22px 70px rgba(0,0,0,.12);
       --bubbleFloatDur: 13.8s;
       --bubbleFloatAmp: 7px;
+
       --bubblePopAt: .34;
       --bubblePopScale: 4.2;
 
-      /* CONTATO (card) */
-      --contactRevealDur: 520ms;
-      --contactRevealEase: cubic-bezier(.16, 1, .18, 1);
-
-      /* ✅ RODAPÉ (quase imperceptível) */
-      --footerGlass: .18;
-      --footerBlur: 18px;
-      --footerBorder: rgba(0,0,0,.05);
-      --footerInk: rgba(20,28,32,.55);
-      --footerInk2: rgba(20,28,32,.42);
-      --footerRadius: 16px;
-      --footerPadY: 14px;
-      --footerPadX: 14px;
+      /* ✅ MODAL CONTATO */
+      --modalBlur: 10px;
+      --modalBg: rgba(10,12,14,.30);
+      --modalEase: cubic-bezier(.16,1,.18,1);
+      --modalDur: 520ms;
     }
 
     /* ========================= RESPONSIVO (tablet/mobile) ========================= */
@@ -154,7 +153,6 @@
         --cardScrollMaxH: calc(100dvh - var(--cardStickyTop) - 22px);
       }
     }
-
     @media (max-width: 720px){
       :root{
         --headerH: 54px;
@@ -174,7 +172,6 @@
         --bubbleSize: 16px;
       }
     }
-
     @media (max-width: 420px){
       :root{
         --padX: 14px;
@@ -193,9 +190,22 @@
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
-    html{ scroll-behavior:smooth; scrollbar-width: none; -ms-overflow-style: none; }
-    body{ scrollbar-width: none; -ms-overflow-style: none; }
-    html::-webkit-scrollbar, body::-webkit-scrollbar{ width:0 !important; height:0 !important; display:none !important; }
+
+    html{
+      scroll-behavior:smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    body{
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar{
+      width:0 !important;
+      height:0 !important;
+      display:none !important;
+    }
 
     body{
       margin:0;
@@ -204,25 +214,24 @@
       overflow-x:hidden;
       color: var(--text);
       background: transparent;
+
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
       font-feature-settings: "kern" 1, "liga" 1;
     }
 
-    /* ✅ AJUSTE: arquivos agora em /imagens */
     body::before{
       content:"";
       position: fixed;
       inset: 0;
       z-index: -6;
-      background-image: url("./imagens/fundo textura.png");
+      background-image: url("fundo textura.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       transform: scale(1.03);
     }
-
     body::after{
       content:"";
       position: fixed;
@@ -273,6 +282,7 @@
       0%, 100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
       50%{ transform: translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
     }
+
     .tree::after{
       content:"";
       position: absolute;
@@ -284,20 +294,23 @@
           rgba(255,255,255,0) 35%,
           rgba(255,255,255,.50) 50%,
           rgba(255,255,255,0) 65%,
-          rgba(255,255,255,0) 100%),
+          rgba(255,255,255,0) 100%
+        ),
         radial-gradient(closest-side at 50% 50%, var(--glowColor), rgba(26,93,102,0) 62%);
       background-size: 100% 220%, 120% 120%;
       background-position: 0 140%, 50% 160%;
       background-repeat: no-repeat;
+
       opacity: var(--glowOpacity);
       filter: blur(var(--glowBlur));
       mix-blend-mode: screen;
 
-      -webkit-mask-image: url("./imagens/Tree ring hero.png");
+      -webkit-mask-image: url("Tree ring hero.png");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-size: contain;
       -webkit-mask-position: center;
-      mask-image: url("./imagens/Tree ring hero.png");
+
+      mask-image: url("Tree ring hero.png");
       mask-repeat: no-repeat;
       mask-size: contain;
       mask-position: center;
@@ -314,15 +327,23 @@
     }
 
     /* ========================= BOLHAS (6) ========================= */
-    .bubbles-stage{ position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+    .bubbles-stage{
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
     @keyframes bubbleFloat{
       0%,100%{ transform: translate3d(var(--ox), var(--oy), 0) scale(var(--os)); }
       50%{ transform: translate3d(var(--ox), calc(var(--oy) - var(--bubbleFloatAmp)), 0) scale(var(--os)); }
     }
     .bubble{
-      position:absolute; left: 0; top: 0;
-      width: var(--bubbleSize); height: var(--bubbleSize);
+      position:absolute;
+      left: 0; top: 0;
+      width: var(--bubbleSize);
+      height: var(--bubbleSize);
       border-radius: 999px;
+
       background:
         radial-gradient(closest-side at 28% 24%, rgba(255,255,255,.22), rgba(255,255,255,0) 58%),
         conic-gradient(from 210deg,
@@ -331,14 +352,18 @@
           rgba(255,255,255,0) 140deg,
           var(--bubbleIridescenceB) 220deg,
           rgba(255,255,255,0) 300deg,
-          var(--bubbleIridescenceC) 360deg),
+          var(--bubbleIridescenceC) 360deg
+        ),
         radial-gradient(closest-side at 55% 62%, var(--bubbleGlow), rgba(26,93,102,0) 72%);
+
       box-shadow: var(--bubbleShadow);
       border: 1px solid rgba(255,255,255,.22);
       outline: 1px solid rgba(26,93,102,.10);
       outline-offset: -1px;
+
       backdrop-filter: blur(var(--bubbleBlur)) saturate(1.05);
       -webkit-backdrop-filter: blur(var(--bubbleBlur)) saturate(1.05);
+
       opacity: var(--bo);
       filter: blur(var(--bb));
       will-change: transform, opacity, filter;
@@ -354,14 +379,25 @@
 
     /* ========================= LOADER ========================= */
     .loader{
-      position: fixed; inset: 0; z-index: 9999;
-      display:flex; align-items:center; justify-content:center;
-      padding: calc(20px + var(--safeT)) calc(20px + var(--safeR)) calc(20px + var(--safeB)) calc(20px + var(--safeL));
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:
+        calc(20px + var(--safeT))
+        calc(20px + var(--safeR))
+        calc(20px + var(--safeB))
+        calc(20px + var(--safeL));
+
       background:
         radial-gradient(920px 680px at 50% 38%, rgba(255,255,255,.10), rgba(255,255,255,0) 58%),
         linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.08)),
         var(--brand);
-      opacity: 1; visibility: visible;
+
+      opacity: 1;
+      visibility: visible;
       transform: translateZ(0) scale(1);
       transition:
         opacity var(--loaderFade) var(--loaderEase),
@@ -369,34 +405,46 @@
         visibility var(--loaderFade) var(--loaderEase);
       will-change: opacity, transform;
     }
-    .loader.is-hidden{ opacity: 0; visibility: hidden; transform: scale(1.02); pointer-events: none; }
-
+    .loader.is-hidden{
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.02);
+      pointer-events: none;
+    }
     .loader-wrap{
-      display:flex; flex-direction: column;
-      align-items: center; gap: 14px; text-align:center;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align:center;
       transform: translateZ(0);
     }
-
     .loader-logoMark{
       width: var(--loaderLogoW);
       aspect-ratio: 1 / 1;
       position: relative;
       background: rgba(255,255,255,.18);
-      -webkit-mask-image: url("./imagens/Logo.PNG");
+
+      -webkit-mask-image: url("Logo.png");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: contain;
-      mask-image: url("./imagens/Logo.PNG");
+
+      mask-image: url("Logo.png");
       mask-repeat: no-repeat;
       mask-size: contain;
       mask-position: center;
+
       filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
       transform: translateZ(0);
     }
     .loader-logoMark::after{
       content:"";
-      position:absolute; left:-15%; right:-15%;
-      height: 22px; bottom: -20%;
+      position:absolute;
+      left:-15%;
+      right:-15%;
+      height: 22px;
+      bottom: -20%;
       background: linear-gradient(
         180deg,
         rgba(255,255,255,0) 0%,
@@ -410,10 +458,9 @@
       will-change: transform;
     }
     @keyframes scanUp{
-      0% { transform: translateY(140%); }
+      0%   { transform: translateY(140%); }
       100% { transform: translateY(-380%); }
     }
-
     .loader-fallbackImg{
       width: var(--loaderLogoW);
       height: auto;
@@ -426,75 +473,57 @@
       .loader-logoMark{ display:none; }
       .loader-fallbackImg{ display:block; }
     }
-
-    /* ✅ Loader progress */
-    .loader-progress{
-      width: min(260px, 72vw);
-      height: 7px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.20);
-      overflow: hidden;
-      box-shadow: 0 12px 26px rgba(0,0,0,.16);
+    .loader-sub{
+      margin: 0;
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+      user-select:none;
+      font-family: var(--bodyFont);
     }
-    .loader-progress > span{
-      display:block;
+    body.is-loading{
+      overflow: hidden !important;
       height: 100%;
-      width: 100%;
-      transform-origin: left center;
-      transform: scaleX(0);
-      background: rgba(255,255,255,.86);
-      animation: loaderFill var(--loaderDur) cubic-bezier(.16, 1, .18, 1) forwards;
-      will-change: transform;
+      touch-action: none;
     }
-    .loader.is-done .loader-progress > span{ transform: scaleX(1); }
-
-    @keyframes loaderFill{
-      0%   { transform: scaleX(0); }
-      70%  { transform: scaleX(.78); }
-      100% { transform: scaleX(1); }
-    }
-
-    .sr-only{
-      position:absolute;
-      width:1px; height:1px;
-      padding:0; margin:-1px;
-      overflow:hidden;
-      clip: rect(0,0,0,0);
-      white-space:nowrap;
-      border:0;
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .loader-progress > span{ animation: none; transform: scaleX(1); }
-    }
-
-    body.is-loading{ overflow: hidden !important; height: 100%; touch-action: none; }
 
     /* ========================= TOPBAR ========================= */
     .topbar{
-      position: fixed; top: 0; left: 0; right: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       z-index: 800;
       height: calc(var(--headerH) + var(--safeT));
       padding-top: var(--safeT);
       padding-left: calc(14px + var(--safeL));
       padding-right: calc(14px + var(--safeR));
-      display:flex; align-items:center; justify-content:space-between; gap: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+
       background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.72));
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(0,0,0,.07);
+
       transform: translateZ(0);
       opacity: 1;
       pointer-events: auto;
       will-change: transform;
     }
+
     .bar-title{
-      display:flex; align-items:center; gap: 10px; min-width: 0;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+
       opacity: 0;
       transform: translate3d(0, -6px, 0);
       filter: blur(1.2px);
       pointer-events: none;
+
       transition:
         opacity 520ms cubic-bezier(.14, 1, .16, 1),
         transform 520ms cubic-bezier(.14, 1, .16, 1),
@@ -524,15 +553,15 @@
       transform: translateZ(0);
       flex: 0 0 auto;
     }
-
     @supports ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
       .logo-img{ display:none; }
       .logo-mark{
-        -webkit-mask-image: url("./imagens/Logo.PNG");
+        -webkit-mask-image: url("Logo.png");
         -webkit-mask-repeat: no-repeat;
         -webkit-mask-position: center;
         -webkit-mask-size: contain;
-        mask-image: url("./imagens/Logo.PNG");
+
+        mask-image: url("Logo.png");
         mask-repeat: no-repeat;
         mask-position: center;
         mask-size: contain;
@@ -541,7 +570,6 @@
     @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
       .logo-mark{ display:none; }
     }
-
     .bar-title .bar-name{
       font-family: var(--titleFont);
       font-weight: 900;
@@ -562,7 +590,9 @@
       background: rgba(255,255,255,.52);
       border-radius: 999px;
       padding: 10px 12px;
-      display:flex; align-items:center; justify-content:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       cursor:pointer;
       -webkit-tap-highlight-color: transparent;
       z-index: 810;
@@ -575,9 +605,8 @@
 
     .burger{ width: 18px; height: 12px; position: relative; display:block; }
     .burger span{
-      position: absolute; left:0; right:0; height: 2px;
-      background: rgba(17,17,17,.64);
-      border-radius: 999px;
+      position: absolute; left:0; right:0;
+      height: 2px; background: rgba(17,17,17,.64); border-radius: 999px;
       transition: transform .28s cubic-bezier(.2,.9,.2,1), top .28s cubic-bezier(.2,.9,.2,1), bottom .28s cubic-bezier(.2,.9,.2,1), opacity .2s ease;
     }
     .burger span:nth-child(1){ top:0; }
@@ -588,36 +617,80 @@
     .menu-btn.is-open .burger span:nth-child(3){ transform: rotate(-45deg); bottom: 5px; }
 
     /* ========================= MENU OVERLAY ========================= */
-    .overlay{ position: fixed; inset: 0; z-index: 900; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 520ms cubic-bezier(.16,1,.18,1), visibility 520ms cubic-bezier(.16,1,.18,1); }
-    .overlay.is-open{ opacity: 1; visibility: visible; pointer-events: auto; }
-    .overlay-bg{ position: absolute; inset: 0; background: radial-gradient(900px 600px at 75% 18%, rgba(0,0,0,.18), rgba(0,0,0,0) 62%), rgba(10, 12, 14, .18); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); opacity: 0; transition: opacity 520ms cubic-bezier(.16,1,.18,1); }
+    .overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 520ms cubic-bezier(.16,1,.18,1), visibility 520ms cubic-bezier(.16,1,.18,1);
+    }
+    .overlay.is-open{
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .overlay-bg{
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(900px 600px at 75% 18%, rgba(0,0,0,.18), rgba(0,0,0,0) 62%),
+        rgba(10, 12, 14, .18);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+      opacity: 0;
+      transition: opacity 520ms cubic-bezier(.16,1,.18,1);
+    }
     .overlay.is-open .overlay-bg{ opacity: 1; }
 
     .drawer{
-      position: absolute; top: 0; right: 0; height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
       width: min(360px, calc(100vw - 64px));
-      padding: calc(18px + var(--safeT)) calc(18px + var(--safeR)) calc(18px + var(--safeB)) 18px;
+      padding:
+        calc(18px + var(--safeT))
+        calc(18px + var(--safeR))
+        calc(18px + var(--safeB))
+        18px;
+
       background: rgba(255,255,255, 0.52);
       backdrop-filter: blur(26px) saturate(1.12);
       -webkit-backdrop-filter: blur(26px) saturate(1.12);
+
       border-left: 1px solid rgba(0,0,0,.07);
       box-shadow: 0 22px 72px rgba(0,0,0,.18);
+
       transform: translateX(34px) scale(.985);
       opacity: 0;
-      transition: transform 720ms cubic-bezier(.16,1,.18,1), opacity 420ms cubic-bezier(.16,1,.18,1);
+
+      transition:
+        transform 720ms cubic-bezier(.16,1,.18,1),
+        opacity  420ms cubic-bezier(.16,1,.18,1);
+
       display: flex;
       flex-direction: column;
       gap: 14px;
+
       border-top-left-radius: 24px;
       border-bottom-left-radius: 24px;
       overflow: hidden;
     }
     @media (max-width: 720px){
-      .drawer{ width: min(520px, calc(100vw - 12px)); border-top-left-radius: 22px; border-bottom-left-radius: 22px; }
+      .drawer{
+        width: min(520px, calc(100vw - 12px));
+        border-top-left-radius: 22px;
+        border-bottom-left-radius: 22px;
+      }
     }
+
     .drawer::after{
       content:"";
-      position: absolute; inset: 0; pointer-events: none;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
       background:
         linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 38%),
         radial-gradient(1200px 520px at 20% 0%, rgba(255,255,255,.18), rgba(255,255,255,0) 55%);
@@ -625,35 +698,60 @@
       opacity: .9;
     }
     .drawer .grain{
-      position: absolute; inset:-60%;
+      position: absolute;
+      inset:-60%;
       pointer-events: none;
       opacity: .07;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
       transform: rotate(8deg);
     }
-    .overlay.is-open .drawer{ transform: translateX(0) scale(1); opacity: 1; }
+    .overlay.is-open .drawer{
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
 
     .drawer-head{
-      position: relative; z-index: 1;
-      display:flex; align-items:center; justify-content:space-between; gap: 12px;
+      position: relative;
+      z-index: 1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
       padding: 10px 10px 12px 10px;
       border-bottom: 1px solid rgba(0,0,0,.07);
     }
     .drawer-brand{ display:flex; flex-direction: column; line-height: 1.05; }
-    .drawer-brand strong{ font-family: var(--titleFont); font-weight: 900; color: var(--brand); letter-spacing: -0.014em; font-size: 18px; }
-    .drawer-brand span{ font-size: 12px; color: rgba(20,28,32,.78); letter-spacing: .12em; text-transform: uppercase; margin-top: 4px; font-family: var(--bodyFont); }
+    .drawer-brand strong{
+      font-family: var(--titleFont);
+      font-weight: 900;
+      color: var(--brand);
+      letter-spacing: -0.014em;
+      font-size: 18px;
+    }
+    .drawer-brand span{
+      font-size: 12px;
+      color: rgba(20,28,32,.78);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-family: var(--bodyFont);
+    }
 
     .close-btn{
       appearance: none;
       border: 1px solid rgba(0,0,0,.08);
       background: rgba(255,255,255,.40);
       border-radius: 999px;
-      width: 40px; height: 40px;
-      display:grid; place-items: center;
+      width: 40px;
+      height: 40px;
+      display:grid;
+      place-items: center;
       cursor:pointer;
       transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
       box-shadow: 0 12px 26px rgba(0,0,0,.08);
-      position: relative; z-index: 1;
+      position: relative;
+      z-index: 1;
       touch-action: manipulation;
     }
     .close-btn:hover{ background: rgba(255,255,255,.55); box-shadow: 0 16px 34px rgba(0,0,0,.10); }
@@ -669,7 +767,15 @@
     .close-x::before{ transform: rotate(45deg); }
     .close-x::after{ transform: rotate(-45deg); }
 
-    .drawer-nav{ position: relative; z-index: 1; display:flex; flex-direction: column; gap: 8px; padding: 6px 2px; }
+    .drawer-nav{
+      position: relative;
+      z-index: 1;
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 6px 2px;
+    }
+
     .drawer-nav a{
       text-decoration: none;
       color: rgba(20,28,32,.92);
@@ -677,37 +783,96 @@
       font-weight: 650;
       padding: 12px 12px;
       border-radius: 14px;
-      display:flex; align-items:center; justify-content: space-between;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+
       background: rgba(255,255,255,.20);
       border: 1px solid rgba(0,0,0,.055);
       box-shadow: 0 10px 24px rgba(0,0,0,.055);
+
       opacity: 0;
       transform: translate3d(34px, 0, 0) scaleX(.78);
       transform-origin: right center;
       filter: blur(1.1px);
       transition:
         transform 820ms cubic-bezier(.16, 1, .16, 1),
-        opacity 820ms cubic-bezier(.16, 1, .16, 1),
-        filter 820ms cubic-bezier(.16, 1, .16, 1),
+        opacity  820ms cubic-bezier(.16, 1, .16, 1),
+        filter   820ms cubic-bezier(.16, 1, .16, 1),
         background 520ms cubic-bezier(.16,1,.18,1),
         box-shadow 520ms cubic-bezier(.16,1,.18,1),
         border-color 520ms cubic-bezier(.16,1,.18,1);
       font-family: var(--bodyFont);
+
       position: relative;
       overflow: hidden;
       outline: none;
     }
+
+    .drawer-nav a::before{
+      content:"";
+      position:absolute;
+      inset:-50% -30%;
+      background:
+        radial-gradient(closest-side at 12% 26%, rgba(26,93,102,.10), rgba(26,93,102,0) 58%),
+        radial-gradient(closest-side at 72% 64%, rgba(255,255,255,.22), rgba(255,255,255,0) 60%);
+      opacity: 0;
+      transform: translate3d(-14px, 0, 0);
+      transition:
+        opacity 720ms var(--menuEase),
+        transform 720ms var(--menuEase);
+      pointer-events:none;
+    }
+    .drawer-nav a::after{
+      content:"";
+      position:absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 8px;
+      height: 2px;
+      border-radius: 999px;
+
+      background:
+        radial-gradient(closest-side at 50% 50%,
+          rgba(26,93,102,.22),
+          rgba(26,93,102,.10) 52%,
+          rgba(26,93,102,0) 92%),
+        linear-gradient(90deg,
+          rgba(26,93,102,0),
+          rgba(26,93,102,.24),
+          rgba(26,93,102,0)
+        );
+
+      opacity: 0;
+      transform: translate3d(-8px,0,0) scaleX(.12);
+      transform-origin: left center;
+
+      filter: blur(.2px);
+
+      transition:
+        opacity 760ms var(--menuEase),
+        transform 760ms var(--menuEase),
+        filter 760ms var(--menuEase);
+
+      pointer-events:none;
+    }
     .drawer-nav a .ink-dot{
-      position:absolute; left: 10px; bottom: 7px;
-      width: 6px; height: 6px;
+      position:absolute;
+      left: 10px;
+      bottom: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 999px;
       background: rgba(26,93,102,.22);
       box-shadow: 0 0 0 3px rgba(26,93,102,.08);
       opacity: 0;
       transform: scale(.6);
-      transition: opacity 640ms var(--menuEase), transform 640ms var(--menuEase);
+      transition:
+        opacity 640ms var(--menuEase),
+        transform 640ms var(--menuEase);
       pointer-events:none;
     }
+
     @media (hover:hover) and (pointer:fine){
       .drawer-nav a:hover{
         background: rgba(255,255,255,.28);
@@ -715,8 +880,39 @@
         box-shadow: 0 14px 32px rgba(0,0,0,.07);
         transform: translate3d(0,-1px,0) scaleX(1);
       }
-      .drawer-nav a:hover .ink-dot{ opacity: .9; transform: scale(1); }
+      .drawer-nav a:hover::before{
+        opacity: .95;
+        transform: translate3d(0,0,0);
+      }
+      .drawer-nav a:hover::after{
+        opacity: .95;
+        transform: translate3d(0,0,0) scaleX(1);
+        filter: blur(0px);
+      }
+      .drawer-nav a:hover .ink-dot{
+        opacity: .9;
+        transform: scale(1);
+      }
     }
+
+    .drawer-nav a:focus-visible{
+      border-color: rgba(26,93,102,.22);
+      box-shadow: 0 0 0 3px rgba(26,93,102,.12), 0 14px 32px rgba(0,0,0,.06);
+    }
+    .drawer-nav a:focus-visible::after{
+      opacity: .95;
+      transform: translate3d(0,0,0) scaleX(1);
+    }
+    .drawer-nav a:focus-visible .ink-dot{
+      opacity: .9;
+      transform: scale(1);
+    }
+
+    .drawer-nav a:active{
+      transform: translate3d(0,0,0) scale(.99);
+      background: rgba(255,255,255,.30);
+    }
+
     .overlay.is-open .drawer-nav a{
       opacity: 1;
       transform: translate3d(0,0,0) scaleX(1);
@@ -725,10 +921,14 @@
     }
 
     .menu-logo{
-      position: relative; z-index: 1;
+      position: relative;
+      z-index: 1;
       margin-top: 8px;
       padding: 6px 6px 2px;
-      display:flex; justify-content:center; align-items:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
       opacity: 0;
       transform: translate3d(16px, 0, 0);
       filter: blur(1.6px);
@@ -740,12 +940,26 @@
       filter: blur(0);
       transition-delay: calc(110ms + (7 * 70ms));
     }
-    .menu-logo .logo-box{ width: min(230px, 82%); height: 112px; display:flex; align-items:center; justify-content:center; }
-    .menu-logo img{ width: 100%; height: 100%; object-fit: contain; opacity: .92; display:block; filter: drop-shadow(0 12px 24px rgba(0,0,0,.11)); }
+    .menu-logo .logo-box{
+      width: min(230px, 82%);
+      height: 112px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .menu-logo img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: .92;
+      display:block;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.11));
+    }
 
     /* ========================= REVEAL DO SITE ========================= */
     .site{
-      position: relative; z-index: 2;
+      position: relative;
+      z-index: 2;
       opacity: 0;
       transform: translate3d(0, 10px, 0) scale(.995);
       filter: blur(1.8px);
@@ -763,18 +977,40 @@
 
     /* ===== HERO ===== */
     .hero-stage{
-      position: relative; z-index: 2;
-      height: 100vh; height: 100svh; height: 100dvh;
-      display:flex; align-items:center; justify-content:center;
-      padding: calc(22px + var(--safeT)) calc(var(--padX) + var(--safeR)) calc(26px + var(--safeB)) calc(var(--padX) + var(--safeL));
+      position: relative;
+      z-index: 2;
+      height: 100vh;
+      height: 100svh;
+      height: 100dvh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:
+        calc(22px + var(--safeT))
+        calc(var(--padX) + var(--safeR))
+        calc(26px + var(--safeB))
+        calc(var(--padX) + var(--safeL));
     }
     @media (max-width: 720px){
       .hero-stage{
-        padding: calc(20px + var(--safeT)) calc(var(--padX) + var(--safeR)) calc(22px + var(--safeB)) calc(var(--padX) + var(--safeL));
+        padding:
+          calc(20px + var(--safeT))
+          calc(var(--padX) + var(--safeR))
+          calc(22px + var(--safeB))
+          calc(var(--padX) + var(--safeL));
       }
     }
+
     .hero{ width: 100%; max-width: 1200px; position: relative; }
-    .content{ width: 100%; display:flex; flex-direction: column; align-items: center; position: relative; gap: 10px; }
+
+    .content{
+      width: 100%;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      gap: 10px;
+    }
     @media (min-width: 980px){
       .content { flex-direction: row; justify-content: space-between; align-items: center; gap: 0; }
     }
@@ -785,19 +1021,27 @@
       transform: translate3d(0, calc(var(--nameY, 0px)), 0);
       opacity: var(--nameO, 1);
       filter: blur(var(--nameB, 0px));
-      transition: transform var(--easeDurName) cubic-bezier(.14, 1, .18, 1), opacity var(--easeDurName) ease, filter var(--easeDurName) ease;
+      transition:
+        transform var(--easeDurName) cubic-bezier(.14, 1, .18, 1),
+        opacity  var(--easeDurName) ease,
+        filter   var(--easeDurName) ease;
     }
     @media (min-width: 980px){ .brand{ text-align:left; } }
     .brand .name{
       font-family: var(--titleFont);
       font-weight: 900;
-      font-size: clamp(32px, 7.2vw, 93px);
-      line-height: 0.98;
+      font-size: clamp(48px, 10vw, 130px);
+      line-height: 0.95;
       color: var(--brand);
-      letter-spacing: -0.018em;
-      text-shadow: 0 10px 26px rgba(0,0,0,.07), 0 2px 0 rgba(255,255,255,.10);
+      letter-spacing: -0.02em;
+      text-shadow: 0 14px 34px rgba(0,0,0,.08), 0 2px 0 rgba(255,255,255,.10);
     }
-    .brand .name .namewrap{ display: inline-flex; flex-direction: column; align-items: center; padding: 6px 10px; }
+    .brand .name .namewrap{
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 10px;
+    }
     @media (min-width: 980px){ .brand .name .namewrap{ align-items:flex-start; } }
 
     .role{
@@ -807,7 +1051,10 @@
       transform: translate3d(0, calc(var(--roleY, 0px)), 0);
       opacity: var(--roleO, 1);
       filter: blur(var(--roleB, 0px));
-      transition: transform var(--easeDurRole) cubic-bezier(.14, 1, .18, 1), opacity var(--easeDurRole) ease, filter var(--easeDurRole) ease;
+      transition:
+        transform var(--easeDurRole) cubic-bezier(.14, 1, .18, 1),
+        opacity  var(--easeDurRole) ease,
+        filter   var(--easeDurRole) ease;
     }
     @media (min-width: 980px){
       .role { text-align:right; margin-top: 0; margin-left: 40px; max-width: 420px; }
@@ -815,8 +1062,8 @@
     .role .pill{
       display:inline-block;
       font-weight: 600;
-      font-size: clamp(12px, 2.4vw, 19px);
-      letter-spacing: 0.16em;
+      font-size: clamp(13px, 3.2vw, 20px);
+      letter-spacing: 0.18em;
       color: var(--muted);
       text-transform: uppercase;
       font-family: var(--bodyFont);
@@ -834,6 +1081,7 @@
       position: relative;
     }
     .glass-card::before{ content: none !important; }
+
     .card-inner{
       position: relative;
       padding: calc(var(--cardPad) + 6px) calc(var(--cardPad) + 4px);
@@ -875,10 +1123,12 @@
       padding-bottom: var(--cardScrollBottomPad);
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
+
       scrollbar-width: thin;
       scrollbar-color: rgba(0,0,0,.18) transparent;
       scrollbar-gutter: stable both-edges;
     }
+
     @media (min-width: 981px){
       .card-scroll::-webkit-scrollbar{ width: 3px; height: 3px; }
       .card-scroll::-webkit-scrollbar-track{ background: transparent; }
@@ -896,14 +1146,35 @@
       .card-scroll::-webkit-scrollbar-thumb{ background: rgba(0,0,0,.14); border-radius: 999px; }
       .card-scroll{ scrollbar-color: rgba(0,0,0,.14) transparent; }
     }
-    @supports (-webkit-touch-callout: none){ .card-scroll{ overflow: overlay; } }
-    .card-scroll::before, .card-scroll::after{ content: none !important; display: none !important; }
+    @supports (-webkit-touch-callout: none){
+      .card-scroll{ overflow: overlay; }
+    }
+
+    .card-scroll::before,
+    .card-scroll::after{
+      content: none !important;
+      display: none !important;
+    }
 
     /* ========================= SOBRE ========================= */
-    .about{ display: grid; gap: 14px; margin-top: 6px; }
-    .about .editorial{ display:grid; grid-template-columns: 190px 1fr; gap: 14px; align-items: start; }
-    @media (min-width: 720px){ .about .editorial{ grid-template-columns: 220px 1fr; gap: 16px; } }
-    @media (max-width: 520px){ .about .editorial{ grid-template-columns: 1fr; } }
+    .about{
+      display: grid;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .about .editorial{
+      display:grid;
+      grid-template-columns: 190px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (min-width: 720px){
+      .about .editorial{ grid-template-columns: 220px 1fr; gap: 16px; }
+    }
+    @media (max-width: 520px){
+      .about .editorial{ grid-template-columns: 1fr; }
+    }
 
     .about .portrait{
       position: relative;
@@ -916,8 +1187,17 @@
       min-height: 220px;
       max-height: 320px;
     }
-    @media (max-width: 420px){ .about .portrait{ min-height: 200px; max-height: 290px; } }
-    .about .portrait img{ width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(1.02) contrast(1.02); transform: scale(1.02); }
+    @media (max-width: 420px){
+      .about .portrait{ min-height: 200px; max-height: 290px; }
+    }
+    .about .portrait img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.02) contrast(1.02);
+      transform: scale(1.02);
+    }
 
     .about .lead{
       padding: 14px 14px;
@@ -928,13 +1208,31 @@
       display:grid;
       gap: 10px;
     }
-    .about .lead p{ margin: 0; color: var(--softInk); line-height: 1.95; font-size: var(--paraSize); font-family: var(--bodyFont); font-weight: 500; }
+    .about .lead p{
+      margin: 0;
+      color: var(--softInk);
+      line-height: 1.95;
+      font-size: var(--paraSize);
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
     .about .lead strong{ color: rgba(26,93,102,.96); font-weight: 800; }
 
-    .about .grid{ display:grid; gap: 10px; }
-    @media (min-width: 720px){ .about .grid{ grid-template-columns: 1fr 1fr; gap: 12px; } }
-    .about .box{ border-radius: 16px; background: var(--softGlass); border: 1px solid var(--softBorder); box-shadow: 0 10px 22px rgba(0,0,0,.035); padding: 14px 14px; }
+    .about .grid{
+      display:grid;
+      gap: 10px;
+    }
+    @media (min-width: 720px){
+      .about .grid{ grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
 
+    .about .box{
+      border-radius: 16px;
+      background: var(--softGlass);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 10px 22px rgba(0,0,0,.035);
+      padding: 14px 14px;
+    }
     .about .box h3{
       margin: 0 0 8px;
       font-size: 12px;
@@ -943,7 +1241,9 @@
       color: rgba(20,28,32,.78);
       font-weight: 800;
       font-family: var(--bodyFont);
-      display:flex; align-items:center; gap: 10px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
     }
     .about .box h3::before{
       content:"";
@@ -953,22 +1253,51 @@
       box-shadow: inset 0 0 0 1px rgba(26,93,102,.18);
       flex: 0 0 auto;
     }
-    .about .box p{ margin: 0; color: var(--softInk); line-height: 1.95; font-size: var(--paraSize); font-family: var(--bodyFont); font-weight: 500; }
 
-    .about ul{ margin: 0; padding-left: 18px; display: grid; gap: 6px; }
-    .about li{ color: var(--softInk); line-height: 1.75; font-size: var(--paraSize); font-family: var(--bodyFont); font-weight: 500; }
+    .about .box p{
+      margin: 0;
+      color: var(--softInk);
+      line-height: 1.95;
+      font-size: var(--paraSize);
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
+    .about ul{
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px;
+    }
+    .about li{
+      color: var(--softInk);
+      line-height: 1.75;
+      font-size: var(--paraSize);
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
 
-    .edu-timeline{ position: relative; display: grid; gap: 10px; margin-top: 6px; padding-left: 14px; }
+    .edu-timeline{
+      position: relative;
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+      padding-left: 14px;
+    }
     .edu-timeline::before{
       content:"";
-      position:absolute; left: 6px; top: 4px; bottom: 4px;
+      position:absolute;
+      left: 6px;
+      top: 4px;
+      bottom: 4px;
       width: 2px;
       background: linear-gradient(180deg, rgba(26,93,102,.22), rgba(26,93,102,.06));
       border-radius: 999px;
     }
+
     .edu-item{
       position: relative;
-      display:grid; gap: 8px;
+      display:grid;
+      gap: 8px;
       padding: 12px 12px 12px 12px;
       border-radius: 14px;
       background: rgba(255,255,255,.92);
@@ -977,59 +1306,277 @@
     }
     .edu-item::before{
       content:"";
-      position:absolute; left: -14px; top: 16px;
+      position:absolute;
+      left: -14px;
+      top: 16px;
       width: 12px; height: 12px;
       border-radius: 999px;
       background: rgba(26,93,102,.22);
       box-shadow: 0 0 0 4px rgba(26,93,102,.10);
     }
-    .edu-top{ display:flex; align-items:flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-    .edu-main{ min-width: 0; display:grid; gap: 2px; flex: 1 1 220px; }
-    .edu-name{ font-weight: 800; color: rgba(26,93,102,.98); letter-spacing: -0.01em; font-size: 13.5px; line-height: 1.25; }
-    .edu-inst{ color: rgba(20,28,32,.82); font-size: 12.5px; line-height: 1.45; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    @media (max-width: 420px){ .edu-inst{ white-space: normal; } }
-    .edu-meta{ display:flex; align-items:center; gap: 8px; flex: 0 0 auto; white-space: nowrap; }
-    .edu-year{ font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(20,28,32,.62); font-weight: 700; }
-    .edu-tag{ display:inline-flex; align-items:center; padding: 6px 9px; border-radius: 999px; background: rgba(26,93,102,.08); border: 1px solid rgba(26,93,102,.16); color: rgba(26,93,102,.92); font-weight: 800; font-size: 10.5px; letter-spacing: .10em; text-transform: uppercase; }
-    .edu-desc{ color: rgba(20,28,32,.84); font-size: 13px; line-height: 1.65; font-weight: 500; }
+
+    .edu-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .edu-main{
+      min-width: 0;
+      display:grid;
+      gap: 2px;
+      flex: 1 1 220px;
+    }
+    .edu-name{
+      font-weight: 800;
+      color: rgba(26,93,102,.98);
+      letter-spacing: -0.01em;
+      font-size: 13.5px;
+      line-height: 1.25;
+    }
+    .edu-inst{
+      color: rgba(20,28,32,.82);
+      font-size: 12.5px;
+      line-height: 1.45;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    @media (max-width: 420px){
+      .edu-inst{ white-space: normal; }
+    }
+    .edu-meta{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+    .edu-year{
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.62);
+      font-weight: 700;
+    }
+    .edu-tag{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.08);
+      border: 1px solid rgba(26,93,102,.16);
+      color: rgba(26,93,102,.92);
+      font-weight: 800;
+      font-size: 10.5px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+    .edu-desc{
+      color: rgba(20,28,32,.84);
+      font-size: 13px;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
     .card-scroll .end-spacer{ height: var(--cardEndSpacer); }
 
     /* ========================= COMO FUNCIONA ========================= */
-    .flow{ display: grid; gap: 12px; margin-top: 6px; }
-    .flow .intro{ border-radius: 16px; background: rgba(255,255,255,.92); border: 1px solid var(--softBorder); box-shadow: 0 10px 22px rgba(0,0,0,.04); padding: 14px 14px; display: grid; gap: 10px; }
-    .flow .intro p{ margin: 0; color: var(--softInk); line-height: 1.95; font-size: var(--paraSize); font-weight: 500; }
+    .flow{
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .flow .intro{
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 10px 22px rgba(0,0,0,.04);
+      padding: 14px 14px;
+      display: grid;
+      gap: 10px;
+    }
+    .flow .intro p{
+      margin: 0;
+      color: var(--softInk);
+      line-height: 1.95;
+      font-size: var(--paraSize);
+      font-weight: 500;
+    }
     .flow .intro strong{ color: rgba(26,93,102,.96); font-weight: 800; }
-    .flow .meta-row{ display:flex; flex-wrap: wrap; gap: 8px; align-items:center; }
-    .flow .chip{ display:inline-flex; align-items:center; gap: 8px; padding: 8px 10px; border-radius: 999px; background: rgba(26,93,102,.08); border: 1px solid rgba(26,93,102,.14); color: rgba(26,93,102,.92); font-weight: 800; font-size: 11px; letter-spacing: .10em; text-transform: uppercase; white-space: nowrap; }
-    .flow .chip i{ width: 8px; height: 8px; border-radius: 999px; background: rgba(26,93,102,.32); box-shadow: 0 0 0 3px rgba(26,93,102,.10); display:inline-block; }
-    .flow-steps{ position: relative; display: grid; gap: 10px; padding-left: 14px; margin-top: 4px; }
-    .flow-steps::before{ content:""; position:absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(180deg, rgba(26,93,102,.22), rgba(26,93,102,.06)); border-radius: 999px; }
-    .flow-step{ position: relative; border-radius: 16px; background: rgba(255,255,255,.92); border: 1px solid rgba(0,0,0,.06); box-shadow: 0 10px 18px rgba(0,0,0,.03); padding: 12px 12px 12px 12px; display:grid; gap: 8px; }
-    .flow-step::before{ content:""; position:absolute; left: -14px; top: 16px; width: 12px; height: 12px; border-radius: 999px; background: rgba(26,93,102,.22); box-shadow: 0 0 0 4px rgba(26,93,102,.10); }
-    .flow-step-head{ display:flex; align-items:flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-    .flow-step-title{ font-weight: 900; color: rgba(26,93,102,.98); letter-spacing: -0.01em; font-size: 13.5px; line-height: 1.25; }
-    .flow-step-tag{ display:inline-flex; align-items:center; padding: 6px 9px; border-radius: 999px; background: rgba(26,93,102,.08); border: 1px solid rgba(26,93,102,.16); color: rgba(26,93,102,.92); font-weight: 800; font-size: 10.5px; letter-spacing: .10em; text-transform: uppercase; white-space: nowrap; }
-    .flow-step-desc{ margin: 0; color: rgba(20,28,32,.84); font-size: 13px; line-height: 1.7; font-weight: 500; }
-    .flow .rules{ display:grid; gap: 10px; }
-    @media (min-width: 720px){ .flow .rules{ grid-template-columns: 1fr 1fr; gap: 12px; } }
-    .flow .rule{ border-radius: 16px; background: var(--softGlass); border: 1px solid var(--softBorder); box-shadow: 0 10px 22px rgba(0,0,0,.035); padding: 14px 14px; display:grid; gap: 8px; }
-    .flow .rule h3{ margin: 0; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(20,28,32,.78); font-weight: 800; display:flex; align-items:center; gap: 10px; }
-    .flow .rule h3::before{ content:""; width: 10px; height: 10px; border-radius: 999px; background: rgba(26,93,102,.18); box-shadow: inset 0 0 0 1px rgba(26,93,102,.18); flex: 0 0 auto; }
-    .flow .rule p{ margin: 0; color: var(--softInk); line-height: 1.9; font-size: var(--paraSize); font-weight: 500; }
+    .flow .meta-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items:center;
+    }
+    .flow .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.08);
+      border: 1px solid rgba(26,93,102,.14);
+      color: rgba(26,93,102,.92);
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .flow .chip i{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.32);
+      box-shadow: 0 0 0 3px rgba(26,93,102,.10);
+      display:inline-block;
+    }
+
+    .flow-steps{
+      position: relative;
+      display: grid;
+      gap: 10px;
+      padding-left: 14px;
+      margin-top: 4px;
+    }
+    .flow-steps::before{
+      content:"";
+      position:absolute;
+      left: 6px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(26,93,102,.22), rgba(26,93,102,.06));
+      border-radius: 999px;
+    }
+
+    .flow-step{
+      position: relative;
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 10px 18px rgba(0,0,0,.03);
+      padding: 12px 12px 12px 12px;
+      display:grid;
+      gap: 8px;
+    }
+    .flow-step::before{
+      content:"";
+      position:absolute;
+      left: -14px;
+      top: 16px;
+      width: 12px; height: 12px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.22);
+      box-shadow: 0 0 0 4px rgba(26,93,102,.10);
+    }
+    .flow-step-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .flow-step-title{
+      font-weight: 900;
+      color: rgba(26,93,102,.98);
+      letter-spacing: -0.01em;
+      font-size: 13.5px;
+      line-height: 1.25;
+    }
+    .flow-step-tag{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.08);
+      border: 1px solid rgba(26,93,102,.16);
+      color: rgba(26,93,102,.92);
+      font-weight: 800;
+      font-size: 10.5px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .flow-step-desc{
+      margin: 0;
+      color: rgba(20,28,32,.84);
+      font-size: 13px;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .flow .rules{
+      display:grid;
+      gap: 10px;
+    }
+    @media (min-width: 720px){
+      .flow .rules{ grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+    .flow .rule{
+      border-radius: 16px;
+      background: var(--softGlass);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 10px 22px rgba(0,0,0,.035);
+      padding: 14px 14px;
+      display:grid;
+      gap: 8px;
+    }
+    .flow .rule h3{
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.78);
+      font-weight: 800;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .flow .rule h3::before{
+      content:"";
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.18);
+      box-shadow: inset 0 0 0 1px rgba(26,93,102,.18);
+      flex: 0 0 auto;
+    }
+    .flow .rule p{
+      margin: 0;
+      color: var(--softInk);
+      line-height: 1.9;
+      font-size: var(--paraSize);
+      font-weight: 500;
+    }
 
     .flow .cta{
       margin-top: 2px;
-      display:flex; flex-wrap: wrap; gap: 10px; align-items:center; justify-content: space-between;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content: space-between;
       border-radius: 16px;
       background: rgba(255,255,255,.92);
       border: 1px solid rgba(26,93,102,.14);
       box-shadow: 0 10px 22px rgba(0,0,0,.035);
       padding: 12px 12px;
     }
-    .flow .cta p{ margin: 0; color: rgba(20,28,32,.82); line-height: 1.6; font-size: 13px; font-weight: 600; flex: 1 1 260px; }
+    .flow .cta p{
+      margin: 0;
+      color: rgba(20,28,32,.82);
+      line-height: 1.6;
+      font-size: 13px;
+      font-weight: 600;
+      flex: 1 1 260px;
+    }
     .flow .cta a{
       text-decoration: none;
-      display:inline-flex; align-items:center; gap: 10px;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
       padding: 10px 12px;
       border-radius: 14px;
       background: rgba(26,93,102,.10);
@@ -1044,18 +1591,59 @@
       transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
     }
     @media (hover:hover) and (pointer:fine){
-      .flow .cta a:hover{ transform: translateY(-1px); background: rgba(26,93,102,.12); box-shadow: 0 14px 24px rgba(0,0,0,.05); }
+      .flow .cta a:hover{
+        transform: translateY(-1px);
+        background: rgba(26,93,102,.12);
+        box-shadow: 0 14px 24px rgba(0,0,0,.05);
+      }
     }
     .flow .cta a:active{ transform: translateY(0px) scale(.99); }
 
-    /* ========================= CONTATO ========================= */
-    .contact{ display:grid; gap: 12px; margin-top: 6px; }
-    .contact-hero{ border-radius: 16px; background: rgba(255,255,255,.92); border: 1px solid rgba(0,0,0,.06); box-shadow: 0 10px 22px rgba(0,0,0,.04); padding: 14px 14px; display:grid; gap: 10px; }
-    .contact-hero p{ margin: 0; color: rgba(20,28,32,.86); line-height: 1.85; font-size: var(--paraSize); font-weight: 520; }
+    /* ========================= CONTATO (SÉRIO / ELEGANTE) ========================= */
+    .contact{
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .contact-hero{
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 10px 22px rgba(0,0,0,.04);
+      padding: 14px 14px;
+      display: grid;
+      gap: 12px;
+    }
+    .contact-hero p{
+      margin: 0;
+      color: rgba(20,28,32,.86);
+      line-height: 1.85;
+      font-size: var(--paraSize);
+      font-weight: 520;
+    }
     .contact-hero strong{ color: rgba(26,93,102,.96); font-weight: 850; }
-    .contact-ctaRow{ display:flex; flex-wrap: wrap; gap: 10px; align-items:center; justify-content: space-between; padding-top: 10px; border-top: 1px solid rgba(0,0,0,.06); }
 
-    .open-form-btn, .btn-primary, .btn-ghost{
+    .contact-actions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content: space-between;
+      padding-top: 2px;
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
+
+    .btn-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-start;
+      flex: 1 1 260px;
+      padding-top: 10px;
+    }
+
+    .icon-btn, .open-form-btn{
       appearance:none;
       border-radius: 14px;
       padding: 11px 12px;
@@ -1073,22 +1661,180 @@
       white-space: nowrap;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
-      border: 1px solid rgba(26,93,102,.18);
     }
-    .open-form-btn{ background: rgba(26,93,102,.12); border-color: rgba(26,93,102,.20); color: rgba(26,93,102,.96); }
-    .btn-primary{ background: rgba(26,93,102,.14); border-color: rgba(26,93,102,.22); color: rgba(26,93,102,.96); }
-    .btn-ghost{ background: rgba(255,255,255,.78); color: rgba(20,28,32,.84); border-color: rgba(0,0,0,.08); }
+
+    .icon-btn{
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(0,0,0,.08);
+      color: rgba(20,28,32,.84);
+    }
+    .open-form-btn{
+      background: rgba(26,93,102,.12);
+      border: 1px solid rgba(26,93,102,.20);
+      color: rgba(26,93,102,.96);
+    }
+
     @media (hover:hover) and (pointer:fine){
-      .open-form-btn:hover, .btn-primary:hover{ background: rgba(26,93,102,.17); border-color: rgba(26,93,102,.26); transform: translateY(-1px); box-shadow: 0 16px 26px rgba(0,0,0,.06); }
-      .btn-ghost:hover{ background: rgba(255,255,255,.90); transform: translateY(-1px); box-shadow: 0 16px 26px rgba(0,0,0,.06); }
+      .icon-btn:hover{
+        background: rgba(255,255,255,.86);
+        transform: translateY(-1px);
+        box-shadow: 0 16px 26px rgba(0,0,0,.06);
+      }
+      .open-form-btn:hover{
+        background: rgba(26,93,102,.16);
+        border-color: rgba(26,93,102,.26);
+        transform: translateY(-1px);
+        box-shadow: 0 16px 26px rgba(0,0,0,.06);
+      }
     }
-    .open-form-btn:active, .btn-primary:active, .btn-ghost:active{ transform: translateY(0) scale(.99); }
+    .icon-btn:active, .open-form-btn:active{ transform: translateY(0) scale(.99); }
 
-    .ico{ width: 16px; height: 16px; display:inline-block; opacity: .9; flex: 0 0 auto; }
+    .ico{
+      width: 16px;
+      height: 16px;
+      display:inline-block;
+      opacity: .9;
+      flex: 0 0 auto;
+    }
     .ico path{ fill: currentColor; }
-    .contact-note{ margin: 0; color: rgba(20,28,32,.70); font-size: 12.5px; line-height: 1.65; flex: 1 1 260px; }
 
-    .contact-panel{
+    .contact-note{
+      margin: 0;
+      color: rgba(20,28,32,.70);
+      font-size: 12.5px;
+      line-height: 1.65;
+    }
+
+    /* ========================= CONTATO — MODAL FORM ========================= */
+    .modal{
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity var(--modalDur) var(--modalEase), visibility var(--modalDur) var(--modalEase);
+    }
+    .modal.is-open{
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .modal-bg{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 600px at 70% 16%, rgba(0,0,0,.22), rgba(0,0,0,0) 62%),
+        var(--modalBg);
+      backdrop-filter: blur(var(--modalBlur));
+      -webkit-backdrop-filter: blur(var(--modalBlur));
+      opacity: 0;
+      transition: opacity var(--modalDur) var(--modalEase);
+    }
+    .modal.is-open .modal-bg{ opacity: 1; }
+
+    .modal-panel{
+      position:absolute;
+      left: 50%;
+      top: calc(var(--safeT) + 24px);
+      transform: translateX(-50%) translateY(10px) scale(.992);
+      width: min(980px, calc(100vw - 32px));
+      max-height: calc(100dvh - (var(--safeT) + 48px));
+      overflow: hidden;
+
+      border-radius: 18px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(0,0,0,.07);
+      box-shadow: 0 28px 88px rgba(0,0,0,.22);
+
+      opacity: 0;
+      transition:
+        opacity var(--modalDur) var(--modalEase),
+        transform var(--modalDur) var(--modalEase);
+
+      display:flex;
+      flex-direction: column;
+    }
+    .modal.is-open .modal-panel{
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .modal-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.82));
+    }
+    .modal-titlebox{
+      display:grid;
+      gap: 4px;
+      min-width: 0;
+    }
+    .modal-kicker{
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.66);
+      font-weight: 800;
+    }
+    .modal-title{
+      margin: 0;
+      font-family: var(--titleFont);
+      font-weight: 900;
+      color: var(--brand);
+      letter-spacing: -0.01em;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+    .modal-sub{
+      margin: 0;
+      color: rgba(20,28,32,.74);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+
+    .modal-close{
+      appearance:none;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.60);
+      border-radius: 999px;
+      width: 40px;
+      height: 40px;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      box-shadow: 0 12px 24px rgba(0,0,0,.10);
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      flex: 0 0 auto;
+    }
+    @media (hover:hover) and (pointer:fine){
+      .modal-close:hover{
+        background: rgba(255,255,255,.82);
+        transform: translateY(-1px);
+        box-shadow: 0 16px 30px rgba(0,0,0,.12);
+      }
+    }
+    .modal-close:active{ transform: translateY(0) scale(.99); }
+
+    .modal-body{
+      padding: 14px 14px 16px;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-grid{
+      display:grid;
+      gap: 12px;
+    }
+    @media (min-width: 900px){
+      .modal-grid{ grid-template-columns: 1.1fr .9fr; align-items:start; }
+    }
+
+    .contact-card{
       border-radius: 16px;
       background: rgba(255,255,255,.90);
       border: 1px solid rgba(0,0,0,.06);
@@ -1096,36 +1842,19 @@
       padding: 14px 14px;
       display: grid;
       gap: 10px;
-
-      opacity: 0;
-      transform: translate3d(0, 10px, 0) scale(.995);
-      filter: blur(1.1px);
-      max-height: 0;
-      overflow: hidden;
-
-      transition:
-        opacity var(--contactRevealDur) var(--contactRevealEase),
-        transform var(--contactRevealDur) var(--contactRevealEase),
-        filter var(--contactRevealDur) var(--contactRevealEase),
-        max-height var(--contactRevealDur) var(--contactRevealEase);
     }
-    .contact-panel.is-open{
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1);
-      filter: blur(0);
-      max-height: 1200px;
-      overflow: visible;
-    }
-    .contact-panel h3{
+    .contact-card h3{
       margin: 0;
       font-size: 12px;
       letter-spacing: .16em;
       text-transform: uppercase;
       color: rgba(20,28,32,.78);
       font-weight: 850;
-      display:flex; align-items:center; gap: 10px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
     }
-    .contact-panel h3::before{
+    .contact-card h3::before{
       content:"";
       width: 10px; height: 10px;
       border-radius: 999px;
@@ -1134,11 +1863,29 @@
       flex: 0 0 auto;
     }
 
-    .contact-form{ display:grid; gap: 10px; margin-top: 2px; }
-    .form-row{ display:grid; gap: 10px; }
-    @media (min-width: 720px){ .form-row.two{ grid-template-columns: 1fr 1fr; } }
+    /* ========================= CONTATO (FORM) ========================= */
+    .contact-form{
+      display:grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .form-row{
+      display:grid;
+      gap: 10px;
+    }
+    @media (min-width: 720px){
+      .form-row.two{ grid-template-columns: 1fr 1fr; }
+    }
+
     .field{ display:grid; gap: 6px; }
-    .label{ font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(20,28,32,.68); font-weight: 800; }
+    .label{
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.68);
+      font-weight: 800;
+    }
     .input, .select, .textarea{
       width: 100%;
       border-radius: 14px;
@@ -1159,10 +1906,13 @@
       box-shadow: 0 0 0 3px rgba(26,93,102,.10), 0 14px 24px rgba(0,0,0,.05);
       background: rgba(255,255,255,.86);
     }
+
     .radio-row{ display:flex; flex-wrap: wrap; gap: 8px; }
     .pill-radio{
       position: relative;
-      display:inline-flex; align-items:center; gap: 8px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
       padding: 10px 12px;
       border-radius: 999px;
       background: rgba(26,93,102,.06);
@@ -1175,21 +1925,43 @@
       user-select:none;
       transition: transform .18s ease, background .18s ease, border-color .18s ease;
     }
-    .pill-radio input{ position:absolute; opacity:0; pointer-events:none; }
+    .pill-radio input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
     .pill-radio i{
       width: 8px; height: 8px;
       border-radius: 999px;
       background: rgba(26,93,102,.28);
       box-shadow: 0 0 0 3px rgba(26,93,102,.10);
     }
-    .pill-radio:has(input:checked){ background: rgba(26,93,102,.10); border-color: rgba(26,93,102,.22); transform: translateY(-1px); }
+    .pill-radio:has(input:checked){
+      background: rgba(26,93,102,.10);
+      border-color: rgba(26,93,102,.22);
+      transform: translateY(-1px);
+    }
     @media (hover:hover) and (pointer:fine){
-      .pill-radio:hover{ background: rgba(26,93,102,.09); border-color: rgba(26,93,102,.18); transform: translateY(-1px); }
+      .pill-radio:hover{
+        background: rgba(26,93,102,.09);
+        border-color: rgba(26,93,102,.18);
+        transform: translateY(-1px);
+      }
     }
 
-    .form-foot{ display:flex; flex-wrap: wrap; gap: 10px; align-items:center; justify-content: space-between; margin-top: 2px; }
+    .form-foot{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items:center;
+      justify-content: space-between;
+      margin-top: 2px;
+    }
+
     .consent{
-      display:flex; gap: 10px; align-items:flex-start;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
       flex: 1 1 260px;
       padding: 10px 12px;
       border-radius: 14px;
@@ -1200,20 +1972,135 @@
       font-size: 12.5px;
       line-height: 1.55;
     }
-    .consent input{ margin-top: 2px; accent-color: var(--brand); }
-    .form-actions{ display:flex; flex-wrap: wrap; gap: 10px; justify-content:flex-end; flex: 0 0 auto; }
-    .helper{ margin: 0; color: rgba(20,28,32,.70); font-size: 12.5px; line-height: 1.65; }
+    .consent input{
+      margin-top: 2px;
+      accent-color: var(--brand);
+    }
+
+    .form-actions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content:flex-end;
+      flex: 0 0 auto;
+    }
+
+    .btn-primary, .btn-ghost{
+      appearance:none;
+      border: 1px solid rgba(26,93,102,.18);
+      border-radius: 14px;
+      padding: 11px 12px;
+      cursor:pointer;
+      font-family: var(--bodyFont);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      box-shadow: 0 12px 20px rgba(0,0,0,.04);
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease, border-color .18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary{
+      background: rgba(26,93,102,.12);
+      color: rgba(26,93,102,.96);
+    }
+    .btn-ghost{
+      background: rgba(255,255,255,.78);
+      color: rgba(20,28,32,.84);
+      border-color: rgba(0,0,0,.08);
+    }
+    @media (hover:hover) and (pointer:fine){
+      .btn-primary:hover{
+        background: rgba(26,93,102,.16);
+        border-color: rgba(26,93,102,.26);
+        transform: translateY(-1px);
+        box-shadow: 0 16px 26px rgba(0,0,0,.06);
+      }
+      .btn-ghost:hover{
+        background: rgba(255,255,255,.90);
+        transform: translateY(-1px);
+        box-shadow: 0 16px 26px rgba(0,0,0,.06);
+      }
+    }
+    .btn-primary:active, .btn-ghost:active{ transform: translateY(0) scale(.99); }
+
+    .helper{
+      margin: 0;
+      color: rgba(20,28,32,.70);
+      font-size: 12.5px;
+      line-height: 1.65;
+    }
+
+    /* Resumo (lado direito do modal) */
+    .summary{
+      border-radius: 16px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 10px 18px rgba(0,0,0,.03);
+      padding: 14px 14px;
+      display:grid;
+      gap: 10px;
+    }
+    .summary h3{
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.78);
+      font-weight: 850;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .summary h3::before{
+      content:"";
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.18);
+      box-shadow: inset 0 0 0 1px rgba(26,93,102,.18);
+      flex: 0 0 auto;
+    }
+    .summary pre{
+      margin: 0;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(26,93,102,.05);
+      border: 1px solid rgba(26,93,102,.12);
+      color: rgba(20,28,32,.86);
+      font-size: 12.5px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
 
     /* ========================= TRACK / CARDS ========================= */
     .cards-track{
-      position: relative; z-index: 2;
-      padding: calc(var(--cardStickyTop) + 10px) calc(var(--padX) + var(--safeR)) calc(20px + var(--safeB)) calc(var(--padX) + var(--safeL));
+      position: relative;
+      z-index: 2;
+      padding:
+        calc(var(--cardStickyTop) + 10px)
+        calc(var(--padX) + var(--safeR))
+        calc(56px + var(--safeB))
+        calc(var(--padX) + var(--safeL));
     }
     @media (max-width: 720px){
-      .cards-track{ padding: calc(var(--cardStickyTop) + 8px) calc(var(--padX) + var(--safeR)) calc(20px + var(--safeB)) calc(var(--padX) + var(--safeL)); }
+      .cards-track{
+        padding:
+          calc(var(--cardStickyTop) + 8px)
+          calc(var(--padX) + var(--safeR))
+          calc(46px + var(--safeB))
+          calc(var(--padX) + var(--safeL));
+      }
     }
-    .cards-track .track-spacer{ height: 320vh; }
-    @media (max-width: 720px){ .cards-track .track-spacer{ height: 520vh; } }
+    .cards-track .track-spacer{ height: 260vh; }
+    @media (max-width: 720px){
+      .cards-track .track-spacer{ height: 300vh; }
+    }
 
     .cards-stage{
       position: sticky;
@@ -1225,329 +2112,67 @@
       min-height: 520px;
     }
     @media (max-width: 720px){
-      .cards-stage{ height: calc(100dvh - var(--cardStickyTop) - 10px); min-height: 520px; }
+      .cards-stage{
+        height: calc(100dvh - var(--cardStickyTop) - 10px);
+        min-height: 520px;
+      }
+    }
+
+    @keyframes cardFloat{
+      0%,100%{ transform: translate3d(var(--tx,0px), var(--ty,0px), 0) scale(var(--ts,1)); }
+      50%{ transform: translate3d(var(--tx,0px), calc(var(--ty,0px) - var(--cardFloatAmp)), 0) scale(var(--ts,1)); }
     }
 
     .section-card{
       grid-area: 1 / 1;
       position: relative;
+
       width: min(var(--cardMaxW), calc(var(--wPx, 160) * 1px));
       opacity: var(--o, 0);
       filter: blur(calc((1 - var(--p,0)) * 0.85px));
+
       --tx: calc(var(--xPx, 0) * 1px);
       --ty: calc(var(--yPx, 0) * 1px);
       --ts: var(--s, 0.992);
+
       transform: translate3d(var(--tx), var(--ty), 0) scale(var(--ts));
+
       will-change: transform, opacity, filter, width;
       pointer-events: none;
+
       border-radius: calc(18px + (var(--p,0) * 10px));
     }
-    .section-card.is-active{ pointer-events: auto; }
-
-    /* ========================= CARD FINAL (INFORMAÇÕES) ========================= */
-    #rodape{
-      align-self: end;
-      justify-self: center;
-      width: min(860px, 100%) !important;
-      margin-bottom: 0;
-
-      background: rgba(255,255,255,.20);
-      border: 1px solid rgba(0,0,0,.045);
-      box-shadow: 0 16px 40px rgba(0,0,0,.075);
-
-      backdrop-filter: blur(0px) saturate(1.03);
-      -webkit-backdrop-filter: blur(0px) saturate(1.03);
-
-      transition:
-        opacity 1200ms var(--menuEase),
-        transform 1200ms var(--menuEase),
-        filter 1200ms var(--menuEase),
-        width 1200ms var(--menuEase);
+    .section-card.is-active{
+      pointer-events: auto;
+      animation: cardFloat var(--cardFloatDur) ease-in-out infinite;
     }
 
-    .footer-inner{
-      padding: calc(var(--cardPad) + 2px) calc(var(--cardPad) + 6px);
-      gap: 8px;
-      text-align: center;
-    }
-    .footer-line{
-      margin: 0;
-      color: rgba(20,28,32,.76);
-      font-size: 13px;
-      line-height: 1.55;
-      font-weight: 650;
-      letter-spacing: .02em;
-    }
-    .footer-line strong{ color: rgba(26,93,102,.96); font-weight: 900; }
-    .footer-sub{
-      margin: 2px 0 0;
-      color: rgba(20,28,32,.56);
-      font-size: 12.2px;
-      line-height: 1.5;
-      font-weight: 650;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-    }
-
-    .footer-actions{
-      margin-top: 6px;
-      display:flex;
-      justify-content: center;
-    }
-    .footer-ig{
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.58);
-      border: 1px solid rgba(0,0,0,.06);
-      color: rgba(20,28,32,.78);
-      box-shadow: 0 10px 18px rgba(0,0,0,.04);
-      transition: transform .18s ease, background .18s ease, box-shadow .18s ease, border-color .18s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .footer-ig .ico{ width: 16px; height: 16px; opacity: .9; }
-    .footer-igText{
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    @media (hover:hover) and (pointer:fine){
-      .footer-ig:hover{
-        transform: translateY(-1px);
-        background: rgba(255,255,255,.72);
-        box-shadow: 0 14px 24px rgba(0,0,0,.055);
-        border-color: rgba(26,93,102,.12);
-      }
-    }
-    .footer-ig:active{ transform: translateY(0) scale(.99); }
-
-    /* ========================= LOCK GENÉRICO (hero) ========================= */
     body.is-locked{ overflow: hidden; touch-action: none; }
-
-    /* ========================= FOOTER DOCK (rodapé fixa ao abrir) ========================= */
-    body.footer-docked{
-      /* NÃO travar o body: precisa subir */
-      overflow: auto;
-      touch-action: auto;
-      overscroll-behavior: auto;
-    }
-    body.footer-docked #rodape{
-      position: fixed !important;
-      left: 50% !important;
-      bottom: calc(14px + var(--safeB)) !important;
-      top: auto !important;
-
-      transform: translate3d(-50%, 0, 0) !important;
-      width: min(860px, calc(100vw - 28px)) !important;
-
-      opacity: 1 !important;
-      filter: none !important;
-      pointer-events: auto !important;
-      z-index: 2200 !important;
-    }
-    @media (max-width: 720px){
-      body.footer-docked #rodape{
-        width: calc(100vw - 20px) !important;
-        bottom: calc(12px + var(--safeB)) !important;
-      }
-    }
+    body.is-modal-open{ overflow: hidden; }
 
     @media (prefers-reduced-motion: reduce){
-      footer.site-footer{ opacity: 1 !important; transform: none !important; filter: none !important; pointer-events: auto !important; }
-    }
-  
-    /* ========================= MOBILE STACK (TOUCH) ========================= */
-    @media (max-width: 768px), (pointer: coarse){
-      /* esconde a barra de rolagem (continua rolando normalmente) */
-      html, body{ scrollbar-width: none; }
-      html::-webkit-scrollbar, body::-webkit-scrollbar{ display:none; }
+      html{ scroll-behavior:auto; }
+      .tree, .tree img{ animation:none !important; }
+      .tree::after{ animation:none; opacity: 0; }
+      .bubble{ animation:none !important; opacity: .08 !important; filter:none !important; }
+      .loader, .site, .brand, .role{ transition:none !important; }
+      .section-card.is-active{ animation: none !important; }
+      .modal, .modal-panel, .modal-bg{ transition:none !important; }
 
-      /* cards em fluxo vertical (sem "cena" travada) */
-      .cards-stage{
-        position: relative;
-        top: auto;
-        height: auto;
-        min-height: unset;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        place-items: unset;
-        pointer-events: auto;
-        padding: 10px 0 24px;
-      }
-
+      .cards-stage{ position: static; height: auto; }
       .section-card{
         grid-area: auto;
-        position: relative;
-        width: min(96vw, 560px);
-        max-width: 560px;
-        margin: 0 auto;
+        position: static !important;
         opacity: 1 !important;
-        filter: none !important;
-        transform: none !important;
-        will-change: auto;
+        filter:none !important;
+        transform:none !important;
         pointer-events: auto !important;
-
-        /* tamanho padrão (colapsado) */
-        max-height: 76vh;
-        overflow: hidden;
-        transition: max-height .55s cubic-bezier(.16,1,.18,1);
+        width: min(760px, 100%) !important;
+        margin: 18px auto;
       }
-      .section-card.is-expanded{
-        max-height: 9999px;
-        overflow: visible;
-      }
-
-      /* remove scroll interno no mobile */
-      .card-scroll{
-        max-height: none !important;
-        overflow: visible !important;
-        padding-bottom: 0 !important;
-      }
-
-      /* fade discreto + botão ver mais */
-      .card-more{
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 22px 18px 14px;
-        display: grid;
-        place-items: center;
-        pointer-events: none;
-      }
-      .card-more::before{
-        content:"";
-        position:absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,.82));
-        opacity: .9;
-      }
-      .card-more-btn{
-        position: relative;
-        pointer-events: auto;
-        border: 1px solid rgba(0,0,0,.10);
-        background: rgba(255,255,255,.66);
-        backdrop-filter: blur(10px) saturate(1.05);
-        -webkit-backdrop-filter: blur(10px) saturate(1.05);
-        color: rgba(16,22,26,.92);
-        font-family: var(--bodyFont);
-        font-size: 13px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        letter-spacing: .02em;
-        opacity: .92;
-      }
-      .section-card.is-expanded .card-more::before{ opacity: .0; }
+      .cards-track .track-spacer{ height: auto !important; }
+      .card-scroll{ max-height: none !important; overflow: visible !important; }
     }
-
-  </style>
-
-  <style>
-    /* ===== Ajustes Loader ===== */
-    .loader img,
-    .loader-logo img {
-      width: 180px !important;
-      max-width: 180px !important;
-    }
-    .loader-progress,
-    .progress-bar-container {
-      width: 180px !important;
-    }
-    .loader-progress,
-    .progress-bar {
-      height: 6px !important;
-    }
-  
-    /* ========================= MOBILE STACK (TOUCH) ========================= */
-    @media (max-width: 768px), (pointer: coarse){
-      /* esconde a barra de rolagem (continua rolando normalmente) */
-      html, body{ scrollbar-width: none; }
-      html::-webkit-scrollbar, body::-webkit-scrollbar{ display:none; }
-
-      /* cards em fluxo vertical (sem "cena" travada) */
-      .cards-stage{
-        position: relative;
-        top: auto;
-        height: auto;
-        min-height: unset;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        place-items: unset;
-        pointer-events: auto;
-        padding: 10px 0 24px;
-      }
-
-      .section-card{
-        grid-area: auto;
-        position: relative;
-        width: min(96vw, 560px);
-        max-width: 560px;
-        margin: 0 auto;
-        opacity: 1 !important;
-        filter: none !important;
-        transform: none !important;
-        will-change: auto;
-        pointer-events: auto !important;
-
-        /* tamanho padrão (colapsado) */
-        max-height: 76vh;
-        overflow: hidden;
-        transition: max-height .55s cubic-bezier(.16,1,.18,1);
-      }
-      .section-card.is-expanded{
-        max-height: 9999px;
-        overflow: visible;
-      }
-
-      /* remove scroll interno no mobile */
-      .card-scroll{
-        max-height: none !important;
-        overflow: visible !important;
-        padding-bottom: 0 !important;
-      }
-
-      /* fade discreto + botão ver mais */
-      .card-more{
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 22px 18px 14px;
-        display: grid;
-        place-items: center;
-        pointer-events: none;
-      }
-      .card-more::before{
-        content:"";
-        position:absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,.82));
-        opacity: .9;
-      }
-      .card-more-btn{
-        position: relative;
-        pointer-events: auto;
-        border: 1px solid rgba(0,0,0,.10);
-        background: rgba(255,255,255,.66);
-        backdrop-filter: blur(10px) saturate(1.05);
-        -webkit-backdrop-filter: blur(10px) saturate(1.05);
-        color: rgba(16,22,26,.92);
-        font-family: var(--bodyFont);
-        font-size: 13px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        letter-spacing: .02em;
-        opacity: .92;
-      }
-      .section-card.is-expanded .card-more::before{ opacity: .0; }
-    }
-
   </style>
 </head>
 
@@ -1556,16 +2181,15 @@
   <div class="loader" id="loader" aria-label="Carregando" role="status" aria-live="polite">
     <div class="loader-wrap">
       <div class="loader-logoMark" aria-hidden="true"></div>
-      <img class="loader-fallbackImg" src="./imagens/Logo.PNG" alt="Logo Káren Patussi">
-      <div class="loader-progress" aria-hidden="true"><span></span></div>
-      <span class="sr-only">Carregando</span>
+      <img class="loader-fallbackImg" src="Logo.png" alt="Logo Káren Patussi">
+      <p class="loader-sub">Carregando</p>
     </div>
   </div>
 
   <!-- Árvore fixa -->
   <div class="bg-stage" aria-hidden="true">
     <div class="tree">
-      <img src="./imagens/Tree ring hero.png" alt="">
+      <img src="Tree ring hero.png" alt="">
     </div>
   </div>
 
@@ -1576,7 +2200,7 @@
   <header class="topbar" id="topbar" aria-label="Barra superior">
     <div class="bar-title" id="barTitle">
       <span class="logo-mark" aria-hidden="true"></span>
-      <img class="logo-img" src="./imagens/Logo.PNG" alt="Logo">
+      <img class="logo-img" src="Logo.png" alt="Logo">
       <span class="bar-name">Káren Patussi</span>
     </div>
 
@@ -1613,10 +2237,112 @@
 
       <div class="menu-logo" aria-hidden="true">
         <div class="logo-box">
-          <img src="./imagens/Logo.PNG" alt="">
+          <img src="Logo.png" alt="">
         </div>
       </div>
     </aside>
+  </div>
+
+  <!-- MODAL CONTATO (FORM) -->
+  <div class="modal" id="contactModal" aria-hidden="true">
+    <div class="modal-bg" id="contactModalBg" aria-hidden="true"></div>
+
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle" tabindex="-1" id="contactModalPanel">
+      <header class="modal-head">
+        <div class="modal-titlebox">
+          <div class="modal-kicker">Solicitação</div>
+          <h3 class="modal-title" id="contactModalTitle">Formulário de agendamento</h3>
+          <p class="modal-sub">Preencha com calma. Você verá um resumo ao lado antes de enviar.</p>
+        </div>
+
+        <button class="modal-close" type="button" id="contactModalClose" aria-label="Fechar formulário">
+          <span class="close-x" aria-hidden="true"></span>
+        </button>
+      </header>
+
+      <div class="modal-body">
+        <div class="modal-grid" aria-label="Formulário e resumo">
+
+          <section class="contact-card" aria-label="Formulário">
+            <h3>Dados</h3>
+
+            <form class="contact-form" id="contactForm" autocomplete="on" novalidate>
+              <div class="form-row two">
+                <div class="field">
+                  <div class="label">Nome</div>
+                  <input class="input" id="fName" name="name" type="text" placeholder="Seu nome completo" required>
+                </div>
+
+                <div class="field">
+                  <div class="label">WhatsApp</div>
+                  <input class="input" id="fWhats" name="whats" type="tel" inputmode="tel" placeholder="(DDD) 9XXXX-XXXX" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="label">Modalidade</div>
+                <div class="radio-row" role="radiogroup" aria-label="Modalidade">
+                  <label class="pill-radio"><input type="radio" name="mode" value="Online" checked><i aria-hidden="true"></i>Online</label>
+                  <label class="pill-radio"><input type="radio" name="mode" value="Presencial"><i aria-hidden="true"></i>Presencial</label>
+                </div>
+              </div>
+
+              <div class="form-row two">
+                <div class="field">
+                  <div class="label">Período</div>
+                  <select class="select" id="fPeriod" name="period">
+                    <option>Manhã</option>
+                    <option>Tarde</option>
+                    <option>Noite</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <div class="label">Dia preferido</div>
+                  <select class="select" id="fDay" name="day">
+                    <option>Segunda</option>
+                    <option>Terça</option>
+                    <option>Quarta</option>
+                    <option>Quinta</option>
+                    <option>Sexta</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="label">Mensagem (opcional)</div>
+                <textarea class="textarea" id="fMsg" name="msg" placeholder="Se desejar, conte em uma frase o que está buscando."></textarea>
+              </div>
+
+              <div class="form-foot">
+                <label class="consent">
+                  <input type="checkbox" id="fConsent" required>
+                  <span>Concordo em compartilhar estes dados para retorno de contato (LGPD). Não envie informações sensíveis por aqui.</span>
+                </label>
+
+                <div class="form-actions" aria-label="Ações do formulário">
+                  <button class="btn-ghost" type="button" id="btnMail">Enviar por e-mail</button>
+                  <button class="btn-primary" type="button" id="btnWhats">Enviar por WhatsApp</button>
+                </div>
+              </div>
+
+              <p class="helper">
+                <strong>Nota:</strong> este formulário é uma solicitação. A confirmação do horário ocorre após retorno com disponibilidade.
+              </p>
+            </form>
+          </section>
+
+          <aside class="summary" aria-label="Resumo do formulário">
+            <h3>Resumo</h3>
+            <pre id="contactSummary">Preencha os campos para ver o resumo aqui.</pre>
+            <p class="helper">
+              Dica: revise o resumo antes de enviar — ele é exatamente o que vai no WhatsApp / e-mail.
+            </p>
+          </aside>
+
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- SITE -->
@@ -1653,16 +2379,21 @@
 
             <div class="card-scroll" data-scroll>
               <div class="about">
+
                 <div class="editorial" aria-label="Foto e síntese">
                   <div class="portrait" aria-label="Foto da psicóloga">
-                    <img src="./imagens/Foto Karen Sobre.png"
-                         onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80';"
-                         alt="Foto profissional da psicóloga">
+                    <img
+                      src="Foto Karen Sobre.png"
+                      onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80';"
+                      alt="Foto profissional da psicóloga">
                   </div>
+
                   <div class="lead" aria-label="Síntese profissional">
                     <p>
-                      Sou <strong>psicóloga clínica</strong>, com experiência iniciada em <strong>2006</strong> no atendimento a crianças, adolescentes e adultos — com foco na promoção da saúde mental e emocional.
-                      Após mais de uma década no <strong>setor público</strong>, retomei o consultório em <strong>Itapema (SC)</strong> e ampliei minha prática com especialização em <strong>Sexualidade Humana e Terapia Sexual</strong>.
+                      Sou <strong>psicóloga clínica</strong>, com experiência iniciada em <strong>2006</strong> no atendimento a
+                      crianças, adolescentes e adultos — com foco na promoção da saúde mental e emocional.
+                      Após mais de uma década no <strong>setor público</strong>, retomei o consultório em <strong>Itapema (SC)</strong>
+                      e ampliei minha prática com especialização em <strong>Sexualidade Humana e Terapia Sexual</strong>.
                     </p>
                   </div>
                 </div>
@@ -1670,24 +2401,34 @@
                 <div class="grid" aria-label="Atendimento e trajetória">
                   <section class="box" aria-label="Atendimento">
                     <h3>Atendimento</h3>
-                    <p>Atendo principalmente <strong>adultos</strong>, <strong>casais</strong> e <strong>famílias</strong>, oferecendo um espaço ético, seguro e acolhedor.</p>
+                    <p>
+                      Atendo principalmente <strong>adultos</strong>, <strong>casais</strong> e <strong>famílias</strong>,
+                      oferecendo um espaço ético, seguro e acolhedor.
+                    </p>
                   </section>
 
                   <section class="box" aria-label="Trajetória">
                     <h3>Trajetória</h3>
-                    <p>Minha experiência inclui atuação em contextos de <strong>vulnerabilidade social</strong>, violência e fragilidade psicossocial, o que amplia meu olhar para as diferentes realidades.</p>
+                    <p>
+                      Minha experiência inclui atuação em contextos de <strong>vulnerabilidade social</strong>, violência e fragilidade psicossocial,
+                      o que amplia meu olhar para as diferentes realidades e marcas emocionais que atravessam a vida das pessoas.
+                    </p>
                   </section>
                 </div>
 
                 <section class="box" aria-label="Abordagem">
                   <h3>Abordagem</h3>
-                  <p>Meu trabalho é fundamentado na escuta qualificada, na responsabilidade técnica e no respeito à singularidade de cada história. A psicoterapia é um processo de construção conjunta, no seu ritmo.</p>
+                  <p>
+                    Meu trabalho é fundamentado na escuta qualificada, na responsabilidade técnica e no respeito à singularidade de cada história.
+                    A psicoterapia é um processo de construção conjunta, no seu ritmo.
+                  </p>
                 </section>
 
                 <section class="box" aria-label="Formação acadêmica e complementar">
                   <h3>Formação</h3>
 
                   <div class="edu-timeline" aria-label="Linha do tempo de formação">
+
                     <div class="edu-item">
                       <div class="edu-top">
                         <div class="edu-main">
@@ -1743,6 +2484,7 @@
                       </div>
                       <div class="edu-desc">Mulheres na sociedade e na cultura: repertório crítico e contemporâneo.</div>
                     </div>
+
                   </div>
                 </section>
 
@@ -1760,8 +2502,13 @@
 
             <div class="card-scroll" data-scroll>
               <div class="flow" aria-label="Como funciona (organizado)">
+
                 <section class="intro" aria-label="Introdução do processo">
-                  <p>A psicoterapia começa com um <strong>acolhimento da sua demanda</strong> e do seu momento atual. A partir disso, construímos juntos um caminho com <strong>objetivos claros</strong>, combinados de forma simples e transparente.</p>
+                  <p>
+                    A psicoterapia começa com um <strong>acolhimento da sua demanda</strong> e do seu momento atual.
+                    A partir disso, construímos juntos um caminho com <strong>objetivos claros</strong>, combinados de forma simples e transparente.
+                  </p>
+
                   <div class="meta-row" aria-label="Informações rápidas">
                     <span class="chip"><i aria-hidden="true"></i> Sessões semanais</span>
                     <span class="chip"><i aria-hidden="true"></i> Online ou presencial</span>
@@ -1775,7 +2522,10 @@
                       <div class="flow-step-title">1) Acolhimento e alinhamento</div>
                       <span class="flow-step-tag">Início</span>
                     </div>
-                    <p class="flow-step-desc">Você traz o que está vivendo — e eu ajudo a organizar o que dói, o que confunde e o que você deseja mudar, com uma escuta cuidadosa e sem julgamentos.</p>
+                    <p class="flow-step-desc">
+                      Você traz o que está vivendo — e eu ajudo a organizar o que dói, o que confunde e o que você deseja mudar,
+                      com uma escuta cuidadosa e sem julgamentos.
+                    </p>
                   </div>
 
                   <div class="flow-step" aria-label="Etapa 2">
@@ -1783,7 +2533,10 @@
                       <div class="flow-step-title">2) Objetivos e direção</div>
                       <span class="flow-step-tag">Plano</span>
                     </div>
-                    <p class="flow-step-desc">Definimos foco e prioridades: o que precisa de atenção agora, o que pode esperar, e quais mudanças são possíveis no seu ritmo.</p>
+                    <p class="flow-step-desc">
+                      Definimos foco e prioridades: o que precisa de atenção agora, o que pode esperar,
+                      e quais mudanças são possíveis no seu ritmo.
+                    </p>
                   </div>
 
                   <div class="flow-step" aria-label="Etapa 3">
@@ -1791,7 +2544,10 @@
                       <div class="flow-step-title">3) Processo terapêutico</div>
                       <span class="flow-step-tag">Caminho</span>
                     </div>
-                    <p class="flow-step-desc">Acompanhamos seus avanços, identificamos padrões, fortalecemos recursos internos e trabalhamos estratégias para lidar melhor com emoções, relações e escolhas.</p>
+                    <p class="flow-step-desc">
+                      Acompanhamos seus avanços, identificamos padrões, fortalecemos recursos internos e trabalhamos estratégias
+                      para lidar melhor com emoções, relações e escolhas.
+                    </p>
                   </div>
 
                   <div class="flow-step" aria-label="Etapa 4">
@@ -1799,15 +2555,45 @@
                       <div class="flow-step-title">4) Ajustes e autonomia</div>
                       <span class="flow-step-tag">Evolução</span>
                     </div>
-                    <p class="flow-step-desc">O processo é vivo: revisamos objetivos, ajustamos o formato quando necessário e caminhamos para mais clareza, liberdade e autonomia emocional.</p>
+                    <p class="flow-step-desc">
+                      O processo é vivo: revisamos objetivos, ajustamos o formato quando necessário e caminhamos para mais clareza,
+                      liberdade e autonomia emocional.
+                    </p>
                   </div>
                 </section>
 
                 <section class="rules" aria-label="Combinados essenciais">
-                  <div class="rule" aria-label="Sigilo"><h3>Sigilo</h3><p>Tudo o que é compartilhado em sessão é protegido por confidencialidade, respeitando a ética profissional.</p></div>
-                  <div class="rule" aria-label="Frequência"><h3>Frequência</h3><p>A constância ajuda o processo a ganhar profundidade. Ajustamos a frequência conforme sua necessidade e fase.</p></div>
-                  <div class="rule" aria-label="Cancelamento"><h3>Cancelamento</h3><p>Caso precise remarcar, o ideal é avisar com antecedência. Assim mantemos o cuidado com seu tempo e com a agenda.</p></div>
-                  <div class="rule" aria-label="Formato"><h3>Formato</h3><p>Online ou presencial: ambos podem ser terapêuticos. O importante é um espaço estável e seguro para você.</p></div>
+                  <div class="rule" aria-label="Sigilo">
+                    <h3>Sigilo</h3>
+                    <p>
+                      Tudo o que é compartilhado em sessão é protegido por confidencialidade,
+                      respeitando a ética profissional.
+                    </p>
+                  </div>
+
+                  <div class="rule" aria-label="Frequência e consistência">
+                    <h3>Frequência</h3>
+                    <p>
+                      A constância ajuda o processo a ganhar profundidade.
+                      Ajustamos a frequência conforme sua necessidade e fase.
+                    </p>
+                  </div>
+
+                  <div class="rule" aria-label="Cancelamento">
+                    <h3>Cancelamento</h3>
+                    <p>
+                      Caso precise remarcar, o ideal é avisar com antecedência.
+                      Assim mantemos o cuidado com seu tempo e com a agenda.
+                    </p>
+                  </div>
+
+                  <div class="rule" aria-label="Formato">
+                    <h3>Formato</h3>
+                    <p>
+                      Online ou presencial: ambos podem ser terapêuticos.
+                      O importante é um espaço estável e seguro para você.
+                    </p>
+                  </div>
                 </section>
 
                 <div class="cta" aria-label="Chamada para ação">
@@ -1828,9 +2614,13 @@
             <h2 class="card-title">Áreas de atuação</h2>
 
             <div class="card-scroll" data-scroll>
-              <p class="card-text">Trabalho com adultos, casais e famílias em questões emocionais, relacionais e de sexualidade — sempre com ética, sigilo e respeito à individualidade.</p>
+              <p class="card-text">
+                Trabalho com adultos, casais e famílias em questões emocionais, relacionais e de sexualidade — sempre com ética, sigilo
+                e respeito à individualidade.
+              </p>
 
               <div class="about" aria-label="Blocos de áreas de atuação">
+
                 <div class="grid" aria-label="Saúde emocional e relacionamentos">
                   <section class="box" aria-label="Saúde emocional">
                     <h3>Saúde emocional</h3>
@@ -1874,6 +2664,7 @@
                     </ul>
                   </section>
                 </div>
+
               </div>
 
               <div class="end-spacer" aria-hidden="true"></div>
@@ -1886,131 +2677,65 @@
           <div class="card-inner">
             <div class="card-kicker">Dúvidas comuns</div>
             <h2 class="card-title">FAQ</h2>
+
             <div class="card-scroll" data-scroll>
-              <p class="card-text">Aqui entram respostas objetivas e elegantes: duração das sessões, formato, sigilo, cancelamento, indicação e como iniciar.</p>
+              <p class="card-text">
+                Aqui entram respostas objetivas e elegantes: duração das sessões, formato, sigilo, cancelamento, indicação e como iniciar.
+              </p>
+
               <div class="end-spacer" aria-hidden="true"></div>
             </div>
           </div>
         </article>
 
-        <!-- CONTATO -->
+        <!-- CONTATO (SEM TAGS / SEM ENDEREÇO) -->
         <article class="section-card glass-card" data-card id="contato">
           <div class="card-inner">
             <div class="card-kicker">Agendamento</div>
             <h2 class="card-title">Contato</h2>
 
             <div class="card-scroll" data-scroll>
-              <div class="contact" aria-label="Contato e agendamento">
+              <div class="contact" aria-label="Contato e agendamento (elegante)">
+
                 <section class="contact-hero" aria-label="Orientação de contato">
-                  <p>Se você está sentindo que algo precisa de <strong>cuidado</strong>, a gente pode começar do jeito mais simples: um primeiro contato, sem pressa. <strong>Você não precisa organizar tudo sozinho(a)</strong>.</p>
+                  <p>
+                    Para solicitar um <strong>agendamento</strong>, você pode falar comigo diretamente ou preencher o formulário.
+                    Eu retorno com horários disponíveis e orientações para a primeira sessão.
+                    <strong>Sigilo e ética</strong> em todo o processo.
+                  </p>
 
-                  <div class="contact-ctaRow" aria-label="Abrir formulário">
-                    <button class="open-form-btn" type="button" id="btnToggleForm" aria-expanded="false" aria-controls="contactPanel">
-                      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M3 3h18v2H3V3zm2 4h14v14H5V7zm2 2v2h10V9H7zm0 4v2h10v-2H7z"/>
-                      </svg>
-                      Abrir formulário
-                    </button>
-                    <p class="contact-note">Preencha e envie por WhatsApp ou e-mail (sem expor informações sensíveis).</p>
+                  <div class="contact-actions" aria-label="Ações de contato">
+                    <div class="btn-row" aria-label="Botões">
+                      <button class="icon-btn" type="button" id="btnQuickWhats" aria-label="Abrir WhatsApp">
+                        <svg class="ico" viewBox="0 0 32 32" aria-hidden="true">
+                          <path d="M19.11 17.53c-.26-.13-1.55-.76-1.79-.85-.24-.09-.42-.13-.6.13-.18.26-.69.85-.85 1.02-.16.18-.31.2-.58.07-.26-.13-1.11-.41-2.12-1.31-.79-.7-1.32-1.56-1.47-1.82-.15-.26-.02-.4.11-.53.11-.11.26-.31.39-.46.13-.15.18-.26.26-.44.09-.18.04-.33-.02-.46-.07-.13-.6-1.44-.82-1.97-.22-.53-.44-.46-.6-.47l-.51-.01c-.18 0-.46.07-.7.33-.24.26-.92.9-.92 2.19 0 1.29.94 2.53 1.07 2.71.13.18 1.85 2.83 4.48 3.97.63.27 1.12.43 1.5.55.63.2 1.2.17 1.65.1.5-.08 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.24-.18-.5-.31zM16.02 26.9h-.01c-1.84 0-3.64-.49-5.22-1.42l-.37-.22-3.87 1.01 1.03-3.77-.24-.39a10.82 10.82 0 0 1-1.68-5.81c0-5.97 4.87-10.83 10.86-10.83 2.89 0 5.6 1.12 7.64 3.16a10.74 10.74 0 0 1 3.17 7.65c0 5.97-4.87 10.84-10.86 10.84zm9.25-20.08A13.02 13.02 0 0 0 16 3C8.83 3 3 8.82 3 15.98c0 2.29.6 4.52 1.74 6.49L3 29l6.73-1.76a12.95 12.95 0 0 0 6.26 1.61h.01c7.17 0 13-5.82 13-12.98 0-3.47-1.35-6.73-3.73-9.05z"/>
+                        </svg>
+                        WhatsApp
+                      </button>
+
+                      <button class="icon-btn" type="button" id="btnQuickMail" aria-label="Abrir e-mail">
+                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        E-mail
+                      </button>
+
+                      <button class="open-form-btn" type="button" id="btnOpenForm" aria-label="Abrir formulário">
+                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M3 3h18v2H3V3zm2 4h14v14H5V7zm2 2v2h10V9H7zm0 4v2h10v-2H7z"/>
+                        </svg>
+                        Preencher formulário
+                      </button>
+                    </div>
+
+                    <p class="contact-note">
+                      Ao preencher, você poderá enviar o texto final por WhatsApp ou e-mail.
+                    </p>
                   </div>
-                </section>
-
-                <section class="contact-panel" id="contactPanel" aria-label="Formulário de contato" aria-hidden="true">
-                  <h3>Dados</h3>
-
-                  <form class="contact-form" id="contactForm" autocomplete="on" novalidate>
-                    <div class="form-row two">
-                      <div class="field">
-                        <div class="label">Nome</div>
-                        <input class="input" id="fName" name="name" type="text" placeholder="Seu nome completo" required>
-                      </div>
-                      <div class="field">
-                        <div class="label">WhatsApp</div>
-                        <input class="input" id="fWhats" name="whats" type="tel" inputmode="tel" placeholder="(DDD) 9XXXX-XXXX" required>
-                      </div>
-                    </div>
-
-                    <div class="field">
-                      <div class="label">Modalidade</div>
-                      <div class="radio-row" role="radiogroup" aria-label="Modalidade">
-                        <label class="pill-radio"><input type="radio" name="mode" value="Online" checked><i aria-hidden="true"></i>Online</label>
-                        <label class="pill-radio"><input type="radio" name="mode" value="Presencial"><i aria-hidden="true"></i>Presencial</label>
-                      </div>
-                    </div>
-
-                    <div class="form-row two">
-                      <div class="field">
-                        <div class="label">Período</div>
-                        <select class="select" id="fPeriod" name="period">
-                          <option>Manhã</option>
-                          <option>Tarde</option>
-                          <option>Noite</option>
-                        </select>
-                      </div>
-                      <div class="field">
-                        <div class="label">Dia preferido</div>
-                        <select class="select" id="fDay" name="day">
-                          <option>Segunda</option>
-                          <option>Terça</option>
-                          <option>Quarta</option>
-                          <option>Quinta</option>
-                          <option>Sexta</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="field">
-                      <div class="label">Mensagem (opcional)</div>
-                      <textarea class="textarea" id="fMsg" name="msg" placeholder="Em 1 frase: o que você quer cuidar?"></textarea>
-                    </div>
-
-                    <div class="form-foot">
-                      <label class="consent">
-                        <input type="checkbox" id="fConsent" required>
-                        <span>Concordo em compartilhar estes dados para retorno de contato (LGPD).</span>
-                      </label>
-
-                      <div class="form-actions" aria-label="Ações do formulário">
-                        <button class="btn-primary" type="button" id="btnWhats">
-                          <svg class="ico" viewBox="0 0 32 32" aria-hidden="true">
-                            <path d="M19.11 17.53c-.26-.13-1.55-.76-1.79-.85-.24-.09-.42-.13-.6.13-.18.26-.69.85-.85 1.02-.16.18-.31.2-.58.07-.26-.13-1.11-.41-2.12-1.31-.79-.7-1.32-1.56-1.47-1.82-.15-.26-.02-.4.11-.53.11-.11.26-.31.39-.46.13-.15.18-.26.26-.44.09-.18.04-.33-.02-.46-.07-.13-.6-1.44-.82-1.97-.22-.53-.44-.46-.6-.47l-.51-.01c-.18 0-.46.07-.7.33-.24.26-.92.9-.92 2.19 0 1.29.94 2.53 1.07 2.71.13.18 1.85 2.83 4.48 3.97.63.27 1.12.43 1.5.55.63.2 1.2.17 1.65.1.5-.08 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.24-.18-.5-.31zM16.02 26.9h-.01c-1.84 0-3.64-.49-5.22-1.42l-.37-.22-3.87 1.01 1.03-3.77-.24-.39a10.82 10.82 0 0 1-1.68-5.81c0-5.97 4.87-10.83 10.86-10.83 2.89 0 5.6 1.12 7.64 3.16a10.74 10.74 0 0 1 3.17 7.65c0 5.97-4.87 10.84-10.86 10.84zm9.25-20.08A13.02 13.02 0 0 0 16 3C8.83 3 3 8.82 3 15.98c0 2.29.6 4.52 1.74 6.49L3 29l6.73-1.76a12.95 12.95 0 0 0 6.26 1.61h.01c7.17 0 13-5.82 13-12.98 0-3.47-1.35-6.73-3.73-9.05z"/>
-                          </svg>
-                          Enviar WhatsApp
-                        </button>
-
-                        <button class="btn-ghost" type="button" id="btnMail">
-                          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-                          </svg>
-                          Enviar e-mail
-                        </button>
-                      </div>
-                    </div>
-
-                    <p class="helper"><strong>Nota:</strong> evite detalhes íntimos por mensagem. O acolhimento acontece com calma na sessão.</p>
-                  </form>
                 </section>
 
                 <div class="end-spacer" aria-hidden="true"></div>
               </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- RODAPÉ (CARD) -->
-        <article class="section-card glass-card card--rodape" data-card id="rodape" aria-label="Informações finais">
-          <div class="card-inner footer-inner">
-            <p class="footer-line"><strong>CRP</strong> 12/09861</p>
-            <p class="footer-line">© 2026 Káren Patussi – Todos os direitos reservados.</p>
-            <p class="footer-sub">Atendimento online • Sigilo absoluto • Espaço seguro</p>
-
-            <div class="footer-actions" aria-label="Redes sociais">
-              <a class="footer-ig" href="#" aria-label="Instagram (link em breve)" title="Instagram (em breve)">
-                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 4.5A5.5 5.5 0 1 1 6.5 14 5.51 5.51 0 0 1 12 8.5Zm0 2A3.5 3.5 0 1 0 15.5 14 3.5 3.5 0 0 0 12 10.5ZM18 6.8a1.2 1.2 0 1 1-1.2 1.2A1.2 1.2 0 0 1 18 6.8Z"/>
-                </svg>
-                <span class="footer-igText">Instagram</span>
-              </a>
             </div>
           </div>
         </article>
@@ -2024,88 +2749,35 @@
   <script>
     (() => {
       const root = document.documentElement;
+
       const loader = document.getElementById("loader");
       const topbar = document.getElementById("topbar");
+
       const overlay = document.getElementById("menuOverlay");
       const openBtn = document.getElementById("openMenu");
       const closeBtn = document.getElementById("closeMenu");
       const overlayBg = document.getElementById("overlayBg");
       const drawer = document.getElementById("drawer");
       const links = Array.from(document.querySelectorAll(".drawer-nav a[data-link]"));
+
       const heroStage = document.getElementById("home");
       const cardsTrack = document.getElementById("cardsTrack");
       const cards = Array.from(document.querySelectorAll("[data-card]"));
+
       const bubblesStage = document.getElementById("bubblesStage");
       const bubbles = [];
 
       const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
       const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      const isMobileMode = () =>
-        window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
-
-      function enableMobileStack(){
-        document.body.classList.add("mobile-stack");
-        // garante que nada fique travado no body
-        document.body.style.overflow = "";
-        document.documentElement.style.overflow = "";
-      }
-
-      function initMobileVerMais(){
-        const cards = [...document.querySelectorAll("[data-card]")];
-        if(!cards.length) return;
-
-        // mede depois do layout estabilizar
-        requestAnimationFrame(() => {
-          cards.forEach(card => {
-            // limpa botões antigos (se houver)
-            const old = card.querySelector(".card-more");
-            if(old) old.remove();
-
-            card.classList.remove("is-expanded");
-
-            // se não houver corte, não cria botão
-            const needsMore = (card.scrollHeight - card.clientHeight) > 24;
-            if(!needsMore) return;
-
-            const more = document.createElement("div");
-            more.className = "card-more";
-
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = "card-more-btn";
-            btn.textContent = "Ver mais";
-
-            btn.addEventListener("click", () => {
-              const open = card.classList.toggle("is-expanded");
-              btn.textContent = open ? "Ver menos" : "Ver mais";
-              // quando abrir, garante que o topo do card fique confortável no viewport
-              if(open){
-                card.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            });
-
-            more.appendChild(btn);
-            card.appendChild(more);
-          });
-        });
-      }
-
       function getMsVar(name, fallbackMs){
         const raw = getComputedStyle(root).getPropertyValue(name).trim();
         if(!raw) return fallbackMs;
-        if(raw.endsWith("ms")){
-          const n = parseFloat(raw);
-          return Number.isFinite(n) ? n : fallbackMs;
-        }
-        if(raw.endsWith("s")){
-          const n = parseFloat(raw);
-          return Number.isFinite(n) ? (n*1000) : fallbackMs;
-        }
+        if(raw.endsWith("ms")){ const n = parseFloat(raw); return Number.isFinite(n) ? n : fallbackMs; }
+        if(raw.endsWith("s")){ const n = parseFloat(raw); return Number.isFinite(n) ? (n*1000) : fallbackMs; }
         const n = parseFloat(raw);
         return Number.isFinite(n) ? n : fallbackMs;
       }
-
       function getNumVar(name, fallback){
         const v = getComputedStyle(root).getPropertyValue(name).trim();
         const n = parseFloat(v);
@@ -2131,6 +2803,7 @@
 
         const vw = window.innerWidth || 1200;
         const vh = window.innerHeight || 800;
+
         const safeTop = (getNumVar("--headerH", 56) || 56) + (parseFloat(getComputedStyle(root).getPropertyValue("--safeT"))||0) + 18;
         const pad = 18;
 
@@ -2142,10 +2815,12 @@
           const b = document.createElement("div");
           b.className = "bubble";
           b.dataset.i = String(i);
+
           b.dataset.cx = String(px);
           b.dataset.cy = String(py);
+
           b.style.left = "0px";
-          b.style.top = "0px";
+          b.style.top  = "0px";
           b.style.setProperty("--x", String(px));
           b.style.setProperty("--y", String(py));
           b.style.setProperty("--s", "1");
@@ -2204,6 +2879,7 @@
           const t = clamp(p, 0, 1);
           const local = clamp(t / popAt, 0, 1);
           const grow = 1 - Math.pow(1 - local, 3);
+
           const s = 1 + (popScale - 1) * grow;
           const fade = 1 - grow;
           const o = activeO * Math.max(0, fade);
@@ -2216,14 +2892,12 @@
       /* ========================= LOADER ========================= */
       function finishLoader(){
         if(!loader) return;
-        loader.classList.add("is-done");
         document.body.classList.add("is-ready");
         loader.classList.add("is-hidden");
         document.body.classList.remove("is-loading");
         const fade = getMsVar("--loaderFade", 820);
         window.setTimeout(() => { loader.style.display = "none"; }, Math.max(560, fade + 80));
       }
-
       const LOADER_DUR = getMsVar("--loaderDur", 3000);
       window.addEventListener("load", () => window.setTimeout(finishLoader, Math.max(3000, LOADER_DUR)), { once: true });
       if(document.readyState === "complete") window.setTimeout(finishLoader, Math.max(3000, LOADER_DUR));
@@ -2242,7 +2916,6 @@
           (first || drawer).focus();
         }, 0);
       }
-
       function closeMenu(){
         if(!overlay.classList.contains("is-open")) return;
         overlay.classList.remove("is-open");
@@ -2251,7 +2924,6 @@
         openBtn.classList.remove("is-open");
         document.body.style.overflow = "";
       }
-
       openBtn.addEventListener("click", () => overlay.classList.contains("is-open") ? closeMenu() : openMenu());
       closeBtn.addEventListener("click", closeMenu);
       overlayBg.addEventListener("click", closeMenu);
@@ -2260,6 +2932,7 @@
       /* ========================= HERO (2 scrolls até o Sobre) ========================= */
       let step = 0, accum = 0, locked = false, animating = false, lastDir = 0, cooldownUntil = 0;
       let flowStarted = false;
+
       let autoRoleTimer = 0;
       let autoRolePending = false;
 
@@ -2268,13 +2941,11 @@
         const vh = window.innerHeight || 800;
         return (r.top <= vh * 0.35 && r.bottom >= vh * 0.65);
       }
-
       function lockBody(){
         if(locked) return;
         locked = true;
         document.body.classList.add("is-locked");
       }
-
       function unlockBody(){
         locked = false;
         document.body.classList.remove("is-locked");
@@ -2283,7 +2954,7 @@
       function applyHeroState(){
         const liftName = getNumVar("--liftName", 140);
         const liftRole = getNumVar("--liftRole", 120);
-        const blurMax = getNumVar("--fadeBlur", 1.6);
+        const blurMax  = getNumVar("--fadeBlur", 1.6);
 
         let nameY = 0, nameO = 1, nameB = 0;
         let roleY = 0, roleO = 1, roleB = 0;
@@ -2294,6 +2965,7 @@
         root.style.setProperty("--nameY", nameY + "px");
         root.style.setProperty("--nameO", String(nameO));
         root.style.setProperty("--nameB", nameB + "px");
+
         root.style.setProperty("--roleY", roleY + "px");
         root.style.setProperty("--roleO", String(roleO));
         root.style.setProperty("--roleB", roleB + "px");
@@ -2328,6 +3000,7 @@
           autoRoleTimer = 0;
           autoRolePending = false;
           if(flowStarted) return;
+
           lockBody();
           animateToStep(2).then(() => unlockBody());
         }, Math.max(320, nameDur + 80));
@@ -2339,6 +3012,7 @@
 
         const dur = stepDurationMs(next);
         step = clamp(next, 0, 2);
+
         applyHeroState();
         setCooldown();
 
@@ -2348,8 +3022,13 @@
         return new Promise((resolve) => {
           window.setTimeout(() => {
             animating = false;
-            if(step >= 2) handoffToCards();
-            else unlockBody();
+
+            if(step >= 2){
+              handoffToCards();
+            } else {
+              unlockBody();
+            }
+
             resolve();
           }, dur + 40);
         });
@@ -2367,21 +3046,31 @@
         lastDir = dir;
 
         const down = Math.max(160, getNumVar("--stepDistanceDown", 320));
-        const up = Math.max(180, getNumVar("--stepDistanceUp", 380));
+        const up   = Math.max(180, getNumVar("--stepDistanceUp", 380));
 
         accum += deltaY;
 
         if(accum >= down){
           accum = 0;
+
           if(step === 1 && autoRolePending) return;
-          if(step < 2){ lockBody(); animateToStep(step + 1); }
+
+          if(step < 2){
+            lockBody();
+            animateToStep(step + 1);
+          }
           return;
         }
 
         if(accum <= -up){
           accum = 0;
+
           if(step === 1 && autoRolePending) clearAutoRole();
-          if(step > 0){ lockBody(); animateToStep(step - 1); }
+
+          if(step > 0){
+            lockBody();
+            animateToStep(step - 1);
+          }
           return;
         }
       }
@@ -2390,11 +3079,15 @@
       let sceneIndex = 0;
       let phase = "closed";
       let lockedUntil = 0;
+
       let p = 0;
       let pTarget = 0;
+
       let raf = 0;
       let lastFrame = performance.now();
+
       let wheelAccum = 0;
+
       let pendingDir = +1;
       let returnToHeroAfterClose = false;
 
@@ -2430,22 +3123,22 @@
       function getSpawnForScene(i, vw, vh){
         const headerPx = (getNumVar("--headerH", 56) || 56) + (parseFloat(getComputedStyle(root).getPropertyValue("--safeT"))||0);
         const topSafe = Math.max(84, headerPx + 38);
+
         const isMobile = vw <= 720;
 
-        const leftX = isMobile ? -vw * 0.34 : -vw * 0.42;
-        const rightX = isMobile ? vw * 0.34 : vw * 0.42;
+        const leftX  = isMobile ? -vw * 0.34 : -vw * 0.42;
+        const rightX = isMobile ?  vw * 0.34 :  vw * 0.42;
 
         const topY = -Math.min(vh * (isMobile ? 0.32 : 0.42), topSafe + vh * (isMobile ? 0.16 : 0.22));
         const midY = 0;
         const botY = Math.min(vh * (isMobile ? 0.20 : 0.30), isMobile ? 170 : 220);
 
         const map = [
-          { x: leftX, y: topY },   // Sobre
-          { x: rightX, y: topY },  // Como funciona
-          { x: leftX, y: midY },   // Áreas
-          { x: rightX, y: midY },  // FAQ
-          { x: leftX, y: botY },   // Contato
-          { x: 0, y: botY + (isMobile ? 120 : 150) }, // Rodapé
+          { x: leftX,  y: topY }, // Sobre
+          { x: rightX, y: topY }, // Como funciona
+          { x: leftX,  y: midY }, // Áreas
+          { x: rightX, y: midY }, // FAQ
+          { x: leftX,  y: botY }, // Contato
         ];
         return map[i] || map[0];
       }
@@ -2462,10 +3155,11 @@
         const wFullPx = Math.min(maxW, vw * (wFullVw / 100));
 
         const tSlide = easeOutCubic(clamp(pNow, 0, 1));
-        const tFade = easeOutQuad(clamp((pNow - 0.03) / 0.97, 0, 1));
-
+        const tFade  = easeOutQuad(clamp((pNow - 0.03) / 0.97, 0, 1));
         const w = wFromPx + (wFullPx - wFromPx) * tSlide;
+
         const spawn = getSpawnForScene(sceneIndex, vw, vh);
+
         const x = mix(spawn.x, 0, tSlide);
         const y = mix(spawn.y, 0, tSlide);
 
@@ -2494,6 +3188,7 @@
       function canTrigger(){
         if(prefersReduced()) return false;
         if(overlay.classList.contains("is-open")) return false;
+        if(document.body.classList.contains("is-modal-open")) return false;
         return performance.now() >= lockedUntil;
       }
 
@@ -2515,39 +3210,24 @@
         scheduleRender();
       }
 
-      /* ========================= FOOTER DOCK (fixa ao abrir) ========================= */
-      let footerDocked = false;
-      function setFooterDocked(v){
-        const next = !!v;
-        if(next === footerDocked) return;
-        footerDocked = next;
-        document.body.classList.toggle("footer-docked", footerDocked);
-      }
-
       function handoffToCards(){
         if(flowStarted) return;
-        if(isMobileMode()){
-          topbar.classList.add("show-brand");
-          const el = document.getElementById("cardsStage") || document.querySelector(".cards-stage");
-          if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
-          return;
-        }
-        setFooterDocked(false);
         flowStarted = true;
         topbar.classList.add("show-brand");
 
         lockBody();
+
         const y = cardsTrack.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: y + 1, behavior: "auto" });
 
         sceneIndex = 0;
         returnToHeroAfterClose = false;
+
         setLock();
 
         p = 0;
         pTarget = 0;
         phase = "closed";
-
         hideAllCards();
         resetActiveScroll();
 
@@ -2561,12 +3241,14 @@
       }
 
       async function returnToHeroWithSameMotion(){
-        setFooterDocked(false);
         flowStarted = false;
+
         clearAutoRole();
+
         step = 2;
         applyHeroState();
         hideAllCards();
+
         topbar.classList.remove("show-brand");
 
         document.getElementById("home").scrollIntoView({ behavior:"smooth", block:"start" });
@@ -2582,7 +3264,6 @@
       function requestNext(){
         if(!canTrigger()) return;
         if(phase === "opening") return;
-        if(footerDocked) return; // no fim: não passa do rodapé
         setLock();
         closeScene();
         pendingDir = +1;
@@ -2592,12 +3273,6 @@
       function requestPrev(){
         if(!canTrigger()) return;
         if(phase === "opening") return;
-
-        // ✅ se estiver no rodapé fixo e subir: libera e volta
-        if(footerDocked){
-          setFooterDocked(false);
-          // deixa cair no fluxo normal: voltar pro card anterior
-        }
 
         if(sceneIndex === 0){
           setLock();
@@ -2611,14 +3286,6 @@
         closeScene();
         pendingDir = -1;
         returnToHeroAfterClose = false;
-      }
-
-      function updateFooterGate(){
-        const isLast = flowStarted && sceneIndex === (cards.length - 1);
-        const openingOrOpen = (phase === "opening" || phase === "open");
-        const visible = p >= 0.12; // fixa cedo (ajuste fino)
-
-        setFooterDocked(isLast && openingOrOpen && visible);
       }
 
       function render(){
@@ -2635,11 +3302,11 @@
             c.style.zIndex = "30";
             setActiveCardClass();
           }
-          updateFooterGate();
           return;
         }
 
         const aCard = smoothAlpha(clamp(getNumVar("--cardLag", 0.55), 0.18, 0.72));
+
         p = p + (pTarget - p) * aCard;
         if(Math.abs(p - pTarget) < 0.0014) p = pTarget;
 
@@ -2650,7 +3317,9 @@
           if(active) applyCardStyles(active, p);
         }
 
-        if(phase === "opening" && p >= 1) phase = "open";
+        if(phase === "opening" && p >= 1){
+          phase = "open";
+        }
 
         if(phase === "closing" && p <= 0){
           if(returnToHeroAfterClose){
@@ -2659,7 +3328,6 @@
             p = 0; pTarget = 0;
             hideAllCards();
             updateBubbles(flowStarted, sceneIndex, p);
-            updateFooterGate();
             returnToHeroWithSameMotion();
             return;
           }
@@ -2676,9 +3344,11 @@
         }
 
         updateBubbles(flowStarted, sceneIndex, p);
-        updateFooterGate();
 
-        const needsMore = Math.abs(p - pTarget) > 0.001 || phase === "opening" || phase === "closing";
+        const needsMore =
+          Math.abs(p - pTarget) > 0.001 ||
+          phase === "opening" || phase === "closing";
+
         if(needsMore) scheduleRender();
       }
 
@@ -2693,6 +3363,7 @@
       function tryScrollInsideActiveCard(dy){
         const active = cards[sceneIndex];
         if(!active) return { used: false, atEdge: true };
+
         const sc = active.querySelector("[data-scroll]");
         if(!sc) return { used: false, atEdge: true };
 
@@ -2705,6 +3376,7 @@
         const after = sc.scrollTop;
 
         const moved = Math.abs(after - before) > 0.5;
+
         const atTop = after <= 0.5;
         const atBottom = after >= (max - 0.5);
         const atEdge = dy > 0 ? atBottom : atTop;
@@ -2713,22 +3385,15 @@
       }
 
       window.addEventListener("wheel", (e) => {
-        if(isMobileMode()) return;
         if(document.body.classList.contains("is-loading")) return;
         if(overlay.classList.contains("is-open")) return;
+        if(document.body.classList.contains("is-modal-open")) return;
 
         if(flowStarted && !prefersReduced()){
           if(e.ctrlKey) return;
           e.preventDefault();
 
           const dy = scaledWheelDelta(e);
-
-          // ✅ rodapé fixo: descer ignora / subir volta
-          if(footerDocked && dy > 0){
-            wheelAccum = 0;
-            scheduleRender();
-            return;
-          }
 
           const res = tryScrollInsideActiveCard(dy);
           if(res.used && res.moved){
@@ -2737,6 +3402,7 @@
           }
 
           wheelAccum += dy;
+
           const trigger = Math.max(70, getNumVar("--wheelTrigger", 135));
           const allowKnob = (!res.used) || (res.used && res.atEdge);
 
@@ -2770,9 +3436,9 @@
       }, { passive: true });
 
       window.addEventListener("touchmove", (e) => {
-        if(isMobileMode()) return;
         if(document.body.classList.contains("is-loading")) return;
         if(overlay.classList.contains("is-open")) return;
+        if(document.body.classList.contains("is-modal-open")) return;
         if(touchY == null) return;
 
         const yy = (e.touches && e.touches.length) ? e.touches[0].clientY : touchY;
@@ -2782,13 +3448,6 @@
         if(flowStarted && !prefersReduced()){
           e.preventDefault();
 
-          // ✅ rodapé fixo: descer ignora / subir volta
-          if(footerDocked && dy > 0){
-            touchAccum = 0;
-            scheduleRender();
-            return;
-          }
-
           const res = tryScrollInsideActiveCard(dy);
           if(res.used && res.moved){
             scheduleRender();
@@ -2797,8 +3456,8 @@
 
           touchAccum += dy;
           const TRIGGER = 64;
-          const allowKnob = (!res.used) || (res.used && res.atEdge);
 
+          const allowKnob = (!res.used) || (res.used && res.atEdge);
           if(allowKnob && Math.abs(touchAccum) >= TRIGGER){
             if(touchAccum > 0) requestNext();
             else requestPrev();
@@ -2819,8 +3478,10 @@
       window.addEventListener("touchend", () => { touchY = null; touchAccum = 0; }, { passive: true });
 
       function goToScene(i){
-        setFooterDocked(false);
-        if(i < 0){ returnToHeroWithSameMotion(); return; }
+        if(i < 0){
+          returnToHeroWithSameMotion();
+          return;
+        }
 
         if(!flowStarted){
           clearAutoRole();
@@ -2831,13 +3492,14 @@
         }
 
         sceneIndex = clamp(i, 0, cards.length - 1);
+
         setLock();
-        p = 0;
-        pTarget = 1;
+        p = 0; pTarget = 1;
         phase = "opening";
 
         const y = cardsTrack.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: y + 1, behavior: "smooth" });
+
         resetActiveScroll();
         scheduleRender();
       }
@@ -2852,14 +3514,25 @@
 
       window.addEventListener("resize", () => { buildBubbles(); scheduleRender(); }, { passive:true });
 
-      /* ========================= CONTATO ========================= */
+      /* ========================= CONTATO — DADOS / ENVIO / MODAL ========================= */
       const CONTACT = {
-        phoneDigits: "55DDDN9XXXXXXX",
+        // ✅ Troque pelos dados reais:
+        phoneDigits: "55DDDN9XXXXXXX",  // só números (55 + DDD + número)
         email: "karen@seudominio.com"
       };
 
-      const btnToggleForm = document.getElementById("btnToggleForm");
-      const contactPanel = document.getElementById("contactPanel");
+      const modal = document.getElementById("contactModal");
+      const modalBg = document.getElementById("contactModalBg");
+      const modalPanel = document.getElementById("contactModalPanel");
+      const modalClose = document.getElementById("contactModalClose");
+
+      const btnOpenForm = document.getElementById("btnOpenForm");
+      const btnQuickWhats = document.getElementById("btnQuickWhats");
+      const btnQuickMail = document.getElementById("btnQuickMail");
+
+      const summaryEl = document.getElementById("contactSummary");
+
+      let lastFocus = null;
 
       function waUrl(message){
         const base = `https://wa.me/${CONTACT.phoneDigits}`;
@@ -2891,56 +3564,119 @@
         ].filter(Boolean).join("\n");
       }
 
+      function updateSummary(){
+        if(!summaryEl) return;
+        const text = buildContactMessage();
+        const empty = text.includes("Nome: -") && text.includes("WhatsApp: -");
+        summaryEl.textContent = empty ? "Preencha os campos para ver o resumo aqui." : text;
+      }
+
       function validateContactForm(){
         const name = (document.getElementById("fName")?.value || "").trim();
         const whats = (document.getElementById("fWhats")?.value || "").trim();
         const consent = document.getElementById("fConsent")?.checked;
 
-        if(!name){ alert("Por favor, informe seu nome."); return false; }
-        if(!whats){ alert("Por favor, informe seu WhatsApp."); return false; }
-        if(!consent){ alert("Para enviar, marque o consentimento (LGPD)."); return false; }
+        if(!name){
+          alert("Por favor, informe seu nome.");
+          return false;
+        }
+        if(!whats){
+          alert("Por favor, informe seu WhatsApp.");
+          return false;
+        }
+        if(!consent){
+          alert("Para enviar, marque o consentimento (LGPD).");
+          return false;
+        }
         return true;
       }
 
-      function openPanel(){
-        if(!contactPanel) return;
-        contactPanel.classList.add("is-open");
-        contactPanel.setAttribute("aria-hidden","false");
-        btnToggleForm?.setAttribute("aria-expanded","true");
-        if(btnToggleForm){
-          btnToggleForm.innerHTML = `
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13H5v-2h14v2z"/></svg>
-            Fechar formulário
-          `;
-        }
+      function openContactModal(){
+        if(!modal || modal.classList.contains("is-open")) return;
+        lastFocus = document.activeElement;
+
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden","false");
+        document.body.classList.add("is-modal-open");
+
+        updateSummary();
+
         requestAnimationFrame(() => {
           const first = document.getElementById("fName");
-          if(first) first.focus({ preventScroll: true });
+          (first || modalPanel)?.focus();
         });
       }
 
-      function closePanel(){
-        if(!contactPanel) return;
-        contactPanel.classList.remove("is-open");
-        contactPanel.setAttribute("aria-hidden","true");
-        btnToggleForm?.setAttribute("aria-expanded","false");
-        if(btnToggleForm){
-          btnToggleForm.innerHTML = `
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h18v2H3V3zm2 4h14v14H5V7zm2 2v2h10V9H7zm0 4v2h10v-2H7z"/></svg>
-            Abrir formulário
-          `;
+      function closeContactModal(){
+        if(!modal || !modal.classList.contains("is-open")) return;
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden","true");
+        document.body.classList.remove("is-modal-open");
+
+        if(lastFocus && typeof lastFocus.focus === "function"){
+          lastFocus.focus();
         }
       }
 
-      function togglePanel(){
-        if(!contactPanel) return;
-        const open = contactPanel.classList.contains("is-open");
-        open ? closePanel() : openPanel();
+      function trapFocusInModal(e){
+        if(!modal || !modal.classList.contains("is-open")) return;
+        if(e.key !== "Tab") return;
+
+        const focusables = modal.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const list = Array.from(focusables).filter(el => !el.disabled && el.offsetParent !== null);
+        if(!list.length) return;
+
+        const first = list[0];
+        const last = list[list.length - 1];
+
+        if(e.shiftKey && document.activeElement === first){
+          e.preventDefault();
+          last.focus();
+        } else if(!e.shiftKey && document.activeElement === last){
+          e.preventDefault();
+          first.focus();
+        }
       }
 
       function initContact(){
-        if(btnToggleForm) btnToggleForm.addEventListener("click", togglePanel);
+        // botões rápidos (sem formulário)
+        if(btnQuickWhats){
+          btnQuickWhats.addEventListener("click", () => {
+            const text = "Olá, Káren! Gostaria de informações sobre agendamento.";
+            window.open(waUrl(text), "_blank", "noopener");
+          });
+        }
+        if(btnQuickMail){
+          btnQuickMail.addEventListener("click", () => {
+            const subject = "Contato — agendamento";
+            const body = "Olá, Káren! Gostaria de informações sobre agendamento.\n\nNome:\nWhatsApp:\nPreferência (online/presencial):\n";
+            window.location.href =
+              `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          });
+        }
 
+        // abrir modal (form)
+        if(btnOpenForm){
+          btnOpenForm.addEventListener("click", openContactModal);
+        }
+        if(modalClose) modalClose.addEventListener("click", closeContactModal);
+        if(modalBg) modalBg.addEventListener("click", closeContactModal);
+
+        window.addEventListener("keydown", (e) => {
+          if(e.key === "Escape" && modal?.classList.contains("is-open")){
+            closeContactModal();
+          }
+          trapFocusInModal(e);
+        });
+
+        // atualizar resumo em tempo real
+        const fields = ["fName","fWhats","fPeriod","fDay","fMsg","fConsent"];
+        fields.forEach(id => document.getElementById(id)?.addEventListener("input", updateSummary));
+        document.querySelectorAll('input[name="mode"]').forEach(r => r.addEventListener("change", updateSummary));
+
+        // envio do form
         const btnW = document.getElementById("btnWhats");
         const btnM = document.getElementById("btnMail");
 
@@ -2957,7 +3693,8 @@
             if(!validateContactForm()) return;
             const body = buildContactMessage();
             const subject = "Solicitação de agendamento";
-            window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href =
+              `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
           });
         }
       }
@@ -2965,108 +3702,11 @@
       // init
       buildBubbles();
       applyHeroState();
-
-      if(isMobileMode()){
-        enableMobileStack();
-        // no mobile: cards em lista, sem engine de troca por gesto
-        updateFooterGate();
-        initMobileVerMais();
-        // recalcula "ver mais" ao girar a tela
-        window.addEventListener("resize", () => {
-          if(isMobileMode()) initMobileVerMais();
-        }, { passive: true });
-
-        initContact();
-        return;
-      }
-
       hideAllCards();
       updateBubbles(flowStarted, 0, 0);
-      updateFooterGate();
       scheduleRender();
       initContact();
-})();
+    })();
   </script>
-
-<script>
-document.querySelectorAll('.drawer-nav a').forEach(link => {
-  link.addEventListener('click', function(e){
-    const targetId = this.getAttribute('href');
-    if(targetId.startsWith('#')){
-      e.preventDefault();
-      const el = document.querySelector(targetId);
-      if(el){
-        el.scrollIntoView({behavior:'smooth', block:'start'});
-      }
-      document.querySelector('.overlay')?.classList.remove('is-open');
-      document.querySelector('.menu-btn')?.classList.remove('is-open');
-    }
-  });
-});
-</script>
-
-
-<script>
-// FOOTER FINISH LINE (BOTTOM LOCK)
-// Ao chegar no rodapé, ele encaixa no fundo (classe footer-docked) e impede scroll para baixo.
-(() => {
-  const footer = document.getElementById('rodape');
-  if (!footer) return;
-
-  let lockY = 0;
-  let locked = false;
-  let touchStartY = null;
-
-  function computeLockY(){
-    const h = footer.offsetHeight || 0;
-    const pad = 16;
-    lockY = footer.offsetTop - (window.innerHeight - h - pad);
-    if (!isFinite(lockY) || lockY < 0) lockY = 0;
-  }
-
-  function setLocked(on){
-    if (locked === on) return;
-    locked = on;
-    document.body.classList.toggle('footer-docked', on);
-    if (on) window.scrollTo(0, lockY);
-  }
-
-  function check(){
-    // trava quando a página chega no ponto onde o rodapé encosta no fundo
-    if (window.scrollY >= lockY - 2) setLocked(true);
-    else setLocked(false);
-  }
-
-  // mantém o scroll “clampado” quando travado
-  function clamp(){
-    if (locked && window.scrollY > lockY + 1) window.scrollTo(0, lockY);
-  }
-
-  window.addEventListener('resize', () => { computeLockY(); check(); }, { passive: true });
-  window.addEventListener('scroll', () => { clamp(); if (!locked) check(); }, { passive: true });
-
-  // bloqueia rolagem para baixo quando travado (mouse wheel)
-  window.addEventListener('wheel', (e) => {
-    if (locked && e.deltaY > 0) e.preventDefault();
-  }, { passive: false });
-
-  // bloqueia swipe para cima (que rola para baixo) quando travado (touch)
-  window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches && e.touches[0] ? e.touches[0].clientY : null;
-  }, { passive: true });
-
-  window.addEventListener('touchmove', (e) => {
-    if (!locked || touchStartY == null) return;
-    const y = e.touches && e.touches[0] ? e.touches[0].clientY : touchStartY;
-    const dy = touchStartY - y; // dy > 0 = swipe para cima (scroll para baixo)
-    if (dy > 0) e.preventDefault();
-  }, { passive: false });
-
-  computeLockY();
-  check();
-})();
-// /FOOTER FINISH LINE (BOTTOM LOCK)
-</script>
-
 </body>
 </html>
