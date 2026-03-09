@@ -466,37 +466,53 @@
       white-space: nowrap;
     }
 
-    .menu-inline{
+    .topbar-nav{
       display:none;
       align-items:center;
+      justify-content:flex-end;
       gap: 8px;
       margin-left: auto;
-      padding: 6px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.48);
-      border: 1px solid rgba(0,0,0,.06);
-      box-shadow: 0 12px 30px rgba(0,0,0,.05);
-      backdrop-filter: blur(14px) saturate(1.05);
-      -webkit-backdrop-filter: blur(14px) saturate(1.05);
+      min-width: 0;
     }
-    .menu-inline a{
-      text-decoration:none;
-      color: rgba(20,28,32,.88);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .04em;
+    .topbar-nav a{
+      position: relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 40px;
       padding: 10px 14px;
       border-radius: 999px;
-      transition: background .24s ease, color .24s ease, transform .24s ease, box-shadow .24s ease;
-      font-family: var(--bodyFont);
+      text-decoration:none;
+      color: rgba(20,28,32,.82);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
       white-space: nowrap;
+      transition: background .24s ease, color .24s ease, transform .24s ease, box-shadow .24s ease;
     }
-    .menu-inline a:hover{
-      background: rgba(26,93,102,.10);
+    .topbar-nav a::after{
+      content:"";
+      position:absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 7px;
+      height: 1px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.34);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform .24s ease;
+    }
+    .topbar-nav a:hover,
+    .topbar-nav a:focus-visible{
+      background: rgba(255,255,255,.68);
       color: var(--brand);
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(0,0,0,.05);
+      box-shadow: 0 12px 28px rgba(0,0,0,.06);
+      outline: none;
     }
+    .topbar-nav a:hover::after,
+    .topbar-nav a:focus-visible::after{ transform: scaleX(1); }
 
     .menu-btn{
       appearance: none;
@@ -745,18 +761,6 @@
       opacity: .92;
       display:block;
       filter: drop-shadow(0 12px 24px rgba(0,0,0,.11));
-    }
-
-    @media (min-width: 980px){
-      .topbar{
-        justify-content: flex-start;
-        gap: 18px;
-        padding-left: calc(20px + var(--safeL));
-        padding-right: calc(20px + var(--safeR));
-      }
-      .menu-inline{ display:flex; }
-      .menu-btn{ display:none; }
-      .overlay{ display:none !important; }
     }
 
     /* ========================= REVEAL DO SITE ========================= */
@@ -1284,6 +1288,21 @@
 
     body.is-locked{ overflow: hidden; touch-action: none; }
 
+
+    @media (min-width: 980px){
+      .topbar{
+        padding-left: calc(22px + var(--safeL));
+        padding-right: calc(22px + var(--safeR));
+        gap: 22px;
+      }
+      .topbar-nav{ display:flex; }
+      .menu-btn{ display:none; }
+      .overlay{ display:none !important; }
+    }
+
+    @media (max-width: 979.98px){
+      .topbar-nav{ display:none !important; }
+    }
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .tree, .tree img{ animation:none !important; }
@@ -1333,7 +1352,7 @@
       <span class="bar-name">Káren Patussi</span>
     </div>
 
-    <nav class="menu-inline" aria-label="Navegação principal">
+    <nav class="topbar-nav" aria-label="Navegação principal">
       <a href="#home" data-link data-index="-1">Home</a>
       <a href="#sobre" data-link data-index="0">Sobre</a>
       <a href="#como-funciona" data-link data-index="1">Como funciona</a>
@@ -1420,7 +1439,9 @@
                   <div class="portrait" aria-label="Foto da psicóloga">
                     <img
                       src="Foto Karen Sobre.png"
-                      onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80';"
+                      loading="eager"
+                      decoding="async"
+                      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80';"
                       alt="Foto profissional da psicóloga">
                   </div>
 
@@ -1658,8 +1679,7 @@
       const closeBtn = document.getElementById("closeMenu");
       const overlayBg = document.getElementById("overlayBg");
       const drawer = document.getElementById("drawer");
-      const links = Array.from(document.querySelectorAll("[data-link]"));
-      const drawerLinks = Array.from(document.querySelectorAll(".drawer-nav a[data-link]"));
+      const links = Array.from(document.querySelectorAll("a[data-link]"));
 
       const heroStage = document.getElementById("home");
       const cardsTrack = document.getElementById("cardsTrack");
@@ -1682,7 +1702,7 @@
         return Number.isFinite(n) ? n : fallback;
       }
 
-      drawerLinks.forEach((a, i) => a.style.setProperty("--i", String(i)));
+      links.forEach((a, i) => a.style.setProperty("--i", String(i)));
 
       function finishLoader(){
         if(!loader) return;
@@ -1698,7 +1718,7 @@
       window.addEventListener("pageshow", (e) => { if(e.persisted) finishLoader(); });
 
       function openMenu(){
-        if(!overlay || !openBtn) return;
+        if(!overlay || !openBtn || !drawer) return;
         if(overlay.classList.contains("is-open")) return;
         overlay.classList.add("is-open");
         overlay.setAttribute("aria-hidden","false");
@@ -1706,7 +1726,7 @@
         openBtn.classList.add("is-open");
         document.body.style.overflow = "hidden";
         setTimeout(() => {
-          const first = drawer.querySelector(".drawer-nav a[data-link]");
+          const first = drawer ? drawer.querySelector(".drawer-nav a[data-link]") : null;
           (first || drawer).focus();
         }, 0);
       }
@@ -1719,12 +1739,12 @@
         openBtn.classList.remove("is-open");
         document.body.style.overflow = "";
       }
-      if(openBtn && overlay){
+      if(openBtn){
         openBtn.addEventListener("click", () => overlay.classList.contains("is-open") ? closeMenu() : openMenu());
       }
       if(closeBtn) closeBtn.addEventListener("click", closeMenu);
       if(overlayBg) overlayBg.addEventListener("click", closeMenu);
-      window.addEventListener("keydown", (e) => { if(e.key === "Escape" && overlay && overlay.classList.contains("is-open")) closeMenu(); });
+      window.addEventListener("keydown", (e) => { if(overlay && e.key === "Escape" && overlay.classList.contains("is-open")) closeMenu(); });
 
       /* =========================
          HERO: 1 scroll = nome some; frase some automaticamente
@@ -2309,7 +2329,7 @@
         scheduleRender();
       }
 
-      drawerLinks.forEach((a, idx) => a.style.setProperty("--i", String(idx)));
+      links.forEach((a, idx) => a.style.setProperty("--i", String(idx)));
       links.forEach(a => a.addEventListener("click", (e) => {
         e.preventDefault();
         const idx = parseInt(a.dataset.index || "-1", 10);
