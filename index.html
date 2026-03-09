@@ -960,6 +960,126 @@
     .card--about .card-scroll::before,
     .card--about .card-scroll::after{ display:none; }
 
+    .card--process .card-scroll::before,
+    .card--process .card-scroll::after{ display:none; }
+
+    .process-wrap{
+      display:grid;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .process-intro{
+      border-radius: 18px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 14px 28px rgba(0,0,0,.045);
+      padding: 18px 18px;
+      display:grid;
+      gap: 12px;
+    }
+    .process-kicker{
+      margin: 0;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.62);
+      font-weight: 800;
+      font-family: var(--bodyFont);
+    }
+    .process-head{
+      display:grid;
+      gap: 10px;
+    }
+    .process-headline{
+      margin: 0;
+      color: var(--brand);
+      font-family: var(--titleFont);
+      font-weight: 900;
+      font-size: clamp(22px, 2vw, 30px);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+    .process-divider{
+      width: 56px;
+      height: 1px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.24);
+    }
+    .process-intro p,
+    .process-panel p{
+      margin: 0;
+      color: var(--softInk);
+      line-height: 1.95;
+      font-size: 15px;
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
+    .process-grid{
+      display:grid;
+      gap: 12px;
+    }
+    @media (min-width: 720px){
+      .process-grid{
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .process-panel{
+      border-radius: 18px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 12px 24px rgba(0,0,0,.04);
+      padding: 16px 16px;
+      display:grid;
+      gap: 10px;
+      align-content: start;
+    }
+    .process-panel h3{
+      margin: 0;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: rgba(20,28,32,.84);
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-weight: 800;
+      font-family: var(--bodyFont);
+    }
+    .process-panel h3::before{
+      content:"";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.18);
+      box-shadow: inset 0 0 0 1px rgba(26,93,102,.18);
+      flex: 0 0 auto;
+    }
+    .process-note{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      width: fit-content;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(26,93,102,.14);
+      color: rgba(26,93,102,.92);
+      font-weight: 750;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 22px rgba(0,0,0,.035);
+      font-family: var(--bodyFont);
+    }
+    .process-note .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.32);
+      box-shadow: 0 0 0 3px rgba(26,93,102,.10);
+    }
+
+
     /* ========================= SOBRE ========================= */
     
     .about{
@@ -1592,28 +1712,55 @@
           </div>
         </article>
 
+        
         <!-- COMO FUNCIONA -->
-        <article class="section-card glass-card" data-card data-origin="tr" id="como-funciona">
+        <article class="section-card glass-card card--process" data-card data-origin="tr" id="como-funciona">
           <div class="card-inner">
             <div class="card-kicker">Fluxo</div>
             <h2 class="card-title">Como funciona</h2>
 
             <div class="card-scroll" data-scroll>
-<p class="card-text">
-A psicoterapia é um processo estruturado de escuta e intervenção, realizado integralmente de forma online, com segurança e sigilo profissional.
+              <div class="process-wrap">
 
-A primeira sessão é dedicada à avaliação da demanda e à definição dos objetivos terapêuticos. A partir desse encontro inicial, estabelecemos um percurso de acompanhamento personalizado, respeitando a singularidade de cada pessoa.
+                <section class="process-intro" aria-label="Apresentação do processo terapêutico">
+                  <p class="process-kicker">Atendimento online</p>
+                  <div class="process-head">
+                    <h3 class="process-headline">Um processo estruturado, ético e conduzido com rigor técnico.</h3>
+                    <div class="process-divider" aria-hidden="true"></div>
+                  </div>
 
-As sessões têm duração média de 50 minutos e, de modo geral, ocorrem semanalmente. O tempo de acompanhamento varia conforme cada caso e as necessidades apresentadas ao longo do processo.
+                  <p>
+                    A psicoterapia é um processo estruturado de escuta e intervenção, em meu caso, realizado integralmente de forma online, com segurança e sigilo profissional. A primeira sessão é dedicada à avaliação da demanda e à definição de objetivos.
+                  </p>
+                </section>
 
-Todo o trabalho é conduzido com base nas normativas do Conselho Federal de Psicologia (CFP) e da World Association for Sexual Health (WAS), garantindo rigor técnico, responsabilidade ética e um espaço seguro para reflexão, cuidado e desenvolvimento pessoal.
+                <div class="process-grid" aria-label="Etapas do acompanhamento">
+                  <section class="process-panel" aria-label="Sessões e acompanhamento">
+                    <h3>Sessões</h3>
+                    <p>
+                      As sessões têm duração média de <strong>50 minutos</strong>, ocorrendo, de modo geral, de forma <strong>semanal</strong>. O tempo de acompanhamento varia conforme cada caso, respeitando a singularidade da demanda e o ritmo do processo terapêutico.
+                    </p>
+                  </section>
 
-</p>
+                  <section class="process-panel" aria-label="Ética e normativas">
+                    <h3>Ética e normativas</h3>
+                    <p>
+                      O trabalho é conduzido com base nas normativas do <strong>Conselho Federal de Psicologia (CFP)</strong> e da <strong>World Association for Sexual Health (WAS)</strong>, garantindo responsabilidade ética, segurança clínica e rigor técnico em todo o acompanhamento.
+                    </p>
+                  </section>
+                </div>
 
-<div class="end-spacer" aria-hidden="true"></div>
+                <div class="process-note" aria-label="Compromisso profissional">
+                  <span class="dot" aria-hidden="true"></span>
+                  Escuta qualificada, sigilo e responsabilidade em cada etapa.
+                </div>
+
+                <div class="end-spacer" aria-hidden="true"></div>
+              </div>
             </div>
           </div>
         </article>
+
 
         <!-- ÁREAS -->
         <article class="section-card glass-card" data-card data-origin="ml" id="areas">
