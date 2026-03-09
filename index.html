@@ -163,7 +163,7 @@
       position: fixed;
       inset: 0;
       z-index: -6;
-      background-image: url("imagens/fundo textura.png");
+      background-image: url("fundo textura.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -242,12 +242,12 @@
       filter: blur(var(--glowBlur));
       mix-blend-mode: screen;
 
-      -webkit-mask-image: url("imagens/Tree ring hero.png");
+      -webkit-mask-image: url("Tree ring hero.png");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-size: contain;
       -webkit-mask-position: center;
 
-      mask-image: url("imagens/Tree ring hero.png");
+      mask-image: url("Tree ring hero.png");
       mask-repeat: no-repeat;
       mask-size: contain;
       mask-position: center;
@@ -311,12 +311,12 @@
       position: relative;
       background: rgba(255,255,255,.18);
 
-      -webkit-mask-image: url("imagens/Logo.PNG");
+      -webkit-mask-image: url("Logo.png");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: contain;
 
-      mask-image: url("imagens/Logo.PNG");
+      mask-image: url("Logo.png");
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
@@ -442,12 +442,12 @@
     @supports ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
       .logo-img{ display:none; }
       .logo-mark{
-        -webkit-mask-image: url("imagens/Logo.PNG");
+        -webkit-mask-image: url("Logo.png");
         -webkit-mask-repeat: no-repeat;
         -webkit-mask-position: center;
         -webkit-mask-size: contain;
 
-        mask-image: url("imagens/Logo.PNG");
+        mask-image: url("Logo.png");
         mask-repeat: no-repeat;
         mask-position: center;
         mask-size: contain;
@@ -464,6 +464,38 @@
       font-size: 18px;
       line-height: 1;
       white-space: nowrap;
+    }
+
+    .menu-inline{
+      display:none;
+      align-items:center;
+      gap: 8px;
+      margin-left: auto;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.48);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,.05);
+      backdrop-filter: blur(14px) saturate(1.05);
+      -webkit-backdrop-filter: blur(14px) saturate(1.05);
+    }
+    .menu-inline a{
+      text-decoration:none;
+      color: rgba(20,28,32,.88);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: background .24s ease, color .24s ease, transform .24s ease, box-shadow .24s ease;
+      font-family: var(--bodyFont);
+      white-space: nowrap;
+    }
+    .menu-inline a:hover{
+      background: rgba(26,93,102,.10);
+      color: var(--brand);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.05);
     }
 
     .menu-btn{
@@ -713,6 +745,18 @@
       opacity: .92;
       display:block;
       filter: drop-shadow(0 12px 24px rgba(0,0,0,.11));
+    }
+
+    @media (min-width: 980px){
+      .topbar{
+        justify-content: flex-start;
+        gap: 18px;
+        padding-left: calc(20px + var(--safeL));
+        padding-right: calc(20px + var(--safeR));
+      }
+      .menu-inline{ display:flex; }
+      .menu-btn{ display:none; }
+      .overlay{ display:none !important; }
     }
 
     /* ========================= REVEAL DO SITE ========================= */
@@ -1269,7 +1313,7 @@
   <div class="loader" id="loader" aria-label="Carregando" role="status" aria-live="polite">
     <div class="loader-wrap">
       <div class="loader-logoMark" aria-hidden="true"></div>
-      <img class="loader-fallbackImg" src="imagens/Logo.PNG" alt="Logo Káren Patussi">
+      <img class="loader-fallbackImg" src="Logo.png" alt="Logo Káren Patussi">
       <p class="loader-sub">Carregando</p>
     </div>
   </div>
@@ -1277,7 +1321,7 @@
   <!-- Árvore fixa -->
   <div class="bg-stage" aria-hidden="true">
     <div class="tree">
-      <img src="imagens/Tree ring hero.png" alt="">
+      <img src="Tree ring hero.png" alt="">
     </div>
   </div>
 
@@ -1285,9 +1329,18 @@
   <header class="topbar" id="topbar" aria-label="Barra superior">
     <div class="bar-title" id="barTitle">
       <span class="logo-mark" aria-hidden="true"></span>
-      <img class="logo-img" src="imagens/Logo.PNG" alt="Logo">
+      <img class="logo-img" src="Logo.png" alt="Logo">
       <span class="bar-name">Káren Patussi</span>
     </div>
+
+    <nav class="menu-inline" aria-label="Navegação principal">
+      <a href="#home" data-link data-index="-1">Home</a>
+      <a href="#sobre" data-link data-index="0">Sobre</a>
+      <a href="#como-funciona" data-link data-index="1">Como funciona</a>
+      <a href="#areas" data-link data-index="2">Áreas de atuação</a>
+      <a href="#faq" data-link data-index="3">FAQ</a>
+      <a href="#contato" data-link data-index="4">Contato</a>
+    </nav>
 
     <button class="menu-btn" id="openMenu" type="button" aria-label="Abrir menu" aria-controls="menuOverlay" aria-expanded="false">
       <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -1322,7 +1375,7 @@
 
       <div class="menu-logo" aria-hidden="true">
         <div class="logo-box">
-          <img src="imagens/Logo.PNG" alt="">
+          <img src="Logo.png" alt="">
         </div>
       </div>
     </aside>
@@ -1354,7 +1407,7 @@
     <section class="cards-track" id="cardsTrack" aria-label="Conteúdo">
       <div class="cards-stage" id="cardsStage">
 
-                <!-- SOBRE -->
+        <!-- SOBRE -->
         <article class="section-card glass-card card--about" data-card data-origin="tl" id="sobre">
           <div class="card-inner">
             <div class="card-kicker">Quem eu sou</div>
@@ -1366,22 +1419,71 @@
                 <div class="editorial" aria-label="Foto e síntese">
                   <div class="portrait" aria-label="Foto da psicóloga">
                     <img
-                      src="imagens/Foto Karen Sobre.png"
+                      src="Foto Karen Sobre.png"
+                      onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80';"
                       alt="Foto profissional da psicóloga">
                   </div>
 
                   <div class="lead" aria-label="Síntese profissional">
                     <p>
-                      Sou psicóloga com mais de <strong>20 anos de atuação profissional</strong> nas esferas pública e privada, com vasta experiência no atendimento a <strong>crianças, adolescentes, adultos, casais e famílias</strong>. Ao longo da minha trajetória, especializei-me em <strong>Terapia Sexual</strong>, <strong>Psicoterapia Sistêmica</strong> e em <strong>Estudos de Gênero</strong>, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura.
-                    </p>
-                    <p>
-                      Para além de certificações internacionais, a vivência de ter residido em <strong>outros três países</strong> proporcionou-me uma imersão cultural aprofundada, conferindo-me uma sensibilidade fenomenológica diferenciada. Bagagem esta que considero fundamental para o acolhimento ético de populações em transição, <strong>migrantes e expatriados</strong>.
-                    </p>
-                    <p>
-                      Mantendo um compromisso rigoroso com a atualização técnica e a excelência clínica, sou membro da <strong>Sociedade Brasileira de Estudos em Sexualidade Humana (SBRASH)</strong> e da <strong>Sociedade Portuguesa de Sexologia Clínica (SPSC)</strong>. Atualmente, dedico minha prática ao atendimento de <strong>adultos, casais e famílias</strong>, integrando ética, técnica e sensibilidade humana no cuidado em saúde mental.
+                      Sou <strong>psicóloga clínica</strong>, com experiência iniciada em <strong>2006</strong> no atendimento a
+                      crianças, adolescentes e adultos — com foco na promoção da saúde mental e emocional.
+                      Após mais de uma década no <strong>setor público</strong>, retomei o consultório em <strong>Itapema (SC)</strong>
+                      e ampliei minha prática com especialização em <strong>Sexualidade Humana e Terapia Sexual</strong>.
                     </p>
                   </div>
                 </div>
+
+                <div class="grid" aria-label="Público e trajetória">
+                  <section class="box" aria-label="Para quem atendo">
+                    <h3>Para quem atendo</h3>
+                    <p>
+                      Atendo principalmente <strong>adultos</strong>, <strong>casais</strong> e <strong>famílias</strong>,
+                      com escuta qualificada e responsabilidade técnica.
+                    </p>
+                  </section>
+
+                  <section class="box" aria-label="Trajetória">
+                    <h3>Trajetória</h3>
+                    <p>
+                      Minha trajetória inclui forte atuação em contextos de <strong>vulnerabilidade social</strong>, violência e fragilidade psicossocial,
+                      o que amplia meu olhar para as diferentes realidades e marcas emocionais que atravessam a vida das pessoas.
+                    </p>
+                  </section>
+                </div>
+
+                <div class="grid" aria-label="Temas e sexologia">
+                  <section class="box" aria-label="Principais temas">
+                    <h3>Principais temas</h3>
+                    <ul>
+                      <li>Relações afetivas e conflitos conjugais</li>
+                      <li>Autoestima, ansiedade e depressão</li>
+                      <li>Luto e processos de mudança</li>
+                      <li>Comunicação e construção de vínculos saudáveis</li>
+                    </ul>
+                  </section>
+
+                  <section class="box" aria-label="Sexologia">
+                    <h3>Sexologia</h3>
+                    <ul>
+                      <li>Saúde sexual, intimidade e prazer</li>
+                      <li>Comunicação nas relações</li>
+                      <li>Manejo de dificuldades e disfunções sexuais</li>
+                      <li>Reconexão com o corpo e com o desejo</li>
+                    </ul>
+                  </section>
+                </div>
+
+                <section class="box" aria-label="Principais competências">
+                  <h3>Principais competências</h3>
+                  <div class="skills-grid" aria-label="Lista de competências">
+                    <div class="skill-item">Psicoterapia</div>
+                    <div class="skill-item">Sexualidade</div>
+                    <div class="skill-item">Acolhimento</div>
+                    <div class="skill-item">Gestão de conflitos</div>
+                    <div class="skill-item">Autoestima</div>
+                  </div>
+                </section>
 
                 <section class="box" aria-label="Formação acadêmica e complementar">
                   <h3>Formação</h3>
@@ -1446,6 +1548,11 @@
 
                   </div>
                 </section>
+
+                <div class="cta-soft" aria-label="Convite">
+                  <span class="dot" aria-hidden="true"></span>
+                  Se você busca um espaço de escuta qualificada, estou à disposição.
+                </div>
 
                 <div class="end-spacer" aria-hidden="true"></div>
               </div>
@@ -1551,7 +1658,8 @@
       const closeBtn = document.getElementById("closeMenu");
       const overlayBg = document.getElementById("overlayBg");
       const drawer = document.getElementById("drawer");
-      const links = Array.from(document.querySelectorAll(".drawer-nav a[data-link]"));
+      const links = Array.from(document.querySelectorAll("[data-link]"));
+      const drawerLinks = Array.from(document.querySelectorAll(".drawer-nav a[data-link]"));
 
       const heroStage = document.getElementById("home");
       const cardsTrack = document.getElementById("cardsTrack");
@@ -1574,7 +1682,7 @@
         return Number.isFinite(n) ? n : fallback;
       }
 
-      links.forEach((a, i) => a.style.setProperty("--i", String(i)));
+      drawerLinks.forEach((a, i) => a.style.setProperty("--i", String(i)));
 
       function finishLoader(){
         if(!loader) return;
@@ -1590,6 +1698,7 @@
       window.addEventListener("pageshow", (e) => { if(e.persisted) finishLoader(); });
 
       function openMenu(){
+        if(!overlay || !openBtn) return;
         if(overlay.classList.contains("is-open")) return;
         overlay.classList.add("is-open");
         overlay.setAttribute("aria-hidden","false");
@@ -1602,6 +1711,7 @@
         }, 0);
       }
       function closeMenu(){
+        if(!overlay || !openBtn) return;
         if(!overlay.classList.contains("is-open")) return;
         overlay.classList.remove("is-open");
         overlay.setAttribute("aria-hidden","true");
@@ -1609,10 +1719,12 @@
         openBtn.classList.remove("is-open");
         document.body.style.overflow = "";
       }
-      openBtn.addEventListener("click", () => overlay.classList.contains("is-open") ? closeMenu() : openMenu());
-      closeBtn.addEventListener("click", closeMenu);
-      overlayBg.addEventListener("click", closeMenu);
-      window.addEventListener("keydown", (e) => { if(e.key === "Escape" && overlay.classList.contains("is-open")) closeMenu(); });
+      if(openBtn && overlay){
+        openBtn.addEventListener("click", () => overlay.classList.contains("is-open") ? closeMenu() : openMenu());
+      }
+      if(closeBtn) closeBtn.addEventListener("click", closeMenu);
+      if(overlayBg) overlayBg.addEventListener("click", closeMenu);
+      window.addEventListener("keydown", (e) => { if(e.key === "Escape" && overlay && overlay.classList.contains("is-open")) closeMenu(); });
 
       /* =========================
          HERO: 1 scroll = nome some; frase some automaticamente
@@ -2197,7 +2309,7 @@
         scheduleRender();
       }
 
-      links.forEach((a, idx) => a.style.setProperty("--i", String(idx)));
+      drawerLinks.forEach((a, idx) => a.style.setProperty("--i", String(idx)));
       links.forEach(a => a.addEventListener("click", (e) => {
         e.preventDefault();
         const idx = parseInt(a.dataset.index || "-1", 10);
