@@ -10,7 +10,2221 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root{<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Káren Patussi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
     :root{
+      --brand:#1A5D66;
+
+      --text:#0b0d0f;
+      --muted:#26343a;
+
+      --safeT: env(safe-area-inset-top, 0px);
+      --safeR: env(safe-area-inset-right, 0px);
+      --safeB: env(safe-area-inset-bottom, 0px);
+      --safeL: env(safe-area-inset-left, 0px);
+
+      --padX: clamp(16px, 6vw, 120px);
+      --headerH: 56px;
+
+      --treeYOffset: clamp(10px, 2vh, 34px);
+      --treeScale: 0.92;
+      --treeOpacity: 0.92;
+
+      --treeBreathDur: 14s;
+      --treeBreathAmp: 0.045;
+      --treePushZ: 60px;
+      --treeBreathShadowA: 0.16;
+      --treeBreathShadowB: 0.26;
+
+      --glowOpacity: 0.16;
+      --glowDur: 6.2s;
+      --glowBlur: 10px;
+      --glowColor: rgba(26,93,102,.48);
+
+      --menuGlass: 0.52;
+      --menuBlur: 26px;
+      --menuBorder: rgba(0,0,0,.07);
+      --menuShadow: 0 22px 72px rgba(0,0,0,.18);
+
+      --menuEase: cubic-bezier(.16, 1, .18, 1);
+      --menuDrawerDur: 720ms;
+      --menuBgDur: 520ms;
+
+      --menuItemDur: 820ms;
+      --menuItemEase: cubic-bezier(.16, 1, .16, 1);
+      --menuItemStagger: 70ms;
+      --menuItemDelayBase: 110ms;
+
+      --menuItemOffsetX: 34px;
+      --menuItemScaleXFrom: .78;
+      --menuItemBlur: 1.4px;
+
+      --cardRadius: 18px;
+      --cardPad: clamp(18px, 2.2vw, 24px);
+      --cardGlass: 0.52;
+      --cardBlur: 16px;
+      --cardBorder: rgba(0,0,0,.055);
+      --cardShadow: 0 18px 54px rgba(0,0,0,.10);
+
+      --stepDistanceDown: 320;
+      --stepDistanceUp: 380;
+      --deadZone: 2.5;
+
+      --stepCooldown: 70ms;
+
+      /* ✅ mais sedoso no HERO */
+      --easeDurName: 900ms;   /* antes 560ms */
+      --easeDurRole: 1500ms;  /* antes 1100ms */
+
+      --liftName: 140px;
+      --liftRole: 120px;
+      --fadeBlur: 1.6px;
+
+      --loaderDur: 3000ms;
+      --loaderLogoW: min(88px, 22vw);
+
+      --loaderFade: 820ms;
+      --loaderEase: cubic-bezier(.16, 1, .18, 1);
+      --siteReveal: 980ms;
+      --siteRevealEase: cubic-bezier(.14, 1, .16, 1);
+
+      --cardStickyTop: calc(var(--headerH) + var(--safeT) + 26px);
+
+      --cardFromVw: 10;
+      --cardFullVw: 92;
+      --cardMaxW: 980px;
+
+      /* ✅ principal “manteiga”: maior = mais suave e lento */
+      --cardLag: 0.55;         /* antes 0.28 */
+      --edgeMargin: 46px;
+      --edgeMarginY: 76px;
+
+      --wheelScale: 0.55;
+      --wheelTrigger: 135;
+
+      /* ✅ mais tempo de respiro entre troca de cenas */
+      --sceneLockMs: 1350ms;   /* antes 980ms */
+
+      --cardScrollTopPad: 14px;
+      --cardScrollBottomPad: 28px;
+      --cardScrollMaxH: calc(100dvh - var(--cardStickyTop) - 34px);
+      --scrollFadeH: 26px;
+
+      --cardEndSpacer: 72px;
+
+      --bodyFont: "Inter", system-ui, sans-serif;
+      --titleFont: "Playfair Display", serif;
+
+      --paraSize: 14.5px;
+      --paraLine: 1.9;
+
+      --cardFloatAmp: 3px;
+      --cardFloatDur: 8.6s; /* ✅ flutuação mais lenta */
+
+      --softInk: rgba(20,28,32,.92);
+      --softInk2: rgba(20,28,32,.78);
+      --softBorder: rgba(0,0,0,.07);
+      --softGlass: rgba(255,255,255,.90);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    html{
+      scroll-behavior:smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    body{
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar{
+      width:0 !important;
+      height:0 !important;
+      display:none !important;
+    }
+
+    body{
+      margin:0;
+      font-family: var(--bodyFont);
+      position: relative;
+      overflow-x:hidden;
+      color: var(--text);
+      background: transparent;
+
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: "kern" 1, "liga" 1;
+    }
+
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -6;
+      background-image: url("imagens/fundo textura.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.03);
+    }
+    body::after{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      pointer-events: none;
+      background:
+        radial-gradient(1100px 720px at 50% 32%, rgba(255,255,255,.28), rgba(255,255,255,0) 60%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+    }
+
+    /* ========================= ÁRVORE FIXA ========================= */
+    .bg-stage{
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events: none;
+      transform: translateY(var(--treeYOffset));
+    }
+    .tree{
+      width: min(74vw, 74vh);
+      height: min(74vw, 74vh);
+      opacity: var(--treeOpacity);
+      position: relative;
+      transform-style: preserve-3d;
+      will-change: filter;
+      animation: treeBreath var(--treeBreathDur) ease-in-out infinite;
+    }
+    .tree img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      user-select:none;
+      -webkit-user-drag:none;
+      display:block;
+      transform: translateZ(0) scale(var(--treeScale));
+      will-change: transform;
+      animation: treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
+    }
+    @keyframes treeBreath{
+      0%, 100%{ filter: drop-shadow(0 28px 70px rgba(0,0,0,var(--treeBreathShadowA))) brightness(.98); }
+      50%{ filter: drop-shadow(0 48px 130px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.03); }
+    }
+    @keyframes treeScaleBreath{
+      0%, 100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
+      50%{ transform: translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
+    }
+
+    .tree::after{
+      content:"";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,0) 35%,
+          rgba(255,255,255,.50) 50%,
+          rgba(255,255,255,0) 65%,
+          rgba(255,255,255,0) 100%
+        ),
+        radial-gradient(closest-side at 50% 50%, var(--glowColor), rgba(26,93,102,0) 62%);
+      background-size: 100% 220%, 120% 120%;
+      background-position: 0 140%, 50% 160%;
+      background-repeat: no-repeat;
+
+      opacity: var(--glowOpacity);
+      filter: blur(var(--glowBlur));
+      mix-blend-mode: screen;
+
+      -webkit-mask-image: url("imagens/Tree ring hero.png");
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      -webkit-mask-position: center;
+
+      mask-image: url("imagens/Tree ring hero.png");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask-position: center;
+
+      animation: glowRise var(--glowDur) cubic-bezier(.3, 0, .2, 1) infinite;
+      will-change: opacity, background-position;
+    }
+    @keyframes glowRise{
+      0% { opacity: 0; background-position: 0 140%, 50% 160%; }
+      12% { opacity: var(--glowOpacity); }
+      58% { opacity: var(--glowOpacity); background-position: 0 22%, 50% 40%; }
+      86% { opacity: calc(var(--glowOpacity) * 0.60); background-position: 0 -36%, 50% -10%; }
+      100% { opacity: 0; background-position: 0 -70%, 50% -40%; }
+    }
+
+    /* ========================= LOADER ========================= */
+    .loader{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:
+        calc(20px + var(--safeT))
+        calc(20px + var(--safeR))
+        calc(20px + var(--safeB))
+        calc(20px + var(--safeL));
+
+      background:
+        radial-gradient(920px 680px at 50% 38%, rgba(255,255,255,.10), rgba(255,255,255,0) 58%),
+        linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.08)),
+        var(--brand);
+
+      opacity: 1;
+      visibility: visible;
+      transform: translateZ(0) scale(1);
+      transition:
+        opacity var(--loaderFade) var(--loaderEase),
+        transform var(--loaderFade) var(--loaderEase),
+        visibility var(--loaderFade) var(--loaderEase);
+      will-change: opacity, transform;
+    }
+    .loader.is-hidden{
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.02);
+      pointer-events: none;
+    }
+    .loader-wrap{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align:center;
+      transform: translateZ(0);
+    }
+    .loader-logoMark{
+      width: var(--loaderLogoW);
+      aspect-ratio: 1 / 1;
+      position: relative;
+      background: rgba(255,255,255,.18);
+
+      -webkit-mask-image: url("imagens/Logo.PNG");
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      -webkit-mask-size: contain;
+
+      mask-image: url("imagens/Logo.PNG");
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+
+      filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
+      transform: translateZ(0);
+    }
+    .loader-logoMark::after{
+      content:"";
+      position:absolute;
+      left:-15%;
+      right:-15%;
+      height: 22px;
+      bottom: -20%;
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255, .62) 35%,
+        rgba(255,255,255, .95) 55%,
+        rgba(255,255,255, .55) 75%,
+        rgba(255,255,255,0) 100%
+      );
+      filter: blur(8px);
+      animation: scanUp 1150ms cubic-bezier(.16, 1, .22, 1) infinite;
+      will-change: transform;
+    }
+    @keyframes scanUp{
+      0%   { transform: translateY(140%); }
+      100% { transform: translateY(-380%); }
+    }
+    .loader-fallbackImg{
+      width: var(--loaderLogoW);
+      height: auto;
+      display:none;
+      filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+    @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
+      .loader-logoMark{ display:none; }
+      .loader-fallbackImg{ display:block; }
+    }
+    .loader-sub{
+      margin: 0;
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+      user-select:none;
+      font-family: var(--bodyFont);
+    }
+    body.is-loading{
+      overflow: hidden !important;
+      height: 100%;
+      touch-action: none;
+    }
+
+    /* ========================= TOPBAR ========================= */
+    .topbar{
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 800;
+      height: calc(var(--headerH) + var(--safeT));
+      padding-top: var(--safeT);
+      padding-left: calc(14px + var(--safeL));
+      padding-right: calc(14px + var(--safeR));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.72));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,.07);
+
+      transform: translateZ(0);
+      opacity: 1;
+      pointer-events: auto;
+      will-change: transform;
+    }
+
+    .bar-title{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+
+      opacity: 0;
+      transform: translate3d(0, -6px, 0);
+      filter: blur(1.2px);
+      pointer-events: none;
+
+      transition:
+        opacity 520ms cubic-bezier(.14, 1, .16, 1),
+        transform 520ms cubic-bezier(.14, 1, .16, 1),
+        filter 520ms cubic-bezier(.14, 1, .16, 1);
+    }
+    .topbar.show-brand .bar-title{
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+      pointer-events: auto;
+    }
+
+    .logo-mark{
+      width: 32px;
+      height: 32px;
+      background: var(--brand);
+      flex: 0 0 auto;
+      transform: translateZ(0);
+    }
+    .logo-img{
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      display:block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      transform: translateZ(0);
+      flex: 0 0 auto;
+    }
+    @supports ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
+      .logo-img{ display:none; }
+      .logo-mark{
+        -webkit-mask-image: url("imagens/Logo.PNG");
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        -webkit-mask-size: contain;
+
+        mask-image: url("imagens/Logo.PNG");
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+      }
+    }
+    @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
+      .logo-mark{ display:none; }
+    }
+    .bar-title .bar-name{
+      font-family: var(--titleFont);
+      font-weight: 900;
+      letter-spacing: -0.014em;
+      color: var(--brand);
+      font-size: 18px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .menu-btn{
+      appearance: none;
+      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.52);
+      border-radius: 999px;
+      padding: 10px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+      z-index: 810;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .menu-btn:hover{ background: rgba(255,255,255,.68); box-shadow: 0 14px 34px rgba(0,0,0,.09); }
+    .menu-btn:active{ transform: translateY(1px); }
+
+    .burger{ width: 18px; height: 12px; position: relative; display:block; }
+    .burger span{
+      position: absolute; left:0; right:0;
+      height: 2px; background: rgba(17,17,17,.64); border-radius: 999px;
+      transition: transform .28s cubic-bezier(.2,.9,.2,1), top .28s cubic-bezier(.2,.9,.2,1), bottom .28s cubic-bezier(.2,.9,.2,1), opacity .2s ease;
+    }
+    .burger span:nth-child(1){ top:0; }
+    .burger span:nth-child(2){ top:5px; }
+    .burger span:nth-child(3){ bottom:0; }
+    .menu-btn.is-open .burger span:nth-child(1){ transform: rotate(45deg); top: 5px; }
+    .menu-btn.is-open .burger span:nth-child(2){ opacity: 0; }
+    .menu-btn.is-open .burger span:nth-child(3){ transform: rotate(-45deg); bottom: 5px; }
+
+    /* ========================= MENU OVERLAY ========================= */
+    .overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 520ms cubic-bezier(.16,1,.18,1), visibility 520ms cubic-bezier(.16,1,.18,1);
+    }
+    .overlay.is-open{
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .overlay-bg{
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(900px 600px at 75% 18%, rgba(0,0,0,.18), rgba(0,0,0,0) 62%),
+        rgba(10, 12, 14, .18);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+      opacity: 0;
+      transition: opacity 520ms cubic-bezier(.16,1,.18,1);
+    }
+    .overlay.is-open .overlay-bg{ opacity: 1; }
+
+    .drawer{
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: min(360px, calc(100vw - 64px));
+      padding:
+        calc(18px + var(--safeT))
+        calc(18px + var(--safeR))
+        calc(18px + var(--safeB))
+        18px;
+
+      background: rgba(255,255,255, 0.52);
+      backdrop-filter: blur(26px) saturate(1.12);
+      -webkit-backdrop-filter: blur(26px) saturate(1.12);
+
+      border-left: 1px solid rgba(0,0,0,.07);
+      box-shadow: 0 22px 72px rgba(0,0,0,.18);
+
+      transform: translateX(34px) scale(.985);
+      opacity: 0;
+
+      transition:
+        transform 720ms cubic-bezier(.16,1,.18,1),
+        opacity  420ms cubic-bezier(.16,1,.18,1);
+
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      border-top-left-radius: 24px;
+      border-bottom-left-radius: 24px;
+      overflow: hidden;
+    }
+    .drawer::after{
+      content:"";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 38%),
+        radial-gradient(1200px 520px at 20% 0%, rgba(255,255,255,.18), rgba(255,255,255,0) 55%);
+      mix-blend-mode: screen;
+      opacity: .9;
+    }
+    .drawer .grain{
+      position: absolute;
+      inset:-60%;
+      pointer-events: none;
+      opacity: .07;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      transform: rotate(8deg);
+    }
+    .overlay.is-open .drawer{
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+
+    .drawer-head{
+      position: relative;
+      z-index: 1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 10px 10px 12px 10px;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+    }
+    .drawer-brand{ display:flex; flex-direction: column; line-height: 1.05; }
+    .drawer-brand strong{
+      font-family: var(--titleFont);
+      font-weight: 900;
+      color: var(--brand);
+      letter-spacing: -0.014em;
+      font-size: 18px;
+    }
+    .drawer-brand span{
+      font-size: 12px;
+      color: rgba(20,28,32,.78);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-family: var(--bodyFont);
+    }
+
+    .close-btn{
+      appearance: none;
+      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.40);
+      border-radius: 999px;
+      width: 40px;
+      height: 40px;
+      display:grid;
+      place-items: center;
+      cursor:pointer;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+      box-shadow: 0 12px 26px rgba(0,0,0,.08);
+      position: relative;
+      z-index: 1;
+    }
+    .close-btn:hover{ background: rgba(255,255,255,.55); box-shadow: 0 16px 34px rgba(0,0,0,.10); }
+    .close-btn:active{ transform: translateY(1px); }
+    .close-x{ width: 14px; height: 14px; position: relative; }
+    .close-x::before, .close-x::after{
+      content:"";
+      position: absolute; inset: 0; margin:auto;
+      width: 14px; height: 2px;
+      background: rgba(17,17,17,.58);
+      border-radius: 999px;
+    }
+    .close-x::before{ transform: rotate(45deg); }
+    .close-x::after{ transform: rotate(-45deg); }
+
+    .drawer-nav{
+      position: relative;
+      z-index: 1;
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 6px 2px;
+    }
+    .drawer-nav a{
+      text-decoration: none;
+      color: rgba(20,28,32,.92);
+      font-size: 14px;
+      font-weight: 650;
+      padding: 12px 12px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+
+      background: rgba(255,255,255,.20);
+      border: 1px solid rgba(0,0,0,.055);
+      box-shadow: 0 10px 24px rgba(0,0,0,.055);
+
+      opacity: 0;
+      transform: translate3d(34px, 0, 0) scaleX(.78);
+      transform-origin: right center;
+      filter: blur(1.1px);
+      transition:
+        transform 820ms cubic-bezier(.16, 1, .16, 1),
+        opacity  820ms cubic-bezier(.16, 1, .16, 1),
+        filter   820ms cubic-bezier(.16, 1, .16, 1);
+      font-family: var(--bodyFont);
+    }
+    .overlay.is-open .drawer-nav a{
+      opacity: 1;
+      transform: translate3d(0,0,0) scaleX(1);
+      filter: blur(0);
+      transition-delay: calc(110ms + (var(--i, 0) * 70ms));
+    }
+
+    .menu-logo{
+      position: relative;
+      z-index: 1;
+      margin-top: 8px;
+      padding: 6px 6px 2px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      opacity: 0;
+      transform: translate3d(16px, 0, 0);
+      filter: blur(1.6px);
+      transition: opacity 760ms cubic-bezier(.16,1,.18,1), transform 760ms cubic-bezier(.16,1,.18,1), filter 760ms cubic-bezier(.16,1,.18,1);
+    }
+    .overlay.is-open .menu-logo{
+      opacity: 1;
+      transform: translate3d(0,0,0);
+      filter: blur(0);
+      transition-delay: calc(110ms + (7 * 70ms));
+    }
+    .menu-logo .logo-box{
+      width: min(230px, 82%);
+      height: 112px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .menu-logo img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: .92;
+      display:block;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.11));
+    }
+
+    /* ========================= REVEAL DO SITE ========================= */
+    .site{
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translate3d(0, 10px, 0) scale(.995);
+      filter: blur(1.8px);
+      transition:
+        opacity 980ms cubic-bezier(.14,1,.16,1),
+        transform 980ms cubic-bezier(.14,1,.16,1),
+        filter 980ms cubic-bezier(.14,1,.16,1);
+      will-change: opacity, transform, filter;
+    }
+    body.is-ready .site{
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      filter: blur(0);
+    }
+
+    /* ===== HERO ===== */
+    .hero-stage{
+      position: relative;
+      z-index: 2;
+      height: 100vh;
+      height: 100svh;
+      height: 100dvh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:
+        calc(22px + var(--safeT))
+        calc(var(--padX) + var(--safeR))
+        calc(26px + var(--safeB))
+        calc(var(--padX) + var(--safeL));
+    }
+    .hero{ width: 100%; max-width: 1200px; position: relative; }
+
+    .content{
+      width: 100%;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    @media (min-width: 980px){
+      .content { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+
+    .brand{
+      text-align: center;
+      will-change: transform, opacity, filter;
+      transform: translate3d(0, calc(var(--nameY, 0px)), 0);
+      opacity: var(--nameO, 1);
+      filter: blur(var(--nameB, 0px));
+      transition:
+        transform var(--easeDurName) cubic-bezier(.14, 1, .18, 1),
+        opacity  var(--easeDurName) ease,
+        filter   var(--easeDurName) ease;
+    }
+    @media (min-width: 980px){ .brand{ text-align:left; } }
+    .brand .name{
+      font-family: var(--titleFont);
+      font-weight: 900;
+      font-size: clamp(52px, 8vw, 130px);
+      line-height: 0.95;
+      color: var(--brand);
+      letter-spacing: -0.02em;
+      text-shadow: 0 14px 34px rgba(0,0,0,.08), 0 2px 0 rgba(255,255,255,.10);
+    }
+    .brand .name .namewrap{
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 10px;
+    }
+    @media (min-width: 980px){ .brand .name .namewrap{ align-items:flex-start; } }
+
+    .role{
+      text-align:center;
+      margin-top: 20px;
+      will-change: transform, opacity, filter;
+      transform: translate3d(0, calc(var(--roleY, 0px)), 0);
+      opacity: var(--roleO, 1);
+      filter: blur(var(--roleB, 0px));
+      transition:
+        transform var(--easeDurRole) cubic-bezier(.14, 1, .18, 1),
+        opacity  var(--easeDurRole) ease,
+        filter   var(--easeDurRole) ease;
+    }
+    @media (min-width: 980px){
+      .role { text-align:right; margin-top: 0; margin-left: 40px; max-width: 420px; }
+    }
+    .role .pill{
+      display:inline-block;
+      font-weight: 600;
+      font-size: clamp(14px, 1.5vw, 20px);
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-family: var(--bodyFont);
+    }
+
+    /* ===== Card base ===== */
+    .glass-card{
+      border-radius: 18px;
+      background: rgba(255,255,255, 0.52);
+      border: 1px solid rgba(0,0,0,.055);
+      box-shadow: 0 18px 54px rgba(0,0,0,.10);
+      backdrop-filter: blur(16px) saturate(1.08);
+      -webkit-backdrop-filter: blur(16px) saturate(1.08);
+      overflow: hidden;
+      position: relative;
+    }
+    .glass-card::before{
+      content:"";
+      position:absolute;
+      inset:-60% -40%;
+      pointer-events:none;
+      background:
+        radial-gradient(closest-side at 14% 18%, rgba(26,93,102,.12), rgba(26,93,102,0) 62%),
+        radial-gradient(closest-side at 80% 60%, rgba(255,255,255,.26), rgba(255,255,255,0) 60%);
+      opacity: .55;
+    }
+
+    .card-inner{
+      position: relative;
+      padding: calc(var(--cardPad) + 6px) calc(var(--cardPad) + 4px);
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card-kicker{
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.70);
+      font-family: var(--bodyFont);
+    }
+    .card-title{
+      margin: 0;
+      font-family: var(--titleFont);
+      font-weight: 900;
+      color: var(--brand);
+      font-size: clamp(22px, 2.2vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+    .card-text{
+      margin: 0;
+      color: var(--softInk);
+      line-height: var(--paraLine);
+      font-size: var(--paraSize);
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
+
+    /* ===== SCROLL INTERNO ===== */
+    .card-scroll{
+      position: relative;
+      max-height: var(--cardScrollMaxH);
+      overflow: auto;
+      padding-top: var(--cardScrollTopPad);
+      padding-bottom: var(--cardScrollBottomPad);
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    .card-scroll::-webkit-scrollbar{ width: 10px; }
+    .card-scroll::-webkit-scrollbar-track{ background: transparent; }
+    .card-scroll::-webkit-scrollbar-thumb{
+      background: rgba(0,0,0,.10);
+      border-radius: 999px;
+      border: 3px solid rgba(255,255,255,.35);
+    }
+    .card-scroll::before,
+    .card-scroll::after{
+      content:"";
+      position: sticky;
+      left: 0; right: 0;
+      height: 26px;
+      pointer-events: none;
+      z-index: 2;
+      display:block;
+    }
+    .card-scroll::before{
+      top: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,0));
+      margin-top: calc(var(--cardScrollTopPad) * -1);
+    }
+    .card-scroll::after{
+      bottom: 0;
+      background: linear-gradient(0deg, rgba(255,255,255,.92), rgba(255,255,255,0));
+      margin-bottom: calc(var(--cardScrollBottomPad) * -1);
+    }
+    .card--about .card-scroll::before,
+    .card--about .card-scroll::after{ display:none; }
+
+    /* ========================= SOBRE ========================= */
+    .about{
+      display: grid;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .about .editorial{
+      display:grid;
+      grid-template-columns: 190px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (min-width: 720px){
+      .about .editorial{ grid-template-columns: 220px 1fr; gap: 16px; }
+    }
+    @media (max-width: 420px){
+      .about .editorial{ grid-template-columns: 1fr; }
+    }
+
+    .about .portrait{
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 14px 32px rgba(0,0,0,.08);
+      aspect-ratio: 3 / 4;
+      min-height: 220px;
+    }
+    .about .portrait img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.02) contrast(1.02);
+      transform: scale(1.02);
+    }
+
+    .about .lead{
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 10px 22px rgba(0,0,0,.04);
+      display:grid;
+      gap: 10px;
+    }
+    .about .lead p{
+      margin: 0;
+      color: var(--softInk);
+      line-height: 1.95;
+      font-size: var(--paraSize);
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
+    .about .lead strong{ color: rgba(26,93,102,.96); font-weight: 800; }
+
+    .about .grid{
+      display:grid;
+      gap: 10px;
+    }
+    @media (min-width: 720px){
+      .about .grid{ grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+
+    .about .box{
+      border-radius: 16px;
+      background: var(--softGlass);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 10px 22px rgba(0,0,0,.035);
+      padding: 14px 14px;
+    }
+    .about .box h3{
+      margin: 0 0 8px;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.78);
+      font-weight: 800;
+      font-family: var(--bodyFont);
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .about .box h3::before{
+      content:"";
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.18);
+      box-shadow: inset 0 0 0 1px rgba(26,93,102,.18);
+      flex: 0 0 auto;
+    }
+
+    .about .box p{
+      margin: 0;
+      color: var(--softInk);
+      line-height: 1.95;
+      font-size: var(--paraSize);
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
+    .about ul{
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 6px;
+    }
+    .about li{
+      color: var(--softInk);
+      line-height: 1.75;
+      font-size: var(--paraSize);
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
+
+    .skills-grid{
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    @media (min-width: 640px){
+      .skills-grid{
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 22px;
+      }
+    }
+    .skill-item{
+      position: relative;
+      padding-left: 14px;
+      font-size: var(--paraSize);
+      font-family: var(--bodyFont);
+      font-weight: 600;
+      color: var(--softInk);
+      letter-spacing: .01em;
+      line-height: 1.8;
+    }
+    .skill-item::before{
+      content:"";
+      position:absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.35);
+      box-shadow: 0 0 0 3px rgba(26,93,102,.08);
+    }
+
+    .edu-timeline{
+      position: relative;
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+      padding-left: 14px;
+    }
+    .edu-timeline::before{
+      content:"";
+      position:absolute;
+      left: 6px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(26,93,102,.22), rgba(26,93,102,.06));
+      border-radius: 999px;
+    }
+
+    .edu-item{
+      position: relative;
+      display:grid;
+      gap: 8px;
+      padding: 12px 12px 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 10px 18px rgba(0,0,0,.03);
+    }
+    .edu-item::before{
+      content:"";
+      position:absolute;
+      left: -14px;
+      top: 16px;
+      width: 12px; height: 12px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.22);
+      box-shadow: 0 0 0 4px rgba(26,93,102,.10);
+    }
+
+    .edu-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .edu-main{
+      min-width: 0;
+      display:grid;
+      gap: 2px;
+    }
+    .edu-name{
+      font-weight: 800;
+      color: rgba(26,93,102,.98);
+      letter-spacing: -0.01em;
+      font-size: 13.5px;
+      line-height: 1.25;
+    }
+    .edu-inst{
+      color: rgba(20,28,32,.82);
+      font-size: 12.5px;
+      line-height: 1.45;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .edu-meta{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+    .edu-year{
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.62);
+      font-weight: 700;
+    }
+    .edu-tag{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.08);
+      border: 1px solid rgba(26,93,102,.16);
+      color: rgba(26,93,102,.92);
+      font-weight: 800;
+      font-size: 10.5px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+    .edu-desc{
+      color: rgba(20,28,32,.84);
+      font-size: 13px;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .about .cta-soft{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(26,93,102,.14);
+      color: rgba(26,93,102,.92);
+      font-weight: 750;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      width: fit-content;
+      margin-top: 2px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.035);
+      font-family: var(--bodyFont);
+    }
+    .about .cta-soft .dot{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: rgba(26,93,102,.32);
+      box-shadow: 0 0 0 3px rgba(26,93,102,.10);
+    }
+
+    .card-scroll .end-spacer{ height: var(--cardEndSpacer); }
+
+    /* TRACK */
+    .cards-track{
+      position: relative;
+      z-index: 2;
+      padding:
+        calc(var(--cardStickyTop) + 10px)
+        calc(var(--padX) + var(--safeR))
+        calc(56px + var(--safeB))
+        calc(var(--padX) + var(--safeL));
+    }
+    .cards-track .track-spacer{ height: 260vh; }
+
+    .cards-stage{
+      position: sticky;
+      top: var(--cardStickyTop);
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+      height: calc(100vh - var(--cardStickyTop) - 12px);
+      min-height: 520px;
+    }
+
+    @keyframes cardFloat{
+      0%,100%{ transform: translate3d(var(--tx,0px), var(--ty,0px), 0) scale(var(--ts,1)); }
+      50%{ transform: translate3d(var(--tx,0px), calc(var(--ty,0px) - var(--cardFloatAmp)), 0) scale(var(--ts,1)); }
+    }
+
+    .section-card{
+      grid-area: 1 / 1;
+      position: relative;
+
+      width: min(var(--cardMaxW), calc(var(--wPx, 160) * 1px));
+      opacity: var(--o, 0);
+      filter: blur(calc((1 - var(--p,0)) * 0.85px));
+
+      --tx: calc(var(--xPx, 0) * 1px);
+      --ty: calc(var(--yPx, 0) * 1px);
+      --ts: var(--s, 0.992);
+
+      transform: translate3d(var(--tx), var(--ty), 0) scale(var(--ts));
+
+      will-change: transform, opacity, filter, width;
+      pointer-events: none;
+
+      border-radius: calc(18px + (var(--p,0) * 10px));
+    }
+    .section-card.is-active{
+      pointer-events: auto;
+      animation: cardFloat var(--cardFloatDur) ease-in-out infinite;
+    }
+
+    body.is-locked{ overflow: hidden; touch-action: none; }
+
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .tree, .tree img{ animation:none !important; }
+      .tree::after{ animation:none; opacity: 0; }
+      .loader, .site, .brand, .role{ transition:none !important; }
+      .section-card.is-active{ animation: none !important; }
+
+      .cards-stage{ position: static; height: auto; }
+      .section-card{
+        grid-area: auto;
+        position: static !important;
+        opacity: 1 !important;
+        filter:none !important;
+        transform:none !important;
+        pointer-events: auto !important;
+        width: min(760px, 100%) !important;
+        margin: 18px auto;
+      }
+      .cards-track .track-spacer{ height: auto !important; }
+      .card-scroll{ max-height: none !important; overflow: visible !important; }
+    }
+  </style>
+</head>
+
+<body class="is-loading">
+  <!-- LOADER -->
+  <div class="loader" id="loader" aria-label="Carregando" role="status" aria-live="polite">
+    <div class="loader-wrap">
+      <div class="loader-logoMark" aria-hidden="true"></div>
+      <img class="loader-fallbackImg" src="imagens/Logo.PNG" alt="Logo Káren Patussi">
+      <p class="loader-sub">Carregando</p>
+    </div>
+  </div>
+
+  <!-- Árvore fixa -->
+  <div class="bg-stage" aria-hidden="true">
+    <div class="tree">
+      <img src="imagens/Tree ring hero.png" alt="">
+    </div>
+  </div>
+
+  <!-- TOPBAR -->
+  <header class="topbar" id="topbar" aria-label="Barra superior">
+    <div class="bar-title" id="barTitle">
+      <span class="logo-mark" aria-hidden="true"></span>
+      <img class="logo-img" src="imagens/Logo.PNG" alt="Logo">
+      <span class="bar-name">Káren Patussi</span>
+    </div>
+
+    <button class="menu-btn" id="openMenu" type="button" aria-label="Abrir menu" aria-controls="menuOverlay" aria-expanded="false">
+      <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </header>
+
+  <!-- MENU OVERLAY -->
+  <div class="overlay" id="menuOverlay" aria-hidden="true">
+    <div class="overlay-bg" id="overlayBg" aria-hidden="true"></div>
+
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="Menu" tabindex="-1" id="drawer">
+      <span class="grain" aria-hidden="true"></span>
+
+      <div class="drawer-head">
+        <div class="drawer-brand" aria-hidden="true">
+          <strong>Káren Patussi</strong>
+          <span>Menu</span>
+        </div>
+        <button class="close-btn" id="closeMenu" type="button" aria-label="Fechar menu">
+          <span class="close-x" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <nav class="drawer-nav" aria-label="Navegação">
+        <a href="#home" data-link data-index="-1">Home</a>
+        <a href="#sobre" data-link data-index="0">Sobre</a>
+        <a href="#como-funciona" data-link data-index="1">Como funciona</a>
+        <a href="#areas" data-link data-index="2">Áreas de atuação</a>
+        <a href="#faq" data-link data-index="3">FAQ</a>
+        <a href="#contato" data-link data-index="4">Contato</a>
+      </nav>
+
+      <div class="menu-logo" aria-hidden="true">
+        <div class="logo-box">
+          <img src="imagens/Logo.PNG" alt="">
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- SITE -->
+  <div class="site" id="siteRoot">
+    <!-- HERO -->
+    <main id="home" class="hero-stage" aria-label="Hero">
+      <section class="hero" aria-label="Identidade">
+        <div class="content">
+          <div class="brand" id="brand" aria-label="Káren Patussi">
+            <div class="name">
+              <span class="namewrap">
+                <span>Káren</span>
+                <span>Patussi</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="role" id="role" aria-label="Psicóloga e terapeuta sexual">
+            <span class="pill">Psicóloga &amp; Terapeuta Sexual</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- TRACK -->
+    <section class="cards-track" id="cardsTrack" aria-label="Conteúdo">
+      <div class="cards-stage" id="cardsStage">
+
+                <!-- SOBRE -->
+        <article class="section-card glass-card card--about" data-card data-origin="tl" id="sobre">
+          <div class="card-inner">
+            <div class="card-kicker">Quem eu sou</div>
+            <h2 class="card-title">Sobre</h2>
+
+            <div class="card-scroll" data-scroll>
+              <div class="about">
+
+                <div class="editorial" aria-label="Foto e síntese">
+                  <div class="portrait" aria-label="Foto da psicóloga">
+                    <img
+                      src="imagens/Foto Karen Sobre.png"
+                      alt="Foto profissional da psicóloga">
+                  </div>
+
+                  <div class="lead" aria-label="Síntese profissional">
+                    <p>
+                      Sou psicóloga com mais de <strong>20 anos de atuação profissional</strong> nas esferas pública e privada, com vasta experiência no atendimento a <strong>crianças, adolescentes, adultos, casais e famílias</strong>. Ao longo da minha trajetória, especializei-me em <strong>Terapia Sexual</strong>, <strong>Psicoterapia Sistêmica</strong> e em <strong>Estudos de Gênero</strong>, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura.
+                    </p>
+                    <p>
+                      Para além de certificações internacionais, a vivência de ter residido em <strong>outros três países</strong> proporcionou-me uma imersão cultural aprofundada, conferindo-me uma sensibilidade fenomenológica diferenciada. Bagagem esta que considero fundamental para o acolhimento ético de populações em transição, <strong>migrantes e expatriados</strong>.
+                    </p>
+                    <p>
+                      Mantendo um compromisso rigoroso com a atualização técnica e a excelência clínica, sou membro da <strong>Sociedade Brasileira de Estudos em Sexualidade Humana (SBRASH)</strong> e da <strong>Sociedade Portuguesa de Sexologia Clínica (SPSC)</strong>. Atualmente, dedico minha prática ao atendimento de <strong>adultos, casais e famílias</strong>, integrando ética, técnica e sensibilidade humana no cuidado em saúde mental.
+                    </p>
+                  </div>
+                </div>
+
+                <section class="box" aria-label="Formação acadêmica e complementar">
+                  <h3>Formação</h3>
+
+                  <div class="edu-timeline" aria-label="Linha do tempo de formação">
+
+                    <div class="edu-item">
+                      <div class="edu-top">
+                        <div class="edu-main">
+                          <div class="edu-name">Psicologia</div>
+                          <div class="edu-inst">Universidade de Passo Fundo</div>
+                        </div>
+                        <div class="edu-meta">
+                          <span class="edu-tag">Graduação</span>
+                          <span class="edu-year">2001–2005</span>
+                        </div>
+                      </div>
+                      <div class="edu-desc">Base clínica e formação universitária em Psicologia.</div>
+                    </div>
+
+                    <div class="edu-item">
+                      <div class="edu-top">
+                        <div class="edu-main">
+                          <div class="edu-name">Gestão Ambiental, Economia e Meio Ambiente</div>
+                          <div class="edu-inst">Universidade de Passo Fundo</div>
+                        </div>
+                        <div class="edu-meta">
+                          <span class="edu-tag">Pós</span>
+                          <span class="edu-year">2009–2011</span>
+                        </div>
+                      </div>
+                      <div class="edu-desc">Pós-graduação com foco em contexto socioambiental e impacto na vida coletiva.</div>
+                    </div>
+
+                    <div class="edu-item">
+                      <div class="edu-top">
+                        <div class="edu-main">
+                          <div class="edu-name">Sexualidade Humana e Terapia Sexual</div>
+                          <div class="edu-inst">IPHEM/RJ e ELO/Passo Fundo</div>
+                        </div>
+                        <div class="edu-meta">
+                          <span class="edu-tag">Especialização</span>
+                          <span class="edu-year">2019–2022</span>
+                        </div>
+                      </div>
+                      <div class="edu-desc">Formação clínica e técnica em sexualidade humana e terapia sexual.</div>
+                    </div>
+
+                    <div class="edu-item">
+                      <div class="edu-top">
+                        <div class="edu-main">
+                          <div class="edu-name">Estudos sobre as Mulheres</div>
+                          <div class="edu-inst">Universidade Nova de Lisboa (Lato Sensu)</div>
+                        </div>
+                        <div class="edu-meta">
+                          <span class="edu-tag">Pós</span>
+                          <span class="edu-year">2023–2024</span>
+                        </div>
+                      </div>
+                      <div class="edu-desc">Mulheres na sociedade e na cultura: repertório crítico e contemporâneo.</div>
+                    </div>
+
+                  </div>
+                </section>
+
+                <div class="end-spacer" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- COMO FUNCIONA -->
+        <article class="section-card glass-card" data-card data-origin="tr" id="como-funciona">
+          <div class="card-inner">
+            <div class="card-kicker">Fluxo</div>
+            <h2 class="card-title">Como funciona</h2>
+
+            <div class="card-scroll" data-scroll>
+              <p class="card-text">
+                O processo começa com um acolhimento da sua demanda e do seu momento atual. A partir daí, definimos objetivos terapêuticos,
+                combinamos o formato (frequência, modalidade e sigilo) e acompanhamos os avanços com ajustes ao longo do caminho.
+              </p>
+
+              <div class="about" aria-label="Abordagem e cuidado">
+                <div class="grid">
+                  <section class="box" aria-label="Como trabalho">
+                    <h3>Como trabalho</h3>
+                    <p>
+                      Ofereço um espaço <strong>seguro, ético e acolhedor</strong>, onde você pode falar sem julgamentos,
+                      compreender sua história e construir formas mais saudáveis de se relacionar consigo e com o outro.
+                      O processo respeita seu <strong>ritmo</strong>, seus <strong>limites</strong> e sua singularidade.
+                    </p>
+                  </section>
+                </div>
+              </div>
+
+              <div class="end-spacer" aria-hidden="true"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ÁREAS -->
+        <article class="section-card glass-card" data-card data-origin="ml" id="areas">
+          <div class="card-inner">
+            <div class="card-kicker">Atuação clínica</div>
+            <h2 class="card-title">Áreas de atuação</h2>
+
+            <div class="card-scroll" data-scroll>
+              <p class="card-text">
+                Acompanho questões como ansiedade, autoestima, conflitos de relacionamento, comunicação afetiva, bloqueios emocionais,
+                disfunções sexuais e processos de redescoberta pessoal — sempre com ética, sigilo e respeito à individualidade.
+              </p>
+
+              <div class="end-spacer" aria-hidden="true"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FAQ -->
+        <article class="section-card glass-card" data-card data-origin="mr" id="faq">
+          <div class="card-inner">
+            <div class="card-kicker">Dúvidas comuns</div>
+            <h2 class="card-title">FAQ</h2>
+
+            <div class="card-scroll" data-scroll>
+              <p class="card-text">
+                Aqui entram respostas objetivas e elegantes: duração das sessões, formato, sigilo, cancelamento, indicação e como iniciar.
+              </p>
+
+              <div class="end-spacer" aria-hidden="true"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CONTATO -->
+        <article class="section-card glass-card" data-card data-origin="bl" id="contato">
+          <div class="card-inner">
+            <div class="card-kicker">Agendamento</div>
+            <h2 class="card-title">Contato</h2>
+
+            <div class="card-scroll" data-scroll>
+              <p class="card-text">
+                Adicione aqui seu WhatsApp, e-mail e um CTA curto (ex.: “Vamos conversar?”). Posso colocar botões depois (sem poluir),
+                mantendo o visual premium.
+              </p>
+
+              <div class="end-spacer" aria-hidden="true"></div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="track-spacer" aria-hidden="true"></div>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+
+      const loader = document.getElementById("loader");
+      const topbar = document.getElementById("topbar");
+
+      const overlay = document.getElementById("menuOverlay");
+      const openBtn = document.getElementById("openMenu");
+      const closeBtn = document.getElementById("closeMenu");
+      const overlayBg = document.getElementById("overlayBg");
+      const drawer = document.getElementById("drawer");
+      const links = Array.from(document.querySelectorAll(".drawer-nav a[data-link]"));
+
+      const heroStage = document.getElementById("home");
+      const cardsTrack = document.getElementById("cardsTrack");
+      const cards = Array.from(document.querySelectorAll("[data-card]"));
+
+      const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+      const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function getMsVar(name, fallbackMs){
+        const raw = getComputedStyle(root).getPropertyValue(name).trim();
+        if(!raw) return fallbackMs;
+        if(raw.endsWith("ms")){ const n = parseFloat(raw); return Number.isFinite(n) ? n : fallbackMs; }
+        if(raw.endsWith("s")){ const n = parseFloat(raw); return Number.isFinite(n) ? (n*1000) : fallbackMs; }
+        const n = parseFloat(raw);
+        return Number.isFinite(n) ? n : fallbackMs;
+      }
+      function getNumVar(name, fallback){
+        const v = getComputedStyle(root).getPropertyValue(name).trim();
+        const n = parseFloat(v);
+        return Number.isFinite(n) ? n : fallback;
+      }
+
+      links.forEach((a, i) => a.style.setProperty("--i", String(i)));
+
+      function finishLoader(){
+        if(!loader) return;
+        document.body.classList.add("is-ready");
+        loader.classList.add("is-hidden");
+        document.body.classList.remove("is-loading");
+        const fade = getMsVar("--loaderFade", 820);
+        window.setTimeout(() => { loader.style.display = "none"; }, Math.max(560, fade + 80));
+      }
+      const LOADER_DUR = getMsVar("--loaderDur", 3000);
+      window.addEventListener("load", () => window.setTimeout(finishLoader, Math.max(3000, LOADER_DUR)), { once: true });
+      if(document.readyState === "complete") window.setTimeout(finishLoader, Math.max(3000, LOADER_DUR));
+      window.addEventListener("pageshow", (e) => { if(e.persisted) finishLoader(); });
+
+      function openMenu(){
+        if(overlay.classList.contains("is-open")) return;
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden","false");
+        openBtn.setAttribute("aria-expanded", "true");
+        openBtn.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => {
+          const first = drawer.querySelector(".drawer-nav a[data-link]");
+          (first || drawer).focus();
+        }, 0);
+      }
+      function closeMenu(){
+        if(!overlay.classList.contains("is-open")) return;
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden","true");
+        openBtn.setAttribute("aria-expanded", "false");
+        openBtn.classList.remove("is-open");
+        document.body.style.overflow = "";
+      }
+      openBtn.addEventListener("click", () => overlay.classList.contains("is-open") ? closeMenu() : openMenu());
+      closeBtn.addEventListener("click", closeMenu);
+      overlayBg.addEventListener("click", closeMenu);
+      window.addEventListener("keydown", (e) => { if(e.key === "Escape" && overlay.classList.contains("is-open")) closeMenu(); });
+
+      /* =========================
+         HERO: 1 scroll = nome some; frase some automaticamente
+         ========================= */
+      let step = 0, accum = 0, locked = false, animating = false, lastDir = 0, cooldownUntil = 0;
+      let flowStarted = false;
+
+      let autoRoleTimer = 0;
+      let autoRolePending = false;
+
+      function inHeroViewport(){
+        const r = heroStage.getBoundingClientRect();
+        const vh = window.innerHeight || 800;
+        return (r.top <= vh * 0.35 && r.bottom >= vh * 0.65);
+      }
+      function lockBody(){
+        if(locked) return;
+        locked = true;
+        document.body.classList.add("is-locked");
+      }
+      function unlockBody(){
+        locked = false;
+        document.body.classList.remove("is-locked");
+      }
+
+      function applyHeroState(){
+        const liftName = getNumVar("--liftName", 140);
+        const liftRole = getNumVar("--liftRole", 120);
+        const blurMax  = getNumVar("--fadeBlur", 1.6);
+
+        let nameY = 0, nameO = 1, nameB = 0;
+        let roleY = 0, roleO = 1, roleB = 0;
+
+        if(step >= 1){ nameY = -liftName; nameO = 0; nameB = blurMax; }
+        if(step >= 2){ roleY = -liftRole; roleO = 0; roleB = blurMax * 0.9; }
+
+        root.style.setProperty("--nameY", nameY + "px");
+        root.style.setProperty("--nameO", String(nameO));
+        root.style.setProperty("--nameB", nameB + "px");
+
+        root.style.setProperty("--roleY", roleY + "px");
+        root.style.setProperty("--roleO", String(roleO));
+        root.style.setProperty("--roleB", roleB + "px");
+
+        topbar.classList.toggle("show-brand", flowStarted || step >= 1);
+      }
+
+      function setCooldown(){
+        const cd = getMsVar("--stepCooldown", 70);
+        cooldownUntil = performance.now() + cd;
+      }
+
+      function stepDurationMs(nextStep){
+        if(nextStep === 1) return getMsVar("--easeDurName", 900);
+        if(nextStep === 2) return getMsVar("--easeDurRole", 1500);
+        return 900;
+      }
+
+      function clearAutoRole(){
+        if(autoRoleTimer) window.clearTimeout(autoRoleTimer);
+        autoRoleTimer = 0;
+        autoRolePending = false;
+      }
+
+      function scheduleAutoRole(){
+        if(step !== 1) return;
+        if(autoRolePending) return;
+        autoRolePending = true;
+
+        const nameDur = stepDurationMs(1);
+        autoRoleTimer = window.setTimeout(() => {
+          autoRoleTimer = 0;
+          autoRolePending = false;
+          if(flowStarted) return;
+
+          lockBody();
+          animateToStep(2).then(() => unlockBody());
+        }, Math.max(320, nameDur + 80));
+      }
+
+      function animateToStep(next){
+        if(animating) return Promise.resolve();
+        animating = true;
+
+        const dur = stepDurationMs(next);
+        step = clamp(next, 0, 3);
+
+        applyHeroState();
+        setCooldown();
+
+        if(step === 1) scheduleAutoRole();
+        else clearAutoRole();
+
+        return new Promise((resolve) => {
+          window.setTimeout(() => {
+            animating = false;
+            if(step < 3) unlockBody();
+            if(step >= 3) handoffToCards();
+            resolve();
+          }, dur + 40);
+        });
+      }
+
+      function handleDelta(deltaY){
+        const now = performance.now();
+        if(now < cooldownUntil) return;
+
+        const deadZone = Math.max(0, getNumVar("--deadZone", 2.5));
+        if(Math.abs(deltaY) < deadZone) return;
+
+        const dir = deltaY > 0 ? +1 : -1;
+        if(lastDir !== 0 && dir !== lastDir) accum = 0;
+        lastDir = dir;
+
+        const down = Math.max(160, getNumVar("--stepDistanceDown", 320));
+        const up   = Math.max(180, getNumVar("--stepDistanceUp", 380));
+
+        accum += deltaY;
+
+        if(accum >= down){
+          accum = 0;
+
+          if(step === 1 && autoRolePending) return;
+
+          if(step < 3){
+            lockBody();
+            animateToStep(step + 1);
+          }
+          return;
+        }
+
+        if(accum <= -up){
+          accum = 0;
+
+          if(step === 1 && autoRolePending) clearAutoRole();
+
+          if(step > 0){
+            lockBody();
+            animateToStep(step - 1);
+          }
+          return;
+        }
+      }
+
+      /* ========================= CARDS FLOW ========================= */
+      let sceneIndex = 0;
+      let phase = "closed";
+      let lockedUntil = 0;
+
+      let p = 0;
+      let pTarget = 0;
+
+      let raf = 0;
+      let lastFrame = performance.now();
+
+      let wheelAccum = 0;
+      let wheelLast = performance.now();
+
+      let pendingDir = +1;
+      let returnToHeroAfterClose = false;
+
+      function originVector(code){
+        const key = String(code || "ml").trim().toLowerCase();
+        switch(key){
+          case "tl": return { sx: -1, sy: -1 };
+          case "tr": return { sx: +1, sy: -1 };
+          case "mr": return { sx: +1, sy:  0 };
+          case "bl": return { sx: -1, sy: +1 };
+          case "ml":
+          default:   return { sx: -1, sy:  0 };
+        }
+      }
+
+      /* ✅ suavização mais “pluma” (mais lenta por frame) */
+      function smoothAlpha(lag){
+        const now = performance.now();
+        const dt = Math.min(0.05, Math.max(0.008, (now - lastFrame) / 1000));
+        lastFrame = now;
+
+        // k menor => aproxima mais devagar (mais sedoso)
+        const k = 8.0 * (1 - lag) + 2.8;
+        return 1 - Math.exp(-k * dt);
+      }
+
+      function setActiveCardClass(){
+        cards.forEach((c, i) => c.classList.toggle("is-active", flowStarted && i === sceneIndex && p >= 0.96));
+      }
+
+      function hideAllCards(){
+        for(const c of cards){
+          c.style.setProperty("--p","0");
+          c.style.setProperty("--o","0");
+          c.style.setProperty("--wPx","160");
+          c.style.setProperty("--xPx","0");
+          c.style.setProperty("--yPx","0");
+          c.style.setProperty("--s","0.992");
+          c.style.zIndex = "10";
+        }
+        setActiveCardClass();
+      }
+
+      function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+      function easeOutQuad(t){ return 1 - (1 - t) * (1 - t); }
+      function mix(a,b,t){ return a + (b - a) * t; }
+
+      function applyCardStyles(activeCard, pNow){
+        const vw = window.innerWidth || 1200;
+        const vh = window.innerHeight || 800;
+
+        const wFromVw = Math.max(4, getNumVar("--cardFromVw", 10));
+        const wFullVw = Math.max(wFromVw, getNumVar("--cardFullVw", 92));
+        const maxW = Math.max(760, getNumVar("--cardMaxW", 980));
+
+        const wFromPx = vw * (wFromVw / 100);
+        const wFullPx = Math.min(maxW, vw * (wFullVw / 100));
+
+        const edgeX = Math.max(0, getNumVar("--edgeMargin", 46));
+        const edgeY = Math.max(0, getNumVar("--edgeMarginY", 76));
+
+        // ✅ GARANTIA TOTAL: "Sobre" nasce do canto SUPERIOR ESQUERDO
+        const origin = (activeCard.id === "sobre")
+          ? { sx: -1, sy: -1 }
+          : originVector(activeCard.dataset.origin);
+
+        // ✅ sem “back/overshoot” (evita parecer que vem de baixo)
+        const tSlide = easeOutCubic(clamp(pNow, 0, 1));
+        const tFade  = easeOutQuad(clamp((pNow - 0.03) / 0.97, 0, 1));
+
+        const w = wFromPx + (wFullPx - wFromPx) * tSlide;
+
+        // ✅ start fora da tela com viés vertical mais “top-left”
+        const startX = (vw * 0.58) + (w * 0.55) + edgeX;
+
+        // importante: pro TL, usa um startY que “puxa” claramente de cima
+        const startYBase = (origin.sy < 0) ? (vh * 0.92 + edgeY) : (vh * 0.72 + edgeY);
+
+        const x = origin.sx * (1 - tSlide) * startX;
+        const y = origin.sy * (1 - tSlide) * startYBase;
+
+        const o = clamp(mix(0.02, 1.0, tFade), 0, 1);
+        const s = 0.992 + 0.008 * tSlide;
+
+        activeCard.style.setProperty("--p", pNow.toFixed(3));
+        activeCard.style.setProperty("--o", o.toFixed(3));
+        activeCard.style.setProperty("--wPx", w.toFixed(2));
+        activeCard.style.setProperty("--xPx", x.toFixed(2));
+        activeCard.style.setProperty("--yPx", y.toFixed(2));
+        activeCard.style.setProperty("--s", s.toFixed(4));
+        activeCard.style.zIndex = "30";
+
+        setActiveCardClass();
+      }
+
+      function scheduleRender(){
+        if(raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          render();
+        });
+      }
+
+      function canTrigger(){
+        if(prefersReduced()) return false;
+        if(overlay.classList.contains("is-open")) return false;
+        return performance.now() >= lockedUntil;
+      }
+
+      function setLock(){
+        const ms = Math.max(520, getMsVar("--sceneLockMs", 1350));
+        lockedUntil = performance.now() + ms;
+      }
+
+      function resetActiveScroll(){
+        const active = cards[sceneIndex];
+        if(!active) return;
+        const sc = active.querySelector("[data-scroll]");
+        if(sc) sc.scrollTop = 0;
+      }
+
+      function closeScene(){
+        phase = "closing";
+        pTarget = 0;
+        scheduleRender();
+      }
+
+      function handoffToCards(){
+        if(flowStarted) return;
+        flowStarted = true;
+        topbar.classList.add("show-brand");
+
+        lockBody();
+
+        const y = cardsTrack.getBoundingClientRect().top + window.scrollY;
+
+        // ✅ scroll instantâneo (evita “puxar” o card de baixo)
+        window.scrollTo({ top: y + 1, behavior: "auto" });
+
+        sceneIndex = 0;
+        pendingDir = +1;
+        returnToHeroAfterClose = false;
+
+        setLock();
+
+        p = 0;
+        pTarget = 0;
+        phase = "closed";
+        hideAllCards();
+        resetActiveScroll();
+
+        requestAnimationFrame(() => {
+          p = 0;
+          pTarget = 1;
+          phase = "opening";
+          scheduleRender();
+          unlockBody();
+        });
+      }
+
+      async function returnToHeroWithSameMotion(){
+        flowStarted = false;
+
+        clearAutoRole();
+        step = 2;
+        applyHeroState();
+        hideAllCards();
+
+        topbar.classList.remove("show-brand");
+
+        document.getElementById("home").scrollIntoView({ behavior:"smooth", block:"start" });
+
+        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+        lockBody();
+        await animateToStep(1);
+        await animateToStep(0);
+        unlockBody();
+      }
+
+      function requestNext(){
+        if(!canTrigger()) return;
+        if(phase === "opening") return;
+        setLock();
+        pendingDir = +1;
+        returnToHeroAfterClose = false;
+        closeScene();
+      }
+
+      function requestPrev(){
+        if(!canTrigger()) return;
+        if(phase === "opening") return;
+
+        if(sceneIndex === 0){
+          setLock();
+          pendingDir = -1;
+          returnToHeroAfterClose = true;
+          closeScene();
+          return;
+        }
+
+        setLock();
+        pendingDir = -1;
+        returnToHeroAfterClose = false;
+        closeScene();
+      }
+
+      function render(){
+        if(prefersReduced()){
+          hideAllCards();
+          if(flowStarted){
+            const c = cards[sceneIndex] || cards[0];
+            c.style.setProperty("--p","1");
+            c.style.setProperty("--o","1");
+            c.style.setProperty("--wPx","760");
+            c.style.setProperty("--xPx","0");
+            c.style.setProperty("--yPx","0");
+            c.style.setProperty("--s","1");
+            c.style.zIndex = "30";
+            setActiveCardClass();
+          }
+          return;
+        }
+
+        const aCard = smoothAlpha(clamp(getNumVar("--cardLag", 0.55), 0.18, 0.72));
+
+        p = p + (pTarget - p) * aCard;
+        if(Math.abs(p - pTarget) < 0.0014) p = pTarget;
+
+        hideAllCards();
+
+        if(flowStarted){
+          const active = cards[sceneIndex];
+          if(active) applyCardStyles(active, p);
+        }
+
+        if(phase === "opening" && p >= 1){
+          phase = "open";
+        }
+
+        if(phase === "closing" && p <= 0){
+          if(returnToHeroAfterClose){
+            returnToHeroAfterClose = false;
+            phase = "closed";
+            p = 0; pTarget = 0;
+            hideAllCards();
+            returnToHeroWithSameMotion();
+            return;
+          }
+
+          const nextIdx = clamp(sceneIndex + pendingDir, 0, cards.length - 1);
+          if(nextIdx !== sceneIndex){
+            sceneIndex = nextIdx;
+            phase = "opening";
+            pTarget = 1;
+            resetActiveScroll();
+          } else {
+            phase = "closed";
+          }
+        }
+
+        const needsMore =
+          Math.abs(p - pTarget) > 0.001 ||
+          phase === "opening" || phase === "closing";
+
+        if(needsMore) scheduleRender();
+      }
+
+      function scaledWheelDelta(e){
+        let dy = e.deltaY;
+        if(e.deltaMode === 1) dy *= 16;
+        else if(e.deltaMode === 2) dy *= (window.innerHeight || 800);
+        const base = clamp(getNumVar("--wheelScale", 0.55), 0.2, 1.2);
+        return dy * base;
+      }
+
+      function tryScrollInsideActiveCard(dy){
+        const active = cards[sceneIndex];
+        if(!active) return { used: false, atEdge: true };
+
+        const sc = active.querySelector("[data-scroll]");
+        if(!sc) return { used: false, atEdge: true };
+
+        const max = sc.scrollHeight - sc.clientHeight;
+        const hasScroll = max > 2;
+        if(!hasScroll) return { used: false, atEdge: true };
+
+        const before = sc.scrollTop;
+        sc.scrollTop = clamp(before + dy, 0, max);
+        const after = sc.scrollTop;
+
+        const moved = Math.abs(after - before) > 0.5;
+
+        const atTop = after <= 0.5;
+        const atBottom = after >= (max - 0.5);
+        const atEdge = dy > 0 ? atBottom : atTop;
+
+        return { used: true, moved, atEdge };
+      }
+
+      window.addEventListener("wheel", (e) => {
+        if(document.body.classList.contains("is-loading")) return;
+        if(overlay.classList.contains("is-open")) return;
+
+        if(flowStarted && !prefersReduced()){
+          if(e.ctrlKey) return;
+          e.preventDefault();
+
+          const now = performance.now();
+          const dy = scaledWheelDelta(e);
+
+          const res = tryScrollInsideActiveCard(dy);
+          if(res.used && res.moved){
+            scheduleRender();
+            return;
+          }
+
+          const dt = now - wheelLast;
+          wheelLast = now;
+          if(dt > 160) wheelAccum = 0;
+
+          wheelAccum += dy;
+
+          const trigger = Math.max(70, getNumVar("--wheelTrigger", 135));
+          const allowKnob = (!res.used) || (res.used && res.atEdge);
+
+          if(allowKnob && Math.abs(wheelAccum) >= trigger){
+            if(wheelAccum > 0) requestNext();
+            else requestPrev();
+            wheelAccum = 0;
+          }
+
+          scheduleRender();
+          return;
+        }
+
+        if(flowStarted) return;
+        if(!inHeroViewport()) return;
+
+        e.preventDefault();
+        lockBody();
+        handleDelta(e.deltaY);
+      }, { passive: false });
+
+      let touchY = null;
+      let touchAccum = 0;
+
+      window.addEventListener("touchstart", (e) => {
+        if(document.body.classList.contains("is-loading")) return;
+        if(e.touches && e.touches.length){
+          touchY = e.touches[0].clientY;
+          touchAccum = 0;
+        }
+      }, { passive: true });
+
+      window.addEventListener("touchmove", (e) => {
+        if(document.body.classList.contains("is-loading")) return;
+        if(overlay.classList.contains("is-open")) return;
+        if(touchY == null) return;
+
+        const yy = (e.touches && e.touches.length) ? e.touches[0].clientY : touchY;
+        const dy = touchY - yy;
+        touchY = yy;
+
+        if(flowStarted && !prefersReduced()){
+          e.preventDefault();
+
+          const res = tryScrollInsideActiveCard(dy);
+          if(res.used && res.moved){
+            scheduleRender();
+            return;
+          }
+
+          touchAccum += dy;
+          const TRIGGER = 70;
+
+          const allowKnob = (!res.used) || (res.used && res.atEdge);
+          if(allowKnob && Math.abs(touchAccum) >= TRIGGER){
+            if(touchAccum > 0) requestNext();
+            else requestPrev();
+            touchAccum = 0;
+          }
+
+          scheduleRender();
+          return;
+        }
+
+        if(!flowStarted && inHeroViewport()){
+          e.preventDefault();
+          lockBody();
+          handleDelta(dy * 1.75);
+        }
+      }, { passive: false });
+
+      window.addEventListener("touchend", () => { touchY = null; touchAccum = 0; }, { passive: true });
+
+      window.addEventListener("resize", () => scheduleRender(), { passive:true });
+
+      function goToScene(i){
+        if(i < 0){
+          returnToHeroWithSameMotion();
+          return;
+        }
+
+        if(!flowStarted){
+          clearAutoRole();
+          step = 3;
+          applyHeroState();
+          flowStarted = true;
+          topbar.classList.add("show-brand");
+        }
+
+        sceneIndex = clamp(i, 0, cards.length - 1);
+        returnToHeroAfterClose = false;
+
+        setLock();
+        p = 0; pTarget = 1;
+        phase = "opening";
+
+        const y = cardsTrack.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: y + 1, behavior: "smooth" });
+
+        resetActiveScroll();
+        scheduleRender();
+      }
+
+      links.forEach((a, idx) => a.style.setProperty("--i", String(idx)));
+      links.forEach(a => a.addEventListener("click", (e) => {
+        e.preventDefault();
+        const idx = parseInt(a.dataset.index || "-1", 10);
+        closeMenu();
+        unlockBody();
+        requestAnimationFrame(() => setTimeout(() => goToScene(idx), 40));
+      }));
+
+      applyHeroState();
+      hideAllCards();
+      scheduleRender();
+    })();
+  </script>
+</body>
+</html>
       --brand:#1A5D66;
 
       --text:#0b0d0f;
@@ -2291,3 +4505,4 @@
   </script>
 </body>
 </html>
+
