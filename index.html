@@ -1375,6 +1375,73 @@
     @media (max-width: 979.98px){
       .topbar-nav{ display:none !important; }
     }
+    @media (max-width: 979.98px){
+      :root{
+        --padX: 18px;
+        --cardStickyTop: calc(var(--headerH) + var(--safeT) + 18px);
+      }
+
+      .cards-track{
+        padding:
+          10px
+          calc(16px + var(--safeR))
+          calc(34px + var(--safeB))
+          calc(16px + var(--safeL));
+      }
+      .cards-track .track-spacer{ display:none; height:0 !important; }
+      .cards-stage{
+        position: static;
+        height: auto;
+        min-height: 0;
+        display: grid;
+        gap: 16px;
+        place-items: stretch;
+        pointer-events: auto;
+      }
+      .section-card{
+        grid-area: auto;
+        position: static !important;
+        width: 100% !important;
+        max-width: none;
+        opacity: 1 !important;
+        filter: none !important;
+        transform: none !important;
+        pointer-events: auto !important;
+        margin: 0;
+        border-radius: 18px;
+        animation: none !important;
+      }
+      .glass-card{
+        background: rgba(255,255,255,.88);
+        backdrop-filter: blur(10px) saturate(1.02);
+        -webkit-backdrop-filter: blur(10px) saturate(1.02);
+        box-shadow: 0 10px 26px rgba(0,0,0,.08);
+      }
+      .glass-card::before{ opacity:.25; }
+      .card-inner{
+        padding: 20px 16px;
+        gap: 12px;
+      }
+      .card-title{ font-size: clamp(24px, 7vw, 30px); }
+      .card-scroll{
+        max-height: none !important;
+        overflow: visible !important;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      .card-scroll::before,
+      .card-scroll::after{ display:none !important; }
+      .end-spacer{ display:none; }
+
+      #sobre,
+      #como-funciona,
+      #areas,
+      #faq,
+      #contato{
+        scroll-margin-top: calc(var(--headerH) + var(--safeT) + 18px);
+      }
+    }
+
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .tree, .tree img{ animation:none !important; }
@@ -1918,6 +1985,10 @@
       let autoRoleTimer = 0;
       let autoRolePending = false;
 
+      function isMobileLayout(){
+        return window.matchMedia("(max-width: 979.98px)").matches;
+      }
+
       function inHeroViewport(){
         const r = heroStage.getBoundingClientRect();
         const vh = window.innerHeight || 800;
@@ -2274,19 +2345,22 @@
       }
 
       function render(){
-        if(prefersReduced()){
+        if(isMobileLayout() || prefersReduced()){
           hideAllCards();
-          if(flowStarted){
-            const c = cards[sceneIndex] || cards[0];
+          cards.forEach((c, i) => {
             c.style.setProperty("--p","1");
             c.style.setProperty("--o","1");
-            c.style.setProperty("--wPx","760");
+            c.style.setProperty("--wPx", String(Math.min(760, window.innerWidth || 760)));
             c.style.setProperty("--xPx","0");
             c.style.setProperty("--yPx","0");
             c.style.setProperty("--s","1");
-            c.style.zIndex = "30";
-            setActiveCardClass();
-          }
+            c.style.zIndex = String(30 - i);
+            c.classList.remove("is-active");
+          });
+          unlockBody();
+          phase = "closed";
+          p = 1;
+          pTarget = 1;
           return;
         }
 
@@ -2368,6 +2442,7 @@
 
       window.addEventListener("wheel", (e) => {
         if(document.body.classList.contains("is-loading")) return;
+        if(isMobileLayout()) return;
         if(overlay.classList.contains("is-open")) return;
 
         if(flowStarted && !prefersReduced()){
@@ -2423,6 +2498,7 @@
 
       window.addEventListener("touchmove", (e) => {
         if(document.body.classList.contains("is-loading")) return;
+        if(isMobileLayout()) return;
         if(overlay.classList.contains("is-open")) return;
         if(touchY == null) return;
 
@@ -2471,6 +2547,7 @@
 
       function handleKeyboardDirection(dir){
         if(document.body.classList.contains("is-loading")) return false;
+        if(isMobileLayout()) return false;
         if(overlay.classList.contains("is-open")) return false;
         if(isTypingContext()) return false;
 
@@ -2545,7 +2622,16 @@
         }
       });
 
-      window.addEventListener("resize", () => scheduleRender(), { passive:true });
+      window.addEventListener("resize", () => {
+        if(isMobileLayout()){
+          unlockBody();
+          flowStarted = false;
+          step = 0;
+          clearAutoRole();
+          applyHeroState();
+        }
+        scheduleRender();
+      }, { passive:true });
       window.addEventListener("orientationchange", () => setTimeout(scheduleRender, 120), { passive:true });
 
       function goToScene(i){
@@ -2578,8 +2664,28 @@
 
       links.forEach((a, idx) => a.style.setProperty("--i", String(idx)));
       links.forEach(a => a.addEventListener("click", (e) => {
-        e.preventDefault();
         const idx = parseInt(a.dataset.index || "-1", 10);
+
+        if(isMobileLayout()){
+          closeMenu();
+          unlockBody();
+
+          if(idx < 0){
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
+
+          const targetId = (a.getAttribute("href") || "").replace("#", "");
+          const target = targetId ? document.getElementById(targetId) : null;
+          if(target){
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+          return;
+        }
+
+        e.preventDefault();
         closeMenu();
         unlockBody();
         requestAnimationFrame(() => setTimeout(() => goToScene(idx), 40));
