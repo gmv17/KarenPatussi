@@ -84,12 +84,6 @@
       --loaderFade: 820ms;
       --loaderEase: cubic-bezier(.16, 1, .18, 1);
       --siteReveal: 980ms;
-
-      --brandRevealDur: 760ms;
-      --brandRevealDelay: 90ms;
-      --brandRevealScaleFrom: .965;
-      --brandRevealLift: 10px;
-      --brandRevealBlurFrom: 7px;
       --siteRevealEase: cubic-bezier(.14, 1, .16, 1);
 
       --cardStickyTop: calc(var(--headerH) + var(--safeT) + 26px);
@@ -169,7 +163,7 @@
       position: fixed;
       inset: 0;
       z-index: -6;
-      background-image: url("fundo textura.png");
+      background-image: url("imagens/fundo textura.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -248,12 +242,12 @@
       filter: blur(var(--glowBlur));
       mix-blend-mode: screen;
 
-      -webkit-mask-image: url("Tree ring hero.png");
+      -webkit-mask-image: url("imagens/Tree ring hero.png");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-size: contain;
       -webkit-mask-position: center;
 
-      mask-image: url("Tree ring hero.png");
+      mask-image: url("imagens/Tree ring hero.png");
       mask-repeat: no-repeat;
       mask-size: contain;
       mask-position: center;
@@ -317,12 +311,12 @@
       position: relative;
       background: rgba(255,255,255,.18);
 
-      -webkit-mask-image: url("Logo.png");
+      -webkit-mask-image: url("imagens/Logo.PNG");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: contain;
 
-      mask-image: url("Logo.png");
+      mask-image: url("imagens/Logo.PNG");
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
@@ -406,65 +400,26 @@
     }
 
     .bar-title{
-      position: relative;
       display:flex;
       align-items:center;
       gap: 10px;
       min-width: 0;
-      padding: 6px 10px 6px 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0);
 
       opacity: 0;
-      transform: translate3d(0, calc(var(--brandRevealLift) * -1), 0) scale(var(--brandRevealScaleFrom));
-      filter: blur(var(--brandRevealBlurFrom));
+      transform: translate3d(0, -6px, 0);
+      filter: blur(1.2px);
       pointer-events: none;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
 
       transition:
-        opacity var(--brandRevealDur) cubic-bezier(.14, 1, .16, 1),
-        transform var(--brandRevealDur) cubic-bezier(.14, 1, .16, 1),
-        filter calc(var(--brandRevealDur) * .88) cubic-bezier(.14, 1, .16, 1),
-        background-color 320ms ease,
-        box-shadow 420ms ease;
-      will-change: opacity, transform, filter;
-    }
-    .bar-title::after{
-      content:"";
-      position:absolute;
-      inset:-2px -4px;
-      border-radius: 999px;
-      pointer-events:none;
-      background:
-        radial-gradient(74% 130% at 50% 50%, rgba(255,255,255,.62), rgba(255,255,255,0) 72%),
-        linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,0));
-      opacity: 0;
-      transform: scale(.92);
-      filter: blur(8px);
-      transition:
-        opacity var(--brandRevealDur) cubic-bezier(.14, 1, .16, 1),
-        transform var(--brandRevealDur) cubic-bezier(.14, 1, .16, 1);
+        opacity 520ms cubic-bezier(.14, 1, .16, 1),
+        transform 520ms cubic-bezier(.14, 1, .16, 1),
+        filter 520ms cubic-bezier(.14, 1, .16, 1);
     }
     .topbar.show-brand .bar-title{
       opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1);
+      transform: translate3d(0, 0, 0);
       filter: blur(0);
       pointer-events: auto;
-      background: rgba(255,255,255,.30);
-      box-shadow:
-        0 10px 24px rgba(0,0,0,.05),
-        inset 0 1px 0 rgba(255,255,255,.34);
-      transition-delay:
-        var(--brandRevealDelay),
-        var(--brandRevealDelay),
-        calc(var(--brandRevealDelay) * .6),
-        0ms,
-        0ms;
-    }
-    .topbar.show-brand .bar-title::after{
-      opacity: .9;
-      transform: scale(1);
-      transition-delay: calc(var(--brandRevealDelay) * .65), calc(var(--brandRevealDelay) * .65);
     }
 
     .logo-mark{
@@ -487,12 +442,12 @@
     @supports ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
       .logo-img{ display:none; }
       .logo-mark{
-        -webkit-mask-image: url("Logo.png");
+        -webkit-mask-image: url("imagens/Logo.PNG");
         -webkit-mask-repeat: no-repeat;
         -webkit-mask-position: center;
         -webkit-mask-size: contain;
 
-        mask-image: url("Logo.png");
+        mask-image: url("imagens/Logo.PNG");
         mask-repeat: no-repeat;
         mask-position: center;
         mask-size: contain;
@@ -1314,7 +1269,7 @@
   <div class="loader" id="loader" aria-label="Carregando" role="status" aria-live="polite">
     <div class="loader-wrap">
       <div class="loader-logoMark" aria-hidden="true"></div>
-      <img class="loader-fallbackImg" src="Logo.png" alt="Logo Káren Patussi">
+      <img class="loader-fallbackImg" src="imagens/Logo.PNG" alt="Logo Káren Patussi">
       <p class="loader-sub">Carregando</p>
     </div>
   </div>
@@ -1322,7 +1277,7 @@
   <!-- Árvore fixa -->
   <div class="bg-stage" aria-hidden="true">
     <div class="tree">
-      <img src="Tree ring hero.png" alt="">
+      <img src="imagens/Tree ring hero.png" alt="">
     </div>
   </div>
 
@@ -1330,7 +1285,7 @@
   <header class="topbar" id="topbar" aria-label="Barra superior">
     <div class="bar-title" id="barTitle">
       <span class="logo-mark" aria-hidden="true"></span>
-      <img class="logo-img" src="Logo.png" alt="Logo">
+      <img class="logo-img" src="imagens/Logo.PNG" alt="Logo">
       <span class="bar-name">Káren Patussi</span>
     </div>
 
@@ -1367,7 +1322,7 @@
 
       <div class="menu-logo" aria-hidden="true">
         <div class="logo-box">
-          <img src="Logo.png" alt="">
+          <img src="imagens/Logo.PNG" alt="">
         </div>
       </div>
     </aside>
@@ -1399,7 +1354,7 @@
     <section class="cards-track" id="cardsTrack" aria-label="Conteúdo">
       <div class="cards-stage" id="cardsStage">
 
-        <!-- SOBRE -->
+                <!-- SOBRE -->
         <article class="section-card glass-card card--about" data-card data-origin="tl" id="sobre">
           <div class="card-inner">
             <div class="card-kicker">Quem eu sou</div>
@@ -1411,71 +1366,22 @@
                 <div class="editorial" aria-label="Foto e síntese">
                   <div class="portrait" aria-label="Foto da psicóloga">
                     <img
-                      src="Foto Karen Sobre.png"
-                      onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80';"
+                      src="imagens/Foto Karen Sobre.png"
                       alt="Foto profissional da psicóloga">
                   </div>
 
                   <div class="lead" aria-label="Síntese profissional">
                     <p>
-                      Sou <strong>psicóloga clínica</strong>, com experiência iniciada em <strong>2006</strong> no atendimento a
-                      crianças, adolescentes e adultos — com foco na promoção da saúde mental e emocional.
-                      Após mais de uma década no <strong>setor público</strong>, retomei o consultório em <strong>Itapema (SC)</strong>
-                      e ampliei minha prática com especialização em <strong>Sexualidade Humana e Terapia Sexual</strong>.
+                      Sou psicóloga com mais de <strong>20 anos de atuação profissional</strong> nas esferas pública e privada, com vasta experiência no atendimento a <strong>crianças, adolescentes, adultos, casais e famílias</strong>. Ao longo da minha trajetória, especializei-me em <strong>Terapia Sexual</strong>, <strong>Psicoterapia Sistêmica</strong> e em <strong>Estudos de Gênero</strong>, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura.
+                    </p>
+                    <p>
+                      Para além de certificações internacionais, a vivência de ter residido em <strong>outros três países</strong> proporcionou-me uma imersão cultural aprofundada, conferindo-me uma sensibilidade fenomenológica diferenciada. Bagagem esta que considero fundamental para o acolhimento ético de populações em transição, <strong>migrantes e expatriados</strong>.
+                    </p>
+                    <p>
+                      Mantendo um compromisso rigoroso com a atualização técnica e a excelência clínica, sou membro da <strong>Sociedade Brasileira de Estudos em Sexualidade Humana (SBRASH)</strong> e da <strong>Sociedade Portuguesa de Sexologia Clínica (SPSC)</strong>. Atualmente, dedico minha prática ao atendimento de <strong>adultos, casais e famílias</strong>, integrando ética, técnica e sensibilidade humana no cuidado em saúde mental.
                     </p>
                   </div>
                 </div>
-
-                <div class="grid" aria-label="Público e trajetória">
-                  <section class="box" aria-label="Para quem atendo">
-                    <h3>Para quem atendo</h3>
-                    <p>
-                      Atendo principalmente <strong>adultos</strong>, <strong>casais</strong> e <strong>famílias</strong>,
-                      com escuta qualificada e responsabilidade técnica.
-                    </p>
-                  </section>
-
-                  <section class="box" aria-label="Trajetória">
-                    <h3>Trajetória</h3>
-                    <p>
-                      Minha trajetória inclui forte atuação em contextos de <strong>vulnerabilidade social</strong>, violência e fragilidade psicossocial,
-                      o que amplia meu olhar para as diferentes realidades e marcas emocionais que atravessam a vida das pessoas.
-                    </p>
-                  </section>
-                </div>
-
-                <div class="grid" aria-label="Temas e sexologia">
-                  <section class="box" aria-label="Principais temas">
-                    <h3>Principais temas</h3>
-                    <ul>
-                      <li>Relações afetivas e conflitos conjugais</li>
-                      <li>Autoestima, ansiedade e depressão</li>
-                      <li>Luto e processos de mudança</li>
-                      <li>Comunicação e construção de vínculos saudáveis</li>
-                    </ul>
-                  </section>
-
-                  <section class="box" aria-label="Sexologia">
-                    <h3>Sexologia</h3>
-                    <ul>
-                      <li>Saúde sexual, intimidade e prazer</li>
-                      <li>Comunicação nas relações</li>
-                      <li>Manejo de dificuldades e disfunções sexuais</li>
-                      <li>Reconexão com o corpo e com o desejo</li>
-                    </ul>
-                  </section>
-                </div>
-
-                <section class="box" aria-label="Principais competências">
-                  <h3>Principais competências</h3>
-                  <div class="skills-grid" aria-label="Lista de competências">
-                    <div class="skill-item">Psicoterapia</div>
-                    <div class="skill-item">Sexualidade</div>
-                    <div class="skill-item">Acolhimento</div>
-                    <div class="skill-item">Gestão de conflitos</div>
-                    <div class="skill-item">Autoestima</div>
-                  </div>
-                </section>
 
                 <section class="box" aria-label="Formação acadêmica e complementar">
                   <h3>Formação</h3>
@@ -1540,11 +1446,6 @@
 
                   </div>
                 </section>
-
-                <div class="cta-soft" aria-label="Convite">
-                  <span class="dot" aria-hidden="true"></span>
-                  Se você busca um espaço de escuta qualificada, estou à disposição.
-                </div>
 
                 <div class="end-spacer" aria-hidden="true"></div>
               </div>
@@ -1756,7 +1657,7 @@
         root.style.setProperty("--roleO", String(roleO));
         root.style.setProperty("--roleB", roleB + "px");
 
-        topbar.classList.toggle("show-brand", step >= 2);
+        topbar.classList.toggle("show-brand", flowStarted || step >= 1);
       }
 
       function setCooldown(){
@@ -2000,6 +1901,7 @@
       function handoffToCards(){
         if(flowStarted) return;
         flowStarted = true;
+        topbar.classList.add("show-brand");
 
         lockBody();
 
@@ -2036,6 +1938,8 @@
         step = 2;
         applyHeroState();
         hideAllCards();
+
+        topbar.classList.remove("show-brand");
 
         document.getElementById("home").scrollIntoView({ behavior:"smooth", block:"start" });
 
@@ -2276,6 +2180,7 @@
           step = 3;
           applyHeroState();
           flowStarted = true;
+          topbar.classList.add("show-brand");
         }
 
         sceneIndex = clamp(i, 0, cards.length - 1);
