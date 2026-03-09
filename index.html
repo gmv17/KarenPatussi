@@ -961,34 +961,43 @@
     .card--about .card-scroll::after{ display:none; }
 
     /* ========================= SOBRE ========================= */
+    
     .about{
       display: grid;
-      gap: 14px;
-      margin-top: 6px;
+      gap: 18px;
+      margin-top: 8px;
     }
 
+    
     .about .editorial{
       display:grid;
-      grid-template-columns: 190px 1fr;
-      gap: 14px;
-      align-items: start;
+      grid-template-columns: minmax(210px, 240px) 1fr;
+      gap: 18px;
+      align-items: stretch;
     }
+    
     @media (min-width: 720px){
-      .about .editorial{ grid-template-columns: 220px 1fr; gap: 16px; }
+      .about .editorial{
+        grid-template-columns: minmax(230px, 260px) 1fr;
+        gap: 20px;
+      }
     }
-    @media (max-width: 420px){
+    
+    @media (max-width: 720px){
       .about .editorial{ grid-template-columns: 1fr; }
     }
 
+    
     .about .portrait{
       position: relative;
-      border-radius: 18px;
+      border-radius: 20px;
       overflow: hidden;
-      background: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.94);
       border: 1px solid var(--softBorder);
-      box-shadow: 0 14px 32px rgba(0,0,0,.08);
+      box-shadow: 0 18px 42px rgba(0,0,0,.10);
       aspect-ratio: 3 / 4;
-      min-height: 220px;
+      min-height: 320px;
+      align-self: start;
     }
     .about .portrait img{
       width: 100%;
@@ -999,24 +1008,70 @@
       transform: scale(1.02);
     }
 
+    
     .about .lead{
-      padding: 14px 14px;
-      border-radius: 16px;
+      padding: 18px 18px;
+      border-radius: 18px;
       background: rgba(255,255,255,.92);
       border: 1px solid var(--softBorder);
-      box-shadow: 0 10px 22px rgba(0,0,0,.04);
+      box-shadow: 0 14px 28px rgba(0,0,0,.05);
       display:grid;
-      gap: 10px;
+      gap: 14px;
+      align-content: start;
     }
+    
     .about .lead p{
       margin: 0;
       color: var(--softInk);
       line-height: 1.95;
-      font-size: var(--paraSize);
+      font-size: 15px;
       font-family: var(--bodyFont);
       font-weight: 500;
     }
     .about .lead strong{ color: rgba(26,93,102,.96); font-weight: 800; }
+
+    .about .intro-kicker{
+      margin: 0 0 2px;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.62);
+      font-weight: 800;
+      font-family: var(--bodyFont);
+    }
+    .about .lead .signature{
+      color: var(--brand);
+      font-family: var(--titleFont);
+      font-weight: 900;
+      font-size: clamp(20px, 2vw, 28px);
+      line-height: 1.02;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    .about .lead .divider{
+      width: 52px;
+      height: 1px;
+      background: rgba(26,93,102,.26);
+      border-radius: 999px;
+    }
+    .about .body-copy{
+      border-radius: 18px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 14px 28px rgba(0,0,0,.045);
+      padding: 18px 18px;
+      display: grid;
+      gap: 14px;
+    }
+    .about .body-copy p{
+      margin: 0;
+      color: var(--softInk);
+      line-height: 2;
+      font-size: 15px;
+      font-family: var(--bodyFont);
+      font-weight: 500;
+    }
+
 
     .about .grid{
       display:grid;
@@ -1426,7 +1481,6 @@
     <section class="cards-track" id="cardsTrack" aria-label="Conteúdo">
       <div class="cards-stage" id="cardsStage">
 
-        <!-- SOBRE -->
         
         <!-- SOBRE -->
         <article class="section-card glass-card card--about" data-card data-origin="tl" id="sobre">
@@ -1437,7 +1491,7 @@
             <div class="card-scroll" data-scroll>
               <div class="about">
 
-                <div class="editorial">
+                <div class="editorial" aria-label="Apresentação da psicóloga">
                   <div class="portrait" aria-label="Foto da psicóloga">
                     <img
                       src="imagens/Foto Karen Sobre.png"
@@ -1447,28 +1501,27 @@
                       alt="Foto profissional da psicóloga">
                   </div>
 
-                  <div class="lead" aria-label="Síntese profissional">
+                  <div class="lead" aria-label="Texto de apresentação">
+                    <p class="intro-kicker">Apresentação</p>
+                    <p class="signature">Káren Patussi</p>
+                    <div class="divider" aria-hidden="true"></div>
+
                     <p>
-                      Sou <strong>psicóloga clínica</strong>, com experiência iniciada em <strong>2006</strong> no atendimento a
-                      crianças, adolescentes e adultos — com foco na promoção da saúde mental e emocional.
-                      Após mais de uma década no <strong>setor público</strong>, retomei o consultório em <strong>Itapema (SC)</strong>
-                      e ampliei minha prática com especialização em <strong>Sexualidade Humana e Terapia Sexual</strong>.
+                      Sou psicóloga com mais de 20 anos de atuação profissional nas esferas pública e privada, com vasta experiência no atendimento a crianças, adolescentes, adultos, casais e famílias. Ao longo da minha trajetória, especializei-me em <strong>Terapia Sexual</strong>, <strong>Psicoterapia Sistêmica</strong> e em <strong>Estudos de Gênero</strong>, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura.
                     </p>
                   </div>
                 </div>
-                </div>
 
-                
-                <section class="box" aria-label="Sobre a psicóloga">
-                  <p class="card-text">
-                  Sou psicóloga com mais de 20 anos de atuação profissional nas esferas pública e privada, com vasta experiência no atendimento a crianças, adolescentes, adultos, casais e famílias. Ao longo da minha trajetória, especializei-me em Terapia Sexual, Psicoterapia Sistêmica e em Estudos de Gênero, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura.
+                <section class="body-copy" aria-label="Trajetória profissional">
+                  <p>
+                    Para além de certificações internacionais, a vivência de ter residido em outros três países proporcionou-me uma imersão cultural aprofundada, conferindo-me uma sensibilidade fenomenológica diferenciada. Bagagem esta que considero fundamental para o acolhimento ético de populações em transição, migrantes e expatriados.
                   </p>
-                  <p class="card-text">
-                  Para além de certificações internacionais, a vivência de ter residido em outros três países proporcionou-me uma imersão cultural aprofundada, conferindo-me uma sensibilidade fenomenológica diferenciada. Bagagem esta que considero fundamental para o acolhimento ético de populações em transição, migrantes e expatriados. Mantendo um compromisso rigoroso com a atualização técnica e a excelência clínica, sou membro da Sociedade Brasileira de Estudos em Sexualidade Humana (SBRASH) e da Sociedade Portuguesa de Sexologia Clínica (SPSC). Atualmente, dedico minha prática ao atendimento de adultos, casais e famílias, integrando ética, técnica e sensibilidade humana no cuidado em saúde mental.
+                  <p>
+                    Mantendo um compromisso rigoroso com a atualização técnica e a excelência clínica, sou membro da <strong>Sociedade Brasileira de Estudos em Sexualidade Humana (SBRASH)</strong> e da <strong>Sociedade Portuguesa de Sexologia Clínica (SPSC)</strong>. Atualmente, dedico minha prática ao atendimento de adultos, casais e famílias, integrando ética, técnica e sensibilidade humana no cuidado em saúde mental.
                   </p>
                 </section>
 
-<section class="box" aria-label="Formação acadêmica e complementar">
+                <section class="box" aria-label="Formação acadêmica e complementar">
                   <h3>Formação</h3>
 
                   <div class="edu-timeline" aria-label="Linha do tempo de formação">
@@ -1538,7 +1591,8 @@
             </div>
           </div>
         </article>
-<!-- COMO FUNCIONA -->
+
+        <!-- COMO FUNCIONA -->
         <article class="section-card glass-card" data-card data-origin="tr" id="como-funciona">
           <div class="card-inner">
             <div class="card-kicker">Fluxo</div>
@@ -2302,4 +2356,3 @@
   </script>
 </body>
 </html>
-
