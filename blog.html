@@ -1,376 +1,348 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Blog | Káren Patussi</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Blog | Káren Patussi</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="imagens/Logo.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="imagens/Tree ring hero.webp" fetchpriority="high">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <style>
-    :root{
-      --brand:#1A5D66;
-      --text:#0b0d0f;
-      --muted:#26343a;
+<link rel="preload" as="image" href="imagens/Logo.webp" fetchpriority="high">
+<link rel="preload" as="image" href="imagens/arvore fundo blog.webp" fetchpriority="high">
 
-      --safeT: env(safe-area-inset-top, 0px);
-      --safeR: env(safe-area-inset-right, 0px);
-      --safeB: env(safe-area-inset-bottom, 0px);
-      --safeL: env(safe-area-inset-left, 0px);
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-      --padX: clamp(16px, 6vw, 120px);
-      --headerH: 56px;
+<style>
+:root{
+  --brand:#1A5D66;
+  --text:#0b0d0f;
+  --muted:#26343a;
 
-      --treeYOffset: clamp(10px, 2vh, 34px);
-      --treeScale: 0.92;
-      --treeOpacity: 0.92;
+  --safeT: env(safe-area-inset-top, 0px);
+  --safeR: env(safe-area-inset-right, 0px);
+  --safeB: env(safe-area-inset-bottom, 0px);
+  --safeL: env(safe-area-inset-left, 0px);
 
-      --treeBreathDur: 14s;
-      --treeBreathAmp: 0.045;
-      --treePushZ: 60px;
-      --treeBreathShadowA: 0.16;
-      --treeBreathShadowB: 0.26;
+  --padX: clamp(16px, 6vw, 120px);
+  --headerH: 56px;
 
-      --glowOpacity: 0.16;
-      --glowDur: 6.2s;
-      --glowBlur: 10px;
-      --glowColor: rgba(26,93,102,.48);
+  --treeYOffset: clamp(10px, 2vh, 34px);
+  --treeScale: 0.94;
+  --treeOpacity: 0.96;
 
-      --bodyFont: "Inter", system-ui, sans-serif;
-      --titleFont: "Playfair Display", serif;
-    }
+  --treeBreathDur: 14s;
+  --treeBreathAmp: 0.03;
+  --treePushZ: 42px;
 
-    *{ box-sizing:border-box; }
-    html,body{ min-height:100%; }
-    html{
-      scroll-behavior:smooth;
-      scrollbar-width:none;
-      -ms-overflow-style:none;
-    }
-    body{
-      margin:0;
-      font-family:var(--bodyFont);
-      color:var(--text);
-      background:transparent;
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      text-rendering:optimizeLegibility;
-      scrollbar-width:none;
-      -ms-overflow-style:none;
-    }
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar{
-      width:0 !important;
-      height:0 !important;
-      display:none !important;
-    }
+  --treeBreathShadowA: 0.18;
+  --treeBreathShadowB: 0.30;
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-6;
-      background-image:url("imagens/fundo textura.webp");
-      background-size:cover;
-      background-position:center;
-      background-repeat:no-repeat;
-      transform:scale(1.03);
-    }
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-5;
-      pointer-events:none;
-      background:
-        radial-gradient(1100px 720px at 50% 32%, rgba(255,255,255,.28), rgba(255,255,255,0) 60%),
-        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
-    }
+  --glowOpacity: 0.12;
+  --glowDur: 6.2s;
+  --glowBlur: 8px;
+  --glowColor: rgba(26,93,102,.42);
 
-    .bg-stage{
-      position:fixed;
-      inset:0;
-      z-index:-3;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      pointer-events:none;
-      transform:translateY(var(--treeYOffset));
-    }
-    .tree{
-      width:min(74vw, 74vh);
-      height:min(74vw, 74vh);
-      opacity:var(--treeOpacity);
-      position:relative;
-      transform-style:preserve-3d;
-      will-change:filter;
-      animation:treeBreath var(--treeBreathDur) ease-in-out infinite;
-    }
-    .tree img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-      user-select:none;
-      -webkit-user-drag:none;
-      transform:translateZ(0) scale(var(--treeScale));
-      will-change:transform;
-      animation:treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
-    }
-    @keyframes treeBreath{
-      0%,100%{ filter: drop-shadow(0 28px 70px rgba(0,0,0,var(--treeBreathShadowA))) brightness(.98); }
-      50%{ filter: drop-shadow(0 48px 130px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.03); }
-    }
-    @keyframes treeScaleBreath{
-      0%,100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
-      50%{ transform: translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
-    }
-    .tree::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(180deg,
-          rgba(255,255,255,0) 0%,
-          rgba(255,255,255,0) 35%,
-          rgba(255,255,255,.50) 50%,
-          rgba(255,255,255,0) 65%,
-          rgba(255,255,255,0) 100%
-        ),
-        radial-gradient(closest-side at 50% 50%, var(--glowColor), rgba(26,93,102,0) 62%);
-      background-size:100% 220%, 120% 120%;
-      background-position:0 140%, 50% 160%;
-      background-repeat:no-repeat;
-      opacity:var(--glowOpacity);
-      filter:blur(var(--glowBlur));
-      mix-blend-mode:screen;
-      -webkit-mask-image:url("imagens/Tree ring hero.webp");
-      -webkit-mask-repeat:no-repeat;
-      -webkit-mask-size:contain;
-      -webkit-mask-position:center;
-      mask-image:url("imagens/Tree ring hero.webp");
-      mask-repeat:no-repeat;
-      mask-size:contain;
-      mask-position:center;
-      animation:glowRise var(--glowDur) cubic-bezier(.3, 0, .2, 1) infinite;
-      will-change:opacity, background-position;
-    }
-    @keyframes glowRise{
-      0% { opacity: 0; background-position: 0 140%, 50% 160%; }
-      12% { opacity: var(--glowOpacity); }
-      58% { opacity: var(--glowOpacity); background-position: 0 22%, 50% 40%; }
-      86% { opacity: calc(var(--glowOpacity) * 0.60); background-position: 0 -36%, 50% -10%; }
-      100% { opacity: 0; background-position: 0 -70%, 50% -40%; }
-    }
+  --bodyFont:"Inter",system-ui,sans-serif;
+  --titleFont:"Playfair Display",serif;
+}
 
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:40;
-      height:calc(var(--headerH) + var(--safeT));
-      padding-top:var(--safeT);
-      padding-left:calc(14px + var(--safeL));
-      padding-right:calc(14px + var(--safeR));
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.72));
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
-      border-bottom:1px solid rgba(0,0,0,.07);
-    }
+*{box-sizing:border-box}
 
-    .brand-link{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0;
-      text-decoration:none;
-    }
-    .brand-link img{
-      width:32px;
-      height:32px;
-      object-fit:contain;
-      display:block;
-    }
-    .brand-name{
-      font-family:var(--titleFont);
-      font-weight:900;
-      letter-spacing:-.014em;
-      color:var(--brand);
-      font-size:18px;
-      line-height:1;
-      white-space:nowrap;
-    }
+html,body{
+  min-height:100%;
+  margin:0;
+  font-family:var(--bodyFont);
+  color:var(--text);
+  background:transparent;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
 
-    .topnav{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .topnav a{
-      text-decoration:none;
-      color:rgba(20,28,32,.82);
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      padding:10px 14px;
-      min-height:40px;
-      border-radius:999px;
-      transition:background .24s ease,color .24s ease,transform .24s ease,box-shadow .24s ease;
-    }
-    .topnav a:hover{
-      background:rgba(255,255,255,.72);
-      color:var(--brand);
-      box-shadow:0 12px 28px rgba(0,0,0,.06);
-    }
-    .topnav a.is-current{
-      background:rgba(26,93,102,.10);
-      color:var(--brand);
-      box-shadow:inset 0 0 0 1px rgba(26,93,102,.14);
-    }
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-6;
+  background-image:url("imagens/fundo textura.webp");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  transform:scale(1.03);
+}
 
-    .hero{
-      min-height:calc(100vh - var(--headerH) - var(--safeT));
-      display:flex;
-      align-items:center;
-      padding:
-        clamp(56px, 8vw, 96px)
-        calc(var(--padX) + var(--safeR))
-        clamp(48px, 7vw, 88px)
-        calc(var(--padX) + var(--safeL));
-      position:relative;
-      z-index:2;
-    }
-    .hero-inner{
-      max-width:1080px;
-      margin:0 auto;
-      display:grid;
-      gap:24px;
-      width:100%;
-    }
-    .eyebrow{
-      margin:0;
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:rgba(20,28,32,.68);
-      font-weight:800;
-    }
-    .hero h1{
-      margin:0;
-      max-width:900px;
-      font-family:var(--titleFont);
-      font-weight:900;
-      color:var(--brand);
-      font-size:clamp(42px, 7vw, 84px);
-      line-height:.96;
-      letter-spacing:-.03em;
-      text-shadow:0 14px 34px rgba(0,0,0,.07);
-    }
-    .hero-copy{
-      max-width:780px;
-      margin:0;
-      color:rgba(20,28,32,.92);
-      line-height:1.95;
-      font-size:clamp(15px, 1.6vw, 18px);
-      font-weight:500;
-    }
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:4px;
-    }
-    .btn{
-      appearance:none;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:46px;
-      padding:13px 18px;
-      border-radius:999px;
-      text-decoration:none;
-      cursor:pointer;
-      font:700 11px/1 var(--bodyFont);
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      transition:transform .24s ease, box-shadow .24s ease, background .24s ease, color .24s ease, border-color .24s ease;
-    }
-    .btn:hover{ transform:translateY(-1px); }
-    .btn--solid{
-      background:rgba(26,93,102,.96);
-      color:#fff;
-      box-shadow:0 14px 28px rgba(26,93,102,.20);
-      border:1px solid transparent;
-    }
-    .btn--ghost{
-      background:rgba(255,255,255,.90);
-      color:var(--brand);
-      border:1px solid rgba(26,93,102,.16);
-      box-shadow:0 12px 24px rgba(0,0,0,.05);
-    }
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  pointer-events:none;
+  background:
+    radial-gradient(1100px 720px at 50% 32%, rgba(255,255,255,.28), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+}
 
-    @media (min-width:980px){
-      .topbar{
-        padding-left:calc(22px + var(--safeL));
-        padding-right:calc(22px + var(--safeR));
-        gap:22px;
-      }
-      .topnav{ gap:4px; }
-    }
+.bg-stage{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  transform:translateY(var(--treeYOffset));
+}
 
-    @media (max-width:640px){
-      .topbar{
-        padding-left:calc(14px + var(--safeL));
-        padding-right:calc(14px + var(--safeR));
-      }
-      .brand-name{ font-size:16px; }
-      .topnav a{
-        font-size:10px;
-        padding:9px 11px;
-      }
-      .hero{ padding-top:48px; }
-    }
-  </style>
+.tree{
+  width:min(74vw,74vh);
+  height:min(74vw,74vh);
+  opacity:var(--treeOpacity);
+  position:relative;
+  transform-style:preserve-3d;
+  animation:treeBreath var(--treeBreathDur) ease-in-out infinite;
+  will-change:filter, transform;
+}
+
+.tree img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  transform:translateZ(0) scale(var(--treeScale));
+  animation:treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
+  will-change:transform, filter;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  filter:
+    contrast(1.06)
+    saturate(1.03)
+    drop-shadow(0 22px 48px rgba(0,0,0,.14));
+}
+
+@keyframes treeBreath{
+  0%,100%{
+    filter: drop-shadow(0 28px 70px rgba(0,0,0,var(--treeBreathShadowA))) brightness(.99);
+  }
+  50%{
+    filter: drop-shadow(0 42px 110px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.03);
+  }
+}
+
+@keyframes treeScaleBreath{
+  0%,100%{
+    transform:translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp))));
+  }
+  50%{
+    transform:translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp))));
+  }
+}
+
+.tree::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0) 35%,
+      rgba(255,255,255,.42) 50%,
+      rgba(255,255,255,0) 65%,
+      rgba(255,255,255,0) 100%
+    ),
+    radial-gradient(closest-side at 50% 50%,var(--glowColor),rgba(26,93,102,0) 62%);
+  background-size:100% 220%,120% 120%;
+  background-position:0 140%,50% 160%;
+  background-repeat:no-repeat;
+  opacity:var(--glowOpacity);
+  filter:blur(var(--glowBlur));
+  mix-blend-mode:screen;
+
+  -webkit-mask-image:url("imagens/arvore fundo blog.webp");
+  -webkit-mask-repeat:no-repeat;
+  -webkit-mask-size:contain;
+  -webkit-mask-position:center;
+
+  mask-image:url("imagens/arvore fundo blog.webp");
+  mask-repeat:no-repeat;
+  mask-size:contain;
+  mask-position:center;
+
+  animation:glowRise var(--glowDur) cubic-bezier(.3,0,.2,1) infinite;
+}
+
+@keyframes glowRise{
+  0%{opacity:0;background-position:0 140%,50% 160%}
+  12%{opacity:var(--glowOpacity)}
+  58%{opacity:var(--glowOpacity);background-position:0 22%,50% 40%}
+  86%{opacity:calc(var(--glowOpacity)*0.6);background-position:0 -36%,50% -10%}
+  100%{opacity:0;background-position:0 -70%,50% -40%}
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:40;
+  height:calc(var(--headerH) + var(--safeT));
+  padding-top:var(--safeT);
+  padding-left:calc(14px + var(--safeL));
+  padding-right:calc(14px + var(--safeR));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.72));
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(0,0,0,.07);
+}
+
+.brand-link{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+}
+
+.brand-link img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+
+.brand-name{
+  font-family:var(--titleFont);
+  font-weight:900;
+  color:var(--brand);
+  font-size:18px;
+}
+
+.topnav{
+  display:flex;
+  gap:6px;
+}
+
+.topnav a{
+  text-decoration:none;
+  color:rgba(20,28,32,.82);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:10px 14px;
+  border-radius:999px;
+}
+
+.topnav a.is-current{
+  background:rgba(26,93,102,.10);
+  color:var(--brand);
+}
+
+.hero{
+  min-height:calc(100vh - var(--headerH));
+  display:flex;
+  align-items:center;
+  padding:clamp(56px,8vw,96px) var(--padX);
+}
+
+.hero-inner{
+  max-width:1080px;
+  margin:0 auto;
+  display:grid;
+  gap:24px;
+}
+
+.eyebrow{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(20,28,32,.68);
+  font-weight:800;
+  margin:0;
+}
+
+.hero h1{
+  font-family:var(--titleFont);
+  font-weight:900;
+  color:var(--brand);
+  font-size:clamp(42px,7vw,84px);
+  line-height:.96;
+  margin:0;
+}
+
+.hero-copy{
+  max-width:780px;
+  line-height:1.95;
+  font-size:clamp(15px,1.6vw,18px);
+  margin:0;
+}
+
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:13px 18px;
+  border-radius:999px;
+  text-decoration:none;
+  font:700 11px/1 var(--bodyFont);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.btn--solid{
+  background:rgba(26,93,102,.96);
+  color:#fff;
+}
+
+.btn--ghost{
+  background:#fff;
+  color:var(--brand);
+  border:1px solid rgba(26,93,102,.16);
+}
+</style>
 </head>
+
 <body>
-  <div class="bg-stage" aria-hidden="true">
+  <div class="bg-stage">
     <div class="tree">
-      <img src="imagens/Tree ring hero.webp" alt="">
+      <img src="imagens/arvore fundo blog.webp" alt="">
     </div>
   </div>
 
-  <header class="topbar" aria-label="Barra superior">
-    <a class="brand-link" href="index.html#home" aria-label="Voltar ao site principal">
-      <img src="imagens/Logo.webp" alt="Logo Káren Patussi">
+  <header class="topbar">
+    <a class="brand-link" href="index.html#home">
+      <img src="imagens/Logo.webp" alt="Logo">
       <span class="brand-name">Káren Patussi</span>
     </a>
 
-    <nav class="topnav" aria-label="Navegação do blog">
+    <nav class="topnav">
       <a href="index.html#home">Contato</a>
-      <a class="is-current" href="blog.html" aria-current="page">Blog</a>
+      <a class="is-current" href="blog.html">Blog</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero" aria-label="Introdução do blog">
+    <section class="hero">
       <div class="hero-inner">
         <p class="eyebrow">Artigos, pesquisas e reflexões</p>
+
         <h1>Um espaço de escrita para pensar a subjetividade com profundidade e acolhimento.</h1>
+
         <p class="hero-copy">
-          Esta página foi pensada para reunir textos sobre psicologia, sexualidade, relações humanas, saúde emocional e questões contemporâneas que atravessam a experiência de viver, amar, desejar e elaborar a própria história.
+          Esta página foi pensada para reunir textos sobre psicologia, sexualidade,
+          relações humanas, saúde emocional e questões contemporâneas que atravessam
+          a experiência de viver, amar, desejar e elaborar a própria história.
         </p>
+
         <div class="hero-actions">
           <a class="btn btn--solid" href="index.html#agendar-sessao">Agendar sessão</a>
           <a class="btn btn--ghost" href="index.html#home">Voltar ao site principal</a>
