@@ -8,6 +8,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="imagens/Logo.PNG" fetchpriority="high">
+  <link rel="preload" as="image" href="imagens/Tree ring hero.png" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -1787,7 +1789,7 @@
   <div class="loader" id="loader" aria-label="Carregando" role="status" aria-live="polite">
     <div class="loader-wrap">
       <div class="loader-logoMark" aria-hidden="true"></div>
-      <img class="loader-fallbackImg" src="imagens/Logo.PNG" alt="Logo Káren Patussi">
+      <img class="loader-fallbackImg" src="imagens/Logo.PNG" alt="Logo Káren Patussi" decoding="async" fetchpriority="high">
       <div class="loader-bar"><span class="loader-progress"></span></div>
     </div>
   </div>
@@ -1795,7 +1797,7 @@
   <!-- Árvore fixa -->
   <div class="bg-stage" aria-hidden="true">
     <div class="tree">
-      <img src="imagens/Tree ring hero.png" alt="">
+      <img src="imagens/Tree ring hero.png" alt="" decoding="async" fetchpriority="high">
     </div>
   </div>
 
@@ -1803,7 +1805,7 @@
   <header class="topbar" id="topbar" aria-label="Barra superior">
     <div class="bar-title" id="barTitle">
       <span class="logo-mark" aria-hidden="true"></span>
-      <img class="logo-img" src="imagens/Logo.PNG" alt="Logo">
+      <img class="logo-img" src="imagens/Logo.PNG" alt="Logo" decoding="async">
       <span class="bar-name">Káren Patussi</span>
     </div>
 
@@ -1895,8 +1897,9 @@
                   <div class="portrait" aria-label="Foto da psicóloga">
                     <img
                       src="imagens/Foto Karen Sobre.png"
-                      loading="eager"
+                      loading="lazy"
                       decoding="async"
+                      fetchpriority="low"
                       onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80';"
                       alt="Foto profissional da psicóloga">
                   </div>
@@ -2360,9 +2363,10 @@
         const fade = getMsVar("--loaderFade", 820);
         window.setTimeout(() => { loader.style.display = "none"; }, Math.max(560, fade + 80));
       }
-      const LOADER_DUR = getMsVar("--loaderDur", 3000);
-      window.addEventListener("load", () => window.setTimeout(finishLoader, Math.max(3000, LOADER_DUR)), { once: true });
-      if(document.readyState === "complete") window.setTimeout(finishLoader, Math.max(3000, LOADER_DUR));
+      const LOADER_DUR = getMsVar("--loaderDur", 2500);
+      const LOADER_MIN = 2500;
+      window.addEventListener("load", () => window.setTimeout(finishLoader, Math.max(LOADER_MIN, LOADER_DUR)), { once: true });
+      if(document.readyState === "complete") window.setTimeout(finishLoader, Math.max(LOADER_MIN, LOADER_DUR));
       window.addEventListener("pageshow", (e) => { if(e.persisted) finishLoader(); });
 
       function openMenu(){
