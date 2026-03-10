@@ -40,30 +40,11 @@
       --glowBlur: 10px;
       --glowColor: rgba(26,93,102,.48);
 
-      --menuGlass: 0.52;
-      --menuBlur: 26px;
-      --menuBorder: rgba(0,0,0,.07);
-      --menuShadow: 0 22px 72px rgba(0,0,0,.18);
 
-      --menuEase: cubic-bezier(.16, 1, .18, 1);
-      --menuDrawerDur: 720ms;
-      --menuBgDur: 520ms;
 
-      --menuItemDur: 820ms;
-      --menuItemEase: cubic-bezier(.16, 1, .16, 1);
-      --menuItemStagger: 70ms;
-      --menuItemDelayBase: 110ms;
 
-      --menuItemOffsetX: 34px;
-      --menuItemScaleXFrom: .78;
-      --menuItemBlur: 1.4px;
 
-      --cardRadius: 18px;
       --cardPad: clamp(18px, 2.2vw, 24px);
-      --cardGlass: 0.52;
-      --cardBlur: 16px;
-      --cardBorder: rgba(0,0,0,.055);
-      --cardShadow: 0 18px 54px rgba(0,0,0,.10);
 
       --stepDistanceDown: 320;
       --stepDistanceUp: 380;
@@ -84,8 +65,6 @@
 
       --loaderFade: 820ms;
       --loaderEase: cubic-bezier(.16, 1, .18, 1);
-      --siteReveal: 980ms;
-      --siteRevealEase: cubic-bezier(.14, 1, .16, 1);
 
       --cardStickyTop: calc(var(--headerH) + var(--safeT) + 26px);
 
@@ -107,7 +86,6 @@
       --cardScrollTopPad: 14px;
       --cardScrollBottomPad: 28px;
       --cardScrollMaxH: calc(100dvh - var(--cardStickyTop) - 34px);
-      --scrollFadeH: 26px;
 
       --cardEndSpacer: 72px;
 
@@ -359,15 +337,6 @@
     @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
       .loader-logoMark{ display:none; }
       .loader-fallbackImg{ display:block; }
-    }
-    .loader-sub{
-      margin: 0;
-      font-size: 11px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.78);
-      user-select:none;
-      font-family: var(--bodyFont);
     }
     body.is-loading{
       overflow: hidden !important;
@@ -911,14 +880,6 @@
       line-height: 1.05;
       letter-spacing: -0.01em;
     }
-    .card-text{
-      margin: 0;
-      color: var(--softInk);
-      line-height: var(--paraLine);
-      font-size: var(--paraSize);
-      font-family: var(--bodyFont);
-      font-weight: 500;
-    }
 
     /* ===== SCROLL INTERNO ===== */
     .card-scroll{
@@ -1136,39 +1097,6 @@
       font-weight: 500;
     }
 
-    .skills-grid{
-      display: grid;
-      gap: 10px;
-      margin-top: 6px;
-    }
-    @media (min-width: 640px){
-      .skills-grid{
-        grid-template-columns: 1fr 1fr;
-        gap: 12px 22px;
-      }
-    }
-    .skill-item{
-      position: relative;
-      padding-left: 14px;
-      font-size: var(--paraSize);
-      font-family: var(--bodyFont);
-      font-weight: 600;
-      color: var(--softInk);
-      letter-spacing: .01em;
-      line-height: 1.8;
-    }
-    .skill-item::before{
-      content:"";
-      position:absolute;
-      left: 0;
-      top: 8px;
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(26,93,102,.35);
-      box-shadow: 0 0 0 3px rgba(26,93,102,.08);
-    }
-
     .edu-timeline{
       position: relative;
       display: grid;
@@ -1266,31 +1194,6 @@
       font-size: 13px;
       line-height: 1.65;
       font-weight: 500;
-    }
-
-    .about .cta-soft{
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.90);
-      border: 1px solid rgba(26,93,102,.14);
-      color: rgba(26,93,102,.92);
-      font-weight: 750;
-      font-size: 12px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      width: fit-content;
-      margin-top: 2px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.035);
-      font-family: var(--bodyFont);
-    }
-    .about .cta-soft .dot{
-      width: 8px; height: 8px;
-      border-radius: 999px;
-      background: rgba(26,93,102,.32);
-      box-shadow: 0 0 0 3px rgba(26,93,102,.10);
     }
 
 
@@ -1433,12 +1336,10 @@
         font-size: clamp(23px, 6.5vw, 29px);
         line-height: 1.02;
       }
-      .card-text,
       .about .lead p,
       .about .body-copy p,
       .about .box p,
       .about li,
-      .skill-item,
       .edu-desc{
         font-size: 14px;
         line-height: 1.78;
@@ -1541,10 +1442,6 @@
       .about .grid{
         grid-template-columns: 1fr !important;
         gap: 10px;
-      }
-      .skills-grid{
-        grid-template-columns: 1fr !important;
-        gap: 8px;
       }
       .edu-timeline{
         gap: 8px;
@@ -1659,11 +1556,6 @@
     @keyframes loaderFloat{
       0%,100%{ transform: translateY(0); }
       50%{ transform: translateY(-2px); }
-    }
-
-    .loader-sub{
-      opacity: .86;
-      animation: subPulse 1.8s ease-in-out infinite;
     }
 
     @keyframes subPulse{
