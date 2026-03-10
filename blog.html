@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="image" href="imagens/Logo.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="imagens/arvore fundo blog.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="imagens/Tree ring hero.webp" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -25,20 +25,32 @@
       --padX: clamp(16px, 6vw, 120px);
       --headerH: 56px;
 
+      --treeYOffset: clamp(10px, 2vh, 34px);
+      --treeScale: 0.92;
+      --treeOpacity: 0.92;
+
+      --treeBreathDur: 14s;
+      --treeBreathAmp: 0.045;
+      --treePushZ: 60px;
+      --treeBreathShadowA: 0.16;
+      --treeBreathShadowB: 0.26;
+
+      --glowOpacity: 0.16;
+      --glowDur: 6.2s;
+      --glowBlur: 10px;
+      --glowColor: rgba(26,93,102,.48);
+
       --bodyFont: "Inter", system-ui, sans-serif;
       --titleFont: "Playfair Display", serif;
     }
 
     *{ box-sizing:border-box; }
-
     html,body{ min-height:100%; }
-
     html{
       scroll-behavior:smooth;
       scrollbar-width:none;
       -ms-overflow-style:none;
     }
-
     body{
       margin:0;
       font-family:var(--bodyFont);
@@ -51,7 +63,6 @@
       scrollbar-width:none;
       -ms-overflow-style:none;
     }
-
     html::-webkit-scrollbar,
     body::-webkit-scrollbar{
       width:0 !important;
@@ -70,7 +81,6 @@
       background-repeat:no-repeat;
       transform:scale(1.03);
     }
-
     body::after{
       content:"";
       position:fixed;
@@ -86,28 +96,77 @@
       position:fixed;
       inset:0;
       z-index:-3;
-      pointer-events:none;
       display:flex;
       align-items:center;
-      justify-content:flex-end;
-      padding-right:clamp(14px, 3vw, 48px);
-      padding-top:clamp(10px, 2vh, 34px);
+      justify-content:center;
+      pointer-events:none;
+      transform:translateY(var(--treeYOffset));
     }
-
     .tree{
-      width:min(44vw, 620px);
-      opacity:.94;
+      width:min(74vw, 74vh);
+      height:min(74vw, 74vh);
+      opacity:var(--treeOpacity);
       position:relative;
-      flex:0 0 auto;
+      transform-style:preserve-3d;
+      will-change:filter;
+      animation:treeBreath var(--treeBreathDur) ease-in-out infinite;
     }
-
     .tree img{
       width:100%;
-      height:auto;
+      height:100%;
       object-fit:contain;
       display:block;
       user-select:none;
       -webkit-user-drag:none;
+      transform:translateZ(0) scale(var(--treeScale));
+      will-change:transform;
+      animation:treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
+    }
+    @keyframes treeBreath{
+      0%,100%{ filter: drop-shadow(0 28px 70px rgba(0,0,0,var(--treeBreathShadowA))) brightness(.98); }
+      50%{ filter: drop-shadow(0 48px 130px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.03); }
+    }
+    @keyframes treeScaleBreath{
+      0%,100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
+      50%{ transform: translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
+    }
+    .tree::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(180deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,0) 35%,
+          rgba(255,255,255,.50) 50%,
+          rgba(255,255,255,0) 65%,
+          rgba(255,255,255,0) 100%
+        ),
+        radial-gradient(closest-side at 50% 50%, var(--glowColor), rgba(26,93,102,0) 62%);
+      background-size:100% 220%, 120% 120%;
+      background-position:0 140%, 50% 160%;
+      background-repeat:no-repeat;
+      opacity:var(--glowOpacity);
+      filter:blur(var(--glowBlur));
+      mix-blend-mode:screen;
+      -webkit-mask-image:url("imagens/Tree ring hero.webp");
+      -webkit-mask-repeat:no-repeat;
+      -webkit-mask-size:contain;
+      -webkit-mask-position:center;
+      mask-image:url("imagens/Tree ring hero.webp");
+      mask-repeat:no-repeat;
+      mask-size:contain;
+      mask-position:center;
+      animation:glowRise var(--glowDur) cubic-bezier(.3, 0, .2, 1) infinite;
+      will-change:opacity, background-position;
+    }
+    @keyframes glowRise{
+      0% { opacity: 0; background-position: 0 140%, 50% 160%; }
+      12% { opacity: var(--glowOpacity); }
+      58% { opacity: var(--glowOpacity); background-position: 0 22%, 50% 40%; }
+      86% { opacity: calc(var(--glowOpacity) * 0.60); background-position: 0 -36%, 50% -10%; }
+      100% { opacity: 0; background-position: 0 -70%, 50% -40%; }
     }
 
     .topbar{
@@ -135,14 +194,12 @@
       min-width:0;
       text-decoration:none;
     }
-
     .brand-link img{
       width:32px;
       height:32px;
       object-fit:contain;
       display:block;
     }
-
     .brand-name{
       font-family:var(--titleFont);
       font-weight:900;
@@ -160,7 +217,6 @@
       flex-wrap:wrap;
       justify-content:flex-end;
     }
-
     .topnav a{
       text-decoration:none;
       color:rgba(20,28,32,.82);
@@ -173,13 +229,11 @@
       border-radius:999px;
       transition:background .24s ease,color .24s ease,transform .24s ease,box-shadow .24s ease;
     }
-
     .topnav a:hover{
       background:rgba(255,255,255,.72);
       color:var(--brand);
       box-shadow:0 12px 28px rgba(0,0,0,.06);
     }
-
     .topnav a.is-current{
       background:rgba(26,93,102,.10);
       color:var(--brand);
@@ -198,15 +252,13 @@
       position:relative;
       z-index:2;
     }
-
     .hero-inner{
-      max-width:min(760px, 100%);
-      margin:0;
+      max-width:1080px;
+      margin:0 auto;
       display:grid;
       gap:24px;
       width:100%;
     }
-
     .eyebrow{
       margin:0;
       font-size:12px;
@@ -215,7 +267,6 @@
       color:rgba(20,28,32,.68);
       font-weight:800;
     }
-
     .hero h1{
       margin:0;
       max-width:900px;
@@ -227,7 +278,6 @@
       letter-spacing:-.03em;
       text-shadow:0 14px 34px rgba(0,0,0,.07);
     }
-
     .hero-copy{
       max-width:780px;
       margin:0;
@@ -236,14 +286,12 @@
       font-size:clamp(15px, 1.6vw, 18px);
       font-weight:500;
     }
-
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
       gap:12px;
       margin-top:4px;
     }
-
     .btn{
       appearance:none;
       display:inline-flex;
@@ -259,16 +307,13 @@
       text-transform:uppercase;
       transition:transform .24s ease, box-shadow .24s ease, background .24s ease, color .24s ease, border-color .24s ease;
     }
-
     .btn:hover{ transform:translateY(-1px); }
-
     .btn--solid{
       background:rgba(26,93,102,.96);
       color:#fff;
       box-shadow:0 14px 28px rgba(26,93,102,.20);
       border:1px solid transparent;
     }
-
     .btn--ghost{
       background:rgba(255,255,255,.90);
       color:var(--brand);
@@ -282,30 +327,7 @@
         padding-right:calc(22px + var(--safeR));
         gap:22px;
       }
-
       .topnav{ gap:4px; }
-
-      .hero{
-        padding-right:calc(max(var(--padX), 8vw) + 380px);
-      }
-    }
-
-    @media (max-width:900px){
-      .bg-stage{
-        justify-content:flex-end;
-        align-items:flex-end;
-        padding-right:clamp(8px, 3vw, 18px);
-        padding-bottom:clamp(12px, 3vh, 28px);
-        opacity:.22;
-      }
-
-      .tree{
-        width:min(52vw, 300px);
-      }
-
-      .hero-inner{
-        max-width:100%;
-      }
     }
 
     @media (max-width:640px){
@@ -313,28 +335,19 @@
         padding-left:calc(14px + var(--safeL));
         padding-right:calc(14px + var(--safeR));
       }
-
       .brand-name{ font-size:16px; }
-
       .topnav a{
         font-size:10px;
         padding:9px 11px;
       }
-
-      .hero{
-        padding-top:48px;
-      }
-
-      .bg-stage{
-        display:none;
-      }
+      .hero{ padding-top:48px; }
     }
   </style>
 </head>
 <body>
   <div class="bg-stage" aria-hidden="true">
     <div class="tree">
-      <img src="imagens/arvore fundo blog.webp" alt="">
+      <img src="imagens/Tree ring hero.webp" alt="">
     </div>
   </div>
 
