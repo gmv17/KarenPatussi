@@ -3373,25 +3373,23 @@
 (function(){
   const barTitle = document.getElementById("barTitle");
   const drawerBrand = document.getElementById("drawerBrand");
-  const heroTarget = document.getElementById("home");
-  const overlay = document.getElementById("menuOverlay");
-  const openBtn = document.getElementById("openMenu");
+
+  function isMobileLayoutOutside(){
+    return window.matchMedia("(max-width: 980px)").matches;
+  }
 
   function goHome(){
-    if(typeof closeMenu === "function"){
-      closeMenu();
-    }else if(overlay){
-      overlay.classList.remove("is-open");
-      overlay.setAttribute("aria-hidden", "true");
-      document.body.classList.remove("menu-open");
-      if(openBtn) openBtn.setAttribute("aria-expanded", "false");
+    const selector = isMobileLayoutOutside()
+      ? '.drawer-nav a[href="#home"][data-link]'
+      : '.main-nav a[href="#home"][data-link]';
+
+    const homeLink = document.querySelector(selector) || document.querySelector('a[href="#home"][data-link]');
+    if(homeLink){
+      homeLink.click();
+      return;
     }
 
-    if(heroTarget){
-      heroTarget.scrollIntoView({ behavior: "smooth", block: "start" });
-    }else{
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   [barTitle, drawerBrand].forEach((el) => {
