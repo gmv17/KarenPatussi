@@ -2791,7 +2791,7 @@
         resetActiveScroll();
 
         requestAnimationFrame(() => {
-          p = 0;
+          p = 0.06;
           pTarget = 1;
           phase = "opening";
           scheduleRender();
@@ -3194,7 +3194,7 @@
         returnToHeroAfterClose = false;
 
         setLock();
-        p = 0; pTarget = 1;
+        p = 0.06; pTarget = 1;
         phase = "opening";
 
         const y = cardsTrack.getBoundingClientRect().top + window.scrollY;
@@ -3226,7 +3226,7 @@
           cards.forEach(card => setCardExpanded(card, false));
           window.setTimeout(() => {
             returnToHeroWithSameMotion();
-          }, 80);
+          }, 20);
           return;
         }
 
@@ -3240,7 +3240,7 @@
 
         window.setTimeout(() => {
           target.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 80);
+        }, 20);
       }
 
       links.forEach((a, idx) => a.style.setProperty("--i", String(idx)));
@@ -3255,7 +3255,7 @@
         const idx = parseInt(a.dataset.index || "-1", 10);
         closeMenu();
         unlockBody();
-        requestAnimationFrame(() => setTimeout(() => goToScene(idx), 40));
+        requestAnimationFrame(() => goToScene(idx));
       }));
 
 
