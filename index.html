@@ -2127,6 +2127,8 @@
       const links = Array.from(document.querySelectorAll("a[data-link]"));
 
       const heroStage = document.getElementById("home");
+      const brandEl = document.getElementById("brand");
+      const roleEl = document.getElementById("role");
       const cardsTrack = document.getElementById("cardsTrack");
       const cards = Array.from(document.querySelectorAll("[data-card]"));
 
@@ -2295,6 +2297,27 @@
         if(autoRoleTimer) window.clearTimeout(autoRoleTimer);
         autoRoleTimer = 0;
         autoRolePending = false;
+      }
+
+      function setHeroTransitionMode(enabled){
+        const value = enabled ? "" : "none";
+        if(brandEl) brandEl.style.transition = value;
+        if(roleEl) roleEl.style.transition = value;
+      }
+
+      function syncHeroReturnWithCardProgress(progress){
+        const t = clamp(progress, 0, 1);
+        const liftName = getNumVar("--liftName", 140);
+        const liftRole = getNumVar("--liftRole", 120);
+        const blurMax  = getNumVar("--fadeBlur", 1.6);
+
+        root.style.setProperty("--nameY", String(-liftName * (1 - t)) + "px");
+        root.style.setProperty("--nameO", String(t));
+        root.style.setProperty("--nameB", String(blurMax * (1 - t)) + "px");
+
+        root.style.setProperty("--roleY", String(-liftRole * (1 - t)) + "px");
+        root.style.setProperty("--roleO", String(t));
+        root.style.setProperty("--roleB", String((blurMax * 0.9) * (1 - t)) + "px");
       }
 
       function scheduleAutoRole(){
@@ -2567,45 +2590,26 @@
         topbar.classList.remove("show-brand");
 
         const home = document.getElementById("home");
-        const liftName = getNumVar("--liftName", 140);
-        const liftRole = getNumVar("--liftRole", 120);
-        const blurMax  = getNumVar("--fadeBlur", 1.6);
-        const waitMs = Math.max(stepDurationMs(1), stepDurationMs(2)) + 80;
 
         step = 0;
         animating = true;
 
-        root.style.setProperty("--nameY", (-liftName) + "px");
-        root.style.setProperty("--nameO", "0");
-        root.style.setProperty("--nameB", blurMax + "px");
-
-        root.style.setProperty("--roleY", (-liftRole) + "px");
-        root.style.setProperty("--roleO", "0");
-        root.style.setProperty("--roleB", (blurMax * 0.9) + "px");
-
+        setHeroTransitionMode(false);
+        syncHeroReturnWithCardProgress(1);
         window.scrollTo({ top: home.getBoundingClientRect().top + window.scrollY, behavior: "auto" });
 
         await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-
-        lockBody();
-
-        root.style.setProperty("--nameY", "0px");
-        root.style.setProperty("--nameO", "1");
-        root.style.setProperty("--nameB", "0px");
-
-        root.style.setProperty("--roleY", "0px");
-        root.style.setProperty("--roleO", "1");
-        root.style.setProperty("--roleB", "0px");
 
         setCooldown();
 
         await new Promise(resolve => {
           window.setTimeout(() => {
             animating = false;
+            setHeroTransitionMode(true);
             applyHeroState();
             unlockBody();
             resolve();
-          }, waitMs);
+          }, 90);
         });
       }
 
@@ -2667,6 +2671,12 @@
 
         if(phase === "opening" && p >= 1){
           phase = "open";
+        }
+
+        if(phase === "closing" && returnToHeroAfterClose){
+          topbar.classList.remove("show-brand");
+          setHeroTransitionMode(false);
+          syncHeroReturnWithCardProgress(1 - p);
         }
 
         if(phase === "closing" && p <= 0){
