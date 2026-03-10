@@ -1,1 +1,618 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Blog | Káren Patussi</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand:#1A5D66;
+      --text:#0b0d0f;
+      --muted:#26343a;
+      --safeT: env(safe-area-inset-top, 0px);
+      --safeR: env(safe-area-inset-right, 0px);
+      --safeB: env(safe-area-inset-bottom, 0px);
+      --safeL: env(safe-area-inset-left, 0px);
+      --padX: clamp(18px, 6vw, 120px);
+      --headerH: 60px;
+      --bodyFont:"Inter",system-ui,sans-serif;
+      --titleFont:"Playfair Display",serif;
+      --softBorder:rgba(0,0,0,.07);
+      --softGlass:rgba(255,255,255,.88);
+      --softInk:rgba(20,28,32,.92);
+      --shadow:0 18px 54px rgba(0,0,0,.10);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      min-height:100%;
+      font-family:var(--bodyFont);
+      color:var(--text);
+      background:transparent;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-3;
+      background-image:url("imagens/fundo textura.webp");
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      transform:scale(1.03);
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:
+        radial-gradient(1100px 720px at 50% 24%, rgba(255,255,255,.30), rgba(255,255,255,0) 58%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+    }
+
+    .bg-stage{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none;
+      opacity:.38;
+      transform:translateY(18px);
+    }
+    .tree{
+      width:min(74vw,74vh);
+      height:min(74vw,74vh);
+      filter:drop-shadow(0 26px 72px rgba(0,0,0,.12));
+      animation:treeBreath 14s ease-in-out infinite;
+    }
+    .tree img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      animation:treeScaleBreath 14s ease-in-out infinite;
+    }
+    @keyframes treeBreath{
+      0%,100%{ filter:drop-shadow(0 20px 50px rgba(0,0,0,.10)) brightness(.98); }
+      50%{ filter:drop-shadow(0 28px 80px rgba(0,0,0,.14)) brightness(1.02); }
+    }
+    @keyframes treeScaleBreath{
+      0%,100%{ transform:scale(.96); }
+      50%{ transform:scale(1); }
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:40;
+      height:calc(var(--headerH) + var(--safeT));
+      padding:
+        calc(10px + var(--safeT))
+        calc(16px + var(--safeR))
+        10px
+        calc(16px + var(--safeL));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.78));
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(0,0,0,.07);
+    }
+
+    .brand-link{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      text-decoration:none;
+    }
+    .brand-link img{
+      width:32px;
+      height:32px;
+      object-fit:contain;
+      display:block;
+    }
+    .brand-name{
+      font-family:var(--titleFont);
+      font-weight:900;
+      letter-spacing:-.014em;
+      color:var(--brand);
+      font-size:18px;
+      line-height:1;
+      white-space:nowrap;
+    }
+
+    .topnav{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .topnav a{
+      text-decoration:none;
+      color:rgba(20,28,32,.82);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      padding:10px 14px;
+      min-height:40px;
+      border-radius:999px;
+      transition:background .24s ease,color .24s ease,transform .24s ease,box-shadow .24s ease;
+    }
+    .topnav a:hover{
+      background:rgba(255,255,255,.72);
+      color:var(--brand);
+      box-shadow:0 12px 28px rgba(0,0,0,.06);
+    }
+    .topnav a.is-current{
+      background:rgba(26,93,102,.10);
+      color:var(--brand);
+      box-shadow:inset 0 0 0 1px rgba(26,93,102,.14);
+    }
+
+    .shell{
+      position:relative;
+      z-index:2;
+    }
+
+    .hero{
+      padding:
+        clamp(70px, 12vw, 120px)
+        calc(var(--padX) + var(--safeR))
+        48px
+        calc(var(--padX) + var(--safeL));
+    }
+    .hero-inner{
+      max-width:1080px;
+      margin:0 auto;
+      display:grid;
+      gap:24px;
+    }
+    .eyebrow{
+      margin:0;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(20,28,32,.68);
+      font-weight:800;
+    }
+    .hero h1{
+      margin:0;
+      max-width:900px;
+      font-family:var(--titleFont);
+      font-weight:900;
+      color:var(--brand);
+      font-size:clamp(42px, 7vw, 84px);
+      line-height:.96;
+      letter-spacing:-.03em;
+      text-shadow:0 14px 34px rgba(0,0,0,.07);
+    }
+    .hero-copy{
+      max-width:780px;
+      margin:0;
+      color:var(--softInk);
+      line-height:1.95;
+      font-size:clamp(15px, 1.6vw, 18px);
+      font-weight:500;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:4px;
+    }
+    .btn{
+      appearance:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:13px 18px;
+      border-radius:999px;
+      text-decoration:none;
+      cursor:pointer;
+      font:700 11px/1 var(--bodyFont);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      transition:transform .24s ease, box-shadow .24s ease, background .24s ease, color .24s ease, border-color .24s ease;
+    }
+    .btn:hover{ transform:translateY(-1px); }
+    .btn--solid{
+      background:rgba(26,93,102,.96);
+      color:#fff;
+      box-shadow:0 14px 28px rgba(26,93,102,.20);
+      border:1px solid transparent;
+    }
+    .btn--ghost{
+      background:rgba(255,255,255,.90);
+      color:var(--brand);
+      border:1px solid rgba(26,93,102,.16);
+      box-shadow:0 12px 24px rgba(0,0,0,.05);
+    }
+
+    .section{
+      padding:
+        8px
+        calc(var(--padX) + var(--safeR))
+        70px
+        calc(var(--padX) + var(--safeL));
+    }
+
+    .featured{
+      max-width:1080px;
+      margin:0 auto;
+      border-radius:28px;
+      background:rgba(255,255,255,.58);
+      border:1px solid var(--softBorder);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(16px) saturate(1.08);
+      -webkit-backdrop-filter:blur(16px) saturate(1.08);
+      overflow:hidden;
+      position:relative;
+    }
+    .featured::before{
+      content:"";
+      position:absolute;
+      inset:-60% -40%;
+      pointer-events:none;
+      background:
+        radial-gradient(closest-side at 18% 20%, rgba(26,93,102,.12), rgba(26,93,102,0) 62%),
+        radial-gradient(closest-side at 80% 60%, rgba(255,255,255,.24), rgba(255,255,255,0) 60%);
+      opacity:.6;
+    }
+    .featured-inner{
+      position:relative;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      min-height:440px;
+    }
+    .featured-media{
+      min-height:320px;
+      background:
+        linear-gradient(180deg, rgba(26,93,102,.06), rgba(26,93,102,.14)),
+        url("imagens/Foto Karen Sobre.webp") center/cover no-repeat;
+    }
+    .featured-content{
+      padding:34px;
+      display:grid;
+      align-content:center;
+      gap:14px;
+    }
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:30px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(26,93,102,.10);
+      border:1px solid rgba(26,93,102,.16);
+      color:rgba(26,93,102,.92);
+      font-size:10.5px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-weight:800;
+    }
+    .featured-title{
+      margin:0;
+      font-family:var(--titleFont);
+      font-weight:900;
+      color:var(--brand);
+      font-size:clamp(28px, 3vw, 42px);
+      line-height:1.02;
+      letter-spacing:-.02em;
+    }
+    .featured-text{
+      margin:0;
+      color:var(--softInk);
+      line-height:1.95;
+      font-size:15px;
+      font-weight:500;
+    }
+
+    .list-head{
+      max-width:1080px;
+      margin:0 auto 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .list-head h2{
+      margin:0;
+      font-family:var(--titleFont);
+      color:var(--brand);
+      font-weight:900;
+      font-size:clamp(28px, 3vw, 40px);
+      letter-spacing:-.02em;
+    }
+    .list-head p{
+      margin:0;
+      max-width:560px;
+      color:rgba(20,28,32,.78);
+      line-height:1.8;
+      font-size:14px;
+      font-weight:500;
+    }
+
+    .posts{
+      max-width:1080px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+    }
+
+    .post{
+      border-radius:22px;
+      overflow:hidden;
+      background:var(--softGlass);
+      border:1px solid var(--softBorder);
+      box-shadow:0 14px 28px rgba(0,0,0,.06);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      display:grid;
+      min-height:100%;
+      transition:transform .28s ease, box-shadow .28s ease;
+    }
+    .post:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 34px rgba(0,0,0,.08);
+    }
+    .post-media{
+      aspect-ratio:16/10;
+      background:
+        linear-gradient(180deg, rgba(26,93,102,.08), rgba(26,93,102,.14)),
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,.44), transparent 34%),
+        radial-gradient(circle at 82% 78%, rgba(255,255,255,.24), transparent 24%),
+        linear-gradient(135deg, rgba(26,93,102,.16), rgba(255,255,255,.66));
+    }
+    .post-body{
+      padding:20px 18px 18px;
+      display:grid;
+      gap:10px;
+      align-content:start;
+    }
+    .post-title{
+      margin:0;
+      font-family:var(--titleFont);
+      font-weight:900;
+      color:var(--brand);
+      font-size:24px;
+      line-height:1.05;
+      letter-spacing:-.014em;
+    }
+    .post-text{
+      margin:0;
+      color:var(--softInk);
+      line-height:1.88;
+      font-size:14px;
+      font-weight:500;
+    }
+    .post-link{
+      margin-top:4px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      text-decoration:none;
+      color:var(--brand);
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-weight:800;
+    }
+
+    .footer{
+      padding:
+        12px
+        calc(var(--padX) + var(--safeR))
+        calc(48px + var(--safeB))
+        calc(var(--padX) + var(--safeL));
+    }
+    .footer-inner{
+      max-width:1080px;
+      margin:0 auto;
+      border-top:1px solid rgba(0,0,0,.08);
+      padding-top:24px;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      color:rgba(20,28,32,.74);
+      font-size:13px;
+      line-height:1.8;
+    }
+    .footer a{
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    @media (max-width: 920px){
+      .featured-inner{ grid-template-columns:1fr; }
+      .featured-media{ min-height:260px; }
+      .posts{ grid-template-columns:1fr 1fr; }
+    }
+
+    @media (max-width: 640px){
+      .topbar{
+        padding-left:calc(14px + var(--safeL));
+        padding-right:calc(14px + var(--safeR));
+      }
+      .brand-name{ font-size:16px; }
+      .topnav{ gap:6px; }
+      .topnav a{
+        font-size:10px;
+        padding:9px 11px;
+      }
+      .hero{
+        padding-top:58px;
+        padding-bottom:32px;
+      }
+      .featured-content{ padding:22px 18px; }
+      .posts{ grid-template-columns:1fr; }
+      .footer-inner{ flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-stage" aria-hidden="true">
+    <div class="tree">
+      <img src="imagens/Tree ring hero.webp" alt="">
+    </div>
+  </div>
+
+  <div class="shell">
+    <header class="topbar" aria-label="Barra superior">
+      <a class="brand-link" href="index.html" aria-label="Voltar ao site principal">
+        <img src="imagens/Logo.webp" alt="Logo Káren Patussi">
+        <span class="brand-name">Káren Patussi</span>
+      </a>
+
+      <nav class="topnav" aria-label="Navegação do blog">
+        <a href="index.html">Home</a>
+        <a href="index.html#sobre">Sobre</a>
+        <a href="index.html#como-funciona">Como funciona</a>
+        <a class="is-current" href="blog.html" aria-current="page">Blog</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-label="Introdução do blog">
+        <div class="hero-inner">
+          <p class="eyebrow">Artigos, pesquisas e reflexões</p>
+          <h1>Um espaço de escrita para pensar a subjetividade com profundidade e acolhimento.</h1>
+          <p class="hero-copy">
+            Esta página foi pensada para reunir textos sobre psicologia, sexualidade, relações humanas, saúde emocional e questões contemporâneas que atravessam a experiência de viver, amar, desejar e elaborar a própria história.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn--solid" href="#artigos">Explorar textos</a>
+            <a class="btn btn--ghost" href="index.html">Voltar ao site principal</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Destaque editorial">
+        <article class="featured">
+          <div class="featured-inner">
+            <div class="featured-media" aria-hidden="true"></div>
+            <div class="featured-content">
+              <div class="meta">
+                <span class="tag">Destaque</span>
+                <span class="tag">Reflexão clínica</span>
+              </div>
+              <h2 class="featured-title">O blog como extensão do cuidado.</h2>
+              <p class="featured-text">
+                Mais do que uma área de publicações, este espaço pode funcionar como uma extensão da escuta clínica: um lugar de elaboração, reflexão e partilha responsável de temas que merecem delicadeza, densidade e rigor.
+              </p>
+              <p class="featured-text">
+                Aqui podem entrar artigos, pesquisas, ensaios curtos, textos de orientação e reflexões autorais — tudo em uma linguagem humana, acessível e tecnicamente cuidadosa.
+              </p>
+              <div class="hero-actions">
+                <a class="btn btn--solid" href="#artigos">Ver publicações</a>
+                <a class="btn btn--ghost" href="index.html#agendar-sessao">Agendar sessão</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section" id="artigos" aria-label="Lista de publicações">
+        <div class="list-head">
+          <div>
+            <h2>Publicações</h2>
+          </div>
+          <p>
+            Abaixo está uma estrutura inicial pronta para receber textos do blog. Cada card pode depois apontar para uma página própria de artigo completo.
+          </p>
+        </div>
+
+        <div class="posts">
+          <article class="post">
+            <div class="post-media" aria-hidden="true"></div>
+            <div class="post-body">
+              <div class="meta">
+                <span class="tag">Artigo</span>
+                <span class="tag">Psicologia</span>
+              </div>
+              <h3 class="post-title">Quando a escuta muda a forma de compreender a própria história.</h3>
+              <p class="post-text">
+                Um texto para abordar como a palavra, o silêncio e a escuta qualificada podem abrir novos sentidos para experiências antigas.
+              </p>
+              <a class="post-link" href="#">Ler publicação</a>
+            </div>
+          </article>
+
+          <article class="post">
+            <div class="post-media" aria-hidden="true"></div>
+            <div class="post-body">
+              <div class="meta">
+                <span class="tag">Pesquisa</span>
+                <span class="tag">Sexualidade</span>
+              </div>
+              <h3 class="post-title">Desejo, cultura e subjetividade nas relações contemporâneas.</h3>
+              <p class="post-text">
+                Um espaço ideal para reunir referências, pesquisas e reflexões sobre sexualidade com abordagem ética, atual e responsável.
+              </p>
+              <a class="post-link" href="#">Ler publicação</a>
+            </div>
+          </article>
+
+          <article class="post">
+            <div class="post-media" aria-hidden="true"></div>
+            <div class="post-body">
+              <div class="meta">
+                <span class="tag">Reflexão</span>
+                <span class="tag">Relações</span>
+              </div>
+              <h3 class="post-title">O que permanece não dito dentro dos vínculos afetivos.</h3>
+              <p class="post-text">
+                Uma abertura para textos sobre comunicação, intimidade emocional, conflitos relacionais e processos de elaboração.
+              </p>
+              <a class="post-link" href="#">Ler publicação</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          © Káren Patussi — Psicóloga &amp; Terapeuta Sexual
+        </div>
+        <div>
+          <a href="index.html">Voltar ao site</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
