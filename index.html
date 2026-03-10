@@ -1444,14 +1444,14 @@
       }
       .card-scroll{
         position: relative;
-        max-height: 220px !important;
+        max-height: clamp(150px, 30vh, 220px) !important;
         overflow: hidden !important;
         padding-top: 0;
         padding-bottom: 0;
         transition: max-height 420ms cubic-bezier(.16, 1, .18, 1);
       }
       .section-card.is-expanded .card-scroll{
-        max-height: 5000px !important;
+        max-height: 4000px !important;
       }
       .card-scroll::before,
       .card-scroll::after{ display:none !important; }
@@ -2083,7 +2083,8 @@
             scroll.insertAdjacentElement("afterend", toggle);
           }
 
-          const shouldCollapse = isMobileLayout() ? true : (scroll.scrollHeight > 360);
+          const collapsedMax = Math.min(window.innerHeight * 0.30, 220);
+          const shouldCollapse = scroll.scrollHeight > (collapsedMax + 24);
           card.classList.toggle("has-toggle", shouldCollapse);
 
           if(!toggle.dataset.bound){
@@ -2095,7 +2096,7 @@
             toggle.dataset.bound = "true";
           }
 
-          if(!isMobileLayout() && !shouldCollapse){
+          if(!shouldCollapse){
             card.classList.remove("is-expanded");
             toggle.hidden = true;
             toggle.setAttribute("aria-expanded", "false");
@@ -2103,15 +2104,13 @@
             return;
           }
 
-          if(isMobileLayout()){
+          toggle.hidden = !isMobileLayout();
+
+          if(isMobileLayout() && shouldCollapse){
             card.classList.remove("is-expanded");
-            toggle.hidden = false;
             toggle.setAttribute("aria-expanded", "false");
             toggle.textContent = "Ver mais";
-            return;
           }
-
-          toggle.hidden = !shouldCollapse;
         });
       }
 
