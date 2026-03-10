@@ -14,36 +14,33 @@
   <style>
     :root{
       --brand:#1A5D66;
+      --brand-soft:rgba(26,93,102,.10);
       --text:#0b0d0f;
-      --muted:#4b5c62;
-      --softInk:rgba(20,28,32,.88);
+      --muted:#26343a;
+      --surface:rgba(255,255,255,.82);
+      --surface-strong:rgba(255,255,255,.92);
       --line:rgba(0,0,0,.08);
-      --glass:rgba(255,255,255,.72);
-      --glassStrong:rgba(255,255,255,.88);
+      --shadow:0 18px 48px rgba(0,0,0,.08);
 
       --safeT: env(safe-area-inset-top, 0px);
       --safeR: env(safe-area-inset-right, 0px);
       --safeB: env(safe-area-inset-bottom, 0px);
       --safeL: env(safe-area-inset-left, 0px);
 
-      --padX: clamp(18px, 6vw, 120px);
+      --padX: clamp(18px, 5vw, 84px);
       --headerH: 56px;
 
-      --treeYOffset: clamp(10px, 2vh, 34px);
-      --treeScale: 0.92;
-      --treeOpacity: 0.90;
+      --treeYOffset: 0px;
+      --treeScale: .98;
+      --treeOpacity: .52;
 
-      --bodyFont: "Inter", system-ui, sans-serif;
-      --titleFont: "Playfair Display", serif;
+      --bodyFont:"Inter", system-ui, sans-serif;
+      --titleFont:"Playfair Display", serif;
     }
 
     *{ box-sizing:border-box; }
     html,body{ min-height:100%; }
-    html{
-      scroll-behavior:smooth;
-      scrollbar-width:none;
-      -ms-overflow-style:none;
-    }
+    html{ scroll-behavior:smooth; scrollbar-width:none; -ms-overflow-style:none; }
     body{
       margin:0;
       font-family:var(--bodyFont);
@@ -57,11 +54,7 @@
       -ms-overflow-style:none;
     }
     html::-webkit-scrollbar,
-    body::-webkit-scrollbar{
-      width:0 !important;
-      height:0 !important;
-      display:none !important;
-    }
+    body::-webkit-scrollbar{ width:0 !important; height:0 !important; display:none !important; }
 
     body::before{
       content:"";
@@ -81,8 +74,8 @@
       z-index:-5;
       pointer-events:none;
       background:
-        radial-gradient(1100px 720px at 50% 32%, rgba(255,255,255,.26), rgba(255,255,255,0) 60%),
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+        radial-gradient(1100px 720px at 50% 32%, rgba(255,255,255,.24), rgba(255,255,255,0) 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
     }
 
     .bg-stage{
@@ -92,16 +85,16 @@
       display:flex;
       align-items:center;
       justify-content:flex-end;
+      padding-right:clamp(10px, 3vw, 36px);
       pointer-events:none;
       transform:translateY(var(--treeYOffset));
-      padding-right:min(5vw, 42px);
     }
     .tree{
-      width:min(58vw, 72vh);
-      height:min(58vw, 72vh);
+      width:min(58vw, 60vh);
+      height:min(58vw, 60vh);
       opacity:var(--treeOpacity);
       position:relative;
-      filter:drop-shadow(0 28px 70px rgba(0,0,0,.16));
+      filter:drop-shadow(0 24px 60px rgba(0,0,0,.12));
     }
     .tree img{
       width:100%;
@@ -110,7 +103,7 @@
       display:block;
       user-select:none;
       -webkit-user-drag:none;
-      transform:translateZ(0) scale(var(--treeScale));
+      transform:scale(var(--treeScale));
     }
 
     .topbar{
@@ -130,7 +123,6 @@
       -webkit-backdrop-filter:blur(10px);
       border-bottom:1px solid var(--line);
     }
-
     .brand-link{
       display:flex;
       align-items:center;
@@ -153,7 +145,6 @@
       line-height:1;
       white-space:nowrap;
     }
-
     .topnav{
       display:flex;
       align-items:center;
@@ -179,61 +170,57 @@
       box-shadow:0 12px 28px rgba(0,0,0,.06);
     }
     .topnav a.is-current{
-      background:rgba(26,93,102,.10);
+      background:var(--brand-soft);
       color:var(--brand);
       box-shadow:inset 0 0 0 1px rgba(26,93,102,.14);
     }
 
-    .hero{
-      min-height:calc(100vh - var(--headerH) - var(--safeT));
-      display:flex;
-      align-items:center;
-      padding:
-        clamp(54px, 8vw, 96px)
-        calc(var(--padX) + var(--safeR))
-        clamp(28px, 5vw, 44px)
-        calc(var(--padX) + var(--safeL));
+    main{
       position:relative;
       z-index:2;
+      padding:0 calc(var(--padX) + var(--safeR)) calc(64px + var(--safeB)) calc(var(--padX) + var(--safeL));
+    }
+
+    .hero{
+      padding:clamp(56px, 9vw, 96px) 0 clamp(32px, 5vw, 46px);
     }
     .hero-inner{
       max-width:760px;
       display:grid;
       gap:18px;
-      width:100%;
     }
     .eyebrow{
       margin:0;
-      font-size:11px;
-      letter-spacing:.22em;
+      font-size:12px;
+      letter-spacing:.18em;
       text-transform:uppercase;
-      color:rgba(20,28,32,.64);
+      color:rgba(20,28,32,.66);
       font-weight:800;
     }
     .hero h1{
       margin:0;
-      max-width:760px;
+      max-width:720px;
       font-family:var(--titleFont);
       font-weight:900;
       color:var(--brand);
-      font-size:clamp(34px, 5vw, 58px);
+      font-size:clamp(34px, 5vw, 56px);
       line-height:1.02;
-      letter-spacing:-.028em;
-      text-shadow:0 14px 34px rgba(0,0,0,.05);
+      letter-spacing:-.03em;
+      text-shadow:0 12px 28px rgba(0,0,0,.05);
     }
     .hero-copy{
-      max-width:660px;
+      max-width:640px;
       margin:0;
-      color:var(--softInk);
-      line-height:1.85;
-      font-size:clamp(15px, 1.35vw, 17px);
+      color:rgba(20,28,32,.90);
+      line-height:1.8;
+      font-size:clamp(15px, 1.5vw, 17px);
       font-weight:500;
     }
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
       gap:12px;
-      margin-top:6px;
+      margin-top:2px;
     }
     .btn{
       appearance:none;
@@ -265,208 +252,213 @@
     }
 
     .blog-shell{
-      position:relative;
-      z-index:2;
-      padding:
-        0 calc(var(--padX) + var(--safeR))
-        calc(80px + var(--safeB))
-        calc(var(--padX) + var(--safeL));
-    }
-    .blog-grid{
       display:grid;
-      grid-template-columns:minmax(0, 1.2fr) minmax(260px, .65fr);
+      grid-template-columns:minmax(0, 1.55fr) minmax(260px, .7fr);
       gap:28px;
       align-items:start;
     }
 
-    .panel{
-      position:relative;
-      border-radius:26px;
-      background:var(--glass);
-      border:1px solid rgba(0,0,0,.06);
-      box-shadow:0 18px 54px rgba(0,0,0,.08);
-      backdrop-filter:blur(16px) saturate(1.06);
-      -webkit-backdrop-filter:blur(16px) saturate(1.06);
-      overflow:hidden;
-    }
-    .panel::before{
-      content:"";
-      position:absolute;
-      inset:-40% -20%;
-      pointer-events:none;
-      background:
-        radial-gradient(closest-side at 18% 20%, rgba(26,93,102,.10), rgba(26,93,102,0) 65%),
-        radial-gradient(closest-side at 85% 0%, rgba(255,255,255,.28), rgba(255,255,255,0) 60%);
-      opacity:.8;
-    }
-    .panel-inner{
-      position:relative;
-      padding:clamp(22px, 3vw, 34px);
-    }
-
     .section-label{
-      margin:0 0 10px;
-      font-size:11px;
-      letter-spacing:.18em;
+      margin:0 0 14px;
+      font-size:12px;
+      letter-spacing:.16em;
       text-transform:uppercase;
-      color:rgba(20,28,32,.64);
+      color:rgba(20,28,32,.66);
       font-weight:800;
     }
 
-    .featured{
-      display:grid;
-      gap:18px;
+    .featured-post,
+    .post-card,
+    .sidebar-card{
+      background:var(--surface);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
     }
-    .featured-tag,
-    .meta-chip{
+
+    .featured-post{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:0;
+      border-radius:28px;
+      overflow:hidden;
+      margin-bottom:18px;
+    }
+    .featured-copy{
+      padding:clamp(24px, 3vw, 34px);
+      display:grid;
+      gap:14px;
+      align-content:start;
+      background:linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.78));
+    }
+    .post-tag{
       display:inline-flex;
       align-items:center;
-      gap:8px;
       width:max-content;
       padding:8px 12px;
       border-radius:999px;
-      background:rgba(26,93,102,.10);
-      border:1px solid rgba(26,93,102,.14);
+      background:var(--brand-soft);
       color:var(--brand);
       font-size:11px;
       font-weight:800;
       letter-spacing:.12em;
       text-transform:uppercase;
     }
-    .featured-title{
+    .featured-title,
+    .post-title{
       margin:0;
       font-family:var(--titleFont);
-      font-size:clamp(28px, 3vw, 40px);
-      line-height:1.06;
       color:var(--brand);
       letter-spacing:-.02em;
     }
-    .featured-copy{
-      margin:0;
-      font-size:16px;
-      line-height:1.9;
-      color:var(--softInk);
+    .featured-title{
+      font-size:clamp(28px, 3vw, 40px);
+      line-height:1.04;
     }
-    .featured-footer{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      padding-top:8px;
-      border-top:1px solid rgba(0,0,0,.07);
-    }
-    .post-link{
-      text-decoration:none;
-      color:var(--brand);
-      font-weight:700;
-      letter-spacing:.04em;
-    }
-
-    .posts-list{
-      margin-top:22px;
-      display:grid;
-      gap:0;
-    }
-    .post-item{
-      display:grid;
-      gap:10px;
-      padding:22px 0;
-      border-top:1px solid rgba(0,0,0,.08);
-    }
-    .post-item:first-child{ border-top:none; padding-top:0; }
     .post-meta{
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      color:rgba(20,28,32,.62);
+      gap:10px 14px;
       font-size:12px;
       letter-spacing:.08em;
       text-transform:uppercase;
+      color:rgba(20,28,32,.60);
       font-weight:700;
     }
-    .post-item h3{
+    .featured-excerpt,
+    .post-excerpt,
+    .sidebar-card p,
+    .sidebar-card li{
       margin:0;
-      font-family:var(--titleFont);
-      color:var(--brand);
-      font-size:clamp(24px, 2.1vw, 32px);
-      line-height:1.08;
-      letter-spacing:-.015em;
+      color:rgba(20,28,32,.88);
+      line-height:1.8;
+      font-size:15px;
+      font-weight:500;
     }
-    .post-item p{
-      margin:0;
-      color:var(--softInk);
-      line-height:1.86;
-      font-size:15.5px;
+    .featured-media{
+      min-height:320px;
+      background:
+        linear-gradient(180deg, rgba(26,93,102,.10), rgba(26,93,102,.04)),
+        radial-gradient(circle at top left, rgba(255,255,255,.78), rgba(255,255,255,.28));
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      padding:24px;
+    }
+    .featured-media-box{
+      width:100%;
+      border-radius:20px;
+      background:rgba(255,255,255,.70);
+      border:1px solid rgba(0,0,0,.06);
+      padding:18px;
+      box-shadow:0 14px 32px rgba(0,0,0,.07);
+    }
+    .featured-media-box strong{
+      display:block;
+      color:var(--brand);
+      font-size:13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .featured-media-box span{
+      display:block;
+      color:rgba(20,28,32,.72);
+      font-size:14px;
+      line-height:1.7;
     }
 
-    .sidebar-stack{
+    .posts-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:18px;
+    }
+    .post-card{
+      border-radius:22px;
+      padding:22px;
+      display:grid;
+      gap:12px;
+      min-height:245px;
+      align-content:start;
+    }
+    .post-title{
+      font-size:clamp(24px, 2vw, 30px);
+      line-height:1.08;
+    }
+    .post-link,
+    .featured-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      width:max-content;
+      margin-top:4px;
+      text-decoration:none;
+      color:var(--brand);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .post-link::after,
+    .featured-link::after{
+      content:"→";
+      font-size:14px;
+      line-height:1;
+    }
+
+    .sidebar{
       display:grid;
       gap:18px;
       position:sticky;
-      top:calc(var(--headerH) + var(--safeT) + 20px);
+      top:calc(var(--headerH) + var(--safeT) + 18px);
     }
-    .mini-title{
-      margin:0 0 14px;
-      font-family:var(--titleFont);
-      font-size:26px;
-      line-height:1.1;
-      color:var(--brand);
-      letter-spacing:-.015em;
+    .sidebar-card{
+      border-radius:22px;
+      padding:22px;
+      display:grid;
+      gap:12px;
     }
-    .mini-copy{
+    .sidebar-card h2{
       margin:0;
-      color:var(--softInk);
-      line-height:1.82;
-      font-size:15px;
+      font-family:var(--titleFont);
+      color:var(--brand);
+      font-size:26px;
+      line-height:1.08;
+      letter-spacing:-.02em;
     }
-    .tag-list{
-      display:flex;
-      flex-wrap:wrap;
+    .sidebar-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
       gap:10px;
     }
-    .tag-list span{
-      display:inline-flex;
-      align-items:center;
-      min-height:38px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.86);
-      border:1px solid rgba(0,0,0,.06);
+    .sidebar-list li{
+      padding:0 0 10px;
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .sidebar-list li:last-child{
+      border-bottom:0;
+      padding-bottom:0;
+    }
+    .cms-note{
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(26,93,102,.07);
+      border:1px solid rgba(26,93,102,.12);
       color:rgba(20,28,32,.78);
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.04em;
-    }
-
-    .notes-list{
-      display:grid;
-      gap:14px;
-    }
-    .notes-item{
-      display:grid;
-      gap:6px;
-      padding:14px 0;
-      border-top:1px solid rgba(0,0,0,.07);
-    }
-    .notes-item:first-child{ border-top:none; padding-top:0; }
-    .notes-item strong{
-      color:var(--brand);
       font-size:14px;
-      letter-spacing:.04em;
-    }
-    .notes-item span{
-      color:rgba(20,28,32,.74);
-      line-height:1.68;
-      font-size:14px;
+      line-height:1.7;
     }
 
     .footer-note{
-      margin-top:18px;
+      margin-top:26px;
+      padding-top:18px;
+      border-top:1px solid rgba(0,0,0,.08);
       color:rgba(20,28,32,.62);
-      font-size:12px;
-      line-height:1.75;
+      font-size:13px;
+      line-height:1.7;
     }
 
     @media (min-width:980px){
@@ -478,25 +470,22 @@
       .topnav{ gap:4px; }
     }
 
-    @media (max-width:980px){
-      .bg-stage{
-        justify-content:center;
-        padding-right:0;
-      }
-      .tree{
-        width:min(78vw, 64vh);
-        height:min(78vw, 64vh);
-        opacity:.32;
-      }
-      .hero{
-        min-height:auto;
-        padding-bottom:20px;
-      }
-      .blog-grid{
+    @media (max-width:1080px){
+      .blog-shell{
         grid-template-columns:1fr;
       }
-      .sidebar-stack{
+      .sidebar{
         position:static;
+      }
+    }
+
+    @media (max-width:820px){
+      .featured-post,
+      .posts-grid{
+        grid-template-columns:1fr;
+      }
+      .featured-media{
+        min-height:220px;
       }
     }
 
@@ -510,19 +499,16 @@
         font-size:10px;
         padding:9px 11px;
       }
-      .hero{
-        padding-top:42px;
+      .hero{ padding-top:48px; }
+      .tree{
+        width:min(82vw, 54vh);
+        height:min(82vw, 54vh);
+        opacity:.34;
       }
-      .hero-inner{
-        gap:14px;
-      }
-      .hero h1{
-        font-size:clamp(30px, 9vw, 42px);
-      }
-      .featured-title,
-      .post-item h3,
-      .mini-title{
-        line-height:1.1;
+      .post-card,
+      .sidebar-card,
+      .featured-copy{
+        padding:18px;
       }
     }
   </style>
@@ -552,7 +538,7 @@
         <p class="eyebrow">Blog</p>
         <h1>Psicologia, sexualidade e relações humanas.</h1>
         <p class="hero-copy">
-          Reflexões clínicas, pesquisas e textos sobre subjetividade, saúde emocional, vínculos, desejo e experiência humana — com uma apresentação mais leve, editorial e sem poluição visual.
+          Reflexões clínicas, pesquisas e textos sobre subjetividade, saúde emocional e experiência humana — em uma estrutura limpa, elegante e fácil de alimentar no CMS.
         </p>
         <div class="hero-actions">
           <a class="btn btn--solid" href="index.html#agendar-sessao">Agendar sessão</a>
@@ -562,107 +548,121 @@
     </section>
 
     <section class="blog-shell" aria-label="Conteúdo do blog">
-      <div class="blog-grid">
-        <div class="panel">
-          <div class="panel-inner">
-            <p class="section-label">Escrito em destaque</p>
+      <div class="content-column">
+        <p class="section-label">Artigo em destaque</p>
 
-            <article class="featured" aria-label="Artigo em destaque">
-              <span class="featured-tag">Destaque editorial</span>
-              <h2 class="featured-title">Um espaço para textos profundos, com leitura confortável e presença visual mais sutil.</h2>
-              <p class="featured-copy">
-                Aqui você pode destacar o artigo mais recente ou mais importante, com uma entrada elegante, sem carregar a página demais. A ideia é que o blog pareça um espaço de leitura e não um corredor de anúncios em pânico. O design agradece e o olho também.
-              </p>
-              <div class="featured-footer">
-                <span class="meta-chip">Leitura em destaque</span>
-                <a class="post-link" href="#">Ler artigo completo →</a>
-              </div>
-            </article>
+        <!-- CMS READY: um único post destacado -->
+        <article class="featured-post" data-cms="featured-post">
+          <div class="featured-copy">
+            <span class="post-tag" data-cms-field="category">Sexualidade</span>
+            <h2 class="featured-title" data-cms-field="title">Desejo, silêncio e comunicação nos relacionamentos.</h2>
 
-            <div class="posts-list" aria-label="Lista de artigos">
-              <article class="post-item">
-                <div class="post-meta">
-                  <span>Sexualidade</span>
-                  <span>•</span>
-                  <span>Artigo</span>
-                </div>
-                <h3>Desejo, silêncio e comunicação nos relacionamentos</h3>
-                <p>
-                  Um texto sobre como o que não é dito também organiza a intimidade. Ideal para artigos autorais, com resumo curto e leitura convidativa.
-                </p>
-                <a class="post-link" href="#">Ler artigo →</a>
-              </article>
+            <div class="post-meta">
+              <span data-cms-field="date">10 mar 2026</span>
+              <span data-cms-field="reading-time">Leitura de 6 min</span>
+            </div>
 
-              <article class="post-item">
-                <div class="post-meta">
-                  <span>Saúde emocional</span>
-                  <span>•</span>
-                  <span>Reflexão clínica</span>
-                </div>
-                <h3>Quando o excesso de autocobrança começa a adoecer a rotina</h3>
-                <p>
-                  Espaço para textos que dialoguem com sofrimento psíquico, exigência interna, esgotamento e formas mais cuidadosas de existir.
-                </p>
-                <a class="post-link" href="#">Ler artigo →</a>
-              </article>
+            <p class="featured-excerpt" data-cms-field="excerpt">
+              Um texto sobre como a escuta emocional, o desejo e a comunicação influenciam os vínculos afetivos, a intimidade e a forma como cada pessoa se percebe dentro de uma relação.
+            </p>
 
-              <article class="post-item">
-                <div class="post-meta">
-                  <span>Relações humanas</span>
-                  <span>•</span>
-                  <span>Texto</span>
-                </div>
-                <h3>Presença, escuta e vínculo: o que sustenta encontros reais</h3>
-                <p>
-                  Um terceiro bloco pronto para receber novos artigos. Você pode trocar os títulos, resumos e links sem mexer na estrutura visual do blog.
-                </p>
-                <a class="post-link" href="#">Ler artigo →</a>
-              </article>
+            <a class="featured-link" href="#" data-cms-field="url">Ler artigo</a>
+          </div>
+
+          <div class="featured-media" aria-hidden="true">
+            <div class="featured-media-box">
+              <strong>Estrutura simples</strong>
+              <span>
+                Um bloco de destaque + lista de posts. Bonito para o usuário, fácil para o CMS, sem firula que depois cobra aluguel em sofrimento.
+              </span>
             </div>
           </div>
+        </article>
+
+        <p class="section-label">Escritos recentes</p>
+
+        <!-- CMS READY: repetir este article para cada post -->
+        <div class="posts-grid" data-cms="posts-list">
+          <article class="post-card" data-cms-item="post">
+            <span class="post-tag" data-cms-field="category">Relações</span>
+            <h2 class="post-title" data-cms-field="title">A intimidade também se constrói na conversa.</h2>
+            <div class="post-meta">
+              <span data-cms-field="date">08 mar 2026</span>
+              <span data-cms-field="reading-time">4 min</span>
+            </div>
+            <p class="post-excerpt" data-cms-field="excerpt">
+              Pequenos deslocamentos de linguagem podem abrir espaço para mais presença, cuidado e reconhecimento mútuo dentro dos vínculos.
+            </p>
+            <a class="post-link" href="#" data-cms-field="url">Ler artigo</a>
+          </article>
+
+          <article class="post-card" data-cms-item="post">
+            <span class="post-tag" data-cms-field="category">Psicologia</span>
+            <h2 class="post-title" data-cms-field="title">O que acontece quando nomear já alivia.</h2>
+            <div class="post-meta">
+              <span data-cms-field="date">05 mar 2026</span>
+              <span data-cms-field="reading-time">5 min</span>
+            </div>
+            <p class="post-excerpt" data-cms-field="excerpt">
+              Nem toda transformação é imediata, mas muitas começam quando a experiência finalmente encontra linguagem e pode ser simbolizada.
+            </p>
+            <a class="post-link" href="#" data-cms-field="url">Ler artigo</a>
+          </article>
+
+          <article class="post-card" data-cms-item="post">
+            <span class="post-tag" data-cms-field="category">Saúde emocional</span>
+            <h2 class="post-title" data-cms-field="title">Cansaço, exigência e a sensação de nunca ser suficiente.</h2>
+            <div class="post-meta">
+              <span data-cms-field="date">02 mar 2026</span>
+              <span data-cms-field="reading-time">7 min</span>
+            </div>
+            <p class="post-excerpt" data-cms-field="excerpt">
+              Um olhar sobre sobrecarga emocional, autocobrança e os efeitos psíquicos de viver sempre em estado de desempenho.
+            </p>
+            <a class="post-link" href="#" data-cms-field="url">Ler artigo</a>
+          </article>
+
+          <article class="post-card" data-cms-item="post">
+            <span class="post-tag" data-cms-field="category">Sociedade</span>
+            <h2 class="post-title" data-cms-field="title">Entre cultura, corpo e subjetividade.</h2>
+            <div class="post-meta">
+              <span data-cms-field="date">27 fev 2026</span>
+              <span data-cms-field="reading-time">6 min</span>
+            </div>
+            <p class="post-excerpt" data-cms-field="excerpt">
+              Como normas culturais atravessam desejo, identidade, pertencimento e a forma como cada pessoa vive a própria experiência.
+            </p>
+            <a class="post-link" href="#" data-cms-field="url">Ler artigo</a>
+          </article>
         </div>
 
-        <aside class="sidebar-stack" aria-label="Complementos do blog">
-          <section class="panel">
-            <div class="panel-inner">
-              <p class="section-label">Categorias</p>
-              <h2 class="mini-title">Linhas de escrita</h2>
-              <div class="tag-list">
-                <span>Psicologia</span>
-                <span>Sexualidade</span>
-                <span>Relações</span>
-                <span>Saúde emocional</span>
-                <span>Subjetividade</span>
-                <span>Sociedade</span>
-              </div>
-            </div>
-          </section>
-
-          <section class="panel">
-            <div class="panel-inner">
-              <p class="section-label">Direção visual</p>
-              <h2 class="mini-title">O que mudou</h2>
-              <div class="notes-list">
-                <div class="notes-item">
-                  <strong>Hero menor</strong>
-                  <span>Menos manifesto, mais editorial. O texto principal ficou mais curto e mais elegante.</span>
-                </div>
-                <div class="notes-item">
-                  <strong>Leitura em foco</strong>
-                  <span>A página agora privilegia títulos, resumos e ritmo visual limpo.</span>
-                </div>
-                <div class="notes-item">
-                  <strong>Estrutura pronta</strong>
-                  <span>Você já pode substituir os textos fictícios pelos artigos reais sem desmontar o layout.</span>
-                </div>
-              </div>
-              <p class="footer-note">
-                Se depois você quiser, essa estrutura pode virar um blog real com cadastro de posts, categorias e página individual de artigo.
-              </p>
-            </div>
-          </section>
-        </aside>
+        <p class="footer-note">
+          Estrutura pensada para integração futura com CMS: um destaque principal, cards padronizados e campos previsíveis para título, categoria, resumo, data, tempo de leitura e link.
+        </p>
       </div>
+
+      <aside class="sidebar" aria-label="Informações auxiliares do blog">
+        <section class="sidebar-card">
+          <h2>Categorias</h2>
+          <ul class="sidebar-list">
+            <li>Psicologia</li>
+            <li>Sexualidade</li>
+            <li>Relações humanas</li>
+            <li>Saúde emocional</li>
+            <li>Sociedade e cultura</li>
+          </ul>
+        </section>
+
+        <section class="sidebar-card">
+          <h2>Base para o CMS</h2>
+          <div class="cms-note">
+            Cada post pode usar sempre os mesmos campos: <strong>título</strong>, <strong>resumo</strong>, <strong>categoria</strong>, <strong>data</strong>, <strong>tempo de leitura</strong>, <strong>slug/link</strong> e, se quiser depois, <strong>imagem de capa</strong>.
+          </div>
+          <p>
+            Assim a publicação fica simples para ela preencher e simples para você integrar, sem precisar montar um Frankenstein visual a cada texto novo.
+          </p>
+        </section>
+      </aside>
     </section>
   </main>
 </body>
