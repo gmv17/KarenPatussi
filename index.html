@@ -107,7 +107,7 @@
       --cardMaxW: 980px;
 
       /* ✅ principal “manteiga”: maior = mais suave e lento */
-      --cardLag: 0.55;         /* antes 0.28 */
+      --cardLag: 0.28;
       --edgeMargin: 46px;
       --edgeMarginY: 76px;
 
@@ -2653,29 +2653,7 @@
       }
 
       function ensureDesktopCardsVisible(){
-        if(isMobileLayout()) return;
-        if(prefersReduced()) return;
-        if(!heroStage || !cardsTrack) return;
-        if(flowStarted || animating) return;
-        if(document.body.classList.contains("is-loading")) return;
-
-        const scrollY = window.scrollY || window.pageYOffset || 0;
-        const triggerY = (cardsTrack.getBoundingClientRect().top + scrollY) - Math.max((topbar?.offsetHeight || 0) + 56, 120);
-
-        if(scrollY >= triggerY){
-          clearAutoRole();
-          step = 3;
-          applyHeroState();
-          handoffToCards();
-
-          window.setTimeout(() => {
-            const first = cards[0];
-            const visible = first && parseFloat(getComputedStyle(first).opacity || "0") > 0.08;
-            if(!visible){
-              forceDesktopCardOpen(0);
-            }
-          }, 320);
-        }
+        return;
       }
 
       function syncMobileHeroWithScroll(){
@@ -2931,22 +2909,6 @@
         scheduleRender();
       }
 
-      function forceDesktopCardOpen(index = 0){
-        const active = cards[index];
-        if(!active) return;
-        flowStarted = true;
-        sceneIndex = clamp(index, 0, cards.length - 1);
-        pendingDir = +1;
-        returnToHeroAfterClose = false;
-        phase = "open";
-        p = 1;
-        pTarget = 1;
-        hideAllCards();
-        applyCardStyles(active, 1);
-        setActiveCardClass();
-        unlockBody();
-      }
-
       function handoffToCards(){
         if(flowStarted) return;
         flowStarted = true;
@@ -2972,19 +2934,11 @@
         resetActiveScroll();
 
         requestAnimationFrame(() => {
-          p = 0.02;
+          p = 0;
           pTarget = 1;
           phase = "opening";
           scheduleRender();
           unlockBody();
-
-          window.setTimeout(() => {
-            const first = cards[0];
-            const visible = first && parseFloat(getComputedStyle(first).opacity || "0") > 0.08;
-            if(!visible && !isMobileLayout()){
-              forceDesktopCardOpen(0);
-            }
-          }, 260);
         });
       }
 
