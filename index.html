@@ -1317,6 +1317,7 @@
         border-radius: 18px;
         animation: none !important;
         overflow: hidden;
+        contain: layout paint;
       }
       .glass-card{
         background: rgba(255,255,255,.90);
@@ -2294,8 +2295,10 @@
       const cards = Array.from(document.querySelectorAll("[data-card]"));
 
       const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
-      const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const isMobileLayout = () => window.matchMedia("(max-width: 900px)").matches;
+      const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const mobileLayoutQuery = window.matchMedia("(max-width: 900px)");
+      const prefersReduced = () => reducedMotionQuery.matches;
+      const isMobileLayout = () => mobileLayoutQuery.matches;
 
       function getMsVar(name, fallbackMs){
         const raw = getComputedStyle(root).getPropertyValue(name).trim();
@@ -2465,6 +2468,27 @@
         const value = enabled ? "" : "none";
         if(brandEl) brandEl.style.transition = value;
         if(roleEl) roleEl.style.transition = value;
+      }
+
+      let mobileHeroSyncRaf = 0;
+      let responsiveRefreshTimer = 0;
+
+      function runResponsiveRefresh(delay = 0){
+        if(responsiveRefreshTimer) window.clearTimeout(responsiveRefreshTimer);
+        responsiveRefreshTimer = window.setTimeout(() => {
+          responsiveRefreshTimer = 0;
+          scheduleRender();
+          setupMobileCardToggles();
+          scheduleMobileHeroSync();
+        }, delay);
+      }
+
+      function scheduleMobileHeroSync(){
+        if(mobileHeroSyncRaf) return;
+        mobileHeroSyncRaf = requestAnimationFrame(() => {
+          mobileHeroSyncRaf = 0;
+          syncMobileHeroWithScroll();
+        });
       }
 
       function syncHeroReturnWithCardProgress(progress){
@@ -3086,7 +3110,8 @@
       }
 
       window.addEventListener("scroll", () => {
-        syncMobileHeroWithScroll();
+        if(!isMobileLayout()) return;
+        scheduleMobileHeroSync();
       }, { passive:true });
 
       window.addEventListener("keydown", (e) => {
@@ -3134,14 +3159,10 @@
       });
 
       window.addEventListener("resize", () => {
-        scheduleRender();
-        window.setTimeout(setupMobileCardToggles, 80);
-        window.setTimeout(syncMobileHeroWithScroll, 30);
+        runResponsiveRefresh(isMobileLayout() ? 90 : 40);
       }, { passive:true });
       window.addEventListener("orientationchange", () => {
-        setTimeout(scheduleRender, 120);
-        setTimeout(setupMobileCardToggles, 180);
-        setTimeout(syncMobileHeroWithScroll, 220);
+        runResponsiveRefresh(160);
       }, { passive:true });
 
       function goToScene(i){
@@ -3329,11 +3350,9 @@
       applyHeroState();
       hideAllCards();
       scheduleRender();
-      window.setTimeout(setupMobileCardToggles, 60);
-      window.setTimeout(syncMobileHeroWithScroll, 60);
+      runResponsiveRefresh(60);
       window.addEventListener("load", () => {
-        window.setTimeout(setupMobileCardToggles, 120);
-        window.setTimeout(syncMobileHeroWithScroll, 140);
+        runResponsiveRefresh(120);
       }, { once: true });
     })();
   </script>
