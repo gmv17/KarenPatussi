@@ -1626,12 +1626,11 @@
     </div>
 
     <nav class="topbar-nav" aria-label="Navegação principal">
-      <a href="#home" data-link data-index="-1">Home</a>
       <a href="#sobre" data-link data-index="0">Sobre</a>
       <a href="#como-funciona" data-link data-index="1">Como funciona</a>
       <a href="#areas" data-link data-index="2">Áreas de atuação</a>
       <a href="#faq" data-link data-index="3">FAQ</a>
-      <a href="#contato" data-link data-index="4">Contato</a>
+      <a href="#contato" data-link data-index="4">Agendar sessão</a>
     </nav>
 
     <button class="menu-btn" id="openMenu" type="button" aria-label="Abrir menu" aria-controls="menuOverlay" aria-expanded="false">
@@ -1657,12 +1656,11 @@
       </div>
 
       <nav class="drawer-nav" aria-label="Navegação">
-        <a href="#home" data-link data-index="-1">Home</a>
-        <a href="#sobre" data-link data-index="0">Sobre</a>
+          <a href="#sobre" data-link data-index="0">Sobre</a>
         <a href="#como-funciona" data-link data-index="1">Como funciona</a>
         <a href="#areas" data-link data-index="2">Áreas de atuação</a>
         <a href="#faq" data-link data-index="3">FAQ</a>
-        <a href="#contato" data-link data-index="4">Contato</a>
+        <a href="#contato" data-link data-index="4">Agendar sessão</a>
       </nav>
 
       <div class="menu-logo" aria-hidden="true">
@@ -1704,7 +1702,7 @@
         <article class="section-card glass-card card--about" data-card data-origin="tl" id="sobre">
           <div class="card-inner">
             <div class="card-kicker">Trajetória clínica</div>
-            <h2 class="card-title">Apresentação</h2>
+            <h2 class="card-title">Sobre</h2>
 
             <div class="card-scroll" data-scroll>
               <div class="about">
@@ -1815,7 +1813,7 @@
         <article class="section-card glass-card card--process" data-card data-origin="tr" id="como-funciona">
           <div class="card-inner">
             <div class="card-kicker">Atendimento</div>
-            <h2 class="card-title">Processo terapêutico</h2>
+            <h2 class="card-title">Como funciona</h2>
 
             <div class="card-scroll" data-scroll>
               <div class="about about--process">
@@ -1868,7 +1866,7 @@
         <article class="section-card glass-card card--process" data-card data-origin="ml" id="areas">
           <div class="card-inner">
             <div class="card-kicker">Cuidado especializado</div>
-            <h2 class="card-title">Campos de escuta</h2>
+            <h2 class="card-title">Áreas de atuação</h2>
 
             <div class="card-scroll" data-scroll>
               <div class="about about--process">
@@ -1920,7 +1918,7 @@
         <article class="section-card glass-card card--process" data-card data-origin="mr" id="faq">
           <div class="card-inner">
             <div class="card-kicker">Orientações iniciais</div>
-            <h2 class="card-title">Dúvidas frequentes</h2>
+            <h2 class="card-title">Perguntas frequentes</h2>
 
             <div class="card-scroll" data-scroll>
               <div class="about about--process">
@@ -1977,7 +1975,7 @@
         <article class="section-card glass-card card--process" data-card data-origin="bl" id="contato">
           <div class="card-inner">
             <div class="card-kicker">Primeiro passo</div>
-            <h2 class="card-title">Agendamento</h2>
+            <h2 class="card-title">Agendar sessão</h2>
 
             <div class="card-scroll" data-scroll>
               <div class="about about--process">
@@ -2822,6 +2820,21 @@
           return;
         }
 
+        const nextIndex = clamp(i, 0, cards.length - 1);
+        const targetCard = cards[nextIndex];
+
+        if(isMobileLayout()){
+          sceneIndex = nextIndex;
+          returnToHeroAfterClose = false;
+          resetActiveScroll();
+          scheduleRender();
+
+          if(targetCard){
+            targetCard.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+          return;
+        }
+
         if(!flowStarted){
           clearAutoRole();
           step = 3;
@@ -2830,7 +2843,7 @@
           topbar.classList.add("show-brand");
         }
 
-        sceneIndex = clamp(i, 0, cards.length - 1);
+        sceneIndex = nextIndex;
         returnToHeroAfterClose = false;
 
         setLock();
