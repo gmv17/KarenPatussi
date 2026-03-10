@@ -1451,7 +1451,10 @@
         transition: max-height 420ms cubic-bezier(.16, 1, .18, 1);
       }
       .section-card.is-expanded .card-scroll{
-        max-height: 4000px !important;
+        max-height: min(68dvh, 620px) !important;
+        overflow: auto !important;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
       }
       .card-scroll::before,
       .card-scroll::after{ display:none !important; }
@@ -1706,7 +1709,7 @@
             <div class="card-scroll" data-scroll>
               <div class="about">
 
-                <div class="editorial" aria-label="Apresentação da psicóloga">
+                <div class="editorial" aria-label="Sobre da psicóloga">
                   <div class="portrait" aria-label="Foto da psicóloga">
                     <img
                       src="imagens/Foto Karen Sobre.png"
@@ -1817,7 +1820,7 @@
             <div class="card-scroll" data-scroll>
               <div class="about about--process">
 
-                <div class="editorial" aria-label="Apresentação do processo terapêutico">
+                <div class="editorial" aria-label="Sobre do processo terapêutico">
                   <div class="lead" aria-label="Visão geral do atendimento">
                     <p class="intro-kicker">Formato de acompanhamento</p>
                     <p class="signature">Atendimento psicológico online</p>
@@ -1871,7 +1874,7 @@
               <div class="about about--process">
 
                 <div class="editorial" aria-label="Visão geral das áreas de atuação">
-                  <div class="lead" aria-label="Apresentação das áreas atendidas">
+                  <div class="lead" aria-label="Sobre das áreas atendidas">
                     <p class="intro-kicker">Demandas acompanhadas</p>
                     <p class="signature">Adultos, casais e famílias</p>
                     <div class="divider" aria-hidden="true"></div>
@@ -1922,7 +1925,7 @@
             <div class="card-scroll" data-scroll>
               <div class="about about--process">
 
-                <div class="editorial" aria-label="Apresentação das dúvidas frequentes">
+                <div class="editorial" aria-label="Sobre das dúvidas frequentes">
                   <div class="lead" aria-label="Introdução ao FAQ">
                     <p class="intro-kicker">Antes da primeira sessão</p>
                     <p class="signature">Informações essenciais</p>
@@ -1979,7 +1982,7 @@
             <div class="card-scroll" data-scroll>
               <div class="about about--process">
 
-                <div class="editorial" aria-label="Apresentação do contato">
+                <div class="editorial" aria-label="Sobre do contato">
                   <div class="lead" aria-label="Convite para agendamento">
                     <p class="intro-kicker">Canais de atendimento</p>
                     <p class="signature">Vamos conversar</p>
@@ -2048,6 +2051,7 @@
 
       const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
       const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const isMobileLayout = () => window.matchMedia("(max-width: 900px)").matches;
 
       function getMsVar(name, fallbackMs){
         const raw = getComputedStyle(root).getPropertyValue(name).trim();
@@ -2586,8 +2590,18 @@
         const active = cards[sceneIndex];
         if(!active) return { used: false, atEdge: true };
 
+        if(isMobileLayout() && !active.classList.contains("is-expanded")){
+          return { used: false, atEdge: true };
+        }
+
         const sc = active.querySelector("[data-scroll]");
         if(!sc) return { used: false, atEdge: true };
+
+        const style = window.getComputedStyle(sc);
+        const canOverflow = /(auto|scroll)/.test(style.overflowY) || /(auto|scroll)/.test(style.overflow);
+        if(isMobileLayout() && !canOverflow){
+          return { used: false, atEdge: true };
+        }
 
         const max = sc.scrollHeight - sc.clientHeight;
         const hasScroll = max > 2;
@@ -2609,6 +2623,10 @@
       window.addEventListener("wheel", (e) => {
         if(document.body.classList.contains("is-loading")) return;
         if(overlay.classList.contains("is-open")) return;
+
+        if(isMobileLayout() && flowStarted){
+          return;
+        }
 
         if(flowStarted && !prefersReduced()){
           if(e.ctrlKey) return;
@@ -2669,6 +2687,10 @@
         const yy = (e.touches && e.touches.length) ? e.touches[0].clientY : touchY;
         const dy = touchY - yy;
         touchY = yy;
+
+        if(isMobileLayout() && flowStarted){
+          return;
+        }
 
         if(flowStarted && !prefersReduced()){
           e.preventDefault();
@@ -2803,8 +2825,8 @@
         if(!flowStarted){
           clearAutoRole();
           step = 3;
-          flowStarted = true;
           applyHeroState();
+          flowStarted = true;
           topbar.classList.add("show-brand");
         }
 
