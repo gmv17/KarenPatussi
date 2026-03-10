@@ -442,7 +442,7 @@
       display:none;
       align-items:center;
       justify-content:flex-end;
-      gap: 8px;
+      gap: 4px;
       margin-left: auto;
       min-width: 0;
     }
@@ -664,7 +664,7 @@
       z-index: 1;
       display:flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
       padding: 6px 2px;
     }
     .drawer-nav a{
@@ -1120,7 +1120,7 @@
     .edu-item{
       position: relative;
       display:grid;
-      gap: 8px;
+      gap: 4px;
       padding: 12px 12px 12px 12px;
       border-radius: 14px;
       background: rgba(255,255,255,.92);
@@ -1167,7 +1167,7 @@
     .edu-meta{
       display:flex;
       align-items:center;
-      gap: 8px;
+      gap: 4px;
       flex: 0 0 auto;
       white-space: nowrap;
     }
@@ -1446,12 +1446,12 @@
         gap: 10px;
       }
       .edu-timeline{
-        gap: 8px;
+        gap: 4px;
         padding-left: 12px;
       }
       .edu-item{
         padding: 12px 11px;
-        gap: 8px;
+        gap: 4px;
       }
       .edu-top{
         flex-direction: column;
@@ -1813,6 +1813,38 @@
       font-weight: 650;
     }
 
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    .topbar-nav a.nav-blog{
+      margin-left:10px;
+      background: var(--brand);
+      color:#ffffff;
+      font-weight:800;
+      letter-spacing:.09em;
+      padding:10px 16px;
+      border-radius:999px;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    }
+    .topbar-nav a.nav-blog:hover,
+    .topbar-nav a.nav-blog:focus-visible{
+      transform: translateY(-2px);
+      background:#164f56;
+      color:#ffffff;
+      box-shadow:0 10px 24px rgba(26,93,102,.35);
+      outline:none;
+    }
+
 </style>
 </head>
 
@@ -1843,12 +1875,13 @@
 
     <nav class="topbar-nav" aria-label="Navegação principal">
       <a href="#home" data-link data-index="-1">Home</a>
-      <a href="#sobre" data-link data-index="0">Sobre</a>
+            <a href="#sobre" data-link data-index="0">Sobre</a>
       <a href="#como-funciona" data-link data-index="1">Como funciona</a>
       <a href="#areas-de-atuacao" data-link data-index="2">Áreas de atuação</a>
       <a href="#perguntas-frequentes" data-link data-index="3">Perguntas frequentes</a>
       <a href="#agendar-sessao" data-link data-index="4">Agendar sessão</a>
-    </nav>
+      <a href="blog.html" class="nav-blog">Blog</a>
+      </nav>
 
     <button class="menu-btn" id="openMenu" type="button" aria-label="Abrir menu" aria-controls="menuOverlay" aria-expanded="false">
       <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -1874,12 +1907,13 @@
 
       <nav class="drawer-nav" aria-label="Navegação">
         <a href="#home" data-link data-index="-1">Home</a>
-        <a href="#sobre" data-link data-index="0">Sobre</a>
+              <a href="#sobre" data-link data-index="0">Sobre</a>
         <a href="#como-funciona" data-link data-index="1">Como funciona</a>
         <a href="#areas-de-atuacao" data-link data-index="2">Áreas de atuação</a>
         <a href="#perguntas-frequentes" data-link data-index="3">Perguntas frequentes</a>
         <a href="#agendar-sessao" data-link data-index="4">Agendar sessão</a>
-      </nav>
+        <a href="blog.html" class="nav-blog">Blog</a>
+        </nav>
 
       <div class="menu-logo" aria-hidden="true">
         <div class="logo-box">
@@ -3409,33 +3443,28 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
   const hash = window.location.hash;
-
-  if(!hash) return;
+  if (!hash) return;
 
   const map = {
-    "#sobre":0,
-    "#como-funciona":1,
-    "#areas-de-atuacao":2,
-    "#perguntas-frequentes":3,
-    "#agendar-sessao":4
+    "#sobre": 0,
+    "#como-funciona": 1,
+    "#areas-de-atuacao": 2,
+    "#perguntas-frequentes": 3,
+    "#agendar-sessao": 4
   };
 
-  if(map[hash] !== undefined){
-
+  if (map[hash] !== undefined) {
     const index = map[hash];
 
-    if(typeof goToScene === "function"){
+    if (typeof goToScene === "function") {
       goToScene(index);
     }
 
-    if(typeof goToCard === "function"){
+    if (typeof goToCard === "function") {
       goToCard(index);
     }
-
   }
-
 });
 </script>
 
