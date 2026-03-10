@@ -1678,18 +1678,7 @@
   100%{ width:100%; }
 }
 
-
-    /* ===== Mobile hero return fix ===== */
-    @media (max-width: 979.98px){
-      body.mobile-at-hero .brand,
-      body.mobile-at-hero .role{
-        opacity: 1 !important;
-        filter: blur(0) !important;
-        transform: translate3d(0,0,0) !important;
-      }
-    }
-
-  </style>
+</style>
 </head>
 
 <body class="is-loading">
@@ -2564,22 +2553,60 @@
 
       async function returnToHeroWithSameMotion(){
         flowStarted = false;
-
         clearAutoRole();
-        step = 2;
-        applyHeroState();
-        hideAllCards();
 
+        phase = "closed";
+        p = 0;
+        pTarget = 0;
+        accum = 0;
+        lastDir = 0;
+        wheelAccum = 0;
+        touchAccum = 0;
+
+        hideAllCards();
         topbar.classList.remove("show-brand");
 
-        document.getElementById("home").scrollIntoView({ behavior:"smooth", block:"start" });
+        const home = document.getElementById("home");
+        const liftName = getNumVar("--liftName", 140);
+        const liftRole = getNumVar("--liftRole", 120);
+        const blurMax  = getNumVar("--fadeBlur", 1.6);
+        const waitMs = Math.max(stepDurationMs(1), stepDurationMs(2)) + 80;
+
+        step = 0;
+        animating = true;
+
+        root.style.setProperty("--nameY", (-liftName) + "px");
+        root.style.setProperty("--nameO", "0");
+        root.style.setProperty("--nameB", blurMax + "px");
+
+        root.style.setProperty("--roleY", (-liftRole) + "px");
+        root.style.setProperty("--roleO", "0");
+        root.style.setProperty("--roleB", (blurMax * 0.9) + "px");
+
+        window.scrollTo({ top: home.getBoundingClientRect().top + window.scrollY, behavior: "auto" });
 
         await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
 
         lockBody();
-        await animateToStep(1);
-        await animateToStep(0);
-        unlockBody();
+
+        root.style.setProperty("--nameY", "0px");
+        root.style.setProperty("--nameO", "1");
+        root.style.setProperty("--nameB", "0px");
+
+        root.style.setProperty("--roleY", "0px");
+        root.style.setProperty("--roleO", "1");
+        root.style.setProperty("--roleB", "0px");
+
+        setCooldown();
+
+        await new Promise(resolve => {
+          window.setTimeout(() => {
+            animating = false;
+            applyHeroState();
+            unlockBody();
+            resolve();
+          }, waitMs);
+        });
       }
 
       function requestNext(){
@@ -2954,6 +2981,14 @@
 
         if(!target) return;
 
+        if(href === "#home"){
+          cards.forEach(card => setCardExpanded(card, false));
+          window.setTimeout(() => {
+            returnToHeroWithSameMotion();
+          }, 80);
+          return;
+        }
+
         cards.forEach(card => {
           if(card !== target) setCardExpanded(card, false);
         });
@@ -2989,48 +3024,5 @@
       window.addEventListener("load", () => window.setTimeout(setupMobileCardToggles, 120), { once: true });
     })();
   </script>
-
-<script>
-(function(){
-  const mq = window.matchMedia('(max-width: 979.98px)');
-  const hero = document.getElementById('home');
-  const brand = document.getElementById('brand');
-  const role = document.getElementById('role');
-
-  if(!hero || !brand || !role) return;
-
-  function syncMobileHeroState(){
-    if(!mq.matches){
-      document.body.classList.remove('mobile-at-hero');
-      return;
-    }
-
-    const heroRect = hero.getBoundingClientRect();
-    const atHero = heroRect.top <= 80 && heroRect.bottom >= (window.innerHeight * 0.45);
-
-    document.body.classList.toggle('mobile-at-hero', atHero);
-
-    if(atHero){
-      brand.style.setProperty('--nameY', '0px');
-      brand.style.setProperty('--nameO', '1');
-      brand.style.setProperty('--nameB', '0px');
-
-      role.style.setProperty('--roleY', '0px');
-      role.style.setProperty('--roleO', '1');
-      role.style.setProperty('--roleB', '0px');
-    }
-  }
-
-  window.addEventListener('scroll', syncMobileHeroState, { passive: true });
-  window.addEventListener('resize', syncMobileHeroState, { passive: true });
-  window.addEventListener('orientationchange', syncMobileHeroState, { passive: true });
-  document.addEventListener('DOMContentLoaded', syncMobileHeroState);
-  window.addEventListener('load', syncMobileHeroState);
-
-  setTimeout(syncMobileHeroState, 120);
-  setTimeout(syncMobileHeroState, 500);
-})();
-</script>
-
 </body>
 </html>
