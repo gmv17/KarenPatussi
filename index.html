@@ -1340,9 +1340,9 @@
       :root{
         --padX: 18px;
         --cardStickyTop: calc(var(--headerH) + var(--safeT) + 18px);
-        --stepDistanceDown: 210;
-        --stepDistanceUp: 250;
-        --sceneLockMs: 820ms;
+        --stepDistanceDown: 180;
+        --stepDistanceUp: 220;
+        --sceneLockMs: 620ms;
       }
 
       .cards-track{
@@ -1417,17 +1417,17 @@
       }
       .card-scroll{
         position: relative;
-        max-height: 280px !important;
-        overflow: visible !important;
+        max-height: 300px !important;
+        overflow: hidden !important;
         padding-top: 0;
         padding-bottom: 0;
-        transition: max-height 300ms cubic-bezier(.16, 1, .18, 1);
+        transition: max-height 320ms cubic-bezier(.16, 1, .18, 1);
         touch-action: pan-y;
         overscroll-behavior: auto;
         -webkit-overflow-scrolling: touch;
       }
       .section-card.is-expanded .card-scroll{
-        max-height: min(72dvh, 700px) !important;
+        max-height: min(68dvh, 620px) !important;
         overflow: auto !important;
         -webkit-overflow-scrolling: touch;
         overscroll-behavior: contain;
@@ -3355,7 +3355,7 @@
         if(!flowStarted && inHeroViewport()){
           e.preventDefault();
           lockBody();
-          const heroBoost = isMobileLayout() ? 2.6 : 1.75;
+          const heroBoost = isMobileLayout() ? 3.1 : 1.75;
           handleDelta(dy * heroBoost);
         }
       }, { passive: false });
