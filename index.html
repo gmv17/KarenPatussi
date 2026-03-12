@@ -1444,26 +1444,30 @@
       }
       .section-card.is-expanded .card-scroll::after{ display:none !important; }
       .card-toggle{
-        appearance:none;
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        gap:10px;
-        align-self:flex-start;
-        margin-top: 2px;
-        min-height: 42px;
-        padding: 11px 14px;
-        border-radius: 999px;
-        border: 1px solid rgba(26,93,102,.16);
-        background: rgba(255,255,255,.94);
-        color: var(--brand);
-        box-shadow: 0 10px 24px rgba(0,0,0,.05);
-        font: 700 11px/1 var(--bodyFont);
-        letter-spacing: .12em;
-        text-transform: uppercase;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-      }
+  appearance:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  align-self:flex-start;
+  margin-top:6px;
+  min-height:42px;
+  padding:11px 16px;
+  border-radius:999px;
+  background: rgba(255,255,255,.96);
+  border: 1px solid rgba(26,93,102,.35);
+  color: var(--brand);
+  box-shadow: 0 10px 22px rgba(26,93,102,.10);
+  font: 800 11px/1 var(--bodyFont);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.card-toggle:active{
+  transform: scale(.97);
+  background: rgba(26,93,102,.08);
+}
+
       .card-toggle::after{
         content: "+";
         font-size: 15px;
