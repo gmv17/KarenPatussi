@@ -26,6 +26,10 @@
 
 
 
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
   <!-- ==================== FAVICON ==================== -->
   <link rel="icon" type="image/webp" href="imagens/Logo.webp">
   <link rel="apple-touch-icon" href="imagens/Logo.webp">
@@ -1885,6 +1889,24 @@
     .contact-status.is-ok{
       color: rgba(26,93,102,.94);
     }
+    .contact-status.is-warn{
+      color: rgba(140,92,20,.96);
+    }
+    .contact-hp{
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+    .contact-btn[disabled]{
+      opacity: .72;
+      cursor: wait;
+      pointer-events: none;
+      transform: none !important;
+    }
     .contact-meta{
       display:grid;
       gap: 10px;
@@ -2512,33 +2534,75 @@
                   <form
                     class="contact-form"
                     id="contactForm"
-                    data-whatsapp="5555000000000"
-                    data-email="contato@exemplo.com"
-                    novalidate
+                    method="post"
+                    action="/api/contact"
+                    autocomplete="on"
+                    data-endpoint="/api/contact"
                   >
                     <div class="contact-grid">
                       <div class="field">
                         <label for="contactName">Nome</label>
-                        <input id="contactName" name="name" type="text" placeholder="Seu nome" required>
+                        <input
+                          id="contactName"
+                          name="name"
+                          type="text"
+                          placeholder="Seu nome"
+                          required
+                          minlength="2"
+                          maxlength="80"
+                          autocomplete="name"
+                          enterkeyhint="next"
+                        >
                       </div>
 
                       <div class="field">
                         <label for="contactEmail">E-mail</label>
-                        <input id="contactEmail" name="email" type="email" placeholder="voce@exemplo.com" required>
+                        <input
+                          id="contactEmail"
+                          name="email"
+                          type="email"
+                          placeholder="voce@exemplo.com"
+                          required
+                          maxlength="120"
+                          autocomplete="email"
+                          inputmode="email"
+                          enterkeyhint="next"
+                        >
                       </div>
 
                       <div class="field">
                         <label for="contactPhone">Telefone</label>
-                        <input id="contactPhone" name="phone" type="tel" placeholder="(00) 00000-0000">
+                        <input
+                          id="contactPhone"
+                          name="phone"
+                          type="tel"
+                          placeholder="(00) 00000-0000"
+                          maxlength="20"
+                          autocomplete="tel"
+                          inputmode="tel"
+                          enterkeyhint="next"
+                        >
                       </div>
 
                       <div class="field">
                         <label for="contactReason">Motivo do contato</label>
-                        <select id="contactReason" name="reason">
+                        <select id="contactReason" name="reason" autocomplete="off">
                           <option value="Agendar sessão">Agendar sessão</option>
                           <option value="Esclarecer dúvidas">Esclarecer dúvidas</option>
                           <option value="Informações sobre atendimento">Informações sobre atendimento</option>
                         </select>
+                      </div>
+
+                      <div class="field field--full contact-hp" aria-hidden="true">
+                        <label for="contactWebsite">Se você é humano, deixe este campo em branco</label>
+                        <input
+                          id="contactWebsite"
+                          name="website"
+                          type="text"
+                          tabindex="-1"
+                          autocomplete="off"
+                          inputmode="text"
+                        >
                       </div>
 
                       <div class="field field--full">
@@ -2548,23 +2612,22 @@
                           name="message"
                           placeholder="Escreva sua mensagem"
                           required
+                          minlength="10"
+                          maxlength="1500"
+                          enterkeyhint="send"
                         ></textarea>
                       </div>
                     </div>
 
                     <div class="contact-actions">
                       <div class="contact-actions-head">
-                        <strong>Escolha como prefere enviar sua mensagem</strong>
-                        <span>Você pode preencher o formulário uma única vez e encaminhar o conteúdo pelo WhatsApp ou por e-mail.</span>
+                        <strong>Envio protegido em preparação</strong>
+                        <span>Este formulário já foi estruturado para a futura rota segura do site, com validação reforçada e campo anti-bot básico.</span>
                       </div>
 
                       <div class="contact-buttons">
-                        <button type="button" class="contact-btn contact-btn--wa" data-contact-action="whatsapp">
-                          Enviar por WhatsApp
-                        </button>
-
-                        <button type="button" class="contact-btn contact-btn--mail" data-contact-action="email">
-                          Enviar por e-mail
+                        <button type="submit" class="contact-btn contact-btn--wa" data-contact-submit>
+                          Enviar mensagem
                         </button>
                       </div>
 
@@ -3680,95 +3743,112 @@
         if(!form || form.dataset.bound === "true") return;
 
         const status = document.getElementById("contactStatus");
-        const whatsappBtn = form.querySelector('[data-contact-action="whatsapp"]');
-        const emailBtn = form.querySelector('[data-contact-action="email"]');
+        const submitBtn = form.querySelector("[data-contact-submit]");
+        const endpoint = form.getAttribute("action") || form.dataset.endpoint || "/api/contact";
 
-        const setStatus = (message, ok = false) => {
+        const setStatus = (message, tone = "error") => {
           if(!status) return;
           status.textContent = message;
-          status.classList.toggle("is-ok", ok);
+          status.classList.toggle("is-ok", tone === "ok");
+          status.classList.toggle("is-warn", tone === "warn");
         };
 
+        const setBusy = (busy) => {
+          if(!submitBtn) return;
+          submitBtn.disabled = busy;
+          submitBtn.textContent = busy ? "Enviando..." : "Enviar mensagem";
+        };
+
+        const sanitizeText = (value, max = 1500) =>
+          String(value || "")
+            .replace(/[<>]/g, "")
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, max);
+
         const collectData = () => ({
-          name: (form.elements.name?.value || "").trim(),
-          email: (form.elements.email?.value || "").trim(),
-          phone: (form.elements.phone?.value || "").trim(),
-          reason: (form.elements.reason?.value || "Agendar sessão").trim(),
-          message: (form.elements.message?.value || "").trim()
+          name: sanitizeText(form.elements.name?.value, 80),
+          email: sanitizeText(form.elements.email?.value, 120).toLowerCase(),
+          phone: sanitizeText(form.elements.phone?.value, 20),
+          reason: sanitizeText(form.elements.reason?.value || "Agendar sessão", 80),
+          message: sanitizeText(form.elements.message?.value, 1500),
+          website: sanitizeText(form.elements.website?.value, 120)
         });
 
         const validate = (data) => {
-          if(!data.name){
+          if(data.website){
+            setStatus("Envio bloqueado.", "warn");
+            return false;
+          }
+
+          if(!form.reportValidity()){
+            setStatus("Confira os campos obrigatórios antes de enviar.");
+            return false;
+          }
+
+          if(!data.name || data.name.length < 2){
             setStatus("Preencha seu nome para continuar.");
             return false;
           }
-          if(!data.email){
-            setStatus("Preencha seu e-mail para continuar.");
-            return false;
-          }
-          if(!data.message){
-            setStatus("Escreva uma mensagem antes de enviar.");
-            return false;
-          }
+
           const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
           if(!emailOk){
             setStatus("Confira o e-mail informado antes de enviar.");
             return false;
           }
+
+          if(data.phone && data.phone.replace(/\D/g, "").length < 10){
+            setStatus("Confira o telefone informado antes de enviar.");
+            return false;
+          }
+
+          if(!data.message || data.message.length < 10){
+            setStatus("Escreva uma mensagem um pouco mais completa antes de enviar.");
+            return false;
+          }
+
           setStatus("");
           return true;
         };
 
-        const buildMessage = (data) => {
-          const lines = [
-            "Olá, gostaria de entrar em contato pelo site.",
-            "",
-            `Nome: ${data.name}`,
-            `E-mail: ${data.email}`
-          ];
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-          if(data.phone) lines.push(`Telefone: ${data.phone}`);
-
-          lines.push(`Motivo do contato: ${data.reason}`, "", "Mensagem:", data.message);
-          return lines.join("\n");
-        };
-
-        const hasPlaceholder = (value) => !value || /5555000000000|contato@exemplo\.com/i.test(value);
-
-        whatsappBtn?.addEventListener("click", () => {
           const data = collectData();
           if(!validate(data)) return;
 
-          const whatsapp = (form.dataset.whatsapp || "").replace(/\D/g, "");
-          if(hasPlaceholder(whatsapp)){
-            setStatus("Atualize no código o número do WhatsApp antes de publicar o site.");
-            return;
-          }
+          setBusy(true);
+          setStatus("Preparando envio seguro...", "warn");
 
-          const url = `https://wa.me/${whatsapp}?text=${encodeURIComponent(buildMessage(data))}`;
-          setStatus("Abrindo WhatsApp...", true);
-          window.open(url, "_blank", "noopener");
+          try {
+            const response = await fetch(endpoint, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+              },
+              body: JSON.stringify(data)
+            });
+
+            if(response.ok){
+              form.reset();
+              setStatus("Mensagem enviada com sucesso.", "ok");
+              return;
+            }
+
+            if(response.status === 404 || response.status === 405){
+              setStatus("O formulário já está pronto no front, mas a rota segura /api/contact ainda precisa ser criada na Vercel.", "warn");
+              return;
+            }
+
+            setStatus("Não foi possível enviar agora. Tente novamente em instantes.");
+          } catch (error) {
+            setStatus("O formulário já está pronto no front, mas o backend seguro ainda precisa ser conectado.", "warn");
+          } finally {
+            setBusy(false);
+          }
         });
 
-        emailBtn?.addEventListener("click", () => {
-          const data = collectData();
-          if(!validate(data)) return;
-
-          const email = (form.dataset.email || "").trim();
-          if(hasPlaceholder(email)){
-            setStatus("Atualize no código o e-mail de atendimento antes de publicar o site.");
-            return;
-          }
-
-          const subject = encodeURIComponent(`${data.reason} — contato pelo site`);
-          const body = encodeURIComponent(buildMessage(data));
-          const url = `mailto:${email}?subject=${subject}&body=${body}`;
-
-          setStatus("Abrindo e-mail...", true);
-          window.location.href = url;
-        });
-
-        form.addEventListener("submit", (e) => e.preventDefault());
         form.dataset.bound = "true";
       }
 
