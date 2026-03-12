@@ -5,7 +5,57 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Káren Patussi</title>
+
+  <!-- ==================== SEO BÁSICO ==================== -->
+  <title>Káren Patussi | Psicóloga e Terapeuta Sexual · Atendimento Online</title>
+  <meta name="description" content="Psicóloga com mais de 20 anos de experiência, especializada em Terapia Sexual, Psicoterapia Sistêmica e Estudos de Gênero. Atendimento online para adultos, casais e famílias. Agende sua sessão.">
+  <meta name="author" content="Káren Patussi">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.karenpatussi.com.br/">
+
+  <!-- ==================== OPEN GRAPH (WhatsApp, Facebook, LinkedIn) ==================== -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.karenpatussi.com.br/">
+  <meta property="og:title" content="Káren Patussi | Psicóloga e Terapeuta Sexual">
+  <meta property="og:description" content="Psicóloga com mais de 20 anos de experiência em Terapia Sexual e Psicoterapia Sistêmica. Atendimento online para adultos, casais e famílias.">
+  <meta property="og:image" content="https://www.karenpatussi.com.br/imagens/og-image.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Káren Patussi">
+
+
+
+  <!-- ==================== FAVICON ==================== -->
+  <link rel="icon" type="image/webp" href="imagens/Logo.webp">
+  <link rel="apple-touch-icon" href="imagens/Logo.webp">
+
+  <!-- ==================== DADOS ESTRUTURADOS (Google) ==================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Káren Patussi",
+    "jobTitle": "Psicóloga e Terapeuta Sexual",
+    "description": "Psicóloga com mais de 20 anos de experiência, especializada em Terapia Sexual, Psicoterapia Sistêmica e Estudos de Gênero.",
+    "url": "https://www.karenpatussi.com.br/",
+    "image": "https://www.karenpatussi.com.br/imagens/Foto Karen Sobre.webp",
+    "memberOf": [
+      { "@type": "Organization", "name": "Sociedade Brasileira de Estudos em Sexualidade Humana (SBRASH)" },
+      { "@type": "Organization", "name": "Sociedade Portuguesa de Sexologia Clínica (SPSC)" }
+    ],
+    "knowsAbout": ["Psicoterapia", "Terapia Sexual", "Sexualidade Humana", "Psicologia Sistêmica", "Estudos de Gênero"],
+    "offers": {
+      "@type": "Service",
+      "name": "Psicoterapia e Terapia Sexual Online",
+      "description": "Atendimento psicológico online para adultos, casais e famílias.",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceType": "Online"
+      }
+    }
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,7 +146,6 @@
       --titleFont: "Playfair Display", serif;
 
       --paraSize: 14.5px;
-      --paraLine: 1.9;
 
       --cardFloatAmp: 3px;
       --cardFloatDur: 8.6s; /* ✅ flutuação mais lenta */
@@ -875,13 +924,13 @@
       font-family: var(--bodyFont);
     }
     .card-title{
-      margin: 0;
+      margin: 0 0 2px 0;
       font-family: var(--titleFont);
       font-weight: 900;
       color: var(--brand);
-      font-size: clamp(22px, 2.2vw, 34px);
-      line-height: 1.05;
-      letter-spacing: -0.01em;
+      font-size: clamp(18px, 1.6vw, 26px);
+      line-height: 1.08;
+      letter-spacing: -0.005em;
     }
 
     /* ===== SCROLL INTERNO ===== */
@@ -967,6 +1016,7 @@
       aspect-ratio: 3 / 4;
       min-height: 320px;
       align-self: start;
+      margin-top: -3px;
     }
     .about .portrait img{
       width: 100%;
@@ -1033,12 +1083,17 @@
       gap: 14px;
     }
     .about .body-copy p{
-      margin: 0;
+      margin: 0 0 8px 0;
       color: var(--softInk);
-      line-height: 2;
+      line-height: 2.05;
       font-size: 15px;
       font-family: var(--bodyFont);
       font-weight: 500;
+      max-width: 680px;
+    }
+    .about strong{
+      color: var(--brand);
+      font-weight: 800;
     }
 
 
@@ -1336,8 +1391,8 @@
         letter-spacing: .16em;
       }
       .card-title{
-        font-size: clamp(23px, 6.5vw, 29px);
-        line-height: 1.02;
+        font-size: clamp(20px, 6vw, 24px);
+        line-height: 1.05;
       }
       .about .lead p,
       .about .body-copy p,
@@ -1846,6 +1901,144 @@
       outline:none;
     }
 
+    /* ========================= RODAPÉ ========================= */
+    .site-footer{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      padding:
+        14px
+        calc(var(--padX) + var(--safeR))
+        calc(14px + var(--safeB))
+        calc(var(--padX) + var(--safeL));
+
+      background: linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.94));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(0,0,0,.07);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      /* começa escondido embaixo */
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        transform 200ms cubic-bezier(.16, 1, .18, 1),
+        opacity   160ms cubic-bezier(.16, 1, .18, 1);
+      will-change: transform, opacity;
+    }
+    .site-footer.is-visible{
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+      transition:
+        transform 200ms cubic-bezier(.16, 1, .18, 1),
+        opacity   160ms cubic-bezier(.16, 1, .18, 1);
+    }
+    .site-footer.is-hiding{
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: none;
+    }
+
+    .footer-copy{
+      font-size: 11px;
+      color: rgba(20,28,32,.52);
+      font-weight: 600;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    .footer-socials{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-social-link{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
+      color: var(--brand);
+      text-decoration: none;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, color .22s ease;
+      flex-shrink: 0;
+    }
+    .footer-social-link:hover,
+    .footer-social-link:focus-visible{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(26,93,102,.18);
+      background: rgba(255,255,255,.96);
+      color: var(--brand);
+      outline: none;
+    }
+    .footer-social-link svg{
+      width: 16px;
+      height: 16px;
+      display: block;
+      fill: currentColor;
+    }
+
+    @media (max-width: 640px){
+      .site-footer{
+        padding-left: calc(16px + var(--safeL));
+        padding-right: calc(16px + var(--safeR));
+        justify-content: center;
+        gap: 12px;
+      }
+      .footer-copy{ font-size: 10px; }
+    }
+
+
+/* =====================================================
+   CARD HEADER / CONTENT MICRO REFINEMENT (UX TUNING)
+   Ajuste fino para aproximar título do conteúdo
+   sem quebrar responsividade.
+   ===================================================== */
+
+.card-header h2{
+  font-size: 22px; /* ligeiramente menor que antes */
+  line-height: 1.25;
+  letter-spacing: 0.4px;
+}
+
+.card-header{
+  margin-bottom: 4px; /* aproxima mais o conteúdo */
+}
+
+.card-content,
+.card-body,
+.card-inner{
+  margin-top: 2px !important;
+  padding-top: 4px !important;
+}
+
+/* melhora leitura do texto dentro do card */
+.card-content p{
+  line-height: 1.65;
+  max-width: 720px;
+}
+
+/* ajuste leve para blocos com imagem + texto */
+.card-grid,
+.card-flex{
+  gap: 18px;
+  align-items: start;
+}
+
 </style>
 </head>
 
@@ -1967,7 +2160,7 @@
                       loading="lazy"
                       decoding="async"
                       fetchpriority="low"
-                      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80';"
+                      onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22 fill=%22none%22%3E%3Crect width=%22400%22 height=%22500%22 fill=%22%23e8eef0%22/%3E%3Ccircle cx=%22200%22 cy=%22175%22 r=%2272%22 fill=%22%23b0c4c8%22/%3E%3Cellipse cx=%22200%22 cy=%22400%22 rx=%22120%22 ry=%22100%22 fill=%22%23b0c4c8%22/%3E%3C/svg%3E';"
                       alt="Foto profissional da psicóloga">
                   </div>
 
@@ -2340,6 +2533,41 @@
     </section>
   </div>
 
+  <!-- RODAPÉ -->
+  <footer class="site-footer" id="siteFooter" aria-label="Rodapé">
+    <span class="footer-copy">© 2026 Káren Patussi · Todos os direitos reservados</span>
+
+    <div class="footer-socials" aria-label="Redes sociais">
+
+      <!-- LinkedIn -->
+      <a
+        class="footer-social-link"
+        href="https://www.linkedin.com/in/karen-mesquita-patussi-a19017122/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn de Káren Patussi"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.985V9h3.102v1.561h.046c.432-.816 1.487-1.676 3.062-1.676 3.273 0 3.876 2.154 3.876 4.957v6.61zM5.337 7.433a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zm1.555 13.019H3.782V9h3.11v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+
+      <!-- Instagram -->
+      <a
+        class="footer-social-link"
+        href="https://www.instagram.com/terapiacomkarenpatussi?igsh=MW1pMjQwYnFjNXVvZA=="
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram de Káren Patussi"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+        </svg>
+      </a>
+
+    </div>
+  </footer>
+
   <script>
     (() => {
       const root = document.documentElement;
@@ -2668,6 +2896,8 @@
       let p = 0;
       let pTarget = 0;
 
+      let pendingRestore = false;
+
       let raf = 0;
       let lastFrame = performance.now();
 
@@ -2924,9 +3154,11 @@
 
         hideAllCards();
 
-        if(flowStarted){
+        if(flowStarted && !pendingRestore){
           const active = cards[sceneIndex];
-          if(active) applyCardStyles(active, p);
+          if(active && (phase === "opening" || phase === "open" || phase === "closing")){
+            applyCardStyles(active, p);
+          }
         }
 
         if(phase === "opening" && p >= 1){
@@ -3402,6 +3634,35 @@
         window.setTimeout(setupMobileCardToggles, 120);
         window.setTimeout(syncMobileHeroWithScroll, 140);
       }, { once: true });
+
+      // API interna exposta para o bloco do rodapé
+      window.__siteNav = {
+        isFooterState:  () => flowStarted && phase === "closed" && p === 0 && sceneIndex === cards.length - 1,
+        restoreLastCard:() => {
+          if(!flowStarted) return;
+          const footer = document.getElementById("siteFooter");
+          if(footer){
+            footer.classList.remove("is-visible");
+            footer.classList.add("is-hiding");
+          }
+          pendingRestore = true;
+          window.setTimeout(() => {
+            pendingRestore = false;
+            p = 0; pTarget = 1; phase = "opening";
+            scheduleRender();
+          }, 800);
+        },
+        // Estado em tempo real para o rodapé
+        getState: () => ({
+          flowStarted,
+          phase,
+          p,
+          pTarget,
+          sceneIndex,
+          lastIdx: cards.length - 1,
+          pendingDir
+        })
+      };
     })();
   
 // voltar para o hero ao clicar no nome da barra / marca do menu
@@ -3438,6 +3699,100 @@
       }
     });
   });
+})();
+
+// ========================= RODAPÉ =========================
+// Aparece SOMENTE quando o card "Agendar sessão" fecha completamente indo para frente.
+// Usa o estado interno do sistema de navegação (via __siteNav.getState).
+(function(){
+  const footer = document.getElementById("siteFooter");
+  const topbar = document.getElementById("topbar");
+  if(!footer) return;
+
+  function showFooter(){ footer.classList.remove("is-hiding"); footer.classList.add("is-visible"); }
+  function hideFooter(){ footer.classList.remove("is-visible"); }
+  function isFooterVisible(){ return footer.classList.contains("is-visible"); }
+
+  // Retorna true quando o estado é definitivo (para o loop)
+  function evaluate(){
+    const nav = window.__siteNav;
+    if(!nav) return false;
+    const { flowStarted, phase, p, sceneIndex, lastIdx, pendingDir } = nav.getState();
+
+    // Sem flow ou voltou ao hero
+    if(!flowStarted || (topbar && !topbar.classList.contains("show-brand"))){
+      hideFooter();
+      return true; // estado estável — pode parar
+    }
+
+    // Rodapé aparece assim que o último card começa a sair (phase closing ou já fechado)
+    const isAtEnd  = sceneIndex === lastIdx && (phase === "closing" || phase === "closed") && pendingDir !== -1;
+    const goingBack = pendingDir === -1 && sceneIndex > 0;
+
+    if(isAtEnd && !goingBack){
+      showFooter();
+      return phase === "closed" && p === 0;
+    }
+
+    hideFooter();
+    return false; // ainda em transição — continua o loop
+  }
+
+  // Polling que para automaticamente quando o estado se estabiliza
+  let rafId = null;
+  function startPolling(){
+    if(rafId) return;
+    function loop(){
+      const stable = evaluate();
+      if(stable){
+        rafId = null;
+        return; // cancela o loop — MutationObserver reinicia se precisar
+      }
+      rafId = requestAnimationFrame(loop);
+    }
+    rafId = requestAnimationFrame(loop);
+  }
+
+  // Reinicia polling a cada mudança de classe nos cards ou topbar
+  const allCards = Array.from(document.querySelectorAll("[data-card]"));
+  const observer = new MutationObserver(() => {
+    if(rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+    startPolling();
+  });
+  allCards.forEach(c =>
+    observer.observe(c, { attributes: true, attributeFilter: ["style", "class"] })
+  );
+  if(topbar){
+    observer.observe(topbar, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  // ── Patch: quando rodapé visível, primeiro scroll restaura o card de Contato ──
+  function handleBackIntent(){
+    if(!isFooterVisible()) return;
+    const nav = window.__siteNav;
+    if(nav && nav.isFooterState()) nav.restoreLastCard();
+  }
+
+  window.addEventListener("wheel", (e) => {
+    if(isFooterVisible() && e.deltaY < 0) handleBackIntent();
+  }, { capture: true, passive: true });
+
+  window.addEventListener("keydown", (e) => {
+    if(!isFooterVisible()) return;
+    if(["ArrowUp","ArrowLeft","PageUp"].includes(e.key)) handleBackIntent();
+  }, { capture: true });
+
+  let touchStartY = null;
+  window.addEventListener("touchstart", (e) => {
+    if(isFooterVisible() && e.touches.length) touchStartY = e.touches[0].clientY;
+  }, { capture: true, passive: true });
+  window.addEventListener("touchmove", (e) => {
+    if(!isFooterVisible() || touchStartY === null) return;
+    if(e.touches[0].clientY - touchStartY > 30){ handleBackIntent(); touchStartY = null; }
+  }, { capture: true, passive: true });
+
+  startPolling();
 })();
 
 </script>
