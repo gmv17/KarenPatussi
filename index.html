@@ -1335,6 +1335,13 @@
     }
 
     @media (max-width: 979.98px){
+
+      :root{
+        --stepDistanceDown: 90;
+        --stepDistanceUp: 110;
+        --sceneLockMs: 420ms;
+      }
+
       .topbar-nav{ display:none !important; }
 
       :root{
@@ -1444,30 +1451,26 @@
       }
       .section-card.is-expanded .card-scroll::after{ display:none !important; }
       .card-toggle{
-  appearance:none;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  align-self:flex-start;
-  margin-top:6px;
-  min-height:42px;
-  padding:11px 16px;
-  border-radius:999px;
-  background: rgba(255,255,255,.96);
-  border: 1px solid rgba(26,93,102,.35);
-  color: var(--brand);
-  box-shadow: 0 10px 22px rgba(26,93,102,.10);
-  font: 800 11px/1 var(--bodyFont);
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  cursor:pointer;
-}
-.card-toggle:active{
-  transform: scale(.97);
-  background: rgba(26,93,102,.08);
-}
-
+        appearance:none;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        align-self:flex-start;
+        margin-top: 2px;
+        min-height: 42px;
+        padding: 11px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(26,93,102,.16);
+        background: rgba(255,255,255,.94);
+        color: var(--brand);
+        box-shadow: 0 10px 24px rgba(0,0,0,.05);
+        font: 700 11px/1 var(--bodyFont);
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
       .card-toggle::after{
         content: "+";
         font-size: 15px;
@@ -2007,20 +2010,6 @@
       height: 16px;
       display: block;
       fill: currentColor;
-    }
-
-    @media (max-width: 979.98px){
-      .site-footer{
-        position: relative;
-        left: auto;
-        right: auto;
-        bottom: auto;
-        margin-top: 20px;
-        transform: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transition: none;
-      }
     }
 
     @media (max-width: 640px){
@@ -2778,7 +2767,6 @@
       function stepDurationMs(nextStep){
         if(nextStep === 1) return getMsVar("--easeDurName", 900);
         if(nextStep === 2) return getMsVar("--easeDurRole", 1500);
-        if(nextStep === 3 && isMobileLayout()) return 90;
         return 900;
       }
 
@@ -2890,10 +2878,7 @@
         if(lastDir !== 0 && dir !== lastDir) accum = 0;
         lastDir = dir;
 
-        const downBase = Math.max(160, getNumVar("--stepDistanceDown", 320));
-        let down = downBase;
-        if(isMobileLayout() && step === 2) down = Math.max(6, Math.min(12, downBase * 0.035));
-        else if(isMobileLayout() && step >= 3) down = Math.max(28, Math.min(56, downBase * 0.14));
+        const down = Math.max(160, getNumVar("--stepDistanceDown", 320));
         const up   = Math.max(180, getNumVar("--stepDistanceUp", 380));
 
         accum += deltaY;
@@ -2960,13 +2945,8 @@
         const dt = Math.min(0.05, Math.max(0.008, (now - lastFrame) / 1000));
         lastFrame = now;
 
-        let resolvedLag = lag;
-        if(isMobileLayout() && phase === "opening"){
-          resolvedLag = Math.min(resolvedLag, sceneIndex === 0 ? 0.18 : 0.24);
-        }
-
         // k menor => aproxima mais devagar (mais sedoso)
-        const k = 8.0 * (1 - resolvedLag) + 2.8;
+        const k = 8.0 * (1 - lag) + 2.8;
         return 1 - Math.exp(-k * dt);
       }
 
@@ -3096,7 +3076,7 @@
         resetActiveScroll();
 
         requestAnimationFrame(() => {
-          p = isMobileLayout() ? 0.12 : 0;
+          p = 0;
           pTarget = 1;
           phase = "opening";
           scheduleRender();
@@ -3379,7 +3359,7 @@
         if(!flowStarted && inHeroViewport()){
           e.preventDefault();
           lockBody();
-          handleDelta(dy * (isMobileLayout() ? 3.15 : 2.35));
+          handleDelta(dy * 1.75);
         }
       }, { passive: false });
 
