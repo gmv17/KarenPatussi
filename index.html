@@ -2774,6 +2774,7 @@
       function stepDurationMs(nextStep){
         if(nextStep === 1) return getMsVar("--easeDurName", 900);
         if(nextStep === 2) return getMsVar("--easeDurRole", 1500);
+        if(nextStep === 3 && isMobileLayout()) return 220;
         return 900;
       }
 
@@ -2885,7 +2886,8 @@
         if(lastDir !== 0 && dir !== lastDir) accum = 0;
         lastDir = dir;
 
-        const down = Math.max(160, getNumVar("--stepDistanceDown", 320));
+        const downBase = Math.max(160, getNumVar("--stepDistanceDown", 320));
+        const down = (isMobileLayout() && step >= 2) ? Math.max(34, Math.min(72, downBase * 0.16)) : downBase;
         const up   = Math.max(180, getNumVar("--stepDistanceUp", 380));
 
         accum += deltaY;
