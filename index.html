@@ -2022,6 +2022,27 @@
       fill: currentColor;
     }
 
+    @media (max-width: 979.98px){
+      .site-footer{
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        z-index: 2;
+        margin-top: 18px;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        will-change: auto;
+      }
+      .site-footer.is-visible,
+      .site-footer.is-hiding{
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+    }
+
     @media (max-width: 640px){
       .site-footer{
         padding-left: calc(16px + var(--safeL));
