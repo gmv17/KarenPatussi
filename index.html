@@ -1351,9 +1351,9 @@
 
       .cards-track{
         padding:
-          10px
+          2px
           calc(14px + var(--safeR))
-          calc(34px + var(--safeB))
+          calc(30px + var(--safeB))
           calc(14px + var(--safeL));
       }
       .cards-track .track-spacer{ display:none; height:0 !important; }
@@ -2753,6 +2753,9 @@
       let autoRoleTimer = 0;
       let autoRolePending = false;
 
+      let lastMobileScrollY = window.scrollY || window.pageYOffset || 0;
+      let mobileHeroLatchedHidden = false;
+
       function inHeroViewport(){
         const r = heroStage.getBoundingClientRect();
         const vh = window.innerHeight || 800;
@@ -2829,11 +2832,20 @@
       }
 
       function syncMobileHeroWithScroll(){
-        if(!isMobileLayout()) return;
+        if(!isMobileLayout()){
+          mobileHeroLatchedHidden = false;
+          lastMobileScrollY = window.scrollY || window.pageYOffset || 0;
+          return;
+        }
         if(animating) return;
 
         const firstCard = cards[0];
         if(!heroStage || !firstCard) return;
+
+        const currentY = window.scrollY || window.pageYOffset || 0;
+        const scrollingDown = currentY > (lastMobileScrollY + 0.5);
+        const scrollingUp = currentY < (lastMobileScrollY - 0.5);
+        lastMobileScrollY = currentY;
 
         const cardRect = firstCard.getBoundingClientRect();
         const heroRect = heroStage.getBoundingClientRect();
@@ -2841,18 +2853,33 @@
         const headerOffset = (topbar?.offsetHeight || 0) + 10;
 
         /*
-          No mobile, o retorno do hero precisa acompanhar a DESCIDA do card "Sobre".
-          Então a referência passa a ser a posição do primeiro card, e não só o scrollY.
-          Quando o topo do card desce da barra para dentro da viewport, nome + frase voltam.
+          No mobile, o hero agora fica “travado” escondido quando o usuário segue descendo.
+          Isso evita o micro-bug visual em que o nome parece descer de novo antes do card Sobre.
+          O retorno só acontece quando a pessoa realmente sobe de volta para o hero.
         */
+        const hideLatchPoint = Math.max(70, heroStage.offsetHeight * 0.24);
+        const releaseLatchPoint = Math.max(18, heroStage.offsetHeight * 0.10);
+
+        if(scrollingDown && currentY > hideLatchPoint){
+          mobileHeroLatchedHidden = true;
+        }else if(scrollingUp && currentY <= releaseLatchPoint){
+          mobileHeroLatchedHidden = false;
+        }
+
         const revealStart = headerOffset;
-        const revealEnd = Math.max(revealStart + 1, Math.min(vh * 0.84, heroRect.height * 0.94));
+        const revealEnd = Math.max(revealStart + 1, Math.min(vh * 0.54, heroRect.height * 0.58));
         const raw = (cardRect.top - revealStart) / (revealEnd - revealStart);
         const t = clamp(raw, 0, 1);
 
-        if((window.scrollY || window.pageYOffset || 0) <= (heroStage.offsetHeight + 80)){
+        if(currentY <= (heroStage.offsetHeight + 80)){
           flowStarted = false;
           step = 0;
+        }
+
+        if(mobileHeroLatchedHidden && currentY > releaseLatchPoint){
+          syncHeroReturnWithCardProgress(0);
+          topbar.classList.add("show-brand");
+          return;
         }
 
         syncHeroReturnWithCardProgress(t);
