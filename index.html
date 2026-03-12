@@ -1335,6 +1335,13 @@
     }
 
     @media (max-width: 979.98px){
+
+      :root{
+        --stepDistanceDown: 70;
+        --stepDistanceUp: 85;
+        --sceneLockMs: 180ms;
+      }
+
       .topbar-nav{ display:none !important; }
 
       :root{
@@ -1373,12 +1380,24 @@
         border-radius: 18px;
         animation: none !important;
         overflow: hidden;
+        touch-action: pan-y;
       }
       .glass-card{
         background: rgba(255,255,255,.90);
         backdrop-filter: blur(10px) saturate(1.02);
         -webkit-backdrop-filter: blur(10px) saturate(1.02);
         box-shadow: 0 10px 26px rgba(0,0,0,.08);
+      }
+      .topbar{
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      :root{
+        --treeBreathDur: 16s;
+        --treeBreathAmp: 0.028;
+        --treePushZ: 28px;
+        --glowOpacity: 0.10;
+        --glowBlur: 8px;
       }
       .glass-card::before{ opacity:.22; }
       .card-inner{
@@ -1405,10 +1424,13 @@
       .card-scroll{
         position: relative;
         max-height: 300px !important;
-        overflow: hidden !important;
+        overflow: clip !important;
         padding-top: 0;
         padding-bottom: 0;
         transition: max-height 420ms cubic-bezier(.16, 1, .18, 1);
+        touch-action: pan-y;
+        overscroll-behavior: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .section-card.is-expanded .card-scroll{
         max-height: min(68dvh, 620px) !important;
@@ -1437,23 +1459,31 @@
         justify-content:center;
         gap:10px;
         align-self:flex-start;
-        margin-top: 2px;
-        min-height: 42px;
-        padding: 11px 14px;
+        margin-top: 6px;
+        min-height: 44px;
+        padding: 12px 18px;
         border-radius: 999px;
-        border: 1px solid rgba(26,93,102,.16);
-        background: rgba(255,255,255,.94);
+        border: 1px solid rgba(26,93,102,.35);
+        background: rgba(26,93,102,.08);
         color: var(--brand);
-        box-shadow: 0 10px 24px rgba(0,0,0,.05);
-        font: 700 11px/1 var(--bodyFont);
+        box-shadow:
+          0 8px 18px rgba(26,93,102,.14),
+          inset 0 1px 0 rgba(255,255,255,.6);
+        font: 800 11px/1 var(--bodyFont);
         letter-spacing: .12em;
         text-transform: uppercase;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
+        transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      }
+      .card-toggle:active{
+        transform: scale(.96);
+        background: rgba(26,93,102,.15);
       }
       .card-toggle::after{
         content: "+";
-        font-size: 15px;
+        font-size: 16px;
+        font-weight: 900;
         line-height: 1;
         letter-spacing: 0;
       }
@@ -1582,20 +1612,6 @@
       #perguntas-frequentes,
       #agendar-sessao{
         scroll-margin-top: calc(var(--headerH) + var(--safeT) + 18px);
-      }
-
-      .site-footer{
-        position: relative;
-        left: auto;
-        right: auto;
-        bottom: auto;
-        z-index: 2;
-        transform: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        margin-top: 18px;
-        justify-content: center;
-        gap: 12px;
       }
     }
     @media (prefers-reduced-motion: reduce){
@@ -2004,27 +2020,6 @@
       height: 16px;
       display: block;
       fill: currentColor;
-    }
-
-    @media (max-width: 979.98px){
-      .site-footer{
-        position: relative;
-        bottom: auto;
-        left: auto;
-        right: auto;
-        z-index: 2;
-        margin-top: 18px;
-        transform: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        will-change: auto;
-      }
-      .site-footer.is-visible,
-      .site-footer.is-hiding{
-        transform: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-      }
     }
 
     @media (max-width: 640px){
@@ -2782,7 +2777,6 @@
       function stepDurationMs(nextStep){
         if(nextStep === 1) return getMsVar("--easeDurName", 900);
         if(nextStep === 2) return getMsVar("--easeDurRole", 1500);
-        if(nextStep === 3 && isMobileLayout()) return 260;
         return 900;
       }
 
@@ -2894,18 +2888,12 @@
         if(lastDir !== 0 && dir !== lastDir) accum = 0;
         lastDir = dir;
 
-        const down = isMobileLayout()
-          ? Math.max(12, getNumVar("--stepDistanceDown", 320))
-          : Math.max(160, getNumVar("--stepDistanceDown", 320));
-        const up   = isMobileLayout()
-          ? Math.max(18, getNumVar("--stepDistanceUp", 380))
-          : Math.max(180, getNumVar("--stepDistanceUp", 380));
-        const downTrigger = (isMobileLayout() && step === 2) ? Math.min(down, 14) : down;
-        const upTrigger   = (isMobileLayout() && step === 3) ? Math.min(up, 32) : up;
+        const down = Math.max(45, getNumVar("--stepDistanceDown", 320));
+        const up   = Math.max(55, getNumVar("--stepDistanceUp", 380));
 
         accum += deltaY;
 
-        if(accum >= downTrigger){
+        if(accum >= down){
           accum = 0;
 
           if(step === 1 && autoRolePending) return;
@@ -2917,7 +2905,7 @@
           return;
         }
 
-        if(accum <= -upTrigger){
+        if(accum <= -up){
           accum = 0;
 
           if(step === 1 && autoRolePending) clearAutoRole();
@@ -3056,7 +3044,7 @@
       }
 
       function setLock(){
-        const ms = Math.max(520, getMsVar("--sceneLockMs", 1350));
+        const ms = Math.max(120, getMsVar("--sceneLockMs", 1350));
         lockedUntil = performance.now() + ms;
       }
 
@@ -3381,7 +3369,7 @@
         if(!flowStarted && inHeroViewport()){
           e.preventDefault();
           lockBody();
-          handleDelta(dy * (isMobileLayout() ? 2.6 : 1.75));
+          handleDelta(dy * 1.75);
         }
       }, { passive: false });
 
