@@ -3,7 +3,48 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Blog | Káren Patussi</title>
+
+  <!-- ==================== SEO BÁSICO ==================== -->
+  <title>Blog | Káren Patussi · Psicologia, Sexualidade e Saúde Emocional</title>
+  <meta name="description" content="Artigos, pesquisas e reflexões sobre psicologia, sexualidade, relações humanas e saúde emocional. Por Káren Patussi, psicóloga e terapeuta sexual.">
+  <meta name="keywords" content="blog psicologia, terapia sexual, sexualidade humana, saúde emocional, relações humanas, subjetividade, Káren Patussi">
+  <meta name="author" content="Káren Patussi">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.karenpatussi.com.br/blog.html">
+
+  <!-- ==================== OPEN GRAPH (WhatsApp, Facebook, LinkedIn) ==================== -->
+  <meta property="og:type" content="blog">
+  <meta property="og:url" content="https://www.karenpatussi.com.br/blog.html">
+  <meta property="og:title" content="Blog | Káren Patussi · Psicologia e Sexualidade">
+  <meta property="og:description" content="Artigos e reflexões sobre psicologia, sexualidade, relações humanas e saúde emocional. Por Káren Patussi, psicóloga e terapeuta sexual.">
+  <meta property="og:image" content="https://www.karenpatussi.com.br/imagens/og-image.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Káren Patussi">
+
+
+
+  <!-- ==================== FAVICON ==================== -->
+  <link rel="icon" type="image/webp" href="imagens/Logo.webp">
+  <link rel="apple-touch-icon" href="imagens/Logo.webp">
+
+  <!-- ==================== DADOS ESTRUTURADOS (Google) ==================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog | Káren Patussi",
+    "description": "Artigos, pesquisas e reflexões sobre psicologia, sexualidade, relações humanas e saúde emocional.",
+    "url": "https://www.karenpatussi.com.br/blog.html",
+    "author": {
+      "@type": "Person",
+      "name": "Káren Patussi",
+      "jobTitle": "Psicóloga e Terapeuta Sexual",
+      "url": "https://www.karenpatussi.com.br/"
+    }
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +65,15 @@
 
       --padX: clamp(16px, 6vw, 120px);
       --headerH: 56px;
-
+      /* ================================
+         TREE HERO / DEPTH FX
+         These variables control the tree volume, breathing motion,
+         masked glow and rim light.
+         Keep them grouped for easier maintenance.
+         - tree*: scale, depth and shadow of the artwork
+         - glow*: larger soft halo behind the tree
+         - rim*: tighter light that helps separate the edges
+         ================================= */
       --treeYOffset: clamp(10px, 2vh, 34px);
       --treeScale: 0.92;
       --treeOpacity: 0.92;
@@ -32,13 +81,22 @@
       --treeBreathDur: 14s;
       --treeBreathAmp: 0.045;
       --treePushZ: 60px;
-      --treeBreathShadowA: 0.16;
-      --treeBreathShadowB: 0.26;
+      --treeBreathShadowA: 0.18;
+      --treeBreathShadowB: 0.30;
+      --treeShadowLiftA: 22px;
+      --treeShadowLiftB: 34px;
 
-      --glowOpacity: 0.16;
+      --glowOpacity: 0.18;
       --glowDur: 6.2s;
-      --glowBlur: 10px;
-      --glowColor: rgba(26,93,102,.48);
+      --glowBlur: 14px;
+      --glowColor: rgba(26,93,102,.52);
+      --glowCoreOpacity: 0.20;
+      --glowCoreBlur: 9px;
+
+      --rimOpacity: 0.12;
+      --rimBlur: 4px;
+      --rimColor: rgba(223,245,240,.72);
+
 
       --bodyFont: "Inter", system-ui, sans-serif;
       --titleFont: "Playfair Display", serif;
@@ -91,7 +149,14 @@
         radial-gradient(1100px 720px at 50% 32%, rgba(255,255,255,.28), rgba(255,255,255,0) 60%),
         linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
     }
-
+    /* ================================
+       TREE HERO / 3D EFFECT REGION
+       The tree uses 3 stacked layers:
+       1) image breathing + shadow = depth
+       2) ::before = tighter masked core/rim light
+       3) ::after  = wider masked atmospheric glow
+       This split keeps the visual effect readable for future maintenance.
+       ================================= */
     .bg-stage{
       position:fixed;
       inset:0;
@@ -108,7 +173,7 @@
       opacity:var(--treeOpacity);
       position:relative;
       transform-style:preserve-3d;
-      will-change:filter;
+      will-change:filter, transform;
       animation:treeBreath var(--treeBreathDur) ease-in-out infinite;
     }
     .tree img{
@@ -118,34 +183,98 @@
       display:block;
       user-select:none;
       -webkit-user-drag:none;
+      position:relative;
+      z-index:2;
       transform:translateZ(0) scale(var(--treeScale));
       will-change:transform;
       animation:treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
     }
     @keyframes treeBreath{
-      0%,100%{ filter: drop-shadow(0 28px 70px rgba(0,0,0,var(--treeBreathShadowA))) brightness(.98); }
-      50%{ filter: drop-shadow(0 48px 130px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.03); }
+      0%,100%{
+        filter:
+          drop-shadow(0 var(--treeShadowLiftA) 70px rgba(0,0,0,var(--treeBreathShadowA)))
+          drop-shadow(0 0 18px rgba(26,93,102,.06))
+          brightness(.985) contrast(1.01);
+      }
+      50%{
+        filter:
+          drop-shadow(0 var(--treeShadowLiftB) 140px rgba(0,0,0,var(--treeBreathShadowB)))
+          drop-shadow(0 0 28px rgba(26,93,102,.12))
+          brightness(1.04) contrast(1.03);
+      }
     }
     @keyframes treeScaleBreath{
       0%,100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
       50%{ transform: translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
     }
+
+    /* Core masked light:
+       A tighter inner glow + subtle rim sheen to avoid a flat PNG look. */
+    .tree::before{
+      content:"";
+      position:absolute;
+      inset:1.2%;
+      pointer-events:none;
+      z-index:1;
+      background:
+        radial-gradient(42% 34% at 50% 56%, rgba(223,245,240,.26), rgba(223,245,240,0) 72%),
+        radial-gradient(56% 52% at 50% 54%, rgba(26,93,102,var(--glowCoreOpacity)), rgba(26,93,102,0) 74%),
+        linear-gradient(118deg,
+          rgba(255,255,255,0) 16%,
+          rgba(255,255,255,var(--rimOpacity)) 34%,
+          rgba(255,255,255,0) 54%,
+          rgba(255,255,255,0) 100%
+        );
+      background-size:100% 100%, 100% 100%, 145% 145%;
+      background-position:center, center, 88% 22%;
+      background-repeat:no-repeat;
+      opacity:1;
+      filter:blur(var(--rimBlur));
+      mix-blend-mode:screen;
+      -webkit-mask-image:url("imagens/Tree ring hero.webp");
+      -webkit-mask-repeat:no-repeat;
+      -webkit-mask-size:contain;
+      -webkit-mask-position:center;
+      mask-image:url("imagens/Tree ring hero.webp");
+      mask-repeat:no-repeat;
+      mask-size:contain;
+      mask-position:center;
+      animation:treeCorePulse calc(var(--treeBreathDur) * 0.9) ease-in-out infinite;
+      will-change:opacity, filter, background-position;
+    }
+    @keyframes treeCorePulse{
+      0%,100%{
+        opacity:.84;
+        filter:blur(var(--rimBlur));
+        background-position:center, center, 92% 24%;
+      }
+      50%{
+        opacity:1;
+        filter:blur(calc(var(--rimBlur) + 1px));
+        background-position:center, center, 84% 18%;
+      }
+    }
+
+    /* Wider masked glow:
+       This is the atmospheric halo that makes the tree feel detached
+       from the background instead of pasted on top of it. */
     .tree::after{
       content:"";
       position:absolute;
-      inset:0;
+      inset:-1%;
       pointer-events:none;
+      z-index:0;
       background:
         linear-gradient(180deg,
           rgba(255,255,255,0) 0%,
-          rgba(255,255,255,0) 35%,
-          rgba(255,255,255,.50) 50%,
-          rgba(255,255,255,0) 65%,
+          rgba(255,255,255,0) 32%,
+          rgba(255,255,255,.46) 48%,
+          rgba(255,255,255,0) 64%,
           rgba(255,255,255,0) 100%
         ),
-        radial-gradient(closest-side at 50% 50%, var(--glowColor), rgba(26,93,102,0) 62%);
-      background-size:100% 220%, 120% 120%;
-      background-position:0 140%, 50% 160%;
+        radial-gradient(closest-side at 50% 55%, var(--glowColor), rgba(26,93,102,0) 64%);
+      background-size:100% 220%, 126% 126%;
+      background-position:0 140%, 50% 158%;
       background-repeat:no-repeat;
       opacity:var(--glowOpacity);
       filter:blur(var(--glowBlur));
@@ -159,15 +288,16 @@
       mask-size:contain;
       mask-position:center;
       animation:glowRise var(--glowDur) cubic-bezier(.3, 0, .2, 1) infinite;
-      will-change:opacity, background-position;
+      will-change:opacity, background-position, filter;
     }
     @keyframes glowRise{
-      0% { opacity: 0; background-position: 0 140%, 50% 160%; }
+      0% { opacity: 0; background-position: 0 140%, 50% 158%; }
       12% { opacity: var(--glowOpacity); }
-      58% { opacity: var(--glowOpacity); background-position: 0 22%, 50% 40%; }
-      86% { opacity: calc(var(--glowOpacity) * 0.60); background-position: 0 -36%, 50% -10%; }
-      100% { opacity: 0; background-position: 0 -70%, 50% -40%; }
+      58% { opacity: var(--glowOpacity); background-position: 0 20%, 50% 36%; }
+      86% { opacity: calc(var(--glowOpacity) * 0.68); background-position: 0 -30%, 50% -6%; }
+      100% { opacity: 0; background-position: 0 -70%, 50% -38%; }
     }
+
 
     .topbar{
       position:sticky;
@@ -342,6 +472,73 @@
       }
       .hero{ padding-top:48px; }
     }
+
+    /* ========================= RODAPÉ ========================= */
+    .site-footer{
+      padding:
+        16px
+        calc(var(--padX) + var(--safeR))
+        calc(16px + var(--safeB))
+        calc(var(--padX) + var(--safeL));
+      background: linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.94));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(0,0,0,.07);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-copy{
+      font-size: 11px;
+      color: rgba(20,28,32,.52);
+      font-weight: 600;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+    .footer-socials{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-social-link{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
+      color: var(--brand);
+      text-decoration: none;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+      flex-shrink: 0;
+    }
+    .footer-social-link:hover,
+    .footer-social-link:focus-visible{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(26,93,102,.18);
+      background: rgba(255,255,255,.96);
+      outline: none;
+    }
+    .footer-social-link svg{
+      width: 16px;
+      height: 16px;
+      display: block;
+      fill: currentColor;
+    }
+    @media (max-width: 640px){
+      .site-footer{
+        padding-left: calc(16px + var(--safeL));
+        padding-right: calc(16px + var(--safeR));
+        justify-content: center;
+        gap: 12px;
+      }
+      .footer-copy{ font-size: 10px; }
+    }
   </style>
 </head>
 <body>
@@ -358,7 +555,7 @@
     </a>
 
     <nav class="topnav" aria-label="Navegação do blog">
-      <a href="index.html#home">Contato</a>
+      <a href="index.html#agendar-sessao" class="nav-contato">Contato</a>
       <a class="is-current" href="blog.html" aria-current="page">Blog</a>
     </nav>
   </header>
@@ -378,5 +575,31 @@
       </div>
     </section>
   </main>
+
+  <footer class="site-footer" aria-label="Rodapé">
+    <span class="footer-copy">© 2026 Káren Patussi · Todos os direitos reservados</span>
+    <div class="footer-socials" aria-label="Redes sociais">
+      <a class="footer-social-link" href="https://www.linkedin.com/in/karen-mesquita-patussi-a19017122/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Káren Patussi">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.985V9h3.102v1.561h.046c.432-.816 1.487-1.676 3.062-1.676 3.273 0 3.876 2.154 3.876 4.957v6.61zM5.337 7.433a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zm1.555 13.019H3.782V9h3.11v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="footer-social-link" href="https://www.instagram.com/terapiacomkarenpatussi?igsh=MW1pMjQwYnFjNXVvZA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Káren Patussi">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const link = document.querySelector(".nav-contato");
+      if(!link) return;
+      function update(){
+        link.href = window.matchMedia("(max-width: 900px)").matches
+          ? "index.html#agendar-sessao"
+          : "index.html";
+      }
+      update();
+      window.addEventListener("resize", update, { passive: true });
+    })();
+  </script>
 </body>
 </html>
