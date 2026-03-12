@@ -1337,9 +1337,10 @@
     @media (max-width: 979.98px){
 
       :root{
-        --stepDistanceDown: 70;
-        --stepDistanceUp: 85;
-        --sceneLockMs: 180ms;
+        --stepDistanceDown: 28;
+        --stepDistanceUp: 36;
+        --sceneLockMs: 80ms;
+        --stepCooldown: 24ms;
       }
 
       .topbar-nav{ display:none !important; }
@@ -1391,6 +1392,18 @@
       .topbar{
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
+      }
+      .site-footer,
+      .site-footer.is-visible,
+      .site-footer.is-hiding{
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        margin-top: 24px;
       }
       :root{
         --treeBreathDur: 16s;
@@ -2028,6 +2041,14 @@
         padding-right: calc(16px + var(--safeR));
         justify-content: center;
         gap: 12px;
+      }
+      .site-footer,
+      .site-footer.is-visible,
+      .site-footer.is-hiding{
+        position: relative !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
       }
       .footer-copy{ font-size: 10px; }
     }
@@ -2775,6 +2796,11 @@
       }
 
       function stepDurationMs(nextStep){
+        if(isMobileLayout()){
+          if(nextStep === 1) return 170;
+          if(nextStep === 2) return 190;
+          return 150;
+        }
         if(nextStep === 1) return getMsVar("--easeDurName", 900);
         if(nextStep === 2) return getMsVar("--easeDurRole", 1500);
         return 900;
@@ -2844,6 +2870,7 @@
         autoRolePending = true;
 
         const nameDur = stepDurationMs(1);
+        const delay = isMobileLayout() ? Math.max(40, nameDur + 10) : Math.max(320, nameDur + 80);
         autoRoleTimer = window.setTimeout(() => {
           autoRoleTimer = 0;
           autoRolePending = false;
@@ -2851,7 +2878,7 @@
 
           lockBody();
           animateToStep(2).then(() => unlockBody());
-        }, Math.max(320, nameDur + 80));
+        }, delay);
       }
 
       function animateToStep(next){
@@ -2896,7 +2923,21 @@
         if(accum >= down){
           accum = 0;
 
-          if(step === 1 && autoRolePending) return;
+          if(isMobileLayout()){
+            if(step === 1 && autoRolePending) clearAutoRole();
+            if(step === 1){
+              lockBody();
+              animateToStep(2);
+              return;
+            }
+            if(step === 2){
+              lockBody();
+              animateToStep(3);
+              return;
+            }
+          }else if(step === 1 && autoRolePending){
+            return;
+          }
 
           if(step < 3){
             lockBody();
@@ -3044,7 +3085,8 @@
       }
 
       function setLock(){
-        const ms = Math.max(120, getMsVar("--sceneLockMs", 1350));
+        const minMs = isMobileLayout() ? 40 : 120;
+        const ms = Math.max(minMs, getMsVar("--sceneLockMs", 1350));
         lockedUntil = performance.now() + ms;
       }
 
@@ -3369,7 +3411,7 @@
         if(!flowStarted && inHeroViewport()){
           e.preventDefault();
           lockBody();
-          handleDelta(dy * 1.75);
+          handleDelta(dy * 3.2);
         }
       }, { passive: false });
 
