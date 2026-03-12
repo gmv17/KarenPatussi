@@ -1382,6 +1382,22 @@
         overflow: hidden;
         touch-action: pan-y;
       }
+      .section-card.mobile-handoff-enter{
+        animation: mobileCardEnter 520ms cubic-bezier(.16, 1, .18, 1) both !important;
+        will-change: transform, opacity, filter;
+      }
+      @keyframes mobileCardEnter{
+        0%{
+          opacity: 0 !important;
+          transform: translate3d(0, 18px, 0) scale(.985) !important;
+          filter: blur(2px) !important;
+        }
+        100%{
+          opacity: 1 !important;
+          transform: translate3d(0, 0, 0) scale(1) !important;
+          filter: blur(0) !important;
+        }
+      }
       .glass-card{
         background: rgba(255,255,255,.90);
         backdrop-filter: blur(10px) saturate(1.02);
@@ -3153,10 +3169,15 @@
 
         lockBody();
 
+        const isMobile = isMobileLayout();
         const y = cardsTrack.getBoundingClientRect().top + window.scrollY;
+        const mobileFrameOffset = (topbar?.offsetHeight || 0) + 10;
 
-        // ✅ scroll instantâneo (evita “puxar” o card de baixo)
-        window.scrollTo({ top: y + 1, behavior: "auto" });
+        // ✅ no mobile, enquadra o card certinho abaixo da topbar
+        window.scrollTo({
+          top: Math.max(0, isMobile ? (y - mobileFrameOffset) : (y + 1)),
+          behavior: "auto"
+        });
 
         sceneIndex = 0;
         pendingDir = +1;
@@ -3170,11 +3191,23 @@
         hideAllCards();
         resetActiveScroll();
 
+        const enteringCard = isMobile ? cards[0] : null;
+        if(enteringCard){
+          enteringCard.classList.remove("mobile-handoff-enter");
+          void enteringCard.offsetWidth;
+        }
+
         requestAnimationFrame(() => {
           p = 0;
           pTarget = 1;
           phase = "opening";
           scheduleRender();
+
+          if(enteringCard){
+            enteringCard.classList.add("mobile-handoff-enter");
+            window.setTimeout(() => enteringCard.classList.remove("mobile-handoff-enter"), 560);
+          }
+
           unlockBody();
         });
       }
