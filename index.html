@@ -1340,9 +1340,6 @@
       :root{
         --padX: 18px;
         --cardStickyTop: calc(var(--headerH) + var(--safeT) + 18px);
-        --stepDistanceDown: 180;
-        --stepDistanceUp: 220;
-        --sceneLockMs: 620ms;
       }
 
       .cards-track{
@@ -1376,22 +1373,12 @@
         border-radius: 18px;
         animation: none !important;
         overflow: hidden;
-        touch-action: pan-y;
       }
       .glass-card{
         background: rgba(255,255,255,.90);
         backdrop-filter: blur(10px) saturate(1.02);
         -webkit-backdrop-filter: blur(10px) saturate(1.02);
         box-shadow: 0 10px 26px rgba(0,0,0,.08);
-      }
-      .topbar{
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-      }
-      .tree,
-      .tree img,
-      .tree::after{
-        animation: none !important;
       }
       .glass-card::before{ opacity:.22; }
       .card-inner{
@@ -1421,10 +1408,7 @@
         overflow: hidden !important;
         padding-top: 0;
         padding-bottom: 0;
-        transition: max-height 320ms cubic-bezier(.16, 1, .18, 1);
-        touch-action: pan-y;
-        overscroll-behavior: auto;
-        -webkit-overflow-scrolling: touch;
+        transition: max-height 420ms cubic-bezier(.16, 1, .18, 1);
       }
       .section-card.is-expanded .card-scroll{
         max-height: min(68dvh, 620px) !important;
@@ -2642,7 +2626,7 @@
             scroll.insertAdjacentElement("afterend", toggle);
           }
 
-          const shouldCollapse = scroll.scrollHeight > (isMobileLayout() ? 300 : 360);
+          const shouldCollapse = scroll.scrollHeight > 360;
           card.classList.toggle("has-toggle", shouldCollapse);
 
           if(!toggle.dataset.bound){
@@ -3355,8 +3339,7 @@
         if(!flowStarted && inHeroViewport()){
           e.preventDefault();
           lockBody();
-          const heroBoost = isMobileLayout() ? 3.1 : 1.75;
-          handleDelta(dy * heroBoost);
+          handleDelta(dy * 1.75);
         }
       }, { passive: false });
 
