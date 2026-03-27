@@ -550,6 +550,22 @@
       background: var(--brand) !important;
       opacity: 1 !important;
     }
+    .drawer-nav a.nav-active{
+      color: var(--brand) !important;
+      opacity: 1 !important;
+      font-weight: 800 !important;
+    }
+
+    .topbar-nav a.nav-active{
+      background: rgba(255,255,255,.90) !important;
+      color: var(--brand) !important;
+      box-shadow: 0 2px 12px rgba(26,93,102,.18) !important;
+    }
+    .topbar-nav a.nav-active::after{
+      transform: scaleX(1) !important;
+      background: var(--brand) !important;
+      opacity: 1 !important;
+    }
 
     .drawer-nav a.nav-active{
       color: var(--brand) !important;
@@ -2850,6 +2866,14 @@
         });
       }
 
+      /* ── Nav active highlight ── */
+      function updateNavActive(index){
+        document.querySelectorAll("a[data-link]").forEach(a => {
+          const i = parseInt(a.getAttribute("data-index"), 10);
+          a.classList.toggle("nav-active", i === index);
+        });
+      }
+
       /* =========================
          HERO: 1 scroll = nome some; frase some automaticamente
          ========================= */
@@ -3706,6 +3730,7 @@
         }
 
         sceneIndex = clamp(i, 0, cards.length - 1);
+        updateNavActive(sceneIndex);
         returnToHeroAfterClose = false;
 
         setLock();
@@ -3770,6 +3795,7 @@
         const idx = parseInt(a.dataset.index || "-1", 10);
         closeMenu();
         unlockBody();
+        updateNavActive(idx);
         requestAnimationFrame(() => setTimeout(() => goToScene(idx), 40));
       }));
 
