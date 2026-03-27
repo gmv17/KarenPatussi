@@ -540,6 +540,18 @@
     .topbar-nav a:hover::after,
     .topbar-nav a:focus-visible::after{ transform: scaleX(1); }
 
+    .topbar-nav a.nav-active{
+      background: rgba(255,255,255,.68);
+      color: var(--brand);
+      box-shadow: 0 12px 28px rgba(0,0,0,.06);
+    }
+    .topbar-nav a.nav-active::after{ transform: scaleX(1); }
+
+    .drawer-nav a.nav-active{
+      color: var(--brand);
+      opacity: 1;
+    }
+
     .menu-btn{
       appearance: none;
       border: 1px solid rgba(0,0,0,.08);
@@ -2824,6 +2836,15 @@
       if(overlayBg) overlayBg.addEventListener("click", closeMenu);
       window.addEventListener("keydown", (e) => { if(overlay && e.key === "Escape" && overlay.classList.contains("is-open")) closeMenu(); });
 
+
+      /* ── Nav active highlight ── */
+      function updateNavActive(index){
+        document.querySelectorAll("a[data-link]").forEach(a => {
+          const i = parseInt(a.getAttribute("data-index"), 10);
+          a.classList.toggle("nav-active", i === index);
+        });
+      }
+
       /* =========================
          HERO: 1 scroll = nome some; frase some automaticamente
          ========================= */
@@ -3245,6 +3266,7 @@
         });
 
         sceneIndex = 0;
+        updateNavActive(sceneIndex);
         pendingDir = +1;
         returnToHeroAfterClose = false;
 
@@ -3279,6 +3301,7 @@
 
       async function returnToHeroWithSameMotion(){
         flowStarted = false;
+        updateNavActive(-1);
         clearAutoRole();
         clearAutoCard();
 
@@ -3398,6 +3421,7 @@
           const nextIdx = clamp(sceneIndex + pendingDir, 0, cards.length - 1);
           if(nextIdx !== sceneIndex){
             sceneIndex = nextIdx;
+            updateNavActive(sceneIndex);
             phase = "opening";
             pTarget = 1;
             resetActiveScroll();
