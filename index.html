@@ -4009,9 +4009,9 @@
     if(!nav) return false;
     const { flowStarted, phase, p, sceneIndex, lastIdx, pendingDir } = nav.getState();
 
-    // Sem flow ou voltou ao hero
+    // No hero (sem flow): mostra o rodapé
     if(!flowStarted || (topbar && !topbar.classList.contains("show-brand"))){
-      hideFooter();
+      showFooter();
       return true; // estado estável — pode parar
     }
 
