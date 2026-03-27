@@ -3730,7 +3730,6 @@
         }
 
         sceneIndex = clamp(i, 0, cards.length - 1);
-        updateNavActive(sceneIndex);
         returnToHeroAfterClose = false;
 
         setLock();
@@ -3793,9 +3792,9 @@
         }
 
         const idx = parseInt(a.dataset.index || "-1", 10);
+        updateNavActive(idx);
         closeMenu();
         unlockBody();
-        updateNavActive(idx);
         requestAnimationFrame(() => setTimeout(() => goToScene(idx), 40));
       }));
 
