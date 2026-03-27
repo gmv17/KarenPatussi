@@ -1800,6 +1800,52 @@
       min-width: 0;
     }
     .field--full{ grid-column: 1 / -1; }
+
+    .field--checkbox{ margin-top: -4px; }
+    .checkbox-label{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .checkbox-label input[type="checkbox"]{
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .checkbox-box{
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 1.5px solid rgba(0,0,0,.18);
+      background: rgba(255,255,255,.80);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .18s ease, border-color .18s ease;
+    }
+    .checkbox-label input[type="checkbox"]:checked + .checkbox-box{
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+    .checkbox-label input[type="checkbox"]:checked + .checkbox-box::after{
+      content: "";
+      display: block;
+      width: 5px;
+      height: 9px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+    .checkbox-text{
+      font-size: 13px;
+      color: rgba(20,28,32,.72);
+      font-weight: 500;
+    }
     .field label{
       font-size: 11px;
       letter-spacing: .14em;
@@ -2516,6 +2562,14 @@
                         >
                       </div>
 
+                      <div class="field field--full field--checkbox">
+                        <label class="checkbox-label">
+                          <input type="checkbox" name="phone_is_whatsapp" id="phoneIsWhatsapp" value="sim">
+                          <span class="checkbox-box"></span>
+                          <span class="checkbox-text">Este número é WhatsApp</span>
+                        </label>
+                      </div>
+
                       <div class="field">
                         <label for="contactReason">Motivo do contato</label>
                         <select id="contactReason" name="reason" autocomplete="off">
@@ -2566,21 +2620,6 @@
                       <div class="contact-status" id="contactStatus" aria-live="polite"></div>
                     </div>
                   </form>
-                </section>
-
-                <section class="contact-meta" aria-label="Informações complementares">
-                  <div class="contact-chip">
-                    <span>Formato</span>
-                    <strong>Atendimento realizado de forma online, mediante agendamento</strong>
-                  </div>
-                  <div class="contact-chip">
-                    <span>Retorno</span>
-                    <strong>Mensagens respondidas em horário comercial</strong>
-                  </div>
-                  <div class="contact-chip">
-                    <span>Primeiro passo</span>
-                    <strong>Contato inicial com clareza, discrição e acolhimento</strong>
-                  </div>
                 </section>
 
                 <div class="end-spacer" aria-hidden="true"></div>
