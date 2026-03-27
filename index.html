@@ -134,8 +134,8 @@
       --edgeMargin: 46px;
       --edgeMarginY: 76px;
 
-      --wheelScale: 0.55;
-      --wheelTrigger: 135;
+      --wheelScale: 0.35;
+      --wheelTrigger: 220;
 
       /* ✅ mais tempo de respiro entre troca de cenas */
       --sceneLockMs: 1350ms;   /* antes 980ms */
@@ -3098,6 +3098,7 @@
 
       let wheelAccum = 0;
       let wheelLast = performance.now();
+      let wheelCooldownUntil = 0;
 
       let pendingDir = +1;
       let returnToHeroAfterClose = false;
@@ -3485,8 +3486,12 @@
           const allowKnob = (!res.used) || (res.used && res.atEdge);
 
           if(allowKnob && Math.abs(wheelAccum) >= trigger){
-            if(wheelAccum > 0) requestNext();
-            else requestPrev();
+            const wNow = performance.now();
+            if(wNow >= wheelCooldownUntil){
+              if(wheelAccum > 0) requestNext();
+              else requestPrev();
+              wheelCooldownUntil = wNow + 1000;
+            }
             wheelAccum = 0;
           }
 
