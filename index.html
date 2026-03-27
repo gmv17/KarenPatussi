@@ -541,15 +541,20 @@
     .topbar-nav a:focus-visible::after{ transform: scaleX(1); }
 
     .topbar-nav a.nav-active{
-      background: rgba(255,255,255,.68);
-      color: var(--brand);
-      box-shadow: 0 12px 28px rgba(0,0,0,.06);
+      background: rgba(255,255,255,.90) !important;
+      color: var(--brand) !important;
+      box-shadow: 0 2px 12px rgba(26,93,102,.18) !important;
     }
-    .topbar-nav a.nav-active::after{ transform: scaleX(1); }
+    .topbar-nav a.nav-active::after{
+      transform: scaleX(1) !important;
+      background: var(--brand) !important;
+      opacity: 1 !important;
+    }
 
     .drawer-nav a.nav-active{
-      color: var(--brand);
-      opacity: 1;
+      color: var(--brand) !important;
+      opacity: 1 !important;
+      font-weight: 800 !important;
     }
 
     .menu-btn{
@@ -3400,6 +3405,7 @@
 
         if(phase === "opening" && p >= 1){
           phase = "open";
+          updateNavActive(sceneIndex);
         }
 
         if(phase === "closing" && returnToHeroAfterClose){
