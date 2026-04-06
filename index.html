@@ -1032,36 +1032,35 @@
 
 
     /* ========================= SOBRE ========================= */
-
+    
     .about{
       display: grid;
       gap: 18px;
       margin-top: 8px;
     }
 
-
+    
     .about .editorial{
       display:grid;
-      grid-template-columns: minmax(220px, 250px) minmax(0, 1fr);
-      gap: 22px;
-      align-items: start;
+      grid-template-columns: minmax(210px, 240px) 1fr;
+      gap: 18px;
+      align-items: stretch;
     }
-
+    
     @media (min-width: 720px){
       .about .editorial{
-        grid-template-columns: minmax(230px, 260px) minmax(0, 1fr);
-        gap: 24px;
+        grid-template-columns: minmax(230px, 260px) 1fr;
+        gap: 20px;
       }
     }
-
+    
     @media (max-width: 720px){
       .about .editorial{ grid-template-columns: 1fr; }
     }
 
-
+    
     .about .portrait{
-      position: sticky;
-      top: 20px;
+      position: relative;
       border-radius: 20px;
       overflow: hidden;
       background: rgba(255,255,255,.94);
@@ -1070,7 +1069,7 @@
       aspect-ratio: 3 / 4;
       min-height: 320px;
       align-self: start;
-      margin-top: 2px;
+      margin-top: -3px;
     }
     .about .portrait img{
       width: 100%;
@@ -1081,30 +1080,25 @@
       transform: scale(1.02);
     }
 
-
+    
     .about .lead{
-      padding: 20px 20px;
+      padding: 18px 18px;
       border-radius: 18px;
       background: rgba(255,255,255,.92);
       border: 1px solid var(--softBorder);
       box-shadow: 0 14px 28px rgba(0,0,0,.05);
       display:grid;
-      gap: 0;
+      gap: 14px;
       align-content: start;
-      min-width: 0;
     }
-
+    
     .about .lead p{
-      margin: 0 0 14px 0;
+      margin: 0;
       color: var(--softInk);
       line-height: 1.95;
       font-size: 15px;
       font-family: var(--bodyFont);
       font-weight: 500;
-      max-width: none;
-    }
-    .about .lead p:last-child{
-      margin-bottom: 0;
     }
     .about .lead strong{ color: rgba(26,93,102,.96); font-weight: 800; }
 
@@ -1124,14 +1118,13 @@
       font-size: clamp(20px, 2vw, 28px);
       line-height: 1.02;
       letter-spacing: -0.01em;
-      margin: 0 0 10px 0;
+      margin: 0;
     }
     .about .lead .divider{
       width: 52px;
       height: 1px;
       background: rgba(26,93,102,.26);
       border-radius: 999px;
-      margin-bottom: 18px;
     }
     .about .body-copy{
       border-radius: 18px;
@@ -2386,96 +2379,31 @@
                   </div>
 
                   <div class="lead" aria-label="Texto de apresentação">
-                    <p class="signature">Karen Patussi</p>
-                    <div class="divider" aria-hidden="true"></div>
 
-                    <p>
-                      Como psicóloga há pouco mais de 20 anos, minha prática é fundamentada na <strong>Psicoterapia Sistêmica</strong> e na <strong>Terapia Sexual</strong>, mas é na intersecção com a Psicologia Social e os Estudos de Gênero que situo meu olhar crítico sobre a clínica.
-                    </p>
+  <p class="signature">Karen Patussi</p>
+  <div class="divider" aria-hidden="true"></div>
 
-                    <p>
-                      Ao longo da minha trajetória, me especializei em Terapia Sexual, Psicoterapia Sistêmica, EMDR e em Estudos de Gênero, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura. Diante da necessidade ética de atualização constante, hoje estendo essa análise para o campo das masculinidades, integrando grupos de estudos especializados para aprofundar o debate sobre as dinâmicas de gênero contemporâneas.
-                    </p>
+  <p>
+    Como psicóloga há pouco mais de 20 anos, minha prática é fundamentada na <strong>Psicoterapia Sistêmica</strong> e na <strong>Terapia Sexual</strong>, mas é na intersecção com a Psicologia Social e os Estudos de Gênero que situo meu olhar crítico sobre a clínica.
+  </p>
 
-                    <p>
-                      Essa trajetória me permite oferecer um acolhimento que une o rigor das especializações técnicas à compreensão das complexas estruturas que moldam o sofrimento psíquico na atualidade.
-                    </p>
+  <p>
+    Ao longo da minha trajetória, me especializei em Terapia Sexual, Psicoterapia Sistêmica, EMDR e em Estudos de Gênero, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura. Diante da necessidade ética de atualização constante, hoje estendo essa análise para o campo das masculinidades, integrando grupos de estudos especializados para aprofundar o debate sobre as dinâmicas de gênero contemporâneas.
+  </p>
 
-                    <p>
-                      Essa perspectiva social e coletiva da clínica é consolidada pela experiência de ter residido em quatro países. Tal vivência transcultural transcende o dado biográfico, constituindo-se como uma ferramenta técnica para o manejo preciso no acolhimento de populações em transição, migrantes e expatriados.
-                    </p>
+  <p>
+    Essa trajetória me permite oferecer um acolhimento que une o rigor das especializações técnicas à compreensão das complexas estruturas que moldam o sofrimento psíquico na atualidade.
+  </p>
 
-                    <p>
-                      Minha atuação foca na compreensão das angústias de desterritorialização e no sofrimento psicossocial inerente ao deslocamento. No atendimento a adultos, casais e famílias, priorizo uma prática que recusa o isolamento dos manuais, respondendo com rigor deontológico e sensibilidade técnica às complexidades contemporâneas da saúde mental.
-                    </p>
-                  </div>
-                </div>
+  <p>
+    Essa perspectiva social e coletiva da clínica é consolidada pela experiência de ter residido em quatro países. Tal vivência transcultural transcende o dado biográfico, constituindo-se como uma ferramenta técnica para o manejo preciso no acolhimento de populações em transição, migrantes e expatriados.
+  </p>
 
-                <section class="box" aria-label="Formação acadêmica e complementar">
-                  <h3>Formação</h3>
+  <p>
+    Minha atuação foca na compreensão das angústias de desterritorialização e no sofrimento psicossocial inerente ao deslocamento. No atendimento a adultos, casais e famílias, priorizo uma prática que recusa o isolamento dos manuais, respondendo com rigor deontológico e sensibilidade técnica às complexidades contemporâneas da saúde mental.
+  </p>
 
-                  <div class="edu-timeline" aria-label="Linha do tempo de formação">
-
-                    <div class="edu-item">
-                      <div class="edu-top">
-                        <div class="edu-main">
-                          <div class="edu-name">Psicologia</div>
-                          <div class="edu-inst">Universidade de Passo Fundo</div>
-                        </div>
-                        <div class="edu-meta">
-                          <span class="edu-tag">Graduação</span>
-                          <span class="edu-year">2001–2005</span>
-                        </div>
-                      </div>
-                      <div class="edu-desc">Base clínica e formação universitária em Psicologia.</div>
-                    </div>
-
-                    <div class="edu-item">
-                      <div class="edu-top">
-                        <div class="edu-main">
-                          <div class="edu-name">Gestão Ambiental, Economia e Meio Ambiente</div>
-                          <div class="edu-inst">Universidade de Passo Fundo</div>
-                        </div>
-                        <div class="edu-meta">
-                          <span class="edu-tag">Pós</span>
-                          <span class="edu-year">2009–2011</span>
-                        </div>
-                      </div>
-                      <div class="edu-desc">Pós-graduação com foco em contexto socioambiental e impacto na vida coletiva.</div>
-                    </div>
-
-                    <div class="edu-item">
-                      <div class="edu-top">
-                        <div class="edu-main">
-                          <div class="edu-name">Sexualidade Humana e Terapia Sexual</div>
-                          <div class="edu-inst">IPHEM/RJ e ELO/Passo Fundo</div>
-                        </div>
-                        <div class="edu-meta">
-                          <span class="edu-tag">Especialização</span>
-                          <span class="edu-year">2019–2022</span>
-                        </div>
-                      </div>
-                      <div class="edu-desc">Formação clínica e técnica em sexualidade humana e terapia sexual.</div>
-                    </div>
-
-                    <div class="edu-item">
-                      <div class="edu-top">
-                        <div class="edu-main">
-                          <div class="edu-name">Estudos sobre as Mulheres</div>
-                          <div class="edu-inst">Universidade Nova de Lisboa (Lato Sensu)</div>
-                        </div>
-                        <div class="edu-meta">
-                          <span class="edu-tag">Pós</span>
-                          <span class="edu-year">2023–2024</span>
-                        </div>
-                      </div>
-                      <div class="edu-desc">Mulheres na sociedade e na cultura: repertório crítico e contemporâneo.</div>
-                    </div>
-
-                  </div>
-                </section>
-
-                <div class="end-spacer" aria-hidden="true"></div>
+</div>
 
               </div>
             </div>
