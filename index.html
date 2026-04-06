@@ -2360,6 +2360,31 @@
   }
 }
 
+
+/* ===== FIX alinhamento editorial ===== */
+.about .lead{
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.about-inline-img{
+  float: left;
+  width: 180px;
+  max-width: 32%;
+  margin: 4px 16px 8px 0;
+}
+
+.about .lead p{
+  text-align: left;
+}
+
+/* limpa excesso de “peso” lateral */
+.about .lead::after{
+  content:"";
+  display:block;
+  clear:both;
+}
+
 </style>
 </head>
 
