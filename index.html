@@ -1032,7 +1032,6 @@
 
 
     /* ========================= SOBRE ========================= */
-    
     .about{
       display: grid;
       gap: 18px;
@@ -1040,125 +1039,45 @@
     }
 
     .card--about .about .editorial{
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(270px, 320px) minmax(0, 1fr);
-      gap: 26px;
-      align-items: start;
-    }
-
-    .card--about .about .editorial::before{
-      content:"";
-      position:absolute;
-      inset: 16px 0 16px 120px;
-      border-radius: 26px;
-      background: linear-gradient(135deg, rgba(255,255,255,.64), rgba(255,255,255,.34));
-      border: 1px solid rgba(0,0,0,.045);
-      box-shadow: 0 20px 44px rgba(0,0,0,.04);
-      pointer-events:none;
-    }
-
-    .card--about .about .portrait-frame{
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 12px;
-      padding: 14px;
-      border-radius: 24px;
-      background: rgba(255,255,255,.74);
-      border: 1px solid rgba(0,0,0,.05);
-      box-shadow: 0 20px 42px rgba(0,0,0,.08);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      align-self: start;
-    }
-
-    .card--about .about .portrait{
-      position: relative;
-      border-radius: 18px;
-      overflow: hidden;
-      background: rgba(255,255,255,.94);
-      border: 1px solid var(--softBorder);
-      box-shadow: 0 16px 34px rgba(0,0,0,.09);
-      aspect-ratio: 4 / 5;
-      min-height: 0;
-    }
-    .card--about .about .portrait img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
       display: block;
-      filter: saturate(1.02) contrast(1.02);
-      transform: scale(1.015);
     }
 
-    .card--about .about .portrait-caption{
-      margin: 0;
-      padding-top: 2px;
-      color: rgba(20,28,32,.64);
-      font-size: 10.5px;
-      line-height: 1.6;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      font-weight: 800;
-      font-family: var(--bodyFont);
-    }
-
-    .about .lead{
-      padding: 22px 24px;
+    .card--about .about .lead{
+      padding: 22px 22px;
       border-radius: 22px;
       background: rgba(255,255,255,.90);
       border: 1px solid var(--softBorder);
       box-shadow: 0 14px 28px rgba(0,0,0,.05);
-      display:grid;
-      gap: 14px;
-      align-content: start;
       position: relative;
-      z-index: 1;
+      overflow: hidden;
     }
 
-    .card--about .about .lead{
-      margin: 18px 0 0 -44px;
-      min-height: 100%;
+    .card--about .about .lead::after{
+      content:"";
+      display:block;
+      clear:both;
     }
 
-    @media (min-width: 720px) and (max-width: 980px){
-      .card--about .about .editorial{
-        grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
-        gap: 22px;
-      }
-      .card--about .about .lead{
-        margin-left: -24px;
-      }
+    .about-inline-img{
+      float: left;
+      width: clamp(150px, 24vw, 220px);
+      max-width: 38%;
+      margin: 4px 18px 12px 0;
+      border-radius: 12px;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
     }
 
-    @media (max-width: 720px){
-      .card--about .about .editorial{
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-      .card--about .about .editorial::before{
-        inset: 78px 0 0 0;
-      }
-      .card--about .about .portrait-frame{
-        padding: 12px;
-      }
-      .card--about .about .portrait{
-        max-height: 420px;
-      }
-      .card--about .about .lead{
-        margin: 0;
-      }
-    }
-    
     .about .lead p{
-      margin: 0;
+      margin: 0 0 10px 0;
       color: var(--softInk);
       line-height: 1.95;
       font-size: 15px;
       font-family: var(--bodyFont);
       font-weight: 500;
+      text-align: left;
     }
     .about .lead strong{ color: rgba(26,93,102,.96); font-weight: 800; }
 
@@ -1178,13 +1097,14 @@
       font-size: clamp(20px, 2vw, 28px);
       line-height: 1.02;
       letter-spacing: -0.01em;
-      margin: 0;
+      margin: 0 0 12px 0;
     }
     .about .lead .divider{
       width: 52px;
       height: 1px;
       background: rgba(26,93,102,.26);
       border-radius: 999px;
+      margin-bottom: 18px;
     }
     .about .body-copy{
       border-radius: 18px;
@@ -1208,7 +1128,6 @@
       color: var(--brand);
       font-weight: 800;
     }
-
 
     .about .grid{
       display:grid;
@@ -1367,7 +1286,6 @@
       font-weight: 500;
     }
 
-
     .about--process .editorial{
       grid-template-columns: 1fr;
     }
@@ -1378,6 +1296,22 @@
     }
     .about--process .grid{
       margin-top: 0;
+    }
+
+    @media (max-width: 720px){
+      .about-inline-img{
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 0 14px 0;
+      }
+      .card--about .about .lead{
+        padding: 16px 14px;
+        border-radius: 16px;
+      }
+      .about .lead .divider{
+        margin-bottom: 14px;
+      }
     }
 
     .card-scroll .end-spacer{ height: var(--cardEndSpacer); }
@@ -2316,75 +2250,6 @@
   }
 }
 
-
-/* ===== Ajuste editorial do Sobre ===== */
-.about .lead{
-  gap: 18px;
-}
-
-.about .lead .signature{
-  margin-bottom: 6px;
-}
-
-.about .lead p:first-of-type{
-  margin-top: 14px;
-}
-
-.about .lead p{
-  margin-bottom: 10px;
-  line-height: 1.95;
-  max-width: 680px;
-}
-
-
-/* ===== Foto estilo editorial integrada ===== */
-.about .lead{
-  position: relative;
-}
-
-.about-inline-img{
-  float: left;
-  width: 220px;
-  max-width: 40%;
-  margin: 6px 18px 10px 0;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-@media(max-width:720px){
-  .about-inline-img{
-    float: none;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0 12px 0;
-  }
-}
-
-
-/* ===== FIX alinhamento editorial ===== */
-.about .lead{
-  max-width: 760px;
-  margin: 0 auto;
-}
-
-.about-inline-img{
-  float: left;
-  width: 180px;
-  max-width: 32%;
-  margin: 4px 16px 8px 0;
-}
-
-.about .lead p{
-  text-align: left;
-}
-
-/* limpa excesso de “peso” lateral */
-.about .lead::after{
-  content:"";
-  display:block;
-  clear:both;
-}
-
 </style>
 </head>
 
@@ -2497,37 +2362,40 @@
               <div class="about">
 
                 <div class="editorial" aria-label="Apresentação da psicóloga">
-                  
-
                   <div class="lead" aria-label="Texto de apresentação">
-<img class="about-inline-img" src="imagens/Foto Karen Sobre.webp" loading="lazy" decoding="async" alt="Foto profissional da psicóloga">
+                    <p class="signature">Karen Patussi</p>
+                    <div class="divider" aria-hidden="true"></div>
 
+                    <img
+                      class="about-inline-img"
+                      src="imagens/Foto Karen Sobre.webp"
+                      loading="lazy"
+                      decoding="async"
+                      fetchpriority="low"
+                      onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22 fill=%22none%22%3E%3Crect width=%22400%22 height=%22500%22 fill=%22%23e8eef0%22/%3E%3Ccircle cx=%22200%22 cy=%22175%22 r=%2272%22 fill=%22%23b0c4c8%22/%3E%3Cellipse cx=%22200%22 cy=%22400%22 rx=%22120%22 ry=%22100%22 fill=%22%23b0c4c8%22/%3E%3C/svg%3E';"
+                      alt="Foto profissional da psicóloga">
 
-  <p class="signature">Karen Patussi</p>
-  <div class="divider" aria-hidden="true"></div>
+                    <p>
+                      Como psicóloga há pouco mais de 20 anos, minha prática é fundamentada na <strong>Psicoterapia Sistêmica</strong> e na <strong>Terapia Sexual</strong>, mas é na intersecção com a Psicologia Social e os Estudos de Gênero que situo meu olhar crítico sobre a clínica.
+                    </p>
 
-  <p>
-    Como psicóloga há pouco mais de 20 anos, minha prática é fundamentada na <strong>Psicoterapia Sistêmica</strong> e na <strong>Terapia Sexual</strong>, mas é na intersecção com a Psicologia Social e os Estudos de Gênero que situo meu olhar crítico sobre a clínica.
-  </p>
+                    <p>
+                      Ao longo da minha trajetória, me especializei em Terapia Sexual, Psicoterapia Sistêmica, EMDR e em Estudos de Gênero, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura. Diante da necessidade ética de atualização constante, hoje estendo essa análise para o campo das masculinidades, integrando grupos de estudos especializados para aprofundar o debate sobre as dinâmicas de gênero contemporâneas.
+                    </p>
 
-  <p>
-    Ao longo da minha trajetória, me especializei em Terapia Sexual, Psicoterapia Sistêmica, EMDR e em Estudos de Gênero, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura. Diante da necessidade ética de atualização constante, hoje estendo essa análise para o campo das masculinidades, integrando grupos de estudos especializados para aprofundar o debate sobre as dinâmicas de gênero contemporâneas.
-  </p>
+                    <p>
+                      Essa trajetória me permite oferecer um acolhimento que une o rigor das especializações técnicas à compreensão das complexas estruturas que moldam o sofrimento psíquico na atualidade.
+                    </p>
 
-  <p>
-    Essa trajetória me permite oferecer um acolhimento que une o rigor das especializações técnicas à compreensão das complexas estruturas que moldam o sofrimento psíquico na atualidade.
-  </p>
+                    <p>
+                      Essa perspectiva social e coletiva da clínica é consolidada pela experiência de ter residido em quatro países. Tal vivência transcultural transcende o dado biográfico, constituindo-se como uma ferramenta técnica para o manejo preciso no acolhimento de populações em transição, migrantes e expatriados.
+                    </p>
 
-  <p>
-    Essa perspectiva social e coletiva da clínica é consolidada pela experiência de ter residido em quatro países. Tal vivência transcultural transcende o dado biográfico, constituindo-se como uma ferramenta técnica para o manejo preciso no acolhimento de populações em transição, migrantes e expatriados.
-  </p>
-
-  <p>
-    Minha atuação foca na compreensão das angústias de desterritorialização e no sofrimento psicossocial inerente ao deslocamento. No atendimento a adultos, casais e famílias, priorizo uma prática que recusa o isolamento dos manuais, respondendo com rigor deontológico e sensibilidade técnica às complexidades contemporâneas da saúde mental.
-  </p>
-
-</div>
-
+                    <p>
+                      Minha atuação foca na compreensão das angústias de desterritorialização e no sofrimento psicossocial inerente ao deslocamento. No atendimento a adultos, casais e famílias, priorizo uma prática que recusa o isolamento dos manuais, respondendo com rigor deontológico e sensibilidade técnica às complexidades contemporâneas da saúde mental.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
