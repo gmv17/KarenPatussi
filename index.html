@@ -2119,6 +2119,9 @@
       letter-spacing: .04em;
       white-space: nowrap;
     }
+    .footer-copy-line{
+      display: inline;
+    }
 
     .footer-socials{
       display: flex;
@@ -2185,7 +2188,18 @@
         padding-top: 18px;
         padding-bottom: calc(18px + var(--safeB));
       }
-      .footer-copy{ font-size: 11px; }
+      .footer-copy{
+        font-size: 11px;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.55;
+      }
+      .footer-copy-line{
+        display: block;
+      }
+      .footer-copy-line--secondary{
+        margin-top: 2px;
+      }
       .footer-social-link{
         width: 42px;
         height: 42px;
@@ -2652,7 +2666,7 @@
 
   <!-- RODAPÉ -->
   <footer class="site-footer" id="siteFooter" aria-label="Rodapé">
-    <span class="footer-copy">© 2026 Karen Patussi · CRP-12/09861 · Todos os direitos reservados</span>
+    <span class="footer-copy"><span class="footer-copy-line">© 2026 Karen Patussi · CRP-12/09861</span><span class="footer-copy-line footer-copy-line--secondary">Todos os direitos reservados</span></span>
 
     <div class="footer-socials" aria-label="Redes sociais">
 
