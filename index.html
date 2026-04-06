@@ -882,13 +882,18 @@
         filter   var(--easeDurName) ease;
     }
     @media (min-width: 980px){ .brand{ text-align:left; } }
+    .brand .name,
+    .brand .name *,
+    #brand .name,
+    #brand .name *{
+      font-family: "Great Vibes", cursive !important;
+      font-weight: 400 !important;
+    }
     .brand .name{
-      font-family: "Great Vibes", cursive;
-      font-weight: 900;
       font-size: clamp(52px, 8vw, 130px);
       line-height: 0.95;
       color: var(--brand);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
       text-shadow: 0 14px 34px rgba(0,0,0,.08), 0 2px 0 rgba(255,255,255,.10);
     }
     .brand .name .namewrap{
