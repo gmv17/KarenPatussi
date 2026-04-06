@@ -2336,6 +2336,30 @@
   max-width: 680px;
 }
 
+
+/* ===== Foto estilo editorial integrada ===== */
+.about .lead{
+  position: relative;
+}
+
+.about-inline-img{
+  float: left;
+  width: 220px;
+  max-width: 40%;
+  margin: 6px 18px 10px 0;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+@media(max-width:720px){
+  .about-inline-img{
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 12px 0;
+  }
+}
+
 </style>
 </head>
 
@@ -2448,20 +2472,11 @@
               <div class="about">
 
                 <div class="editorial" aria-label="Apresentação da psicóloga">
-                  <figure class="portrait-frame" aria-label="Retrato profissional da psicóloga">
-                    <div class="portrait" aria-label="Foto da psicóloga">
-                      <img
-                        src="imagens/Foto Karen Sobre.webp"
-                        loading="lazy"
-                        decoding="async"
-                        fetchpriority="low"
-                        onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 500%22 fill=%22none%22%3E%3Crect width=%22400%22 height=%22500%22 fill=%22%23e8eef0%22/%3E%3Ccircle cx=%22200%22 cy=%22175%22 r=%2272%22 fill=%22%23b0c4c8%22/%3E%3Cellipse cx=%22200%22 cy=%22400%22 rx=%22120%22 ry=%22100%22 fill=%22%23b0c4c8%22/%3E%3C/svg%3E';"
-                        alt="Foto profissional da psicóloga">
-                    </div>
-                    <figcaption class="portrait-caption">Psicóloga · Terapia Sexual · Psicoterapia Sistêmica</figcaption>
-                  </figure>
+                  
 
                   <div class="lead" aria-label="Texto de apresentação">
+<img class="about-inline-img" src="imagens/Foto Karen Sobre.webp" loading="lazy" decoding="async" alt="Foto profissional da psicóloga">
+
 
   <p class="signature">Karen Patussi</p>
   <div class="divider" aria-hidden="true"></div>
