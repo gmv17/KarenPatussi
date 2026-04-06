@@ -891,8 +891,8 @@
     }
     .brand .name{
       font-size: clamp(64px, 9vw, 150px);
-      line-height: 1.02;
-      letter-spacing: 0.03em;
+      line-height: 1.04;
+      letter-spacing: 0.015em;
       color: var(--brand);
 
       transform: none;
@@ -907,6 +907,11 @@
       flex-direction: column;
       align-items: center;
       padding: 6px 10px;
+      gap: 6px;
+    }
+
+.brand .name .namewrap span:last-child{
+      margin-left: 0.25em;
     }
     @media (min-width: 980px){ .brand .name .namewrap{ align-items:flex-start; } }
 
