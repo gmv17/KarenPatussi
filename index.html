@@ -1043,11 +1043,13 @@
     }
 
     .card--about .about .lead{
-      padding: 22px 22px;
-      border-radius: 22px;
-      background: rgba(255,255,255,.90);
-      border: 1px solid var(--softBorder);
-      box-shadow: 0 14px 28px rgba(0,0,0,.05);
+      padding: 28px 28px 26px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.88));
+      border: 1px solid rgba(0,0,0,.055);
+      box-shadow:
+        0 16px 34px rgba(0,0,0,.045),
+        inset 0 1px 0 rgba(255,255,255,.55);
       position: relative;
       overflow: hidden;
     }
@@ -1060,24 +1062,41 @@
 
     .about-inline-img{
       float: left;
-      width: clamp(132px, 21vw, 190px);
-      max-width: 38%;
-      margin: 4px 18px 12px 0;
-      border-radius: 12px;
+      width: clamp(124px, 18vw, 170px);
+      max-width: 34%;
+      margin: 6px 24px 18px 0;
+      border-radius: 14px;
       display: block;
       object-fit: cover;
       object-position: center top;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      box-shadow: 0 14px 30px rgba(0,0,0,.08);
     }
 
     .about .lead p{
-      margin: 0 0 10px 0;
-      color: var(--softInk);
-      line-height: 1.95;
-      font-size: 15px;
+      margin: 0;
+      color: rgba(20,28,32,.84);
+      line-height: 1.9;
+      font-size: 14.35px;
       font-family: var(--bodyFont);
-      font-weight: 500;
+      font-weight: 460;
+      letter-spacing: .002em;
       text-align: left;
+      max-width: 66ch;
+    }
+    .about .lead p + p{
+      margin-top: 12px;
+    }
+    .about .lead p.lead-open{
+      font-size: 15.6px;
+      line-height: 1.86;
+      font-weight: 540;
+      color: rgba(20,28,32,.93);
+    }
+    .about .lead p.lead-turn{
+      margin-top: 18px;
+    }
+    .about .lead p.lead-close{
+      margin-top: 16px;
     }
     .about .lead strong{ color: rgba(26,93,102,.96); font-weight: 800; }
 
@@ -1094,17 +1113,17 @@
       color: var(--brand);
       font-family: var(--titleFont);
       font-weight: 900;
-      font-size: clamp(20px, 2vw, 28px);
+      font-size: clamp(21px, 2vw, 29px);
       line-height: 1.02;
       letter-spacing: -0.01em;
-      margin: 0 0 12px 0;
+      margin: 0 0 10px 0;
     }
     .about .lead .divider{
-      width: 52px;
+      width: 68px;
       height: 1px;
-      background: rgba(26,93,102,.26);
+      background: linear-gradient(90deg, rgba(26,93,102,.42), rgba(26,93,102,.10));
       border-radius: 999px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
     .about .body-copy{
       border-radius: 18px;
@@ -1303,14 +1322,23 @@
         float: none;
         width: 100%;
         max-width: 100%;
-        margin: 0 0 14px 0;
-      }
-      .card--about .about .lead{
-        padding: 16px 14px;
+        margin: 0 0 16px 0;
         border-radius: 16px;
       }
+      .card--about .about .lead{
+        padding: 18px 16px;
+        border-radius: 18px;
+      }
       .about .lead .divider{
-        margin-bottom: 14px;
+        width: 60px;
+        margin-bottom: 16px;
+      }
+      .about .lead p{
+        max-width: none;
+      }
+      .about .lead p.lead-open{
+        font-size: 14.9px;
+        line-height: 1.82;
       }
     }
 
@@ -2377,36 +2405,28 @@
 
                     
                     
-<p>
-  Como psicóloga há pouco mais de 20 anos, minha prática é fundamentada na <strong>Psicoterapia Sistêmica</strong> e na <strong>Terapia Sexual</strong>.
+<p class="lead-open">
+  Como psicóloga há pouco mais de 20 anos, minha prática é fundamentada na <strong>Psicoterapia Sistêmica</strong> e na <strong>Terapia Sexual</strong>, mas é na intersecção com a Psicologia Social e os Estudos de Gênero que situo meu olhar crítico sobre a clínica.
 </p>
 
 <p>
-  É na intersecção com a Psicologia Social e os Estudos de Gênero que situo meu olhar crítico sobre a clínica.
+  Ao longo da minha trajetória, me especializei em Terapia Sexual, Psicoterapia Sistêmica, EMDR e em Estudos de Gênero, com foco na subjetividade feminina e em suas intersecções com a sociedade e a cultura.
 </p>
 
 <p>
-  Ao longo da minha trajetória, me especializei em Terapia Sexual, Psicoterapia Sistêmica, EMDR e em Estudos de Gênero, com foco na subjetividade feminina e suas intersecções com a sociedade e a cultura.
+  Diante da necessidade ética de atualização constante, hoje estendo essa análise também ao campo das masculinidades, integrando grupos de estudos especializados para aprofundar o debate sobre as dinâmicas de gênero contemporâneas.
+</p>
+
+<p class="lead-turn">
+  Essa trajetória me permite oferecer um acolhimento que une o rigor das especializações técnicas à compreensão das estruturas complexas que moldam o sofrimento psíquico na atualidade.
 </p>
 
 <p>
-  Diante da necessidade ética de atualização constante, hoje estendo essa análise para o campo das masculinidades, integrando grupos de estudos especializados para aprofundar o debate sobre as dinâmicas de gênero contemporâneas.
+  Essa perspectiva social e coletiva da clínica se consolida pela experiência de ter residido em quatro países, transformando essa vivência transcultural em ferramenta técnica no acolhimento de populações em transição, migrantes e expatriados.
 </p>
 
-<p>
-  Essa trajetória me permite oferecer um acolhimento que une o rigor das especializações técnicas à compreensão das estruturas que moldam o sofrimento psíquico na atualidade.
-</p>
-
-<p>
-  Essa perspectiva social e coletiva da clínica é consolidada pela experiência de ter residido em quatro países, transformando essa vivência em uma ferramenta técnica no acolhimento de populações em transição, migrantes e expatriados.
-</p>
-
-<p>
-  Minha atuação foca na compreensão das angústias de desterritorialização e no sofrimento psicossocial inerente ao deslocamento.
-</p>
-
-<p>
-  No atendimento a adultos, casais e famílias, priorizo uma prática que recusa o isolamento dos manuais, respondendo com rigor deontológico e sensibilidade técnica às complexidades contemporâneas da saúde mental.
+<p class="lead-close">
+  Minha atuação foca na compreensão das angústias de desterritorialização e do sofrimento psicossocial inerente ao deslocamento. No atendimento a adultos, casais e famílias, priorizo uma prática que recusa o isolamento dos manuais, respondendo com rigor deontológico e sensibilidade técnica às complexidades contemporâneas da saúde mental.
 </p>
 
 
