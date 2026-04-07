@@ -1043,7 +1043,7 @@
     }
 
     .card--about .about .lead{
-      padding: 22px 22px;
+      padding: 24px 26px 24px;
       border-radius: 22px;
       background: rgba(255,255,255,.90);
       border: 1px solid var(--softBorder);
@@ -1060,24 +1060,38 @@
 
     .about-inline-img{
       float: left;
-      width: clamp(170px, 28vw, 260px);
-      max-width: 46%;
-      margin: 4px 22px 12px 0;
-      border-radius: 12px;
+      width: clamp(185px, 30vw, 278px);
+      max-width: 47%;
+      margin: 6px 26px 16px 0;
+      border-radius: 14px;
       display: block;
       object-fit: cover;
       object-position: center top;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      box-shadow: 0 12px 28px rgba(0,0,0,.08);
     }
 
     .about .lead p{
-      margin: 0 0 10px 0;
+      margin: 0 0 14px 0;
+      max-width: 670px;
       color: var(--softInk);
-      line-height: 1.95;
+      line-height: 2.02;
       font-size: 15px;
+      letter-spacing: .01em;
       font-family: var(--bodyFont);
       font-weight: 500;
       text-align: left;
+      text-wrap: pretty;
+    }
+    .about .lead p + p{
+      margin-top: 10px;
+    }
+    .about .lead p:first-of-type{
+      font-size: 15.8px;
+      line-height: 2.08;
+      font-weight: 600;
+    }
+    .about .lead p:not(.signature):not(.intro-kicker):not(:first-of-type){
+      text-indent: 10px;
     }
     .about .lead strong{ color: rgba(26,93,102,.96); font-weight: 800; }
 
@@ -1097,14 +1111,15 @@
       font-size: clamp(20px, 2vw, 28px);
       line-height: 1.02;
       letter-spacing: -0.01em;
-      margin: 0 0 12px 0;
+      margin: 0 0 10px 0;
+      max-width: none;
     }
     .about .lead .divider{
-      width: 52px;
+      width: 58px;
       height: 1px;
       background: rgba(26,93,102,.26);
       border-radius: 999px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
     .about .body-copy{
       border-radius: 18px;
@@ -1306,11 +1321,27 @@
         margin: 0 0 14px 0;
       }
       .card--about .about .lead{
-        padding: 16px 14px;
+        padding: 18px 15px;
         border-radius: 16px;
       }
       .about .lead .divider{
-        margin-bottom: 14px;
+        margin-bottom: 16px;
+      }
+      .about .lead p{
+        max-width: none;
+        font-size: 14.2px;
+        line-height: 1.84;
+        letter-spacing: .006em;
+      }
+      .about .lead p + p{
+        margin-top: 8px;
+      }
+      .about .lead p:first-of-type{
+        font-size: 14.6px;
+        line-height: 1.9;
+      }
+      .about .lead p:not(.signature):not(.intro-kicker):not(:first-of-type){
+        text-indent: 0;
       }
     }
 
