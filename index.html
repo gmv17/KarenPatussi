@@ -2093,7 +2093,7 @@
     .contact-options-grid{
       display:grid;
       gap: 10px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .contact-option{
       position: relative;
@@ -2858,54 +2858,11 @@
                     autocomplete="on"
                     data-endpoint="/api/contact"
                   >
-                    <div class="contact-progress" aria-label="Etapas do contato">
-                      <div class="contact-progress-head">
-                        <div>
-                          <span class="contact-progress-kicker">Formulário inicial</span>
-                          <h3 class="contact-progress-title">Um formulário mais claro, direto e confortável</h3>
-                          <p class="contact-progress-copy">Organizamos este primeiro contato em três partes simples para facilitar a leitura e deixar o envio mais fluido visualmente.</p>
-                        </div>
-
-                        <div class="contact-progress-note">
-                          Resposta inicial
-                          <strong>com atenção</strong>
-                        </div>
-                      </div>
-
-                      <div class="contact-progress-steps">
-                        <div class="contact-progress-step">
-                          <span class="contact-progress-badge">1</span>
-                          <span class="contact-progress-label">
-                            <strong>Seus dados</strong>
-                            <span>Informações para retorno</span>
-                          </span>
-                        </div>
-
-                        <div class="contact-progress-step">
-                          <span class="contact-progress-badge">2</span>
-                          <span class="contact-progress-label">
-                            <strong>Intenção</strong>
-                            <span>Como deseja iniciar</span>
-                          </span>
-                        </div>
-
-                        <div class="contact-progress-step">
-                          <span class="contact-progress-badge">3</span>
-                          <span class="contact-progress-label">
-                            <strong>Mensagem</strong>
-                            <span>Breve descrição do momento</span>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
                     <div class="contact-layout">
                       <div class="contact-main">
                         <section class="contact-section" aria-label="Identificação">
                           <div class="contact-section-head">
-                            <span class="contact-step">Etapa 1</span>
-                            <h3 class="contact-section-title">Seus dados para retorno</h3>
-                            <p class="contact-section-copy">Preencha apenas o essencial. A ideia aqui é facilitar um primeiro contato claro e confortável.</p>
+                            <h3 class="contact-section-title">Seus dados</h3>
                           </div>
 
                           <div class="contact-grid">
@@ -2939,8 +2896,8 @@
                               >
                             </div>
 
-                            <div class="field">
-                              <label for="contactPhone">Telefone</label>
+                            <div class="field field--full">
+                              <label for="contactPhone">Telefone (opcional)</label>
                               <input
                                 id="contactPhone"
                                 name="phone"
@@ -2952,22 +2909,12 @@
                                 enterkeyhint="next"
                               >
                             </div>
-
-                            <div class="field field--checkbox">
-                              <label class="checkbox-label">
-                                <input type="checkbox" name="phone_is_whatsapp" id="phoneIsWhatsapp" value="sim">
-                                <span class="checkbox-box"></span>
-                                <span class="checkbox-text">Este número é WhatsApp</span>
-                              </label>
-                            </div>
                           </div>
                         </section>
 
                         <section class="contact-section" aria-label="Motivo do contato">
                           <div class="contact-section-head">
-                            <span class="contact-step">Etapa 2</span>
-                            <h3 class="contact-section-title">Como você deseja iniciar</h3>
-                            <p class="contact-section-copy">Escolha a opção que melhor representa sua intenção neste primeiro contato.</p>
+                            <h3 class="contact-section-title">Motivo do contato</h3>
                           </div>
 
                           <fieldset class="contact-options">
@@ -2982,20 +2929,13 @@
                                 <input type="radio" name="reason" value="Esclarecer dúvidas">
                                 <span>Esclarecer dúvidas</span>
                               </label>
-
-                              <label class="contact-option">
-                                <input type="radio" name="reason" value="Informações sobre atendimento">
-                                <span>Informações sobre atendimento</span>
-                              </label>
                             </div>
                           </fieldset>
                         </section>
 
                         <section class="contact-section contact-section--message" aria-label="Mensagem inicial">
                           <div class="contact-section-head">
-                            <span class="contact-step">Etapa 3</span>
-                            <h3 class="contact-section-title">Sua mensagem</h3>
-                            <p class="contact-section-copy">Você pode escrever com simplicidade. Uma breve descrição já ajuda a orientar a resposta de forma mais adequada.</p>
+                            <h3 class="contact-section-title">Mensagem</h3>
                           </div>
 
                           <div class="field field--full contact-hp" aria-hidden="true">
@@ -3026,13 +2966,6 @@
                       </div>
 
                       <aside class="contact-aside" aria-label="Informações complementares do contato">
-                        <section class="contact-aside-card contact-aside-card--accent">
-                          <span class="contact-aside-kicker">Comunicação inicial</span>
-                          <h3 class="contact-aside-title">Clareza, cuidado e direção</h3>
-                          <p class="contact-aside-copy">Este espaço foi pensado para tornar o primeiro contato mais simples, sem excesso de campos e sem aparência de formulário frio.</p>
-                          <span class="contact-aside-chip">Primeiro passo</span>
-                        </section>
-
                         <section class="contact-aside-card">
                           <span class="contact-aside-kicker">Como funciona</span>
                           <h3 class="contact-aside-title">O que ajuda neste envio</h3>
@@ -3046,11 +2979,6 @@
                     </div>
 
                     <div class="contact-actions">
-                      <div class="contact-actions-head">
-                        <strong>Envio protegido em preparação</strong>
-                        <span>Este formulário já está organizado para a futura rota segura do site, com validação reforçada e campo anti-bot básico.</span>
-                      </div>
-
                       <div class="contact-buttons">
                         <button type="submit" class="contact-btn contact-btn--wa" data-contact-submit>
                           Enviar mensagem
