@@ -1047,7 +1047,7 @@
     .story-block{
       display: grid;
       grid-template-columns: minmax(220px, 270px) minmax(0, 1fr);
-      gap: 22px;
+      gap: 18px;
       align-items: center;
       padding: 20px 22px;
       border-radius: 20px;
@@ -1062,6 +1062,7 @@
 
     .story-block--reverse{
       grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
+      align-items: start;
     }
 
     .story-media,
@@ -1085,10 +1086,12 @@
     }
 
     .story-video{
-      display: grid;
-      place-items: center;
-      aspect-ratio: 9 / 4;
-      min-height: 180px;
+      display: block;
+      aspect-ratio: 4 / 9;
+      min-height: 260px;
+      max-height: 420px;
+      border-radius: 14px;
+      overflow: hidden;
     }
 
     .story-video-placeholder{
@@ -1194,9 +1197,8 @@
     }
 
     .story-copy .story-text-columns{
-      max-width: 520px;
-      display: grid;
-      gap: 10px;
+      columns: 1;
+      column-gap: 28px;
     }
 
     .story-copy .story-text-columns p{
@@ -1222,8 +1224,9 @@
       }
 
       .story-video{
-        aspect-ratio: 16 / 10;
-        min-height: 200px;
+        aspect-ratio: 4 / 9;
+        min-height: 240px;
+        max-height: 380px;
       }
 
       .story-copy .signature{
@@ -2313,12 +2316,14 @@
                       <div class="divider" aria-hidden="true"></div>
 
                       <div class="story-text-columns">
-                        <p>Diante da necessidade ética de atualização constante, hoje estendo essa análise para o campo das masculinidades, integrando grupos de estudos especializados para aprofundar o debate sobre as dinâmicas de gênero contemporâneas.</p>
-                        <p>Essa trajetória me permite oferecer um acolhimento que une o rigor das especializações técnicas à compreensão das estruturas que moldam o sofrimento psíquico na atualidade.</p>
-                        <p>Essa perspectiva social e coletiva da clínica é consolidada pela experiência de ter residido em quatro países, transformando essa vivência em uma ferramenta técnica no acolhimento de populações em transição, migrantes e expatriados.</p>
-                        <p>Minha atuação foca na compreensão das angústias de desterritorialização e no sofrimento psicossocial inerente ao deslocamento.</p>
-                        <p>No atendimento a adultos, casais e famílias, priorizo uma prática que recusa o isolamento dos manuais, respondendo com rigor deontológico e sensibilidade técnica às complexidades contemporâneas da saúde mental.</p>
-                      </div>
+  <p>Diante da necessidade ética de atualização constante, ampliei minha prática para o campo das masculinidades, integrando grupos de estudo voltados às dinâmicas de gênero contemporâneas.</p>
+
+  <p>Essa trajetória sustenta um olhar clínico que articula rigor técnico e compreensão das estruturas sociais que atravessam o sofrimento psíquico.</p>
+
+  <p>A experiência de ter vivido em diferentes países também se integra à clínica, especialmente no acolhimento de processos de transição, deslocamento e desterritorialização.</p>
+
+  <p>No atendimento a adultos, casais e famílias, busco uma escuta que responda às complexidades atuais com consistência ética, sensibilidade e profundidade.</p>
+</div>
                     </div>
 
                     <div class="story-video" aria-label="Espaço reservado para vídeo">
@@ -2326,7 +2331,7 @@
                         <div>
                           <span>Espaço reservado</span>
                           <strong>Vídeo institucional</strong>
-                          <p>Aqui entra o segundo bloco visual, no mesmo lugar da referência que você projetou. Depois é só trocar este placeholder pelo seu vídeo.</p>
+                          <p>Aqui entra o segundo bloco visual em formato vertical, já encaixado para receber seu vídeo com presença elegante sem pesar no texto.</p>
                         </div>
                       </div>
                     </div>
