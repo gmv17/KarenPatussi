@@ -2795,19 +2795,23 @@
   color:rgba(20,28,32,.88);
   font:700 15px/1.55 var(--bodyFont);
 }
+
 .cf-question::after{
   content:"+";
   position:absolute;
   right:18px;
   top:50%;
   transform:translateY(-50%);
-  font:500 24px/1 var(--titleFont);
-  color: rgba(26,93,102,.70);
+  font:600 22px/1 var(--titleFont);
+  color: var(--brand); /* verde da paleta */
   transition: transform .22s ease, opacity .22s ease;
 }
+
 .cf-item.is-open .cf-question::after{
   content:"−";
+  color: var(--brand);
 }
+
 .cf-answer{
   display:grid;
   grid-template-rows:0fr;
@@ -5236,19 +5240,23 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   color:rgba(20,28,32,.88);
   font:700 15px/1.55 var(--bodyFont);
 }
+
 .cf-question::after{
   content:"+";
   position:absolute;
   right:18px;
   top:50%;
   transform:translateY(-50%);
-  font:500 24px/1 var(--titleFont);
-  color: rgba(26,93,102,.70);
+  font:600 22px/1 var(--titleFont);
+  color: var(--brand); /* verde da paleta */
   transition: transform .22s ease, opacity .22s ease;
 }
+
 .cf-item.is-open .cf-question::after{
   content:"−";
+  color: var(--brand);
 }
+
 .cf-answer{
   display:grid;
   grid-template-rows:0fr;
