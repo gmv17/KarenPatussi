@@ -2317,16 +2317,30 @@
       transform: translateY(-1px);
       outline: none;
     }
-    .contact-btn--wa{
-      min-width: min(100%, 320px);
-      background: rgba(26,93,102,.96);
+    .contact-btn--primary{
+      min-width: min(100%, 240px);
+      background: rgba(26,93,102,.94);
       color: #fff;
-      box-shadow: 0 14px 28px rgba(26,93,102,.18);
+      border-color: rgba(26,93,102,.94);
+      box-shadow: 0 10px 22px rgba(26,93,102,.16);
     }
-    .contact-btn--wa:hover,
-    .contact-btn--wa:focus-visible{
-      box-shadow: 0 18px 34px rgba(26,93,102,.24);
+    .contact-btn--primary:hover,
+    .contact-btn--primary:focus-visible{
+      box-shadow: 0 14px 28px rgba(26,93,102,.20);
       background: rgba(22,82,90,.98);
+    }
+    .contact-btn--ghost{
+      min-width: min(100%, 210px);
+      background: rgba(255,255,255,.72);
+      color: var(--brand);
+      border-color: rgba(26,93,102,.18);
+      box-shadow: 0 8px 18px rgba(0,0,0,.04);
+    }
+    .contact-btn--ghost:hover,
+    .contact-btn--ghost:focus-visible{
+      background: rgba(26,93,102,.06);
+      border-color: rgba(26,93,102,.28);
+      box-shadow: 0 12px 22px rgba(0,0,0,.06);
     }
     .contact-status{
       min-height: 20px;
@@ -2386,7 +2400,8 @@
       .contact-actions{
         padding: 16px 2px 0;
       }
-      .contact-btn--wa{
+      .contact-btn--primary,
+      .contact-btn--ghost{
         width: 100%;
       }
       .contact-progress-steps{
@@ -2899,6 +2914,7 @@
                     action="/api/contact"
                     autocomplete="on"
                     data-endpoint="/api/contact"
+                    data-whatsapp=""
                   >
                     <div class="contact-layout">
                       <div class="contact-main">
@@ -3025,8 +3041,11 @@
 
                     <div class="contact-actions">
                       <div class="contact-buttons">
-                        <button type="submit" class="contact-btn contact-btn--wa" data-contact-submit>
-                          Enviar mensagem
+                        <button type="submit" class="contact-btn contact-btn--primary" data-contact-submit>
+                          Enviar por e-mail
+                        </button>
+                        <button type="button" class="contact-btn contact-btn--ghost" id="contactWhatsappBtn">
+                          Enviar por WhatsApp
                         </button>
                       </div>
 
@@ -4168,7 +4187,9 @@
 
         const status = document.getElementById("contactStatus");
         const submitBtn = form.querySelector("[data-contact-submit]");
+        const whatsappBtn = document.getElementById("contactWhatsappBtn");
         const endpoint = form.getAttribute("action") || form.dataset.endpoint || "/api/contact";
+        const whatsappTarget = String(form.dataset.whatsapp || "").replace(/\D/g, "");
 
         const setStatus = (message, tone = "error") => {
           if(!status) return;
@@ -4178,9 +4199,11 @@
         };
 
         const setBusy = (busy) => {
-          if(!submitBtn) return;
-          submitBtn.disabled = busy;
-          submitBtn.textContent = busy ? "Enviando..." : "Enviar mensagem";
+          if(submitBtn){
+            submitBtn.disabled = busy;
+            submitBtn.textContent = busy ? "Enviando..." : "Enviar por e-mail";
+          }
+          if(whatsappBtn) whatsappBtn.disabled = busy;
         };
 
         const sanitizeText = (value, max = 1500) =>
@@ -4235,6 +4258,31 @@
           setStatus("");
           return true;
         };
+
+
+        if(whatsappBtn){
+          whatsappBtn.addEventListener("click", () => {
+            const data = collectData();
+            if(!validate(data)) return;
+
+            if(!whatsappTarget){
+              setStatus("O botão do WhatsApp já está pronto no layout, mas o número ainda precisa ser configurado no arquivo.", "warn");
+              return;
+            }
+
+            const chunks = [
+              `Olá, me chamo ${data.name}.`,
+              `Motivo do contato: ${data.reason}.`,
+              data.phone ? `Telefone: ${data.phone}${data.phone_is_whatsapp ? ' (WhatsApp)' : ''}.` : "",
+              data.email ? `E-mail: ${data.email}.` : "",
+              data.message
+            ].filter(Boolean);
+
+            const message = encodeURIComponent(chunks.join("\n"));
+            window.open(`https://wa.me/${whatsappTarget}?text=${message}`, "_blank", "noopener");
+            setStatus("Abrindo WhatsApp...", "ok");
+          });
+        }
 
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
