@@ -2802,7 +2802,8 @@
   position:absolute;
   right:18px;
   top:50%;
-  transform:translateY(-50%) rotate(0deg);
+  transform:translateY(-50%) rotate(0deg) scaleX(1);
+  transform-origin:center;
   font-family: var(--titleFont);
   font-weight: 900;
   font-size: 26px;
@@ -2811,12 +2812,11 @@
   text-shadow:
     0 0 0.2px currentColor,
     0 0 0.2px currentColor;
-  transition: transform .28s cubic-bezier(.16,1,.18,1), opacity .22s ease;
+  transition: transform .32s cubic-bezier(.16,1,.18,1);
 }
 
 .cf-item.is-open .cf-question::after{
-  content:"−";
-  transform:translateY(-50%) rotate(90deg);
+  transform:translateY(-50%) rotate(90deg) scaleX(0.6);
 }
 
 
