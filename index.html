@@ -2803,8 +2803,14 @@
   right:18px;
   top:50%;
   transform:translateY(-50%);
-  font:800 24px/1 var(--titleFont); /* mais grosso */
+  font-family: var(--titleFont);
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1;
   color: var(--brand);
+  text-shadow:
+    0 0 0.2px currentColor,
+    0 0 0.2px currentColor;
   transition: transform .22s ease, opacity .22s ease;
 }
 
@@ -3231,7 +3237,7 @@
   <section class="cf-pane is-active" data-cf-pane="geral">
     <div class="cf-accordion">
 
-      <div class="cf-item is-open">
+      <div class="cf-item">
         <button class="cf-question">Como são as sessões?</button>
         <div class="cf-answer"><div class="cf-answer-inner">
           <p>No início, estabelecemos um acordo claro sobre a frequência, a duração das sessões e os objetivos do seu processo. O tempo de cada encontro é planejado para garantir a máxima qualidade no seu atendimento.</p>
@@ -3295,7 +3301,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
 <div class="cf-accordion">
 
-<div class="cf-item is-open">
+<div class="cf-item">
 <button class="cf-question">O que é e para que serve a psicoterapia?</button>
 <div class="cf-answer"><div class="cf-answer-inner">
 <p>É um processo clínico que auxilia na compreensão do sofrimento e na identificação de padrões repetitivos. O objetivo é desenvolver formas mais saudáveis de lidar com emoções, crises e conflitos, promovendo autoconhecimento e regulação emocional.</p>
