@@ -2023,6 +2023,30 @@
       min-height: 190px;
       resize: vertical;
     }
+    .field select{
+      width: 100%;
+      min-width: 0;
+      appearance: none;
+      border: 1px solid rgba(0,0,0,.07);
+      border-radius: 16px;
+      background-color: rgba(246,248,249,.96);
+      color: var(--softInk);
+      font: 500 14px/1.5 var(--bodyFont);
+      padding: 15px 46px 15px 16px;
+      outline: none;
+      cursor: pointer;
+      transition: border-color .24s ease, box-shadow .24s ease, background .24s ease, transform .24s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 1.75L6 6.25L10.5 1.75' stroke='%231A5D66' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 12px 8px;
+    }
+    .field select:focus{
+      border-color: rgba(26,93,102,.30);
+      box-shadow: 0 0 0 4px rgba(26,93,102,.08);
+      background-color: rgba(255,255,255,.99);
+    }
     .field input::placeholder,
     .field textarea::placeholder{
       color: rgba(20,28,32,.42);
@@ -2034,6 +2058,16 @@
       background: rgba(255,255,255,.99);
     }
 
+    .contact-phone-row{
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: end;
+    }
+    .field--checkbox-inline{
+      align-self: end;
+      padding-bottom: 2px;
+    }
     .checkbox-label{
       display: inline-flex;
       align-items: center;
@@ -2041,6 +2075,7 @@
       cursor: pointer;
       user-select: none;
       padding: 8px 0 2px;
+      white-space: nowrap;
     }
     .checkbox-label input[type="checkbox"]{
       position: absolute;
@@ -2340,6 +2375,13 @@
       .contact-grid,
       .contact-options-grid{
         grid-template-columns: 1fr;
+      }
+      .contact-phone-row{
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .field--checkbox-inline{
+        padding-bottom: 0;
       }
       .contact-actions{
         padding: 16px 2px 0;
@@ -2896,18 +2938,28 @@
                               >
                             </div>
 
-                            <div class="field field--full">
-                              <label for="contactPhone">Telefone (opcional)</label>
-                              <input
-                                id="contactPhone"
-                                name="phone"
-                                type="tel"
-                                placeholder="(00) 00000-0000"
-                                maxlength="20"
-                                autocomplete="tel"
-                                inputmode="tel"
-                                enterkeyhint="next"
-                              >
+                            <div class="contact-phone-row field--full">
+                              <div class="field">
+                                <label for="contactPhone">Telefone (opcional)</label>
+                                <input
+                                  id="contactPhone"
+                                  name="phone"
+                                  type="tel"
+                                  placeholder="(00) 00000-0000"
+                                  maxlength="20"
+                                  autocomplete="tel"
+                                  inputmode="tel"
+                                  enterkeyhint="next"
+                                >
+                              </div>
+
+                              <div class="field field--checkbox field--checkbox-inline">
+                                <label class="checkbox-label" for="phoneIsWhatsapp">
+                                  <input type="checkbox" name="phone_is_whatsapp" id="phoneIsWhatsapp" value="sim">
+                                  <span class="checkbox-box"></span>
+                                  <span class="checkbox-text">WhatsApp</span>
+                                </label>
+                              </div>
                             </div>
                           </div>
                         </section>
@@ -2917,20 +2969,13 @@
                             <h3 class="contact-section-title">Motivo do contato</h3>
                           </div>
 
-                          <fieldset class="contact-options">
-                            <legend class="contact-options-legend">Motivo do contato</legend>
-                            <div class="contact-options-grid">
-                              <label class="contact-option">
-                                <input type="radio" name="reason" value="Agendar sessão" checked>
-                                <span>Agendar sessão</span>
-                              </label>
-
-                              <label class="contact-option">
-                                <input type="radio" name="reason" value="Esclarecer dúvidas">
-                                <span>Esclarecer dúvidas</span>
-                              </label>
-                            </div>
-                          </fieldset>
+                          <div class="field field--full">
+                            <label for="contactReason">Selecione uma opção</label>
+                            <select id="contactReason" name="reason" autocomplete="off" required>
+                              <option value="Agendar sessão" selected>Agendar sessão</option>
+                              <option value="Esclarecer dúvidas">Esclarecer dúvidas</option>
+                            </select>
+                          </div>
                         </section>
 
                         <section class="contact-section contact-section--message" aria-label="Mensagem inicial">
@@ -4149,6 +4194,7 @@
           name: sanitizeText(form.elements.name?.value, 80),
           email: sanitizeText(form.elements.email?.value, 120).toLowerCase(),
           phone: sanitizeText(form.elements.phone?.value, 20),
+          phone_is_whatsapp: Boolean(form.elements.phone_is_whatsapp?.checked),
           reason: sanitizeText(form.elements.reason?.value || "Agendar sessão", 80),
           message: sanitizeText(form.elements.message?.value, 1500),
           website: sanitizeText(form.elements.website?.value, 120)
