@@ -1075,7 +1075,7 @@
   border-radius:14px;
   overflow:hidden;
   margin-left:auto;
-  margin-top:22px; /* desce alinhando com texto */
+  margin-top:40px; /* desce mais */
 }
 
     .story-media img,
@@ -1086,6 +1086,10 @@
       display: block;
       object-fit: cover;
       border: 0;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      image-rendering: auto;
+      filter: none !important;
     }
 
     .story-video{
@@ -1096,7 +1100,7 @@
   border-radius:14px;
   overflow:hidden;
   margin-left:auto;
-  margin-top:22px; /* desce alinhando com texto */
+  margin-top:40px; /* desce mais */
 }
 
     .story-video-placeholder{
@@ -1227,7 +1231,7 @@
   border-radius:14px;
   overflow:hidden;
   margin-left:auto;
-  margin-top:22px; /* desce alinhando com texto */
+  margin-top:40px; /* desce mais */
 }
 
       .story-media{
@@ -1242,7 +1246,7 @@
   border-radius:14px;
   overflow:hidden;
   margin-left:auto;
-  margin-top:22px; /* desce alinhando com texto */
+  margin-top:40px; /* desce mais */
 }
 
       .story-copy .signature{
@@ -3973,3 +3977,8 @@
 </script>
 </body>
 </html>
+<style>
+.section-card:not(.is-active) .story-media img{
+  filter: none !important;
+}
+</style>
