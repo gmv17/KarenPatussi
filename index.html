@@ -1069,12 +1069,13 @@
     .story-media,
     .story-video{
   display:block;
-  aspect-ratio: 5 / 8; /* menos comprido */
+  aspect-ratio: 5 / 8;
   min-height:240px;
   max-height:380px;
   border-radius:14px;
   overflow:hidden;
-  margin-left:auto; /* joga pra direita */
+  margin-left:auto;
+  margin-top:22px; /* desce alinhando com texto */
 }
 
     .story-media img,
@@ -1089,12 +1090,13 @@
 
     .story-video{
   display:block;
-  aspect-ratio: 5 / 8; /* menos comprido */
+  aspect-ratio: 5 / 8;
   min-height:240px;
   max-height:380px;
   border-radius:14px;
   overflow:hidden;
-  margin-left:auto; /* joga pra direita */
+  margin-left:auto;
+  margin-top:22px; /* desce alinhando com texto */
 }
 
     .story-video-placeholder{
@@ -1143,14 +1145,14 @@
     }
 
     .story-copy .intro-kicker{
-      margin: 0 0 6px;
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(20,28,32,.62);
-      font-weight: 800;
-      font-family: var(--bodyFont);
-    }
+  margin: 0 0 6px;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--brand); /* mesma cor do titulo */
+  font-weight: 800;
+  font-family: var(--bodyFont);
+}
 
     .story-copy .signature{
       color: var(--brand);
@@ -1163,14 +1165,14 @@
     }
 
     .story-copy .story-title{
-      color: rgba(20,28,32,.92);
-      font-family: var(--titleFont);
-      font-weight: 500;
-      font-size: clamp(28px, 2.5vw, 42px);
-      line-height: 1.02;
-      letter-spacing: -0.025em;
-      margin: 0 0 14px;
-    }
+  color: var(--brand); /* mesma cor do titulo principal */
+  font-family: var(--titleFont);
+  font-weight: 600;
+  font-size: clamp(28px, 2.5vw, 42px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
+}
 
     .story-copy .divider{
       width: 38px;
@@ -1219,12 +1221,13 @@
       .story-media,
       .story-video{
   display:block;
-  aspect-ratio: 5 / 8; /* menos comprido */
+  aspect-ratio: 5 / 8;
   min-height:240px;
   max-height:380px;
   border-radius:14px;
   overflow:hidden;
-  margin-left:auto; /* joga pra direita */
+  margin-left:auto;
+  margin-top:22px; /* desce alinhando com texto */
 }
 
       .story-media{
@@ -1233,12 +1236,13 @@
 
       .story-video{
   display:block;
-  aspect-ratio: 5 / 8; /* menos comprido */
+  aspect-ratio: 5 / 8;
   min-height:240px;
   max-height:380px;
   border-radius:14px;
   overflow:hidden;
-  margin-left:auto; /* joga pra direita */
+  margin-left:auto;
+  margin-top:22px; /* desce alinhando com texto */
 }
 
       .story-copy .signature{
@@ -1246,8 +1250,14 @@
       }
 
       .story-copy .story-title{
-        font-size: clamp(26px, 7vw, 34px);
-      }
+  color: var(--brand); /* mesma cor do titulo principal */
+  font-family: var(--titleFont);
+  font-weight: 600;
+  font-size: clamp(28px, 2.5vw, 42px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
+}
 
       .story-copy .divider{
         margin-bottom: 14px;
