@@ -1061,19 +1061,21 @@
     }
 
     .story-block--reverse{
-      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
-      align-items: start;
-    }
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  align-items:start;
+  justify-items:end; /* força direita */
+}
 
     .story-media,
     .story-video{
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
-      background: linear-gradient(180deg, rgba(26,93,102,.08), rgba(26,93,102,.14));
-      min-height: 220px;
-    }
+  display:block;
+  aspect-ratio: 5 / 8; /* menos comprido */
+  min-height:240px;
+  max-height:380px;
+  border-radius:14px;
+  overflow:hidden;
+  margin-left:auto; /* joga pra direita */
+}
 
     .story-media img,
     .story-video video,
@@ -1086,13 +1088,14 @@
     }
 
     .story-video{
-      display: block;
-      aspect-ratio: 5 / 9;
-      min-height: 260px;
-      max-height: 440px;
-      border-radius: 14px;
-      overflow: hidden;
-    }
+  display:block;
+  aspect-ratio: 5 / 8; /* menos comprido */
+  min-height:240px;
+  max-height:380px;
+  border-radius:14px;
+  overflow:hidden;
+  margin-left:auto; /* joga pra direita */
+}
 
     .story-video-placeholder{
       width: 100%;
@@ -1208,29 +1211,35 @@
     @media (max-width: 720px){
       .story-block,
       .story-block--reverse{
-        grid-template-columns: 1fr;
-        gap: 14px;
-        padding: 16px 14px;
-        border-radius: 16px;
-      }
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  align-items:start;
+  justify-items:end; /* força direita */
+}
 
       .story-media,
       .story-video{
-        min-height: 0;
-      }
+  display:block;
+  aspect-ratio: 5 / 8; /* menos comprido */
+  min-height:240px;
+  max-height:380px;
+  border-radius:14px;
+  overflow:hidden;
+  margin-left:auto; /* joga pra direita */
+}
 
       .story-media{
         aspect-ratio: 4 / 3;
       }
 
       .story-video{
-      display: block;
-      aspect-ratio: 5 / 9;
-      min-height: 260px;
-      max-height: 440px;
-      border-radius: 14px;
-      overflow: hidden;
-    }
+  display:block;
+  aspect-ratio: 5 / 8; /* menos comprido */
+  min-height:240px;
+  max-height:380px;
+  border-radius:14px;
+  overflow:hidden;
+  margin-left:auto; /* joga pra direita */
+}
 
       .story-copy .signature{
         font-size: clamp(28px, 8vw, 38px);
