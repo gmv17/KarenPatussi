@@ -1088,8 +1088,10 @@
       border: 0;
       transform: translateZ(0);
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       image-rendering: auto;
       filter: none !important;
+      will-change: transform;
     }
 
     .story-video{
@@ -1307,7 +1309,7 @@
 
       width: min(var(--cardMaxW), calc(var(--wPx, 160) * 1px));
       opacity: var(--o, 0);
-      filter: blur(calc((1 - var(--p,0)) * 0.85px));
+      filter: none;
 
       --tx: calc(var(--xPx, 0) * 1px);
       --ty: calc(var(--yPx, 0) * 1px);
@@ -1323,6 +1325,10 @@
     .section-card.is-active{
       pointer-events: auto;
       animation: cardFloat var(--cardFloatDur) ease-in-out infinite;
+    }
+
+    .section-card:not(.is-active){
+      opacity: calc(var(--o, 0) * .72);
     }
 
     body.is-locked{ overflow: hidden; touch-action: none; }
@@ -2206,6 +2212,25 @@
     text-align: center;
     width: 100%;
   }
+}
+
+
+/* ===== Proteção de nitidez para mídia do card Sobre ===== */
+.story-media,
+.story-media img,
+.story-video,
+.story-video video,
+.story-video iframe{
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.section-card:not(.is-active) .story-media img,
+.section-card:not(.is-active) .story-video video,
+.section-card:not(.is-active) .story-video iframe{
+  filter: none !important;
 }
 
 </style>
@@ -3986,4 +4011,23 @@
 .section-card:not(.is-active) .story-media img{
   filter: none !important;
 }
+
+/* ===== Proteção de nitidez para mídia do card Sobre ===== */
+.story-media,
+.story-media img,
+.story-video,
+.story-video video,
+.story-video iframe{
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.section-card:not(.is-active) .story-media img,
+.section-card:not(.is-active) .story-video video,
+.section-card:not(.is-active) .story-video iframe{
+  filter: none !important;
+}
+
 </style>
