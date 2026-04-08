@@ -2676,6 +2676,200 @@
   filter: none !important;
 }
 
+
+/* ===== COMO FUNCIONA REFINADO ===== */
+.cf-wrap{
+  display:grid;
+  gap:18px;
+  margin-top:8px;
+}
+.cf-hero{
+  display:grid;
+  gap:14px;
+  padding:22px 24px;
+  border-radius:22px;
+  background: rgba(255,255,255,.58);
+  border: 1px solid rgba(0,0,0,.04);
+  box-shadow: 0 8px 20px rgba(0,0,0,.035);
+}
+.cf-kicker{
+  margin:0;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--brand);
+  font-weight:800;
+  font-family:var(--bodyFont);
+}
+.cf-heading{
+  margin:0;
+  color:var(--brand);
+  font-family:var(--titleFont);
+  font-weight:600;
+  font-size:clamp(28px,2.5vw,42px);
+  line-height:1.02;
+  letter-spacing:-.025em;
+}
+.cf-divider{
+  width:38px;
+  height:1px;
+  background: rgba(26,93,102,.18);
+  border-radius:999px;
+}
+.cf-hero p{
+  margin:0;
+  color:var(--softInk);
+  line-height:1.9;
+  font-size:15px;
+  font-family:var(--bodyFont);
+  font-weight:500;
+  max-width:72ch;
+}
+.cf-tabs,
+.cf-subtabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.cf-tab,
+.cf-subtab{
+  appearance:none;
+  border:1px solid rgba(26,93,102,.12);
+  background: rgba(255,255,255,.72);
+  color: rgba(20,28,32,.72);
+  border-radius:999px;
+  min-height:42px;
+  padding:10px 16px;
+  font:700 11px/1 var(--bodyFont);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,.04);
+}
+.cf-tab:hover,
+.cf-subtab:hover,
+.cf-tab:focus-visible,
+.cf-subtab:focus-visible{
+  outline:none;
+  color:var(--brand);
+  border-color: rgba(26,93,102,.24);
+  box-shadow: 0 12px 24px rgba(0,0,0,.05);
+}
+.cf-tab.is-active,
+.cf-subtab.is-active{
+  background: rgba(26,93,102,.09);
+  color: var(--brand);
+  border-color: rgba(26,93,102,.30);
+  box-shadow: 0 12px 24px rgba(26,93,102,.10);
+}
+.cf-pane,
+.cf-approach-pane{
+  display:none;
+}
+.cf-pane.is-active,
+.cf-approach-pane.is-active{
+  display:grid;
+  gap:14px;
+}
+.cf-accordion{
+  display:grid;
+  gap:10px;
+}
+.cf-item{
+  border-radius:18px;
+  background: rgba(255,255,255,.52);
+  border:1px solid rgba(0,0,0,.045);
+  box-shadow: 0 10px 22px rgba(0,0,0,.03);
+  overflow:hidden;
+}
+.cf-question{
+  width:100%;
+  appearance:none;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:18px 48px 18px 18px;
+  position:relative;
+  cursor:pointer;
+  color:rgba(20,28,32,.88);
+  font:700 15px/1.55 var(--bodyFont);
+}
+.cf-question::after{
+  content:"+";
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font:500 24px/1 var(--titleFont);
+  color: rgba(26,93,102,.70);
+  transition: transform .22s ease, opacity .22s ease;
+}
+.cf-item.is-open .cf-question::after{
+  content:"−";
+}
+.cf-answer{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .28s ease;
+}
+.cf-item.is-open .cf-answer{
+  grid-template-rows:1fr;
+}
+.cf-answer-inner{
+  overflow:hidden;
+}
+.cf-answer-inner p,
+.cf-answer-inner ul{
+  margin:0;
+  padding:0 18px 18px;
+  color:var(--softInk);
+  line-height:1.85;
+  font-size:14.5px;
+  font-weight:500;
+}
+.cf-answer-inner ul{
+  padding-left:34px;
+}
+.cf-answer-inner li + li{
+  margin-top:6px;
+}
+.cf-section-note{
+  margin:0;
+  padding:0 2px;
+  color:var(--softInk2);
+  line-height:1.78;
+  font-size:14px;
+  font-weight:500;
+  max-width:74ch;
+}
+@media (max-width: 979.98px){
+  .cf-hero{
+    padding:18px 16px;
+    border-radius:18px;
+  }
+  .cf-heading{
+    font-size:clamp(24px,7vw,32px);
+  }
+  .cf-hero p,
+  .cf-answer-inner p,
+  .cf-answer-inner ul,
+  .cf-section-note{
+    font-size:14px;
+    line-height:1.78;
+  }
+  .cf-question{
+    padding:16px 42px 16px 16px;
+    font-size:14px;
+  }
+  .cf-tab,
+  .cf-subtab{
+    min-height:40px;
+    padding:10px 14px;
+    font-size:10.5px;
+  }
+}
+
 </style>
 </head>
 
@@ -2853,46 +3047,226 @@
 
             <div class="card-scroll" data-scroll>
               
+
 <div class="cf-wrap">
-  <p class="cf-intro">
-    Um espaço de escuta qualificada, com rigor técnico e acolhimento.
-    Aqui você encontra respostas para entender como funciona o processo terapêutico.
-  </p>
+  <section class="cf-hero" aria-label="Introdução do acompanhamento">
+    <p class="cf-kicker">Processo terapêutico</p>
+    <h3 class="cf-heading">Como funciona o acompanhamento</h3>
+    <div class="cf-divider" aria-hidden="true"></div>
+    <p>
+      Um espaço de cuidado, escuta qualificada e rigor ético, pensado para acolher o que você vive com profundidade e clareza.
+      Aqui, as informações aparecem de forma organizada para que você leia apenas o que fizer sentido para o seu momento.
+    </p>
+  </section>
 
-  <div class="cf-tabs">
-    <button class="cf-tab active" data-tab="geral">Visão geral</button>
-    <button class="cf-tab" data-tab="abordagens">Abordagens</button>
+  <div class="cf-tabs" role="tablist" aria-label="Seções de como funciona">
+    <button class="cf-tab is-active" type="button" role="tab" aria-selected="true" data-cf-tab="geral">Visão geral</button>
+    <button class="cf-tab" type="button" role="tab" aria-selected="false" data-cf-tab="abordagens">Abordagens</button>
   </div>
 
-  <div class="cf-content active" data-content="geral">
-    <div class="cf-item"><strong>Como funciona o acompanhamento?</strong><p>É um espaço de cuidado e escuta qualificada, com base científica e ética.</p></div>
-    <div class="cf-item"><strong>Como são as sessões?</strong><p>Definimos frequência, duração e objetivos no início do processo.</p></div>
-    <div class="cf-item"><strong>Atendimento online é eficaz?</strong><p>Sim, com o mesmo rigor técnico do presencial.</p></div>
-    <div class="cf-item"><strong>Sigilo e segurança</strong><p>O sigilo profissional é garantido.</p></div>
-  </div>
+  <section class="cf-pane is-active" data-cf-pane="geral" aria-label="Visão geral do atendimento">
+    <div class="cf-accordion">
+      <div class="cf-item is-open">
+        <button class="cf-question" type="button">Como funciona o acompanhamento?</button>
+        <div class="cf-answer">
+          <div class="cf-answer-inner">
+            <p>É um espaço de cuidado e escuta qualificada, fundamentado na ciência e na ética profissional. O objetivo é promover sua saúde mental e oferecer suporte para enfrentar conflitos ou sofrimentos emocionais em um ambiente seguro.</p>
+          </div>
+        </div>
+      </div>
 
-  <div class="cf-content" data-content="abordagens">
-    <div class="cf-subtabs">
-      <button class="cf-subtab active" data-sub="psico">Psicoterapia</button>
-      <button class="cf-subtab" data-sub="sistemica">Sistêmica</button>
-      <button class="cf-subtab" data-sub="sexual">Sexual</button>
-      <button class="cf-subtab" data-sub="emdr">EMDR</button>
+      <div class="cf-item">
+        <button class="cf-question" type="button">Como são as sessões?</button>
+        <div class="cf-answer">
+          <div class="cf-answer-inner">
+            <p>No início, estabelecemos um acordo claro sobre a frequência, a duração das sessões e os objetivos do seu processo. O tempo de cada encontro é planejado para garantir a máxima qualidade no seu atendimento.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-item">
+        <button class="cf-question" type="button">O atendimento online é como o presencial?</button>
+        <div class="cf-answer">
+          <div class="cf-answer-inner">
+            <p>Sim. Ele tem o mesmo rigor técnico e ético do presencial. O que importa é o vínculo e o acolhimento que construímos, independentemente de estarmos em um consultório físico ou virtual.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-item">
+        <button class="cf-question" type="button">Preciso saber exatamente o que falar?</button>
+        <div class="cf-answer">
+          <div class="cf-answer-inner">
+            <p>Não se preocupe. O processo respeita o seu tempo e a sua prontidão. Meu papel é auxiliar você a dar forma aos seus sentimentos, sempre valorizando sua autonomia e história de vida.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-item">
+        <button class="cf-question" type="button">Minhas informações estão seguras?</button>
+        <div class="cf-answer">
+          <div class="cf-answer-inner">
+            <p>Com certeza. O sigilo profissional é um dever do psicólogo para proteger sua intimidade. Ele só é flexibilizado em situações extremas de risco à vida ou violência, priorizando sempre o menor prejuízo e a sua proteção.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-item">
+        <button class="cf-question" type="button">Como funcionam os valores e a duração?</button>
+        <div class="cf-answer">
+          <div class="cf-answer-inner">
+            <p>Os honorários são combinados no início, considerando a sua realidade e garantindo a excelência do cuidado para todos. As sessões têm duração média de 50 minutos, podendo ser ampliadas em ocasiões específicas combinadas com antecedência. O acompanhamento dura o tempo necessário para você atingir seus objetivos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-item">
+        <button class="cf-question" type="button">Existe um compromisso com diversidade e acolhimento?</button>
+        <div class="cf-answer">
+          <div class="cf-answer-inner">
+            <p>Aqui, o respeito à diversidade é absoluto. Não há espaço para discriminação, julgamentos ou patologizações. O trabalho clínico é orientado pelo acolhimento das diferentes formas de existência.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-item">
+        <button class="cf-question" type="button">O que ajuda no atendimento online?</button>
+        <div class="cf-answer">
+          <div class="cf-answer-inner">
+            <ul>
+              <li>Escolher um local tranquilo, em que você se sinta à vontade para falar.</li>
+              <li>Ter familiaridade básica com a ferramenta digital usada no encontro.</li>
+              <li>Contar com recursos tecnológicos definidos de forma segura desde o contrato.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cf-pane" data-cf-pane="abordagens" aria-label="Abordagens terapêuticas">
+    <p class="cf-section-note">
+      Para tornar a leitura mais didática, os principais aspectos da atuação aparecem por abordagem — embora, na prática clínica, elas possam se integrar conforme a necessidade de cada processo.
+    </p>
+
+    <div class="cf-subtabs" role="tablist" aria-label="Abordagens terapêuticas">
+      <button class="cf-subtab is-active" type="button" role="tab" aria-selected="true" data-cf-approach="psicoterapia">Psicoterapia</button>
+      <button class="cf-subtab" type="button" role="tab" aria-selected="false" data-cf-approach="sistemica">Sistêmica</button>
+      <button class="cf-subtab" type="button" role="tab" aria-selected="false" data-cf-approach="sexual">Sexual</button>
+      <button class="cf-subtab" type="button" role="tab" aria-selected="false" data-cf-approach="emdr">EMDR</button>
     </div>
 
-    <div class="cf-subcontent active" data-subcontent="psico">
-      <p>Processo clínico para compreender emoções e padrões.</p>
+    <div class="cf-approach-pane is-active" data-cf-approach-pane="psicoterapia">
+      <div class="cf-accordion">
+        <div class="cf-item is-open">
+          <button class="cf-question" type="button">O que é e para que serve a psicoterapia?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>É um processo clínico que auxilia na compreensão do sofrimento e na identificação de padrões repetitivos. O objetivo é desenvolver formas mais saudáveis de lidar com emoções, crises e conflitos, promovendo autoconhecimento e regulação emocional.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Quem deve procurar ajuda profissional?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>A psicoterapia é indicada para quem percebe dificuldades recorrentes na vida emocional ou relacional, como ansiedade, luto, estresse, crises existenciais ou impasses nas decisões. Não é necessário um diagnóstico para começar.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Psicoterapia é o mesmo que desabafar com amigos?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>Não. Embora o acolhimento seja parte do processo, a psicoterapia utiliza escuta qualificada, método clínico e intervenções técnicas fundamentadas na ciência psicológica para promover mudanças estruturais.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Quanto tempo dura o tratamento?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>A duração varia conforme a complexidade da história de cada pessoa e os objetivos estabelecidos. Existem processos mais focais para questões pontuais e processos mais profundos para reorganização subjetiva.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Qual a diferença entre psicoterapia e psiquiatria?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>A psicoterapia foca nos aspectos emocionais e relacionais. A psiquiatria é uma especialidade médica voltada ao diagnóstico biológico e, se necessário, ao suporte medicamentoso. Ambas podem ser complementares.</p></div></div>
+        </div>
+      </div>
     </div>
-    <div class="cf-subcontent" data-subcontent="sistemica">
-      <p>Foco nas relações e dinâmicas entre pessoas.</p>
+
+    <div class="cf-approach-pane" data-cf-approach-pane="sistemica">
+      <div class="cf-accordion">
+        <div class="cf-item is-open">
+          <button class="cf-question" type="button">Qual o diferencial da abordagem sistêmica?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>A terapia sistêmica compreende o indivíduo como parte de uma rede de relações. O foco não está apenas no sujeito isolado, mas nas dinâmicas, comunicações e papéis que ele desempenha em seus sistemas.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">É uma terapia voltada apenas para famílias?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>Não. Ela pode ser realizada individualmente, com casais ou famílias. Mesmo no atendimento individual, o olhar clínico considera como os vínculos e a história familiar influenciam o modo de sentir e agir no presente.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Como ela ajuda em conflitos relacionais?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>O objetivo é identificar padrões de repetição e alianças invisíveis que geram sofrimento. A terapia auxilia na construção de novas formas de comunicação e no fortalecimento de vínculos mais saudáveis e funcionais.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">A terapia sistêmica busca culpados pelos problemas?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>Pelo contrário. A abordagem substitui a busca por culpados pela compreensão de como todos os membros de um sistema contribuem para a manutenção de um padrão, permitindo que novas respostas surjam.</p></div></div>
+        </div>
+      </div>
     </div>
-    <div class="cf-subcontent" data-subcontent="sexual">
-      <p>Aborda aspectos emocionais e subjetivos da sexualidade.</p>
+
+    <div class="cf-approach-pane" data-cf-approach-pane="sexual">
+      <div class="cf-accordion">
+        <div class="cf-item is-open">
+          <button class="cf-question" type="button">O que define a terapia sexual?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>É uma especialidade clínica dedicada à complexidade da sexualidade humana. Vai além da funcionalidade biológica, abordando também as dimensões afetivas, culturais e subjetivas que compõem o prazer e a intimidade.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Quais demandas podem ser trabalhadas?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>Desde disfunções clínicas até questões ligadas ao desejo, autoestima corporal, vergonha, traumas e conflitos de identidade ou orientação sexual.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Como é o acolhimento para questões de gênero e orientação sexual?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>O espaço é ético e afirmativo. Identidade de gênero e orientação sexual não são patologias. O trabalho clínico busca elaboração de conflitos, fortalecimento da autonomia e enfrentamento de sofrimentos decorrentes de estigmas ou repressão.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">A terapia envolve algum tipo de contato físico?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>Não. A terapia sexual é exclusivamente verbal e baseada em protocolos psicoterapêuticos. Não há toque, nudez ou exposição do corpo no ambiente clínico.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">É necessário estar em um relacionamento?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>Não. A sexualidade é uma dimensão individual antes de ser partilhada. O processo pode acontecer individualmente ou em casal, conforme a necessidade.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Terapia sexual é apenas para adultos?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>A sexualidade atravessa todas as fases da vida. O foco clínico varia conforme a etapa e a demanda, sempre com cuidado, proteção e adequação ética.</p></div></div>
+        </div>
+      </div>
     </div>
-    <div class="cf-subcontent" data-subcontent="emdr">
-      <p>Reprocessamento de memórias traumáticas.</p>
+
+    <div class="cf-approach-pane" data-cf-approach-pane="emdr">
+      <div class="cf-accordion">
+        <div class="cf-item is-open">
+          <button class="cf-question" type="button">O que é o EMDR e qual seu objetivo?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>O EMDR é uma abordagem focada no reprocessamento de memórias traumáticas. O objetivo é ajudar o cérebro a arquivar experiências dolorosas que ficaram “presas”, reduzindo a carga emocional que elas geram no presente.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">O EMDR é uma solução rápida para o trauma?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>Não. É um método rigoroso que exige avaliação, preparação e estabilização. O tempo de reprocessamento depende da complexidade da história traumática e da capacidade de regulação emocional de cada indivíduo.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Vou reviver o trauma ou apagar a memória?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>O EMDR não apaga memórias, mas transforma a forma como você as sente. O objetivo é acessar o conteúdo com segurança para que ele perca seu poder de desestabilização.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">EMDR é o mesmo que hipnose?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>Não. O paciente permanece consciente e orientado durante todo o tempo. A estimulação bilateral serve para auxiliar o mecanismo natural de processamento de informações do cérebro.</p></div></div>
+        </div>
+        <div class="cf-item">
+          <button class="cf-question" type="button">Qualquer pessoa pode aplicar ou receber EMDR?</button>
+          <div class="cf-answer"><div class="cf-answer-inner"><p>A aplicação exige formação específica e rigorosa. Além disso, nem todo paciente está pronto para o reprocessamento imediato, especialmente em casos de trauma complexo ou instabilidade intensa.</p></div></div>
+        </div>
+      </div>
     </div>
-  </div>
+
+    <div class="cf-item">
+      <button class="cf-question" type="button">Preciso escolher qual modalidade de terapia desejo?</button>
+      <div class="cf-answer">
+        <div class="cf-answer-inner">
+          <p>Não precisa. Na consulta inicial, a avaliação é conjunta para compreender o que traz você à terapia e identificar qual caminho — ou combinação de abordagens — será mais resolutivo para o seu sofrimento. A escolha da ferramenta técnica mais adequada faz parte da condução profissional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
+
 
             </div>
           </div>
@@ -4500,26 +4874,54 @@
 
 </script>
 
-<script>
-document.querySelectorAll('.cf-tab').forEach(btn=>{
-  btn.onclick=()=>{
-    document.querySelectorAll('.cf-tab').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.cf-content').forEach(c=>c.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelector('[data-content="'+btn.dataset.tab+'"]').classList.add('active');
-  }
-});
-document.querySelectorAll('.cf-subtab').forEach(btn=>{
-  btn.onclick=()=>{
-    document.querySelectorAll('.cf-subtab').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.cf-subcontent').forEach(c=>c.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelector('[data-subcontent="'+btn.dataset.sub+'"]').classList.add('active');
-  }
-});
-</script>
 
+<script>
+(function(){
+  const root = document.querySelector('#areas-de-atuacao');
+  if(!root) return;
+
+  const tabs = root.querySelectorAll('[data-cf-tab]');
+  const panes = root.querySelectorAll('[data-cf-pane]');
+  tabs.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      tabs.forEach((b) => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      panes.forEach((p) => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      const pane = root.querySelector('[data-cf-pane="' + btn.dataset.cfTab + '"]');
+      if(pane) pane.classList.add('is-active');
+    });
+  });
+
+  const subtabs = root.querySelectorAll('[data-cf-approach]');
+  const subpanes = root.querySelectorAll('[data-cf-approach-pane]');
+  subtabs.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      subtabs.forEach((b) => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      subpanes.forEach((p) => p.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      const pane = root.querySelector('[data-cf-approach-pane="' + btn.dataset.cfApproach + '"]');
+      if(pane) pane.classList.add('is-active');
+    });
+  });
+
+  root.querySelectorAll('.cf-question').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.cf-item');
+      if(item) item.classList.toggle('is-open');
+    });
+  });
+})();
+</script>
 </body>
+
 </html>
 <style>
 .section-card:not(.is-active) .story-media img{
@@ -4542,6 +4944,200 @@ document.querySelectorAll('.cf-subtab').forEach(btn=>{
 .section-card:not(.is-active) .story-video video,
 .section-card:not(.is-active) .story-video iframe{
   filter: none !important;
+}
+
+
+/* ===== COMO FUNCIONA REFINADO ===== */
+.cf-wrap{
+  display:grid;
+  gap:18px;
+  margin-top:8px;
+}
+.cf-hero{
+  display:grid;
+  gap:14px;
+  padding:22px 24px;
+  border-radius:22px;
+  background: rgba(255,255,255,.58);
+  border: 1px solid rgba(0,0,0,.04);
+  box-shadow: 0 8px 20px rgba(0,0,0,.035);
+}
+.cf-kicker{
+  margin:0;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--brand);
+  font-weight:800;
+  font-family:var(--bodyFont);
+}
+.cf-heading{
+  margin:0;
+  color:var(--brand);
+  font-family:var(--titleFont);
+  font-weight:600;
+  font-size:clamp(28px,2.5vw,42px);
+  line-height:1.02;
+  letter-spacing:-.025em;
+}
+.cf-divider{
+  width:38px;
+  height:1px;
+  background: rgba(26,93,102,.18);
+  border-radius:999px;
+}
+.cf-hero p{
+  margin:0;
+  color:var(--softInk);
+  line-height:1.9;
+  font-size:15px;
+  font-family:var(--bodyFont);
+  font-weight:500;
+  max-width:72ch;
+}
+.cf-tabs,
+.cf-subtabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.cf-tab,
+.cf-subtab{
+  appearance:none;
+  border:1px solid rgba(26,93,102,.12);
+  background: rgba(255,255,255,.72);
+  color: rgba(20,28,32,.72);
+  border-radius:999px;
+  min-height:42px;
+  padding:10px 16px;
+  font:700 11px/1 var(--bodyFont);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,.04);
+}
+.cf-tab:hover,
+.cf-subtab:hover,
+.cf-tab:focus-visible,
+.cf-subtab:focus-visible{
+  outline:none;
+  color:var(--brand);
+  border-color: rgba(26,93,102,.24);
+  box-shadow: 0 12px 24px rgba(0,0,0,.05);
+}
+.cf-tab.is-active,
+.cf-subtab.is-active{
+  background: rgba(26,93,102,.09);
+  color: var(--brand);
+  border-color: rgba(26,93,102,.30);
+  box-shadow: 0 12px 24px rgba(26,93,102,.10);
+}
+.cf-pane,
+.cf-approach-pane{
+  display:none;
+}
+.cf-pane.is-active,
+.cf-approach-pane.is-active{
+  display:grid;
+  gap:14px;
+}
+.cf-accordion{
+  display:grid;
+  gap:10px;
+}
+.cf-item{
+  border-radius:18px;
+  background: rgba(255,255,255,.52);
+  border:1px solid rgba(0,0,0,.045);
+  box-shadow: 0 10px 22px rgba(0,0,0,.03);
+  overflow:hidden;
+}
+.cf-question{
+  width:100%;
+  appearance:none;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:18px 48px 18px 18px;
+  position:relative;
+  cursor:pointer;
+  color:rgba(20,28,32,.88);
+  font:700 15px/1.55 var(--bodyFont);
+}
+.cf-question::after{
+  content:"+";
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font:500 24px/1 var(--titleFont);
+  color: rgba(26,93,102,.70);
+  transition: transform .22s ease, opacity .22s ease;
+}
+.cf-item.is-open .cf-question::after{
+  content:"−";
+}
+.cf-answer{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .28s ease;
+}
+.cf-item.is-open .cf-answer{
+  grid-template-rows:1fr;
+}
+.cf-answer-inner{
+  overflow:hidden;
+}
+.cf-answer-inner p,
+.cf-answer-inner ul{
+  margin:0;
+  padding:0 18px 18px;
+  color:var(--softInk);
+  line-height:1.85;
+  font-size:14.5px;
+  font-weight:500;
+}
+.cf-answer-inner ul{
+  padding-left:34px;
+}
+.cf-answer-inner li + li{
+  margin-top:6px;
+}
+.cf-section-note{
+  margin:0;
+  padding:0 2px;
+  color:var(--softInk2);
+  line-height:1.78;
+  font-size:14px;
+  font-weight:500;
+  max-width:74ch;
+}
+@media (max-width: 979.98px){
+  .cf-hero{
+    padding:18px 16px;
+    border-radius:18px;
+  }
+  .cf-heading{
+    font-size:clamp(24px,7vw,32px);
+  }
+  .cf-hero p,
+  .cf-answer-inner p,
+  .cf-answer-inner ul,
+  .cf-section-note{
+    font-size:14px;
+    line-height:1.78;
+  }
+  .cf-question{
+    padding:16px 42px 16px 16px;
+    font-size:14px;
+  }
+  .cf-tab,
+  .cf-subtab{
+    min-height:40px;
+    padding:10px 14px;
+    font-size:10.5px;
+  }
 }
 
 </style>
