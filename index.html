@@ -1753,7 +1753,7 @@
     /* ========================= CONTATO ========================= */
     .contact-wrap{
       display:grid;
-      gap: 20px;
+      gap: 18px;
       margin-top: 8px;
     }
     .contact-intro{
@@ -1764,196 +1764,53 @@
       max-width: 760px;
     }
     .contact-intro .signature{
-      max-width: 16ch;
+      max-width: 13ch;
     }
     .contact-intro p + p{
       margin-top: 8px;
     }
 
     .contact-form-shell{
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.84));
+      border: 1px solid rgba(0,0,0,.05);
+      box-shadow: 0 16px 34px rgba(0,0,0,.045);
+      padding: 22px 22px 20px;
+      display:grid;
+      gap: 18px;
       position: relative;
-      border-radius: 30px;
-      padding: 26px;
-      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.90));
-      border: 1px solid rgba(0,0,0,.06);
-      box-shadow: 0 26px 70px rgba(0,0,0,.08);
       overflow: hidden;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .contact-form-shell::before{
       content:"";
       position:absolute;
-      top:-120px;
-      right:-110px;
-      width: 260px;
-      height: 260px;
+      inset:-25% auto auto -10%;
+      width: 240px;
+      height: 240px;
       border-radius: 999px;
-      background: radial-gradient(circle, rgba(26,93,102,.12), rgba(26,93,102,0) 68%);
+      background: radial-gradient(circle, rgba(26,93,102,.08), rgba(26,93,102,0) 68%);
       pointer-events:none;
     }
-    .contact-form-shell::after{
-      content:"";
-      position:absolute;
-      left:-120px;
-      bottom:-140px;
-      width: 300px;
-      height: 300px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(26,93,102,.09), rgba(26,93,102,0) 70%);
-      pointer-events:none;
-    }
-
     .contact-form{
       position: relative;
-      z-index: 1;
-      display:grid;
-      gap: 22px;
-    }
-
-    .contact-progress{
       display:grid;
       gap: 18px;
-      margin-bottom: 2px;
-    }
-    .contact-progress-head{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .contact-progress-kicker{
-      display:block;
-      font-size: 10.5px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(20,28,32,.56);
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .contact-progress-title{
-      margin:0;
-      color: #142024;
-      font-family: var(--titleFont);
-      font-weight: 700;
-      font-size: clamp(28px, 3vw, 42px);
-      line-height: .98;
-      letter-spacing: -0.03em;
-    }
-    .contact-progress-copy{
-      margin: 8px 0 0;
-      max-width: 52ch;
-      color: var(--softInk2);
-      line-height: 1.72;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .contact-progress-note{
-      align-self:flex-start;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(26,93,102,.12);
-      background: rgba(255,255,255,.72);
-      box-shadow: 0 12px 24px rgba(0,0,0,.04);
-      color: rgba(20,28,32,.72);
-      font-size: 12px;
-      line-height: 1.55;
-      font-weight: 600;
-      min-width: 172px;
-      text-align: right;
-    }
-    .contact-progress-note strong{
-      display:block;
-      color: var(--brand);
-      font-size: 15px;
-      margin-top: 2px;
-    }
-    .contact-progress-steps{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      position: relative;
-    }
-    .contact-progress-steps::before{
-      content:"";
-      position:absolute;
-      top: 18px;
-      left: calc(16.66% + 34px);
-      right: calc(16.66% + 34px);
-      height: 1px;
-      background: linear-gradient(90deg, rgba(26,93,102,.18), rgba(26,93,102,.10));
-      z-index: 0;
-    }
-    .contact-progress-step{
-      position: relative;
       z-index: 1;
-      display:grid;
-      justify-items: center;
-      gap: 8px;
-      text-align:center;
     }
-    .contact-progress-badge{
-      width: 38px;
-      height: 38px;
-      border-radius: 999px;
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(26,93,102,.16);
-      background: rgba(255,255,255,.96);
-      color: var(--brand);
-      box-shadow: 0 10px 24px rgba(0,0,0,.05);
-      font: 800 12px/1 var(--bodyFont);
-      letter-spacing: .06em;
-    }
-    .contact-progress-label{
-      display:grid;
-      gap: 3px;
-    }
-    .contact-progress-label strong{
-      color: rgba(20,28,32,.88);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .01em;
-    }
-    .contact-progress-label span{
-      color: rgba(20,28,32,.56);
-      font-size: 11px;
-      line-height: 1.4;
-      font-weight: 500;
-    }
-
-    .contact-layout{
-      display:grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(240px, .78fr);
-      gap: 18px;
-      align-items: start;
-    }
-    .contact-main{
-      display:grid;
-      gap: 16px;
-    }
-    .contact-aside{
-      display:grid;
-      gap: 14px;
-    }
-
     .contact-section{
       display:grid;
       gap: 14px;
-      padding: 20px;
-      border-radius: 22px;
-      background: rgba(255,255,255,.76);
-      border: 1px solid rgba(0,0,0,.05);
-      box-shadow: 0 12px 30px rgba(0,0,0,.04);
-      min-width: 0;
-    }
-    .contact-section--message{
-      gap: 16px;
+      padding: 18px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(0,0,0,.045);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.58);
     }
     .contact-section-head{
       display:grid;
-      gap: 5px;
+      gap: 4px;
     }
     .contact-step{
       font-size: 10px;
@@ -1968,9 +1825,9 @@
       color: var(--brand);
       font-family: var(--titleFont);
       font-weight: 700;
-      font-size: clamp(21px, 2vw, 30px);
-      line-height: 1.02;
-      letter-spacing: -0.025em;
+      font-size: clamp(20px, 2vw, 28px);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
     }
     .contact-section-copy{
       margin: 0;
@@ -1980,7 +1837,6 @@
       font-weight: 500;
       max-width: 60ch;
     }
-
     .contact-grid{
       display:grid;
       gap: 12px;
@@ -2011,41 +1867,17 @@
       appearance: none;
       border: 1px solid rgba(0,0,0,.07);
       border-radius: 16px;
-      background: rgba(246,248,249,.96);
+      background: rgba(255,255,255,.92);
       color: var(--softInk);
       font: 500 14px/1.5 var(--bodyFont);
       padding: 15px 16px;
       outline: none;
       transition: border-color .24s ease, box-shadow .24s ease, background .24s ease, transform .24s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.52);
     }
     .field textarea{
-      min-height: 190px;
+      min-height: 176px;
       resize: vertical;
-    }
-    .field select{
-      width: 100%;
-      min-width: 0;
-      appearance: none;
-      border: 1px solid rgba(0,0,0,.07);
-      border-radius: 16px;
-      background-color: rgba(246,248,249,.96);
-      color: var(--softInk);
-      font: 500 14px/1.5 var(--bodyFont);
-      padding: 15px 46px 15px 16px;
-      outline: none;
-      cursor: pointer;
-      transition: border-color .24s ease, box-shadow .24s ease, background .24s ease, transform .24s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
-      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 1.75L6 6.25L10.5 1.75' stroke='%231A5D66' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-      background-size: 12px 8px;
-    }
-    .field select:focus{
-      border-color: rgba(26,93,102,.30);
-      box-shadow: 0 0 0 4px rgba(26,93,102,.08);
-      background-color: rgba(255,255,255,.99);
     }
     .field input::placeholder,
     .field textarea::placeholder{
@@ -2055,27 +1887,16 @@
     .field textarea:focus{
       border-color: rgba(26,93,102,.30);
       box-shadow: 0 0 0 4px rgba(26,93,102,.08);
-      background: rgba(255,255,255,.99);
+      background: rgba(255,255,255,.98);
     }
 
-    .contact-phone-row{
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 14px;
-      align-items: end;
-    }
-    .field--checkbox-inline{
-      align-self: end;
-      padding-bottom: 2px;
-    }
     .checkbox-label{
       display: inline-flex;
       align-items: center;
       gap: 10px;
       cursor: pointer;
       user-select: none;
-      padding: 8px 0 2px;
-      white-space: nowrap;
+      padding: 6px 0 2px;
     }
     .checkbox-label input[type="checkbox"]{
       position: absolute;
@@ -2088,7 +1909,7 @@
       height: 18px;
       border-radius: 5px;
       border: 1.5px solid rgba(0,0,0,.18);
-      background: rgba(255,255,255,.88);
+      background: rgba(255,255,255,.84);
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -2128,7 +1949,7 @@
     .contact-options-grid{
       display:grid;
       gap: 10px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .contact-option{
       position: relative;
@@ -2142,15 +1963,15 @@
     }
     .contact-option span{
       width: 100%;
-      min-height: 70px;
+      min-height: 62px;
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
-      padding: 16px 14px;
-      border-radius: 18px;
+      padding: 14px 14px;
+      border-radius: 16px;
       border: 1px solid rgba(26,93,102,.14);
-      background: rgba(247,249,250,.96);
+      background: rgba(255,255,255,.86);
       color: rgba(20,28,32,.78);
       font: 700 12px/1.45 var(--bodyFont);
       letter-spacing: .02em;
@@ -2158,7 +1979,7 @@
       cursor:pointer;
     }
     .contact-option input:checked + span{
-      background: linear-gradient(180deg, rgba(26,93,102,.11), rgba(26,93,102,.07));
+      background: rgba(26,93,102,.10);
       border-color: rgba(26,93,102,.34);
       color: var(--brand);
       box-shadow: 0 12px 24px rgba(26,93,102,.12);
@@ -2169,105 +1990,10 @@
       box-shadow: 0 10px 22px rgba(0,0,0,.045);
     }
 
-    .contact-aside-card{
-      display:grid;
-      gap: 14px;
-      padding: 20px 18px;
-      border-radius: 22px;
-      border: 1px solid rgba(26,93,102,.08);
-      background: linear-gradient(180deg, rgba(255,255,255,.80), rgba(246,250,250,.90));
-      box-shadow: 0 14px 34px rgba(0,0,0,.04);
-    }
-    .contact-aside-card--accent{
-      background: linear-gradient(180deg, rgba(26,93,102,.96), rgba(22,82,90,.92));
-      color: rgba(255,255,255,.96);
-      border-color: rgba(26,93,102,.20);
-      box-shadow: 0 18px 40px rgba(26,93,102,.22);
-    }
-    .contact-aside-kicker{
-      font-size: 10px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: rgba(20,28,32,.56);
-      font-family: var(--bodyFont);
-    }
-    .contact-aside-card--accent .contact-aside-kicker{
-      color: rgba(255,255,255,.68);
-    }
-    .contact-aside-title{
-      margin: 0;
-      color: var(--brand);
-      font-family: var(--titleFont);
-      font-size: clamp(24px, 2vw, 32px);
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-    .contact-aside-card--accent .contact-aside-title{
-      color: #fff;
-    }
-    .contact-aside-copy{
-      margin: 0;
-      color: var(--softInk2);
-      line-height: 1.7;
-      font-size: 13.5px;
-      font-weight: 500;
-    }
-    .contact-aside-card--accent .contact-aside-copy{
-      color: rgba(255,255,255,.84);
-    }
-    .contact-aside-list{
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      display:grid;
-      gap: 10px;
-    }
-    .contact-aside-list li{
-      position: relative;
-      padding-left: 18px;
-      color: rgba(20,28,32,.78);
-      font-size: 13px;
-      line-height: 1.65;
-      font-weight: 500;
-    }
-    .contact-aside-card--accent .contact-aside-list li{
-      color: rgba(255,255,255,.86);
-    }
-    .contact-aside-list li::before{
-      content:"";
-      position:absolute;
-      top: .65em;
-      left: 0;
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(26,93,102,.52);
-    }
-    .contact-aside-card--accent .contact-aside-list li::before{
-      background: rgba(255,255,255,.72);
-    }
-    .contact-aside-chip{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width: fit-content;
-      min-height: 34px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.16);
-      color: #fff;
-      font: 800 10px/1 var(--bodyFont);
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
     .contact-actions{
       display:grid;
       gap: 12px;
-      padding: 18px 20px 0;
-      border-top: 1px solid rgba(0,0,0,.06);
+      margin-top: 2px;
       align-items: start;
     }
     .contact-actions-head{
@@ -2296,9 +2022,9 @@
     }
     .contact-btn{
       appearance:none;
-      min-height: 50px;
+      min-height: 48px;
       border-radius: 999px;
-      padding: 14px 22px;
+      padding: 13px 20px;
       border: 1px solid transparent;
       display:inline-flex;
       align-items:center;
@@ -2317,30 +2043,15 @@
       transform: translateY(-1px);
       outline: none;
     }
-    .contact-btn--primary{
-      min-width: min(100%, 240px);
-      background: rgba(26,93,102,.94);
+    .contact-btn--wa{
+      background: rgba(26,93,102,.96);
       color: #fff;
-      border-color: rgba(26,93,102,.94);
-      box-shadow: 0 10px 22px rgba(26,93,102,.16);
+      box-shadow: 0 14px 28px rgba(26,93,102,.18);
     }
-    .contact-btn--primary:hover,
-    .contact-btn--primary:focus-visible{
-      box-shadow: 0 14px 28px rgba(26,93,102,.20);
+    .contact-btn--wa:hover,
+    .contact-btn--wa:focus-visible{
+      box-shadow: 0 18px 34px rgba(26,93,102,.24);
       background: rgba(22,82,90,.98);
-    }
-    .contact-btn--ghost{
-      min-width: min(100%, 210px);
-      background: rgba(255,255,255,.72);
-      color: var(--brand);
-      border-color: rgba(26,93,102,.18);
-      box-shadow: 0 8px 18px rgba(0,0,0,.04);
-    }
-    .contact-btn--ghost:hover,
-    .contact-btn--ghost:focus-visible{
-      background: rgba(26,93,102,.06);
-      border-color: rgba(26,93,102,.28);
-      box-shadow: 0 12px 22px rgba(0,0,0,.06);
     }
     .contact-status{
       min-height: 20px;
@@ -2370,81 +2081,47 @@
       pointer-events: none;
       transform: none !important;
     }
-
-    @media (max-width: 979.98px){
-      .contact-form-shell{
-        padding: 18px 16px;
-        border-radius: 24px;
-      }
-      .contact-progress-head{
-        grid-template-columns: 1fr;
-      }
-      .contact-progress-note{
-        text-align: left;
-        min-width: 0;
-      }
-      .contact-layout{
-        grid-template-columns: 1fr;
-      }
-      .contact-grid,
-      .contact-options-grid{
-        grid-template-columns: 1fr;
-      }
-      .contact-phone-row{
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-      .field--checkbox-inline{
-        padding-bottom: 0;
-      }
-      .contact-actions{
-        padding: 16px 2px 0;
-      }
-      .contact-btn--primary,
-      .contact-btn--ghost{
-        width: 100%;
-      }
-      .contact-progress-steps{
-        gap: 10px;
-      }
-      .contact-progress-steps::before{
-        left: calc(16.66% + 20px);
-        right: calc(16.66% + 20px);
-      }
+    .contact-meta{
+      display:grid;
+      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .contact-chip{
+      border-radius: 16px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid var(--softBorder);
+      box-shadow: 0 10px 22px rgba(0,0,0,.035);
+      padding: 14px 14px;
+      display:grid;
+      gap: 6px;
+      align-content:start;
+    }
+    .contact-chip span{
+      font-size: 10.5px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(20,28,32,.62);
+      font-weight: 800;
+      font-family: var(--bodyFont);
+    }
+    .contact-chip strong{
+      color: var(--softInk);
+      line-height: 1.7;
+      font-size: 13.5px;
+      font-weight: 650;
     }
 
-    @media (max-width: 640px){
-      .contact-progress-title{
-        font-size: clamp(24px, 8vw, 32px);
-      }
-      .contact-progress-copy,
-      .contact-section-copy,
-      .contact-aside-copy,
-      .contact-actions-head span{
-        font-size: 13px;
-      }
-      .contact-progress-steps{
-        grid-template-columns: 1fr;
-      }
-      .contact-progress-steps::before{
-        display:none;
-      }
-      .contact-progress-step{
-        grid-template-columns: auto 1fr;
-        justify-items: start;
-        align-items:center;
-        text-align:left;
-        gap: 10px 12px;
-      }
-      .contact-progress-label{
-        gap: 2px;
-      }
-      .contact-section,
-      .contact-aside-card{
-        padding: 18px 16px;
-        border-radius: 20px;
-      }
-    }
+    
+    
+
+
+
+
+
+
+
+
+
 
     .topbar-nav a.nav-blog{
       margin-left:10px;
@@ -2906,6 +2583,24 @@
             <div class="card-scroll" data-scroll>
               <div class="contact-wrap">
 
+                <section class="contact-intro about about--process" aria-label="Convite para contato">
+                  <div class="editorial">
+                    <div class="lead" aria-label="Texto de acolhimento">
+                      <p class="intro-kicker">Contato inicial</p>
+                      <p class="signature">Vamos começar por uma conversa</p>
+                      <div class="divider" aria-hidden="true"></div>
+
+                      <p>
+                        Se você deseja agendar uma sessão ou esclarecer alguma dúvida sobre o atendimento, este pode ser um primeiro contato simples, direto e acolhedor.
+                      </p>
+
+                      <p>
+                        A partir da sua mensagem, será possível orientar o caminho mais adequado para o seu momento.
+                      </p>
+                    </div>
+                  </div>
+                </section>
+
                 <section class="contact-form-shell" aria-label="Formulário de contato">
                   <form
                     class="contact-form"
@@ -2914,138 +2609,139 @@
                     action="/api/contact"
                     autocomplete="on"
                     data-endpoint="/api/contact"
-                    data-whatsapp=""
                   >
-                    <div class="contact-layout">
-                      <div class="contact-main">
-                        <section class="contact-section" aria-label="Identificação">
-                          <div class="contact-section-head">
-                            <h3 class="contact-section-title">Seus dados</h3>
-                          </div>
-
-                          <div class="contact-grid">
-                            <div class="field">
-                              <label for="contactName">Nome</label>
-                              <input
-                                id="contactName"
-                                name="name"
-                                type="text"
-                                placeholder="Seu nome"
-                                required
-                                minlength="2"
-                                maxlength="80"
-                                autocomplete="name"
-                                enterkeyhint="next"
-                              >
-                            </div>
-
-                            <div class="field">
-                              <label for="contactEmail">E-mail</label>
-                              <input
-                                id="contactEmail"
-                                name="email"
-                                type="email"
-                                placeholder="voce@exemplo.com"
-                                required
-                                maxlength="120"
-                                autocomplete="email"
-                                inputmode="email"
-                                enterkeyhint="next"
-                              >
-                            </div>
-
-                            <div class="contact-phone-row field--full">
-                              <div class="field">
-                                <label for="contactPhone">Telefone (opcional)</label>
-                                <input
-                                  id="contactPhone"
-                                  name="phone"
-                                  type="tel"
-                                  placeholder="(00) 00000-0000"
-                                  maxlength="20"
-                                  autocomplete="tel"
-                                  inputmode="tel"
-                                  enterkeyhint="next"
-                                >
-                              </div>
-
-                              <div class="field field--checkbox field--checkbox-inline">
-                                <label class="checkbox-label" for="phoneIsWhatsapp">
-                                  <input type="checkbox" name="phone_is_whatsapp" id="phoneIsWhatsapp" value="sim">
-                                  <span class="checkbox-box"></span>
-                                  <span class="checkbox-text">WhatsApp</span>
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        </section>
-
-                        <section class="contact-section" aria-label="Motivo do contato">
-                          <div class="contact-section-head">
-                            <h3 class="contact-section-title">Motivo do contato</h3>
-                          </div>
-
-                          <div class="field field--full">
-                            <label for="contactReason">Selecione uma opção</label>
-                            <select id="contactReason" name="reason" autocomplete="off" required>
-                              <option value="Agendar sessão" selected>Agendar sessão</option>
-                              <option value="Esclarecer dúvidas">Esclarecer dúvidas</option>
-                            </select>
-                          </div>
-                        </section>
-
-                        <section class="contact-section contact-section--message" aria-label="Mensagem inicial">
-                          <div class="contact-section-head">
-                            <h3 class="contact-section-title">Mensagem</h3>
-                          </div>
-
-                          <div class="field field--full contact-hp" aria-hidden="true">
-                            <label for="contactWebsite">Se você é humano, deixe este campo em branco</label>
-                            <input
-                              id="contactWebsite"
-                              name="website"
-                              type="text"
-                              tabindex="-1"
-                              autocomplete="off"
-                              inputmode="text"
-                            >
-                          </div>
-
-                          <div class="field field--full">
-                            <label for="contactMessage">Mensagem</label>
-                            <textarea
-                              id="contactMessage"
-                              name="message"
-                              placeholder="Escreva sua mensagem"
-                              required
-                              minlength="10"
-                              maxlength="1500"
-                              enterkeyhint="send"
-                            ></textarea>
-                          </div>
-                        </section>
+                    <section class="contact-section" aria-label="Identificação">
+                      <div class="contact-section-head">
+                        <span class="contact-step">Etapa 1</span>
+                        <h3 class="contact-section-title">Seus dados para retorno</h3>
+                        <p class="contact-section-copy">Preencha apenas o essencial. A ideia aqui é facilitar um primeiro contato claro e confortável.</p>
                       </div>
 
-                      <aside class="contact-aside" aria-label="Informações complementares do contato">
-                        <section class="contact-aside-card">
-                          <span class="contact-aside-kicker">Como funciona</span>
-                          <h3 class="contact-aside-title">O que ajuda neste envio</h3>
-                          <ul class="contact-aside-list">
-                            <li>Seu nome e e-mail já são suficientes para retorno.</li>
-                            <li>O telefone pode ser incluído apenas se fizer sentido para você.</li>
-                            <li>Uma mensagem breve já permite orientar o caminho mais adequado.</li>
-                          </ul>
-                        </section>
-                      </aside>
-                    </div>
+                      <div class="contact-grid">
+                        <div class="field">
+                          <label for="contactName">Nome</label>
+                          <input
+                            id="contactName"
+                            name="name"
+                            type="text"
+                            placeholder="Seu nome"
+                            required
+                            minlength="2"
+                            maxlength="80"
+                            autocomplete="name"
+                            enterkeyhint="next"
+                          >
+                        </div>
+
+                        <div class="field">
+                          <label for="contactEmail">E-mail</label>
+                          <input
+                            id="contactEmail"
+                            name="email"
+                            type="email"
+                            placeholder="voce@exemplo.com"
+                            required
+                            maxlength="120"
+                            autocomplete="email"
+                            inputmode="email"
+                            enterkeyhint="next"
+                          >
+                        </div>
+
+                        <div class="field">
+                          <label for="contactPhone">Telefone</label>
+                          <input
+                            id="contactPhone"
+                            name="phone"
+                            type="tel"
+                            placeholder="(00) 00000-0000"
+                            maxlength="20"
+                            autocomplete="tel"
+                            inputmode="tel"
+                            enterkeyhint="next"
+                          >
+                        </div>
+
+                        <div class="field field--checkbox">
+                          <label class="checkbox-label">
+                            <input type="checkbox" name="phone_is_whatsapp" id="phoneIsWhatsapp" value="sim">
+                            <span class="checkbox-box"></span>
+                            <span class="checkbox-text">Este número é WhatsApp</span>
+                          </label>
+                        </div>
+                      </div>
+                    </section>
+
+                    <section class="contact-section" aria-label="Motivo do contato">
+                      <div class="contact-section-head">
+                        <span class="contact-step">Etapa 2</span>
+                        <h3 class="contact-section-title">Como você deseja iniciar</h3>
+                        <p class="contact-section-copy">Escolha a opção que melhor representa sua intenção neste primeiro contato.</p>
+                      </div>
+
+                      <fieldset class="contact-options">
+                        <legend class="contact-options-legend">Motivo do contato</legend>
+                        <div class="contact-options-grid">
+                          <label class="contact-option">
+                            <input type="radio" name="reason" value="Agendar sessão" checked>
+                            <span>Agendar sessão</span>
+                          </label>
+
+                          <label class="contact-option">
+                            <input type="radio" name="reason" value="Esclarecer dúvidas">
+                            <span>Esclarecer dúvidas</span>
+                          </label>
+
+                          <label class="contact-option">
+                            <input type="radio" name="reason" value="Informações sobre atendimento">
+                            <span>Informações sobre atendimento</span>
+                          </label>
+                        </div>
+                      </fieldset>
+                    </section>
+
+                    <section class="contact-section" aria-label="Mensagem inicial">
+                      <div class="contact-section-head">
+                        <span class="contact-step">Etapa 3</span>
+                        <h3 class="contact-section-title">Sua mensagem</h3>
+                        <p class="contact-section-copy">Você pode escrever com simplicidade. Uma breve descrição já ajuda a orientar a resposta de forma mais adequada.</p>
+                      </div>
+
+                      <div class="field field--full contact-hp" aria-hidden="true">
+                        <label for="contactWebsite">Se você é humano, deixe este campo em branco</label>
+                        <input
+                          id="contactWebsite"
+                          name="website"
+                          type="text"
+                          tabindex="-1"
+                          autocomplete="off"
+                          inputmode="text"
+                        >
+                      </div>
+
+                      <div class="field field--full">
+                        <label for="contactMessage">Mensagem</label>
+                        <textarea
+                          id="contactMessage"
+                          name="message"
+                          placeholder="Escreva sua mensagem"
+                          required
+                          minlength="10"
+                          maxlength="1500"
+                          enterkeyhint="send"
+                        ></textarea>
+                      </div>
+                    </section>
 
                     <div class="contact-actions">
+                      <div class="contact-actions-head">
+                        <strong>Envio protegido em preparação</strong>
+                        <span>Este formulário já está organizado para a futura rota segura do site, com validação reforçada e campo anti-bot básico.</span>
+                      </div>
+
                       <div class="contact-buttons">
-                        <button type="submit" class="contact-btn contact-btn--primary" data-contact-submit>
-                          Enviar por e-mail
-                        </button>
-                        <button type="button" class="contact-btn contact-btn--ghost" id="contactWhatsappBtn">
-                          Enviar por WhatsApp
+                        <button type="submit" class="contact-btn contact-btn--wa" data-contact-submit>
+                          Enviar mensagem
                         </button>
                       </div>
 
@@ -4187,9 +3883,7 @@
 
         const status = document.getElementById("contactStatus");
         const submitBtn = form.querySelector("[data-contact-submit]");
-        const whatsappBtn = document.getElementById("contactWhatsappBtn");
         const endpoint = form.getAttribute("action") || form.dataset.endpoint || "/api/contact";
-        const whatsappTarget = String(form.dataset.whatsapp || "").replace(/\D/g, "");
 
         const setStatus = (message, tone = "error") => {
           if(!status) return;
@@ -4199,11 +3893,9 @@
         };
 
         const setBusy = (busy) => {
-          if(submitBtn){
-            submitBtn.disabled = busy;
-            submitBtn.textContent = busy ? "Enviando..." : "Enviar por e-mail";
-          }
-          if(whatsappBtn) whatsappBtn.disabled = busy;
+          if(!submitBtn) return;
+          submitBtn.disabled = busy;
+          submitBtn.textContent = busy ? "Enviando..." : "Enviar mensagem";
         };
 
         const sanitizeText = (value, max = 1500) =>
@@ -4217,7 +3909,6 @@
           name: sanitizeText(form.elements.name?.value, 80),
           email: sanitizeText(form.elements.email?.value, 120).toLowerCase(),
           phone: sanitizeText(form.elements.phone?.value, 20),
-          phone_is_whatsapp: Boolean(form.elements.phone_is_whatsapp?.checked),
           reason: sanitizeText(form.elements.reason?.value || "Agendar sessão", 80),
           message: sanitizeText(form.elements.message?.value, 1500),
           website: sanitizeText(form.elements.website?.value, 120)
@@ -4258,31 +3949,6 @@
           setStatus("");
           return true;
         };
-
-
-        if(whatsappBtn){
-          whatsappBtn.addEventListener("click", () => {
-            const data = collectData();
-            if(!validate(data)) return;
-
-            if(!whatsappTarget){
-              setStatus("O botão do WhatsApp já está pronto no layout, mas o número ainda precisa ser configurado no arquivo.", "warn");
-              return;
-            }
-
-            const chunks = [
-              `Olá, me chamo ${data.name}.`,
-              `Motivo do contato: ${data.reason}.`,
-              data.phone ? `Telefone: ${data.phone}${data.phone_is_whatsapp ? ' (WhatsApp)' : ''}.` : "",
-              data.email ? `E-mail: ${data.email}.` : "",
-              data.message
-            ].filter(Boolean);
-
-            const message = encodeURIComponent(chunks.join("\n"));
-            window.open(`https://wa.me/${whatsappTarget}?text=${message}`, "_blank", "noopener");
-            setStatus("Abrindo WhatsApp...", "ok");
-          });
-        }
 
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
