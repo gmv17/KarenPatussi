@@ -2852,7 +2852,48 @@
             <h2 class="card-title">Como funciona</h2>
 
             <div class="card-scroll" data-scroll>
-              <!-- conteúdo removido propositalmente -->
+              
+<div class="cf-wrap">
+  <p class="cf-intro">
+    Um espaço de escuta qualificada, com rigor técnico e acolhimento.
+    Aqui você encontra respostas para entender como funciona o processo terapêutico.
+  </p>
+
+  <div class="cf-tabs">
+    <button class="cf-tab active" data-tab="geral">Visão geral</button>
+    <button class="cf-tab" data-tab="abordagens">Abordagens</button>
+  </div>
+
+  <div class="cf-content active" data-content="geral">
+    <div class="cf-item"><strong>Como funciona o acompanhamento?</strong><p>É um espaço de cuidado e escuta qualificada, com base científica e ética.</p></div>
+    <div class="cf-item"><strong>Como são as sessões?</strong><p>Definimos frequência, duração e objetivos no início do processo.</p></div>
+    <div class="cf-item"><strong>Atendimento online é eficaz?</strong><p>Sim, com o mesmo rigor técnico do presencial.</p></div>
+    <div class="cf-item"><strong>Sigilo e segurança</strong><p>O sigilo profissional é garantido.</p></div>
+  </div>
+
+  <div class="cf-content" data-content="abordagens">
+    <div class="cf-subtabs">
+      <button class="cf-subtab active" data-sub="psico">Psicoterapia</button>
+      <button class="cf-subtab" data-sub="sistemica">Sistêmica</button>
+      <button class="cf-subtab" data-sub="sexual">Sexual</button>
+      <button class="cf-subtab" data-sub="emdr">EMDR</button>
+    </div>
+
+    <div class="cf-subcontent active" data-subcontent="psico">
+      <p>Processo clínico para compreender emoções e padrões.</p>
+    </div>
+    <div class="cf-subcontent" data-subcontent="sistemica">
+      <p>Foco nas relações e dinâmicas entre pessoas.</p>
+    </div>
+    <div class="cf-subcontent" data-subcontent="sexual">
+      <p>Aborda aspectos emocionais e subjetivos da sexualidade.</p>
+    </div>
+    <div class="cf-subcontent" data-subcontent="emdr">
+      <p>Reprocessamento de memórias traumáticas.</p>
+    </div>
+  </div>
+</div>
+
             </div>
           </div>
         </article>
@@ -4458,6 +4499,26 @@
 })();
 
 </script>
+
+<script>
+document.querySelectorAll('.cf-tab').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.cf-tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.cf-content').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelector('[data-content="'+btn.dataset.tab+'"]').classList.add('active');
+  }
+});
+document.querySelectorAll('.cf-subtab').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.cf-subtab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.cf-subcontent').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelector('[data-subcontent="'+btn.dataset.sub+'"]').classList.add('active');
+  }
+});
+</script>
+
 </body>
 </html>
 <style>
