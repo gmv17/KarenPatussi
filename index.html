@@ -2800,9 +2800,7 @@
 
 
 
-
-
-
+/* ===== FIX ICON CLEAN ===== */
 .cf-question::before,
 .cf-question::after{
   content:"";
@@ -2813,28 +2811,28 @@
   height:2.6px;
   border-radius:999px;
   background: var(--brand);
-  transform-origin:center center;
-  transition:
-    transform .32s cubic-bezier(.16,1,.18,1),
-    opacity .22s ease;
+  transform-origin:center;
+  transition: transform .3s cubic-bezier(.16,1,.18,1), opacity .2s ease;
 }
 
+/* horizontal */
 .cf-question::before{
-  transform:translateY(-50%) rotate(0deg);
+  transform:translateY(-50%);
 }
 
+/* vertical */
 .cf-question::after{
   transform:translateY(-50%) rotate(90deg);
 }
 
-.cf-item.is-open .cf-question::before{
-  transform:translateY(-50%) rotate(0deg);
-}
-
+/* aberto → some vertical = vira "-" */
 .cf-item.is-open .cf-question::after{
-  transform:translateY(-50%) rotate(90deg) scaleX(0);
   opacity:0;
+  transform:translateY(-50%) rotate(90deg) scaleX(0);
 }
+.cf-item.is-open 
+
+
 .cf-answer{
   display:grid;
   grid-template-rows:0fr;
@@ -3252,7 +3250,7 @@
   <section class="cf-pane is-active" data-cf-pane="geral">
     <div class="cf-accordion">
 
-      <div class="cf-item">
+      <div class="cf-item is-open">
         <button class="cf-question">Como são as sessões?</button>
         <div class="cf-answer"><div class="cf-answer-inner">
           <p>No início, estabelecemos um acordo claro sobre a frequência, a duração das sessões e os objetivos do seu processo. O tempo de cada encontro é planejado para garantir a máxima qualidade no seu atendimento.</p>
@@ -3316,7 +3314,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
 <div class="cf-accordion">
 
-<div class="cf-item">
+<div class="cf-item is-open">
 <button class="cf-question">O que é e para que serve a psicoterapia?</button>
 <div class="cf-answer"><div class="cf-answer-inner">
 <p>É um processo clínico que auxilia na compreensão do sofrimento e na identificação de padrões repetitivos. O objetivo é desenvolver formas mais saudáveis de lidar com emoções, crises e conflitos, promovendo autoconhecimento e regulação emocional.</p>
@@ -5265,21 +5263,9 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 }
 
 
-.cf-question::after{
-  content:"+";
-  position:absolute;
-  right:18px;
-  top:50%;
-  transform:translateY(-50%);
-  font:800 24px/1 var(--titleFont); /* mais grosso */
-  color: var(--brand);
-  transition: transform .22s ease, opacity .22s ease;
-}
 
-.cf-item.is-open .cf-question::after{
-  content:"−";
-  color: var(--brand);
-}
+
+.cf-item.is-open 
 
 
 .cf-answer{
