@@ -576,7 +576,7 @@
     .menu-btn{
       appearance: none;
       border: 1px solid rgba(0,0,0,.08);
-      background: rgba(255,255,255,.58);
+      background: rgba(255,255,255,.52);
       border-radius: 999px;
       padding: 10px 12px;
       display:flex;
@@ -2043,8 +2043,8 @@
       background-size: 12px 8px;
     }
     .field select:focus{
-      border-color: rgba(26,93,102,.30);
-      box-shadow: 0 0 0 4px rgba(26,93,102,.08);
+      border-color: rgba(26,93,102,.55);
+      box-shadow: 0 0 0 3px rgba(26,93,102,.12);
       background-color: rgba(255,255,255,.99);
     }
     .field input::placeholder,
@@ -2053,8 +2053,8 @@
     }
     .field input:focus,
     .field textarea:focus{
-      border-color: rgba(26,93,102,.30);
-      box-shadow: 0 0 0 4px rgba(26,93,102,.08);
+      border-color: rgba(26,93,102,.55);
+      box-shadow: 0 0 0 3px rgba(26,93,102,.12);
       background: rgba(255,255,255,.99);
     }
 
@@ -2777,12 +2777,19 @@
   gap:10px;
 }
 .cf-item{
-  border-radius:18px;
+  border-radius:20px;
   background: rgba(255,255,255,.58);
-  border:1px solid rgba(0,0,0,.045);
-  box-shadow: 0 10px 22px rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.04);
+  box-shadow: 0 8px 20px rgba(0,0,0,.035);
   overflow:hidden;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
+
+.cf-answer-inner{
+  background: transparent;
+}
+
 .cf-question{
   width:100%;
   appearance:none;
@@ -2851,7 +2858,7 @@
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
 
-  background: rgba(26,93,102,.10);
+  background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
 
@@ -2936,7 +2943,7 @@
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
 
-  background: rgba(26,93,102,.10);
+  background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
 
@@ -2989,7 +2996,7 @@
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
 
-  background: rgba(26,93,102,.10);
+  background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
 
@@ -3032,7 +3039,7 @@
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
 
-  background: rgba(26,93,102,.10);
+  background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
 
@@ -3079,18 +3086,6 @@
     padding:10px 14px;
     font-size:10.5px;
   }
-}
-
-
-.cf-hero,
-.cf-item{
-  background: rgba(255,255,255,.58) !important;
-  border: 1px solid rgba(0,0,0,.04);
-  box-shadow: 0 8px 20px rgba(0,0,0,.035);
-}
-
-.cf-answer-inner{
-  background: transparent;
 }
 
 </style>
@@ -5320,12 +5315,19 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   gap:10px;
 }
 .cf-item{
-  border-radius:18px;
+  border-radius:20px;
   background: rgba(255,255,255,.58);
-  border:1px solid rgba(0,0,0,.045);
-  box-shadow: 0 10px 22px rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.04);
+  box-shadow: 0 8px 20px rgba(0,0,0,.035);
   overflow:hidden;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
+
+.cf-answer-inner{
+  background: transparent;
+}
+
 .cf-question{
   width:100%;
   appearance:none;
@@ -5388,7 +5390,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
 
-  background: rgba(26,93,102,.10);
+  background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
 
@@ -5431,7 +5433,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
 
-  background: rgba(26,93,102,.10);
+  background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
 
@@ -5484,7 +5486,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
 
-  background: rgba(26,93,102,.10);
+  background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
 
@@ -5527,7 +5529,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
 
-  background: rgba(26,93,102,.10);
+  background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
 
@@ -5574,18 +5576,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
     padding:10px 14px;
     font-size:10.5px;
   }
-}
-
-
-.cf-hero,
-.cf-item{
-  background: rgba(255,255,255,.58) !important;
-  border: 1px solid rgba(0,0,0,.04);
-  box-shadow: 0 8px 20px rgba(0,0,0,.035);
-}
-
-.cf-answer-inner{
-  background: transparent;
 }
 
 </style>
