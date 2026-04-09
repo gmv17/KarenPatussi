@@ -3039,6 +3039,59 @@
   }
 }
 
+
+
+/* ===== COMO FUNCIONA · subclassificações sutis ===== */
+.cf-intro-note{
+  margin: 10px 0 18px;
+  color: var(--softInk);
+  font-size: 14px;
+  line-height: 1.82;
+  font-weight: 500;
+  max-width: 74ch;
+}
+
+.cf-group-label{
+  margin: 22px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cf-group-label span{
+  color: rgba(26,93,102,.72);
+  font: 600 10.5px/1 var(--bodyFont);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cf-group-label::after{
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(26,93,102,.14);
+  border-radius: 999px;
+}
+
+@media (max-width: 979.98px){
+  .cf-intro-note{
+    margin: 8px 0 16px;
+    font-size: 14px;
+    line-height: 1.76;
+  }
+
+  .cf-group-label{
+    margin: 18px 0 8px;
+    gap: 8px;
+  }
+
+  .cf-group-label span{
+    font-size: 10px;
+    letter-spacing: .12em;
+  }
+}
+
 </style>
 </head>
 
@@ -3301,9 +3354,9 @@
   </section>
 
   <section class="cf-pane" data-cf-pane="abordagens">
-    <p class="cf-section-note">Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de atuação. Para tornar mais didático, os apresentarei separadamente, ainda que não se deem de forma separada nos acompanhamentos.</p>
+    <p class="cf-intro-note">Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de atuação. Para tornar mais didático, os apresentarei separadamente, ainda que não se deem de forma separada nos acompanhamentos.</p>
 
-    <p class="cf-section-note"><strong>FAQ — Psicoterapia</strong></p>
+    <div class="cf-group-label" aria-hidden="true"><span>Psicoterapia</span></div>
     <div class="cf-accordion">
       <div class="cf-item">
         <button class="cf-question">O que é e para que serve a psicoterapia?</button>
@@ -3337,7 +3390,7 @@
       </div>
     </div>
 
-    <p class="cf-section-note"><strong>FAQ — Terapia Sistêmica</strong></p>
+    <div class="cf-group-label" aria-hidden="true"><span>Terapia Sistêmica</span></div>
     <div class="cf-accordion">
       <div class="cf-item">
         <button class="cf-question">Qual o diferencial da abordagem sistêmica?</button>
@@ -3365,7 +3418,7 @@
       </div>
     </div>
 
-    <p class="cf-section-note"><strong>FAQ — Terapia Sexual</strong></p>
+    <div class="cf-group-label" aria-hidden="true"><span>Terapia Sexual</span></div>
     <div class="cf-accordion">
       <div class="cf-item">
         <button class="cf-question">O que define a terapia sexual?</button>
@@ -3405,7 +3458,7 @@
       </div>
     </div>
 
-    <p class="cf-section-note"><strong>FAQ — Terapia EMDR</strong></p>
+    <div class="cf-group-label" aria-hidden="true"><span>EMDR</span></div>
     <div class="cf-accordion">
       <div class="cf-item">
         <button class="cf-question">O que é o EMDR e qual seu objetivo?</button>
