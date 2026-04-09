@@ -2797,30 +2797,44 @@
 }
 
 
+
+
+
+
+
+
+.cf-question::before,
 .cf-question::after{
-  content:"+";
+  content:"";
   position:absolute;
   right:18px;
   top:50%;
-  transform:translateY(-50%) rotate(0deg) scaleX(1);
+  width:16px;
+  height:2.6px;
+  border-radius:999px;
+  background: var(--brand);
   transform-origin:center center;
-  display:inline-block;
-  font-family: var(--titleFont);
-  font-weight: 900;
-  font-size: 26px;
-  line-height: 1;
-  color: var(--brand);
-  text-shadow:
-    0 0 0.2px currentColor,
-    0 0 0.2px currentColor;
-  transition: transform .32s cubic-bezier(.16,1,.18,1);
+  transition:
+    transform .32s cubic-bezier(.16,1,.18,1),
+    opacity .22s ease;
+}
+
+.cf-question::before{
+  transform:translateY(-50%) rotate(0deg);
+}
+
+.cf-question::after{
+  transform:translateY(-50%) rotate(90deg);
+}
+
+.cf-item.is-open .cf-question::before{
+  transform:translateY(-50%) rotate(0deg);
 }
 
 .cf-item.is-open .cf-question::after{
-  transform:translateY(-50%) rotate(90deg) scaleX(0.55);
+  transform:translateY(-50%) rotate(90deg) scaleX(0);
+  opacity:0;
 }
-
-
 .cf-answer{
   display:grid;
   grid-template-rows:0fr;
