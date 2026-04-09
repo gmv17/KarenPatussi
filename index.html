@@ -2797,40 +2797,34 @@
 }
 
 
-
-
-
-/* ===== FIX ICON CLEAN ===== */
 .cf-question::before,
 .cf-question::after{
   content:"";
   position:absolute;
   right:18px;
   top:50%;
-  width:16px;
-  height:2.6px;
+  width:14px;
+  height:1.8px;
   border-radius:999px;
   background: var(--brand);
   transform-origin:center;
-  transition: transform .3s cubic-bezier(.16,1,.18,1), opacity .2s ease;
+  transition:
+    transform .24s cubic-bezier(.16,1,.18,1),
+    opacity .18s ease;
 }
 
-/* horizontal */
 .cf-question::before{
   transform:translateY(-50%);
 }
 
-/* vertical */
 .cf-question::after{
   transform:translateY(-50%) rotate(90deg);
 }
 
-/* aberto → some vertical = vira "-" */
 .cf-item.is-open .cf-question::after{
   opacity:0;
-  transform:translateY(-50%) rotate(90deg) scaleX(0);
+  transform:translateY(-50%) rotate(90deg) scaleX(.35);
 }
-.cf-item.is-open 
 
 
 .cf-answer{
@@ -5263,9 +5257,21 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 }
 
 
+.cf-question::after{
+  content:"+";
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font:800 24px/1 var(--titleFont); /* mais grosso */
+  color: var(--brand);
+  transition: transform .22s ease, opacity .22s ease;
+}
 
-
-.cf-item.is-open 
+.cf-item.is-open .cf-question::after{
+  content:"−";
+  color: var(--brand);
+}
 
 
 .cf-answer{
