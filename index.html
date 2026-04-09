@@ -2797,33 +2797,26 @@
 }
 
 
-.cf-question::before,
 .cf-question::after{
-  content:"";
+  content:"+";
   position:absolute;
   right:18px;
   top:50%;
-  width:14px;
-  height:1.8px;
-  border-radius:999px;
-  background: var(--brand);
-  transform-origin:center;
-  transition:
-    transform .24s cubic-bezier(.16,1,.18,1),
-    opacity .18s ease;
-}
-
-.cf-question::before{
-  transform:translateY(-50%);
-}
-
-.cf-question::after{
-  transform:translateY(-50%) rotate(90deg);
+  transform:translateY(-50%) rotate(0deg);
+  font-family: var(--titleFont);
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--brand);
+  text-shadow:
+    0 0 0.2px currentColor,
+    0 0 0.2px currentColor;
+  transition: transform .28s cubic-bezier(.16,1,.18,1), opacity .22s ease;
 }
 
 .cf-item.is-open .cf-question::after{
-  opacity:0;
-  transform:translateY(-50%) rotate(90deg) scaleX(.35);
+  content:"−";
+  transform:translateY(-50%) rotate(90deg);
 }
 
 
@@ -3244,7 +3237,7 @@
   <section class="cf-pane is-active" data-cf-pane="geral">
     <div class="cf-accordion">
 
-      <div class="cf-item is-open">
+      <div class="cf-item">
         <button class="cf-question">Como são as sessões?</button>
         <div class="cf-answer"><div class="cf-answer-inner">
           <p>No início, estabelecemos um acordo claro sobre a frequência, a duração das sessões e os objetivos do seu processo. O tempo de cada encontro é planejado para garantir a máxima qualidade no seu atendimento.</p>
@@ -3308,7 +3301,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
 <div class="cf-accordion">
 
-<div class="cf-item is-open">
+<div class="cf-item">
 <button class="cf-question">O que é e para que serve a psicoterapia?</button>
 <div class="cf-answer"><div class="cf-answer-inner">
 <p>É um processo clínico que auxilia na compreensão do sofrimento e na identificação de padrões repetitivos. O objetivo é desenvolver formas mais saudáveis de lidar com emoções, crises e conflitos, promovendo autoconhecimento e regulação emocional.</p>
