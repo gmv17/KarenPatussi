@@ -2563,32 +2563,48 @@
       overflow: hidden;
       isolation: isolate;
       min-width: min(100%, 240px);
-      background: rgba(255,255,255,.96);
+      background: linear-gradient(180deg, rgba(255,255,255,.985), rgba(252,255,255,.94));
       color: var(--brand);
-      border-color: rgba(26,93,102,.30);
+      border: 1px solid rgba(26,93,102,.34);
       box-shadow:
         0 8px 18px rgba(0,0,0,.035),
-        0 0 0 1px rgba(255,255,255,.52) inset;
+        inset 0 0 0 1px rgba(255,255,255,.62);
     }
     .contact-btn--primary::before{
       content:"";
       position:absolute;
-      top:0;
-      left:-130%;
-      width:58%;
-      height:100%;
+      inset:-18% auto -18% -38%;
+      width:42%;
       pointer-events:none;
       background: linear-gradient(
         110deg,
         transparent 0%,
-        rgba(26,93,102,.03) 18%,
-        rgba(26,93,102,.10) 50%,
-        rgba(26,93,102,.03) 82%,
+        rgba(26,93,102,0) 18%,
+        rgba(26,93,102,.07) 34%,
+        rgba(255,255,255,.88) 50%,
+        rgba(26,93,102,.11) 66%,
+        rgba(26,93,102,0) 82%,
         transparent 100%
       );
-      transform: skewX(-18deg);
-      transition: transform .95s cubic-bezier(.16,1,.18,1);
+      filter: blur(6px);
+      opacity: .9;
+      transform: translateX(-170%) skewX(-18deg);
+      transition: transform .95s cubic-bezier(.16,1,.18,1), opacity .3s ease;
       z-index: 0;
+      animation: agendamentoGlow 4.8s cubic-bezier(.16,1,.18,1) infinite;
+    }
+    @keyframes agendamentoGlow{
+      0%, 64%{
+        transform: translateX(-170%) skewX(-18deg);
+        opacity: 0;
+      }
+      72%{
+        opacity: .92;
+      }
+      100%{
+        transform: translateX(430%) skewX(-18deg);
+        opacity: 0;
+      }
     }
     .contact-btn--primary > *{
       position: relative;
@@ -2597,15 +2613,17 @@
     .contact-btn--primary:hover,
     .contact-btn--primary:focus-visible{
       color: var(--brand);
-      background: rgba(255,255,255,.99);
-      border-color: rgba(26,93,102,.42);
+      background: linear-gradient(180deg, rgba(255,255,255,.998), rgba(250,255,255,.96));
+      border-color: rgba(26,93,102,.46);
       box-shadow:
         0 12px 24px rgba(26,93,102,.08),
-        0 0 0 1px rgba(255,255,255,.60) inset;
+        inset 0 0 0 1px rgba(255,255,255,.70);
     }
     .contact-btn--primary:hover::before,
     .contact-btn--primary:focus-visible::before{
-      transform: translateX(285%) skewX(-18deg);
+      transform: translateX(430%) skewX(-18deg);
+      opacity: .96;
+      animation-play-state: paused;
     }
     .contact-btn--ghost{
       min-width: min(100%, 210px);
