@@ -4969,13 +4969,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         });
       }
 
-      /* ── Nav active highlight ── */
-      function updateNavActive(index){
-        document.querySelectorAll("a[data-link]").forEach(a => {
-          const i = parseInt(a.getAttribute("data-index"), 10);
-          a.classList.toggle("nav-active", i === index);
-        });
-      }
+      
 
       /* =========================
          HERO: 1 scroll = nome some; frase some automaticamente
@@ -5546,6 +5540,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         setLock();
         pendingDir = +1;
         returnToHeroAfterClose = false;
+        updateNavActive(clamp(sceneIndex + 1, 0, cards.length - 1));
         closeScene();
       }
 
@@ -5557,6 +5552,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           setLock();
           pendingDir = -1;
           returnToHeroAfterClose = true;
+          updateNavActive(-1);
           closeScene();
           return;
         }
@@ -5564,6 +5560,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         setLock();
         pendingDir = -1;
         returnToHeroAfterClose = false;
+        updateNavActive(clamp(sceneIndex - 1, 0, cards.length - 1));
         closeScene();
       }
 
@@ -5910,6 +5907,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
         sceneIndex = clamp(i, 0, cards.length - 1);
         returnToHeroAfterClose = false;
+        updateNavActive(sceneIndex);
 
         setLock();
         p = 0; pTarget = 1;
