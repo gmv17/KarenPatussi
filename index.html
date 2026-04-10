@@ -2559,16 +2559,53 @@
       outline: none;
     }
     .contact-btn--primary{
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
       min-width: min(100%, 240px);
-      background: rgba(26,93,102,.94);
-      color: #fff;
-      border-color: rgba(26,93,102,.94);
-      box-shadow: 0 10px 22px rgba(26,93,102,.16);
+      background: rgba(255,255,255,.96);
+      color: var(--brand);
+      border-color: rgba(26,93,102,.30);
+      box-shadow:
+        0 8px 18px rgba(0,0,0,.035),
+        0 0 0 1px rgba(255,255,255,.52) inset;
+    }
+    .contact-btn--primary::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:-130%;
+      width:58%;
+      height:100%;
+      pointer-events:none;
+      background: linear-gradient(
+        110deg,
+        transparent 0%,
+        rgba(26,93,102,.03) 18%,
+        rgba(26,93,102,.10) 50%,
+        rgba(26,93,102,.03) 82%,
+        transparent 100%
+      );
+      transform: skewX(-18deg);
+      transition: transform .95s cubic-bezier(.16,1,.18,1);
+      z-index: 0;
+    }
+    .contact-btn--primary > *{
+      position: relative;
+      z-index: 1;
     }
     .contact-btn--primary:hover,
     .contact-btn--primary:focus-visible{
-      box-shadow: 0 14px 28px rgba(26,93,102,.20);
-      background: rgba(22,82,90,.98);
+      color: var(--brand);
+      background: rgba(255,255,255,.99);
+      border-color: rgba(26,93,102,.42);
+      box-shadow:
+        0 12px 24px rgba(26,93,102,.08),
+        0 0 0 1px rgba(255,255,255,.60) inset;
+    }
+    .contact-btn--primary:hover::before,
+    .contact-btn--primary:focus-visible::before{
+      transform: translateX(285%) skewX(-18deg);
     }
     .contact-btn--ghost{
       min-width: min(100%, 210px);
@@ -3726,40 +3763,6 @@
   }
 }
 
-
-/* ===== Destaque sutil no menu (Agendamento) ===== */
-@media (min-width: 980px){
-.topbar-nav a.nav-cta-subtle{
-  position: relative;
-  padding: 6px 12px;
-  border-radius: 8px;
-  background: rgba(26,93,102,.08);
-  border: 1px solid rgba(26,93,102,.18);
-  transition: all .25s ease;
-}
-
-.topbar-nav a.nav-cta-subtle:hover,
-.topbar-nav a.nav-cta-subtle:focus-visible{
-  background: rgba(26,93,102,.14);
-  border-color: rgba(26,93,102,.28);
-}
-}
-
-/* ===== Destaque por profundidade no card Agendamento ===== */
-.contact-form-shell{
-  box-shadow:
-    0 28px 70px rgba(0,0,0,.10),
-    0 8px 24px rgba(26,93,102,.10);
-  transition: transform .3s ease, box-shadow .3s ease;
-}
-
-.contact-form-shell:hover{
-  transform: translateY(-3px);
-  box-shadow:
-    0 34px 90px rgba(0,0,0,.12),
-    0 12px 28px rgba(26,93,102,.12);
-}
-
 </style>
 </head>
 
@@ -3793,7 +3796,7 @@
       <a href="#sobre" data-link data-index="0">Sobre</a>
       <a href="#areas-de-atuacao" data-link data-index="1">Áreas de atuação</a>
       <a href="#como-funciona" data-link data-index="2">Como funciona</a>
-      <a href="#agendar-sessao" data-link data-index="3" class="nav-cta-subtle">Agendar sessão</a>
+      <a href="#agendar-sessao" data-link data-index="3">Agendar sessão</a>
       <a href="blog.html" class="nav-blog">Além da sessão</a>
     </nav>
 
@@ -3824,7 +3827,7 @@
         <a href="#sobre" data-link data-index="0">Sobre</a>
         <a href="#areas-de-atuacao" data-link data-index="1">Áreas de atuação</a>
         <a href="#como-funciona" data-link data-index="2">Como funciona</a>
-        <a href="#agendar-sessao" data-link data-index="3" class="nav-cta-subtle">Agendar sessão</a>
+        <a href="#agendar-sessao" data-link data-index="3">Agendar sessão</a>
         <a href="blog.html" class="nav-blog">Além da sessão</a>
       </nav>
 
