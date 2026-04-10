@@ -4095,6 +4095,22 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       links.forEach((a, i) => a.style.setProperty("--i", String(i)));
 
+      function scrollExpandedCardIntoView(card){
+        if(!card || !isMobileLayout()) return;
+
+        const headerOffset = getNumVar("--headerH", 56) + 24;
+        const rect = card.getBoundingClientRect();
+        const targetTop = window.scrollY + rect.top - headerOffset;
+        const maxTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const nextTop = clamp(targetTop, 0, maxTop);
+
+        window.requestAnimationFrame(() => {
+          window.setTimeout(() => {
+            window.scrollTo({ top: nextTop, behavior: "smooth" });
+          }, 70);
+        });
+      }
+
       function setupMobileCardToggles(){
         cards.forEach((card, index) => {
           const scroll = card.querySelector(".card-scroll");
@@ -4121,6 +4137,10 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
               const expanded = card.classList.toggle("is-expanded");
               toggle.setAttribute("aria-expanded", String(expanded));
               toggle.textContent = expanded ? "Ver menos" : "Ver mais";
+
+              if(expanded){
+                scrollExpandedCardIntoView(card);
+              }
             });
             toggle.dataset.bound = "true";
           }
