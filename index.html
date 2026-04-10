@@ -1254,56 +1254,59 @@
     @media (max-width: 720px){
       .story-block,
       .story-block--reverse{
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
-  align-items:start;
-  justify-items:end; /* força direita */
-}
+        grid-template-columns: 1fr;
+        gap: 14px;
+        align-items: stretch;
+        justify-items: stretch;
+        padding: 18px 16px;
+      }
+
+      .story-block--reverse .story-video{
+        order: 1;
+      }
+
+      .story-block--reverse .story-copy{
+        order: 2;
+      }
 
       .story-media,
       .story-video{
-  display:block;
-  aspect-ratio: 5 / 8;
-  min-height:240px;
-  max-height:380px;
-  overflow:hidden;
-  margin-left:auto;
-  margin-top:40px;
-  border-radius:8px; /* sutil */
-}
+        display:block;
+        aspect-ratio: 5 / 8;
+        width: 100%;
+        max-width: 320px;
+        min-height: 240px;
+        max-height: 380px;
+        overflow:hidden;
+        margin: 0 auto;
+        border-radius: 8px;
+      }
 
       .story-media{
-  position: relative;
-  border-radius:8px; /* sutil */
-  overflow:hidden;
-  box-shadow: 0 10px 24px rgba(0,0,0,.06);
-  background: linear-gradient(180deg, rgba(26,93,102,.08), rgba(26,93,102,.14));
-  min-height: 220px;
-}
+        position: relative;
+        overflow:hidden;
+        box-shadow: 0 10px 24px rgba(0,0,0,.06);
+        background: linear-gradient(180deg, rgba(26,93,102,.08), rgba(26,93,102,.14));
+        min-height: 220px;
+      }
 
-      .story-video{
-  display:block;
-  aspect-ratio: 5 / 8;
-  min-height:240px;
-  max-height:380px;
-  overflow:hidden;
-  margin-left:auto;
-  margin-top:40px;
-  border-radius:8px; /* sutil */
-}
+      .story-copy{
+        width: 100%;
+      }
 
       .story-copy .signature{
         font-size: clamp(28px, 8vw, 38px);
       }
 
       .story-copy .story-title{
-  color: var(--brand); /* mesma cor do titulo principal */
-  font-family: var(--titleFont);
-  font-weight: 600;
-  font-size: clamp(28px, 2.5vw, 42px);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-  margin: 0 0 14px;
-}
+        color: var(--brand);
+        font-family: var(--titleFont);
+        font-weight: 600;
+        font-size: clamp(28px, 2.5vw, 42px);
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        margin: 0 0 14px;
+      }
 
       .story-copy .divider{
         margin-bottom: 14px;
