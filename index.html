@@ -3310,6 +3310,78 @@
   display: none;
 }
 
+
+
+/* ===== COMO FUNCIONA · padrão mobile alinhado com Áreas de atuação ===== */
+@media (max-width: 979.98px){
+  .cf-item{
+    padding: 0;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .cf-question{
+    width: 100%;
+    min-height: 64px;
+    padding: 18px 48px 18px 16px;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+    color: rgba(20,28,32,.88);
+    font: 700 15px/1.55 var(--bodyFont);
+    letter-spacing: 0;
+  }
+  .cf-question::after{
+    content: "+";
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--titleFont);
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--brand);
+    text-shadow: 0 0 0.2px currentColor, 0 0 0.2px currentColor;
+    transition: transform .28s cubic-bezier(.16,1,.18,1), opacity .22s ease;
+  }
+  .cf-item.is-open .cf-question::after{
+    content: "−";
+  }
+  .cf-answer{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .28s ease;
+  }
+  .cf-item.is-open .cf-answer{
+    grid-template-rows: 1fr;
+  }
+  .cf-answer-inner{
+    overflow: hidden;
+    background: transparent;
+  }
+  .cf-answer-inner p{
+    margin: 0;
+    padding: 0 16px 18px;
+    color: var(--softInk);
+    font-size: 14px;
+    line-height: 1.8;
+    font-weight: 500;
+  }
+  .cf-answer-inner ul{
+    margin: 0;
+    padding: 0 16px 18px 32px;
+    color: var(--softInk);
+    font-size: 14px;
+    line-height: 1.8;
+    font-weight: 500;
+  }
+  .cf-answer-inner li + li{
+    margin-top: 6px;
+  }
+}
+
 </style>>
 </head>
 
@@ -5559,12 +5631,33 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
     });
   });
 
+  const mobileQuery = window.matchMedia('(max-width: 979.98px)');
+
+  const syncCfState = () => {
+    root.querySelectorAll('.cf-item').forEach((item) => {
+      const btn = item.querySelector('.cf-question');
+      if(!btn) return;
+      const isOpen = item.classList.contains('is-open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  };
+
   root.querySelectorAll('.cf-question').forEach((btn) => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.cf-item');
-      if(item) item.classList.toggle('is-open');
+      if(!item) return;
+      item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', item.classList.contains('is-open') ? 'true' : 'false');
     });
   });
+
+  if(typeof mobileQuery.addEventListener === 'function'){
+    mobileQuery.addEventListener('change', syncCfState);
+  } else if(typeof mobileQuery.addListener === 'function'){
+    mobileQuery.addListener(syncCfState);
+  }
+
+  syncCfState();
 })();
 </script>
 
