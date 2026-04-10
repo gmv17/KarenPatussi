@@ -1689,6 +1689,133 @@
         scroll-margin-top: calc(var(--headerH) + var(--safeT) + 18px);
       }
     }
+
+
+    .mobile-card-backdrop,
+    .mobile-card-shell{
+      display:none;
+    }
+
+    @media (max-width: 979.98px){
+      body.mobile-card-open{
+        overflow: hidden !important;
+        touch-action: none;
+      }
+      .mobile-card-backdrop{
+        position: fixed;
+        inset: 0;
+        z-index: 1180;
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        background:
+          radial-gradient(900px 620px at 50% 18%, rgba(255,255,255,.12), rgba(255,255,255,0) 62%),
+          rgba(10,12,14,.22);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: opacity 280ms cubic-bezier(.16,1,.18,1), visibility 280ms cubic-bezier(.16,1,.18,1);
+      }
+      .mobile-card-shell{
+        position: fixed;
+        inset:
+          calc(var(--safeT) + 8px)
+          calc(var(--safeR) + 10px)
+          calc(var(--safeB) + 10px)
+          calc(var(--safeL) + 10px);
+        z-index: 1190;
+        display: grid;
+        align-items: stretch;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translate3d(0, 20px, 0) scale(.985);
+        transition:
+          opacity 320ms cubic-bezier(.16,1,.18,1),
+          transform 320ms cubic-bezier(.16,1,.18,1),
+          visibility 320ms cubic-bezier(.16,1,.18,1);
+      }
+      .mobile-card-shell.is-open,
+      .mobile-card-backdrop.is-open{
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .mobile-card-shell.is-open{
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      .section-card{
+        cursor: pointer;
+      }
+      .section-card .card-scroll{
+        display: none !important;
+      }
+      .section-card .card-toggle{
+        display: none !important;
+      }
+      .section-card.mobile-modal-open{
+        position: relative !important;
+        width: 100% !important;
+        max-width: none;
+        margin: 0 !important;
+        border-radius: 26px;
+        overflow: hidden;
+        pointer-events: auto !important;
+        cursor: default;
+        box-shadow: 0 28px 70px rgba(0,0,0,.14);
+      }
+      .section-card.mobile-modal-open .card-scroll{
+        display: block !important;
+        max-height: calc(100dvh - var(--safeT) - var(--safeB) - 132px) !important;
+        overflow: auto !important;
+        padding-top: 2px;
+        padding-bottom: calc(24px + var(--safeB));
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+      }
+      .section-card.mobile-modal-open .card-scroll::before,
+      .section-card.mobile-modal-open .card-scroll::after{
+        display: none !important;
+      }
+      .section-card.mobile-modal-open .card-inner{
+        padding: 16px 15px 16px;
+        gap: 12px;
+      }
+      .section-card.mobile-modal-open .glass-card,
+      .section-card.mobile-modal-open.glass-card{
+        background: rgba(255,255,255,.96);
+      }
+      .mobile-card-close{
+        appearance: none;
+        border: 1px solid rgba(0,0,0,.08);
+        background: rgba(255,255,255,.78);
+        border-radius: 999px;
+        min-height: 42px;
+        padding: 10px 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--brand);
+        font: 800 11px/1 var(--bodyFont);
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        box-shadow: 0 12px 26px rgba(0,0,0,.07);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        align-self: flex-start;
+        margin-bottom: 4px;
+      }
+      .mobile-card-close::before{
+        content: '←';
+        font-size: 16px;
+        line-height: 1;
+        letter-spacing: 0;
+        font-weight: 900;
+      }
+      .mobile-card-close:active{
+        transform: scale(.97);
+      }
+    }
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .tree, .tree img{ animation:none !important; }
@@ -4094,122 +4221,198 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       }
 
       links.forEach((a, i) => a.style.setProperty("--i", String(i)));
+      if(mobileCardBackdrop && !mobileCardBackdrop.dataset.bound){
+        mobileCardBackdrop.addEventListener("click", () => closeMobileCardModal());
+        mobileCardBackdrop.dataset.bound = "true";
+      }
 
-      function scrollExpandedCardIntoView(card){
-        if(!card || !isMobileLayout()) return;
+      function ensureMobileCardCloseButton(card){
+        if(!card) return null;
+        const inner = card.querySelector(".card-inner");
+        if(!inner) return null;
 
-        const headerOffset = getNumVar("--headerH", 56) + 24;
-        const rect = card.getBoundingClientRect();
-        const targetTop = window.scrollY + rect.top - headerOffset;
-        const maxTop = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-        const nextTop = clamp(targetTop, 0, maxTop);
+        let closeBtn = card.querySelector(".mobile-card-close");
+        if(closeBtn) return closeBtn;
+
+        closeBtn = document.createElement("button");
+        closeBtn.type = "button";
+        closeBtn.className = "mobile-card-close";
+        closeBtn.textContent = "Voltar";
+        closeBtn.hidden = true;
+        closeBtn.setAttribute("aria-label", "Voltar para os cards");
+        inner.insertAdjacentElement("afterbegin", closeBtn);
+        return closeBtn;
+      }
+
+      const mobileCardShell = document.getElementById("mobileCardShell");
+      const mobileCardBackdrop = document.getElementById("mobileCardBackdrop");
+      let mobileOpenCard = null;
+      let mobileCardReturnFocus = null;
+      let mobileCardScrollTop = 0;
+      let mobileCardCloseRaf = 0;
+
+      function closeMobileCardModal(options = {}){
+        const { restoreFocus = true } = options;
+        if(!mobileOpenCard) return;
+
+        const card = mobileOpenCard;
+        const closeBtn = card.querySelector(".mobile-card-close");
+
+        card.classList.remove("mobile-modal-open");
+        card.removeAttribute("aria-modal");
+        card.setAttribute("aria-hidden", "true");
+        if(closeBtn) closeBtn.hidden = true;
+
+        if(mobileCardShell && mobileCardShell.contains(card)){
+          mobileCardShell.removeChild(card);
+        }
+
+        const placeholderParent = card.__mobilePlaceholderParent;
+        const placeholderNext = card.__mobilePlaceholderNext;
+        if(placeholderParent){
+          if(placeholderNext && placeholderNext.parentNode === placeholderParent){
+            placeholderParent.insertBefore(card, placeholderNext);
+          } else {
+            placeholderParent.appendChild(card);
+          }
+        }
+
+        if(card.__mobilePlaceholder){
+          card.__mobilePlaceholder.hidden = false;
+        }
+
+        if(mobileCardShell){
+          mobileCardShell.classList.remove("is-open");
+          mobileCardShell.setAttribute("aria-hidden", "true");
+        }
+        if(mobileCardBackdrop){
+          mobileCardBackdrop.classList.remove("is-open");
+          mobileCardBackdrop.setAttribute("aria-hidden", "true");
+        }
+
+        document.body.classList.remove("mobile-card-open");
+        document.body.style.overflow = "";
+        document.body.style.touchAction = "";
+
+        const placeholder = card.__mobilePlaceholder;
+        mobileOpenCard = null;
+
+        window.clearTimeout(mobileCardCloseRaf);
+        mobileCardCloseRaf = window.setTimeout(() => {
+          if(placeholder){
+            window.scrollTo({ top: mobileCardScrollTop, behavior: "auto" });
+          }
+          if(restoreFocus && mobileCardReturnFocus && typeof mobileCardReturnFocus.focus === "function"){
+            try { mobileCardReturnFocus.focus({ preventScroll: true }); } catch(_e){ mobileCardReturnFocus.focus(); }
+          }
+          mobileCardReturnFocus = null;
+        }, 20);
+      }
+
+      function openMobileCardModal(card, triggerEl){
+        if(!isMobileLayout() || !card || !mobileCardShell) return;
+        if(mobileOpenCard === card) return;
+
+        if(mobileOpenCard){
+          closeMobileCardModal({ restoreFocus: false });
+        }
+
+        const closeBtn = ensureMobileCardCloseButton(card);
+        const placeholder = card.__mobilePlaceholder || document.createElement("div");
+        placeholder.className = "mobile-card-placeholder";
+        placeholder.style.height = `${Math.ceil(card.getBoundingClientRect().height)}px`;
+        placeholder.hidden = false;
+        if(!card.__mobilePlaceholder){
+          card.__mobilePlaceholder = placeholder;
+        }
+
+        mobileCardScrollTop = window.scrollY;
+        mobileCardReturnFocus = triggerEl || card;
+
+        card.__mobilePlaceholderParent = card.parentNode;
+        card.__mobilePlaceholderNext = card.nextSibling;
+        card.parentNode.insertBefore(placeholder, card);
+        card.setAttribute("aria-hidden", "false");
+        card.setAttribute("aria-modal", "true");
+        card.classList.add("mobile-modal-open");
+        if(closeBtn) closeBtn.hidden = false;
+
+        mobileCardShell.appendChild(card);
+        mobileCardShell.classList.add("is-open");
+        mobileCardShell.setAttribute("aria-hidden", "false");
+        if(mobileCardBackdrop){
+          mobileCardBackdrop.classList.add("is-open");
+          mobileCardBackdrop.setAttribute("aria-hidden", "false");
+        }
+
+        document.body.classList.add("mobile-card-open");
+        document.body.style.overflow = "hidden";
+        document.body.style.touchAction = "none";
+
+        mobileOpenCard = card;
+
+        const sc = card.querySelector(".card-scroll");
+        if(sc) sc.scrollTop = 0;
 
         window.requestAnimationFrame(() => {
-          window.setTimeout(() => {
-            window.scrollTo({ top: nextTop, behavior: "smooth" });
-          }, 70);
+          if(closeBtn) closeBtn.focus({ preventScroll: true });
         });
       }
 
-      function setupMobileCardToggles(){
-        cards.forEach((card, index) => {
+      function setupMobileCardModals(){
+        cards.forEach((card) => {
           const scroll = card.querySelector(".card-scroll");
           if(!scroll) return;
 
-          if(!scroll.id) scroll.id = `card-content-${index + 1}`;
+          const closeBtn = ensureMobileCardCloseButton(card);
+          if(closeBtn && !closeBtn.dataset.bound){
+            closeBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              closeMobileCardModal();
+            });
+            closeBtn.dataset.bound = "true";
+          }
 
           let toggle = card.querySelector(".card-toggle");
           if(!toggle){
             toggle = document.createElement("button");
             toggle.type = "button";
             toggle.className = "card-toggle";
-            toggle.setAttribute("aria-controls", scroll.id);
-            toggle.setAttribute("aria-expanded", "false");
-            toggle.textContent = "Ver mais";
-            scroll.insertAdjacentElement("afterend", toggle);
-          }
-
-          const shouldCollapse = scroll.scrollHeight > 360;
-          card.classList.toggle("has-toggle", shouldCollapse);
-
-          if(!toggle.dataset.bound){
-            toggle.addEventListener("click", () => {
-              const expanded = card.classList.toggle("is-expanded");
-              toggle.setAttribute("aria-expanded", String(expanded));
-              toggle.textContent = expanded ? "Ver menos" : "Ver mais";
-
-              if(expanded){
-                scrollExpandedCardIntoView(card);
-              }
-            });
-            toggle.dataset.bound = "true";
-          }
-
-          if(!shouldCollapse){
-            card.classList.remove("is-expanded");
             toggle.hidden = true;
-            toggle.setAttribute("aria-expanded", "false");
-            toggle.textContent = "Ver mais";
-            return;
+            toggle.tabIndex = -1;
+            toggle.setAttribute("aria-hidden", "true");
+            scroll.insertAdjacentElement("afterend", toggle);
+          } else {
+            toggle.hidden = true;
+            toggle.tabIndex = -1;
+            toggle.setAttribute("aria-hidden", "true");
           }
 
-          toggle.hidden = !isMobileLayout();
+          card.classList.remove("has-toggle", "is-expanded");
+          if(!card.hasAttribute("tabindex")) card.tabIndex = 0;
+
+          if(card.dataset.modalBound === "true") return;
+
+          card.addEventListener("click", (e) => {
+            if(!isMobileLayout()) return;
+            if(mobileOpenCard === card) return;
+            if(e.target.closest("a, button, input, textarea, select, label, summary")) return;
+            openMobileCardModal(card, card);
+          });
+
+          card.addEventListener("keydown", (e) => {
+            if(!isMobileLayout()) return;
+            if(mobileOpenCard === card) return;
+            if(e.key === "Enter" || e.key === " "){
+              e.preventDefault();
+              openMobileCardModal(card, card);
+            }
+          });
+
+          card.dataset.modalBound = "true";
         });
       }
-
-      function setupMobileScrollContainment(){
-        cards.forEach((card) => {
-          const scroll = card.querySelector(".card-scroll");
-          if(!scroll || scroll.dataset.touchGuardBound === "true") return;
-
-          let lastY = null;
-
-          const resetTouchGuard = () => {
-            lastY = null;
-          };
-
-          scroll.addEventListener("touchstart", (e) => {
-            if(!isMobileLayout() || !card.classList.contains("is-expanded")) return;
-            if(e.touches && e.touches.length === 1){
-              lastY = e.touches[0].clientY;
-            }
-          }, { passive: true });
-
-          scroll.addEventListener("touchmove", (e) => {
-            if(!isMobileLayout() || !card.classList.contains("is-expanded")) return;
-            if(!(e.touches && e.touches.length === 1)) return;
-
-            const max = scroll.scrollHeight - scroll.clientHeight;
-            if(max <= 1) return;
-
-            const currentY = e.touches[0].clientY;
-            if(lastY == null){
-              lastY = currentY;
-              return;
-            }
-
-            const delta = lastY - currentY;
-            lastY = currentY;
-
-            const top = scroll.scrollTop;
-            const atTop = top <= 0.5;
-            const atBottom = top >= (max - 0.5);
-            const movingDown = delta > 0;
-            const movingUp = delta < 0;
-
-            const shouldKeepInside = (movingDown && !atBottom) || (movingUp && !atTop);
-            if(!shouldKeepInside) return;
-
-            e.preventDefault();
-            scroll.scrollTop = clamp(top + delta, 0, max);
-          }, { passive: false });
-
-          scroll.addEventListener("touchend", resetTouchGuard, { passive: true });
-          scroll.addEventListener("touchcancel", resetTouchGuard, { passive: true });
-          scroll.dataset.touchGuardBound = "true";
-        });
-      }
-
       function finishLoader(){
         if(!loader) return;
         document.body.classList.add("is-ready");
@@ -4933,7 +5136,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         const active = cards[sceneIndex];
         if(!active) return { used: false, atEdge: true };
 
-        if(isMobileLayout() && !active.classList.contains("is-expanded")){
+        if(isMobileLayout() && mobileOpenCard !== active){
           return { used: false, atEdge: true };
         }
 
@@ -5125,6 +5328,12 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           return;
         }
 
+        if(e.key === "Escape" && mobileOpenCard){
+          e.preventDefault();
+          closeMobileCardModal();
+          return;
+        }
+
         if(isTypingContext()) return;
 
         if(["ArrowDown", "PageDown"].includes(e.key)){
@@ -5160,14 +5369,14 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       window.addEventListener("resize", () => {
         scheduleRender();
-        window.setTimeout(setupMobileCardToggles, 80);
-        window.setTimeout(setupMobileScrollContainment, 90);
+        window.setTimeout(setupMobileCardModals, 80);
+        if(!isMobileLayout()) closeMobileCardModal({ restoreFocus: false });
         window.setTimeout(syncMobileHeroWithScroll, 30);
       }, { passive:true });
       window.addEventListener("orientationchange", () => {
         setTimeout(scheduleRender, 120);
-        setTimeout(setupMobileCardToggles, 180);
-        setTimeout(setupMobileScrollContainment, 200);
+        setTimeout(setupMobileCardModals, 180);
+        if(!isMobileLayout()) closeMobileCardModal({ restoreFocus: false });
         setTimeout(syncMobileHeroWithScroll, 220);
       }, { passive:true });
 
@@ -5193,19 +5402,18 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         phase = "opening";
 
         const y = cardsTrack.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: y + 1, behavior: "smooth" });
+        const mobileOffset = (topbar?.offsetHeight || 0) + 10;
+        window.scrollTo({ top: Math.max(0, y - (isMobileLayout() ? mobileOffset : -1)), behavior: "smooth" });
 
         resetActiveScroll();
         scheduleRender();
-      }
 
-      function setCardExpanded(card, expanded){
-        if(!card) return;
-        const toggle = card.querySelector(".card-toggle");
-        if(!card.classList.contains("has-toggle") || !toggle) return;
-        card.classList.toggle("is-expanded", expanded);
-        toggle.setAttribute("aria-expanded", String(expanded));
-        toggle.textContent = expanded ? "Ver menos" : "Ver mais";
+        if(isMobileLayout()){
+          window.setTimeout(() => {
+            const targetCard = cards[sceneIndex];
+            if(targetCard) openMobileCardModal(targetCard, targetCard);
+          }, 180);
+        }
       }
 
       function handleMobileMenuNavigation(link){
@@ -5218,23 +5426,20 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(!target) return;
 
         if(href === "#home"){
-          cards.forEach(card => setCardExpanded(card, false));
+          closeMobileCardModal({ restoreFocus: false });
           window.setTimeout(() => {
             returnToHeroWithSameMotion();
           }, 80);
           return;
         }
 
-        cards.forEach(card => {
-          if(card !== target) setCardExpanded(card, false);
-        });
+        closeMobileCardModal({ restoreFocus: false });
 
-        if(target.classList && target.classList.contains("section-card")){
-          setCardExpanded(target, true);
-        }
-
+        const mobileOffset = (topbar?.offsetHeight || 0) + 16;
         window.setTimeout(() => {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          const y = target.getBoundingClientRect().top + window.scrollY - mobileOffset;
+          window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+          window.setTimeout(() => openMobileCardModal(target, link), 220);
         }, 80);
       }
 
@@ -5404,12 +5609,10 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       applyHeroState();
       hideAllCards();
       scheduleRender();
-      window.setTimeout(setupMobileCardToggles, 60);
-      window.setTimeout(setupMobileScrollContainment, 80);
+      window.setTimeout(setupMobileCardModals, 60);
       window.setTimeout(syncMobileHeroWithScroll, 60);
       window.addEventListener("load", () => {
-        window.setTimeout(setupMobileCardToggles, 120);
-        window.setTimeout(setupMobileScrollContainment, 140);
+        window.setTimeout(setupMobileCardModals, 120);
         window.setTimeout(syncMobileHeroWithScroll, 140);
       }, { once: true });
 
