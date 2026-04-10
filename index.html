@@ -3961,6 +3961,8 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       let autoRolePending = false;
       let autoCardTimer = 0;
       let autoCardPending = false;
+      let autoDesktopCardTimer = 0;
+      let autoDesktopCardPending = false;
 
       let lastMobileScrollY = window.scrollY || window.pageYOffset || 0;
       let mobileHeroLatchedHidden = false;
@@ -4023,6 +4025,12 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(autoCardTimer) window.clearTimeout(autoCardTimer);
         autoCardTimer = 0;
         autoCardPending = false;
+      }
+
+      function clearAutoDesktopCard(){
+        if(autoDesktopCardTimer) window.clearTimeout(autoDesktopCardTimer);
+        autoDesktopCardTimer = 0;
+        autoDesktopCardPending = false;
       }
 
       function setHeroTransitionMode(enabled){
@@ -4108,6 +4116,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           flowStarted = false;
           step = 0;
           clearAutoCard();
+          clearAutoDesktopCard();
         }
 
         if(mobileHeroLatchedHidden && currentY > releaseLatchPoint){
@@ -4153,6 +4162,26 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         }, Math.max(40, roleDur + 20));
       }
 
+
+      function scheduleAutoDesktopCardHandoff(){
+        if(isMobileLayout()) return;
+        if(step !== 2) return;
+        if(autoDesktopCardPending) return;
+        autoDesktopCardPending = true;
+
+        autoDesktopCardTimer = window.setTimeout(() => {
+          autoDesktopCardTimer = 0;
+          autoDesktopCardPending = false;
+          if(flowStarted || step !== 2 || animating) return;
+
+          lockBody();
+          step = 3;
+          applyHeroState();
+          setCooldown();
+          handoffToCards();
+        }, 2000);
+      }
+
       function animateToStep(next){
         if(animating) return Promise.resolve();
         animating = true;
@@ -4166,8 +4195,13 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(step === 1) scheduleAutoRole();
         else clearAutoRole();
 
-        if(step === 2) scheduleAutoCardHandoff();
-        else clearAutoCard();
+        if(step === 2){
+          scheduleAutoCardHandoff();
+          scheduleAutoDesktopCardHandoff();
+        }else{
+          clearAutoCard();
+          clearAutoDesktopCard();
+        }
 
         return new Promise((resolve) => {
           window.setTimeout(() => {
@@ -4219,6 +4253,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           accum = 0;
 
           if(step === 1 && autoRolePending) clearAutoRole();
+          if(step === 2 && autoDesktopCardPending) clearAutoDesktopCard();
 
           if(step > 0){
             lockBody();
