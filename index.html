@@ -3726,6 +3726,37 @@
   }
 }
 
+
+/* ===== Destaque sutil no menu (Agendamento) ===== */
+.nav-link.cta-subtle{
+  position: relative;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(26,93,102,.08);
+  border: 1px solid rgba(26,93,102,.18);
+  transition: all .25s ease;
+}
+
+.nav-link.cta-subtle:hover{
+  background: rgba(26,93,102,.14);
+  border-color: rgba(26,93,102,.28);
+}
+
+/* ===== Destaque por profundidade no card Agendamento ===== */
+.contact-form-shell{
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.10),
+    0 8px 24px rgba(26,93,102,.10);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.contact-form-shell:hover{
+  transform: translateY(-3px);
+  box-shadow:
+    0 34px 90px rgba(0,0,0,.12),
+    0 12px 28px rgba(26,93,102,.12);
+}
+
 </style>
 </head>
 
