@@ -3531,6 +3531,62 @@
   background:rgba(255,255,255,.98);
 }
 
+
+/* ===== MOBILE: cards agrupados como mesmo conjunto ===== */
+@media (max-width: 979.98px){
+  .cards-track{
+    padding:
+      2px
+      calc(10px + var(--safeR))
+      calc(26px + var(--safeB))
+      calc(10px + var(--safeL));
+  }
+  .cards-stage{
+    gap: 8px !important;
+    padding: 10px;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+    border: 1px solid rgba(255,255,255,.18);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .section-card{
+    border-radius: 16px !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  .section-card > .glass-card,
+  .section-card.glass-card{
+    background: rgba(255,255,255,.52) !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,.045) !important;
+    backdrop-filter: blur(8px) saturate(1.01) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(1.01) !important;
+  }
+  .section-card:not(.mobile-modal-open) .card-scroll{
+    margin-top: 8px !important;
+    border-radius: 14px !important;
+    background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(248,250,250,.52)) !important;
+    border: 1px solid rgba(255,255,255,.20) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.24) !important;
+  }
+  .card-ver-mais{
+    margin-top: 8px !important;
+    margin-bottom: 2px !important;
+  }
+  .mobile-card-placeholder{
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  .section-card.mobile-modal-open{
+    box-shadow: 0 24px 60px rgba(0,0,0,.14) !important;
+  }
+}
+
 </style>
 </head>
 
@@ -4434,9 +4490,10 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           }
         }
 
-        if(card.__mobilePlaceholder){
-          card.__mobilePlaceholder.hidden = false;
+        if(card.__mobilePlaceholder && card.__mobilePlaceholder.parentNode){
+          card.__mobilePlaceholder.parentNode.removeChild(card.__mobilePlaceholder);
         }
+        card.__mobilePlaceholder = null;
 
         if(mobileCardShell){
           mobileCardShell.classList.remove("is-open");
