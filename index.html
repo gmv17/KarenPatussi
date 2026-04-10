@@ -65,10 +65,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="image" href="imagens/Logo.webp" fetchpriority="high">
-  <link rel="preload" as="image" href="imagens/1.png" fetchpriority="high">
-  <link rel="preload" as="image" href="imagens/2.png">
-  <link rel="preload" as="image" href="imagens/3.png">
-  <link rel="preload" as="image" href="imagens/4.png">
+  <link rel="preload" as="image" href="imagens/Tree ring hero.webp" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
@@ -89,7 +86,6 @@
       --treeYOffset: clamp(10px, 2vh, 34px);
       --treeScale: 0.92;
       --treeOpacity: 0.92;
-      --treeMaskImage: url("imagens/1.png");
 
       --treeBreathDur: 14s;
       --treeBreathAmp: 0.045;
@@ -240,51 +236,16 @@
       will-change: filter;
       animation: treeBreath var(--treeBreathDur) ease-in-out infinite;
     }
-    .tree-layer{
-      position: absolute;
-      inset: 0;
+    .tree img{
       width: 100%;
       height: 100%;
       object-fit: contain;
       user-select:none;
       -webkit-user-drag:none;
       display:block;
-      --treeMotionX: 0px;
-      --treeMotionY: 0px;
-      --treeGrowthScale: 1;
-      --treeMotionDur: 18s;
-      --treeMotionDelay: 0s;
-      transform: translate3d(var(--treeMotionX), var(--treeMotionY), 0) scale(calc(var(--treeScale) * var(--treeGrowthScale)));
-      transform-origin: 50% 100%;
-      will-change: transform, opacity;
-      animation:
-        treeScaleBreath var(--treeBreathDur) ease-in-out infinite,
-        treeGrowthDrift var(--treeMotionDur) ease-in-out infinite var(--treeMotionDelay);
-      opacity: 0;
-      transition:
-        opacity 680ms cubic-bezier(.16, 1, .18, 1),
-        transform 1800ms cubic-bezier(.16, 1, .18, 1);
-    }
-    .tree-layer.is-current{ opacity: 1; }
-    .tree-layer.is-visible{ opacity: 1; }
-    .tree-layer--1{ z-index: 4; }
-    .tree-layer--2{ z-index: 3; }
-    .tree-layer--3{ z-index: 2; }
-    .tree-layer--4{ z-index: 1; }
-
-    @keyframes treeGrowthDrift{
-      0%, 100%{
-        transform: translate3d(var(--treeMotionX), var(--treeMotionY), 0) scale(calc(var(--treeScale) * var(--treeGrowthScale)));
-      }
-      25%{
-        transform: translate3d(calc(var(--treeMotionX) + 1px), calc(var(--treeMotionY) - 3px), 0) scale(calc(var(--treeScale) * (var(--treeGrowthScale) + 0.008)));
-      }
-      50%{
-        transform: translate3d(calc(var(--treeMotionX) + 2px), calc(var(--treeMotionY) - 6px), 0) scale(calc(var(--treeScale) * (var(--treeGrowthScale) + 0.014)));
-      }
-      75%{
-        transform: translate3d(calc(var(--treeMotionX) - 1px), calc(var(--treeMotionY) - 4px), 0) scale(calc(var(--treeScale) * (var(--treeGrowthScale) + 0.009)));
-      }
+      transform: translateZ(0) scale(var(--treeScale));
+      will-change: transform;
+      animation: treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
     }
     @keyframes treeBreath{
       0%, 100%{ filter: drop-shadow(0 28px 70px rgba(0,0,0,var(--treeBreathShadowA))) brightness(.98); }
@@ -317,12 +278,12 @@
       filter: blur(var(--glowBlur));
       mix-blend-mode: screen;
 
-      -webkit-mask-image: var(--treeMaskImage);
+      -webkit-mask-image: url("imagens/Tree ring hero.webp");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-size: contain;
       -webkit-mask-position: center;
 
-      mask-image: var(--treeMaskImage);
+      mask-image: url("imagens/Tree ring hero.webp");
       mask-repeat: no-repeat;
       mask-size: contain;
       mask-position: center;
@@ -1693,7 +1654,7 @@
     }
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
-      .tree, .tree-layer{ animation:none !important; transform: translateZ(0) scale(var(--treeScale)) !important; }
+      .tree, .tree img{ animation:none !important; }
       .tree::after{ animation:none; opacity: 0; }
       .loader, .site, .brand, .role{ transition:none !important; }
       .section-card.is-active{ animation: none !important; }
@@ -3141,11 +3102,8 @@
 
   <!-- Árvore fixa -->
   <div class="bg-stage" aria-hidden="true">
-    <div class="tree tree-stack" id="treeVisual">
-      <img class="tree-layer tree-layer--1 is-current is-visible" id="treeLayer1" src="imagens/1.png" alt="" decoding="async" fetchpriority="high">
-      <img class="tree-layer tree-layer--2" id="treeLayer2" src="imagens/2.png" alt="" decoding="async">
-      <img class="tree-layer tree-layer--3" id="treeLayer3" src="imagens/3.png" alt="" decoding="async">
-      <img class="tree-layer tree-layer--4" id="treeLayer4" src="imagens/4.png" alt="" decoding="async">
+    <div class="tree">
+      <img src="imagens/Tree ring hero.webp" alt="" decoding="async" fetchpriority="high">
     </div>
   </div>
 
@@ -4242,79 +4200,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         return 1 - Math.exp(-k * dt);
       }
 
-      const treeVisual = document.getElementById("treeVisual");
-      const treeStages = [
-        "imagens/1.png",
-        "imagens/2.png",
-        "imagens/3.png",
-        "imagens/4.png"
-      ];
-      const treeLayers = [
-        document.getElementById("treeLayer1"),
-        document.getElementById("treeLayer2"),
-        document.getElementById("treeLayer3"),
-        document.getElementById("treeLayer4")
-      ].filter(Boolean);
-      let treeStageIndex = 0;
-      const treeMotionPresets = [
-        { x: 0, y: 0, scale: 1.000, dur: 18.5, delay: 0 },
-        { x: -1, y: 1, scale: 1.007, dur: 20.5, delay: -2.8 },
-        { x: 1, y: -1, scale: 1.013, dur: 22.5, delay: -5.4 },
-        { x: 0, y: -2, scale: 1.019, dur: 24.5, delay: -7.2 }
-      ];
-
-      function applyTreeMotion(layer, index){
-        if(!layer) return;
-        const preset = treeMotionPresets[clamp(index, 0, treeMotionPresets.length - 1)] || treeMotionPresets[0];
-        layer.style.setProperty("--treeMotionX", `${preset.x}px`);
-        layer.style.setProperty("--treeMotionY", `${preset.y}px`);
-        layer.style.setProperty("--treeGrowthScale", `${preset.scale}`);
-        layer.style.setProperty("--treeMotionDur", `${preset.dur}s`);
-        layer.style.setProperty("--treeMotionDelay", `${preset.delay}s`);
-      }
-
-      function getTreeStageIndex(){
-        if(!flowStarted) return 0;
-        return clamp(sceneIndex + 1, 0, treeStages.length - 1);
-      }
-
-      function syncTreeLayers(force = false){
-        if(!treeVisual || !treeLayers.length) return;
-        if(!force && treeStageIndex === getTreeStageIndex()) return;
-
-        treeStageIndex = getTreeStageIndex();
-        const highestVisibleSrc = treeStages[treeStageIndex] || treeStages[0];
-        document.documentElement.style.setProperty("--treeMaskImage", `url("${highestVisibleSrc}")`);
-
-        treeLayers.forEach((layer, index) => {
-          const shouldShow = index === 0 || index <= treeStageIndex;
-          layer.classList.toggle("is-visible", shouldShow);
-          layer.classList.toggle("is-current", shouldShow);
-          applyTreeMotion(layer, index);
-        });
-      }
-
-      function setTreeStage(nextIndex, force = false){
-        if(!treeVisual || !treeLayers.length) return;
-        const safeIndex = clamp(nextIndex, 0, treeStages.length - 1);
-        if(!force && safeIndex === treeStageIndex) return;
-
-        treeStageIndex = safeIndex;
-        document.documentElement.style.setProperty("--treeMaskImage", `url("${treeStages[safeIndex]}")`);
-
-        treeLayers.forEach((layer, index) => {
-          const shouldShow = index === 0 || index <= safeIndex;
-          layer.classList.toggle("is-visible", shouldShow);
-          layer.classList.toggle("is-current", shouldShow);
-          applyTreeMotion(layer, index);
-        });
-      }
-
-      treeLayers.forEach((layer, index) => {
-        layer.src = treeStages[index] || treeStages[0];
-        applyTreeMotion(layer, index);
-      });
-function setActiveCardClass(){
+      function setActiveCardClass(){
         cards.forEach((c, i) => c.classList.toggle("is-active", flowStarted && i === sceneIndex && p >= 0.96));
       }
 
@@ -4536,7 +4422,6 @@ function setActiveCardClass(){
 
       function render(){
         if(prefersReduced()){
-          setTreeStage(getTreeStageIndex(), true);
           hideAllCards();
           if(flowStarted){
             const c = cards[sceneIndex] || cards[0];
@@ -4551,8 +4436,6 @@ function setActiveCardClass(){
           }
           return;
         }
-
-        setTreeStage(getTreeStageIndex());
 
         const aCard = smoothAlpha(clamp(getNumVar("--cardLag", 0.55), 0.18, 0.72));
 
@@ -5084,8 +4967,6 @@ function setActiveCardClass(){
         form.dataset.bound = "true";
       }
 
-
-      setTreeStage(0, true);
 
       setupContactForm();
       applyHeroState();
