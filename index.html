@@ -266,6 +266,11 @@
         transform 1800ms cubic-bezier(.16, 1, .18, 1);
     }
     .tree-layer.is-current{ opacity: 1; }
+    .tree-layer.is-visible{ opacity: 1; }
+    .tree-layer--1{ z-index: 4; }
+    .tree-layer--2{ z-index: 3; }
+    .tree-layer--3{ z-index: 2; }
+    .tree-layer--4{ z-index: 1; }
 
     @keyframes treeGrowthDrift{
       0%, 100%{
@@ -3136,9 +3141,11 @@
 
   <!-- Árvore fixa -->
   <div class="bg-stage" aria-hidden="true">
-    <div class="tree" id="treeVisual">
-      <img class="tree-layer is-current" id="treeLayerA" src="imagens/1.png" alt="" decoding="async" fetchpriority="high">
-      <img class="tree-layer" id="treeLayerB" src="imagens/1.png" alt="" decoding="async">
+    <div class="tree tree-stack" id="treeVisual">
+      <img class="tree-layer tree-layer--1 is-current is-visible" id="treeLayer1" src="imagens/1.png" alt="" decoding="async" fetchpriority="high">
+      <img class="tree-layer tree-layer--2" id="treeLayer2" src="imagens/2.png" alt="" decoding="async">
+      <img class="tree-layer tree-layer--3" id="treeLayer3" src="imagens/3.png" alt="" decoding="async">
+      <img class="tree-layer tree-layer--4" id="treeLayer4" src="imagens/4.png" alt="" decoding="async">
     </div>
   </div>
 
@@ -4236,15 +4243,18 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       }
 
       const treeVisual = document.getElementById("treeVisual");
-      const treeLayerA = document.getElementById("treeLayerA");
-      const treeLayerB = document.getElementById("treeLayerB");
       const treeStages = [
         "imagens/1.png",
         "imagens/2.png",
         "imagens/3.png",
         "imagens/4.png"
       ];
-      let activeTreeLayer = treeLayerA;
+      const treeLayers = [
+        document.getElementById("treeLayer1"),
+        document.getElementById("treeLayer2"),
+        document.getElementById("treeLayer3"),
+        document.getElementById("treeLayer4")
+      ].filter(Boolean);
       let treeStageIndex = 0;
       const treeMotionPresets = [
         { x: 0, y: 0, scale: 1.000, dur: 18.5, delay: 0 },
@@ -4268,32 +4278,43 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         return clamp(sceneIndex + 1, 0, treeStages.length - 1);
       }
 
-      function setTreeStage(nextIndex, force = false){
-        if(!treeVisual) return;
-        const safeIndex = clamp(nextIndex, 0, treeStages.length - 1);
-        const nextSrc = treeStages[safeIndex];
+      function syncTreeLayers(force = false){
+        if(!treeVisual || !treeLayers.length) return;
+        if(!force && treeStageIndex === getTreeStageIndex()) return;
 
+        treeStageIndex = getTreeStageIndex();
+        const highestVisibleSrc = treeStages[treeStageIndex] || treeStages[0];
+        document.documentElement.style.setProperty("--treeMaskImage", `url("${highestVisibleSrc}")`);
+
+        treeLayers.forEach((layer, index) => {
+          const shouldShow = index === 0 || index <= treeStageIndex;
+          layer.classList.toggle("is-visible", shouldShow);
+          layer.classList.toggle("is-current", shouldShow);
+          applyTreeMotion(layer, index);
+        });
+      }
+
+      function setTreeStage(nextIndex, force = false){
+        if(!treeVisual || !treeLayers.length) return;
+        const safeIndex = clamp(nextIndex, 0, treeStages.length - 1);
         if(!force && safeIndex === treeStageIndex) return;
 
         treeStageIndex = safeIndex;
-        document.documentElement.style.setProperty("--treeMaskImage", `url("${nextSrc}")`);
+        document.documentElement.style.setProperty("--treeMaskImage", `url("${treeStages[safeIndex]}")`);
 
-        if(!treeLayerA || !treeLayerB){
-          return;
-        }
-
-        const incoming = activeTreeLayer === treeLayerA ? treeLayerB : treeLayerA;
-        applyTreeMotion(incoming, safeIndex);
-        incoming.src = nextSrc;
-        incoming.classList.add("is-current");
-        activeTreeLayer.classList.remove("is-current");
-        activeTreeLayer = incoming;
+        treeLayers.forEach((layer, index) => {
+          const shouldShow = index === 0 || index <= safeIndex;
+          layer.classList.toggle("is-visible", shouldShow);
+          layer.classList.toggle("is-current", shouldShow);
+          applyTreeMotion(layer, index);
+        });
       }
 
-      applyTreeMotion(treeLayerA, 0);
-      applyTreeMotion(treeLayerB, 0);
-
-      function setActiveCardClass(){
+      treeLayers.forEach((layer, index) => {
+        layer.src = treeStages[index] || treeStages[0];
+        applyTreeMotion(layer, index);
+      });
+function setActiveCardClass(){
         cards.forEach((c, i) => c.classList.toggle("is-active", flowStarted && i === sceneIndex && p >= 0.96));
       }
 
