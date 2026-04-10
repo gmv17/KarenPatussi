@@ -1648,6 +1648,7 @@
         border-radius: 16px;
       }
       .contact-section{
+  box-shadow: 0 0 0 1px rgba(26,93,102,.08), 0 8px 24px rgba(26,93,102,.08);
         padding: 15px 14px;
         border-radius: 16px;
       }
@@ -2191,25 +2192,15 @@
     }
 
     .contact-section{
+  box-shadow: 0 0 0 1px rgba(26,93,102,.08), 0 8px 24px rgba(26,93,102,.08);
       display:grid;
       gap: 14px;
       padding: 20px;
       border-radius: 22px;
       background: rgba(255,255,255,.76);
-      border: 1px solid rgba(26,93,102,.12);
-      box-shadow:
-        0 12px 30px rgba(0,0,0,.04),
-        0 0 0 1px rgba(26,93,102,.04) inset,
-        0 0 16px rgba(26,93,102,.10);
+      border: 1px solid rgba(0,0,0,.05);
+      box-shadow: 0 12px 30px rgba(0,0,0,.04);
       min-width: 0;
-      transition: border-color .28s ease, box-shadow .28s ease, background .28s ease;
-    }
-    .contact-section:hover{
-      border-color: rgba(26,93,102,.18);
-      box-shadow:
-        0 14px 34px rgba(0,0,0,.05),
-        0 0 0 1px rgba(26,93,102,.05) inset,
-        0 0 20px rgba(26,93,102,.12);
     }
     .contact-section--message{
       gap: 16px;
@@ -4945,14 +4936,17 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       /* ── Nav active highlight ── */
       function updateNavActive(index){
-        const allLinks = document.querySelectorAll("a[data-link]");
-        allLinks.forEach(a => a.classList.remove("nav-active"));
-
-        allLinks.forEach(a => {
+        document.querySelectorAll("a[data-link]").forEach(a => {
           const i = parseInt(a.getAttribute("data-index"), 10);
-          if(i === index){
-            a.classList.add("nav-active");
-          }
+          a.classList.toggle("nav-active", i === index);
+        });
+      }
+
+      /* ── Nav active highlight ── */
+      function updateNavActive(index){
+        document.querySelectorAll("a[data-link]").forEach(a => {
+          const i = parseInt(a.getAttribute("data-index"), 10);
+          a.classList.toggle("nav-active", i === index);
         });
       }
 
@@ -6409,6 +6403,29 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   syncAreasState();
 })();
 </script>
+
+<script>
+document.addEventListener('scroll', ()=>{
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.topbar-nav a');
+  let current = "";
+
+  sections.forEach(sec=>{
+    const top = sec.offsetTop - 120;
+    if(window.scrollY >= top){
+      current = sec.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach(a=>{
+    a.classList.remove('nav-active');
+    if(a.getAttribute('href') === "#" + current){
+      a.classList.add('nav-active');
+    }
+  });
+});
+</script>
+
 </body>
 
 </html>
