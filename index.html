@@ -121,6 +121,9 @@
       --loaderFade: 820ms;
       --loaderEase: cubic-bezier(.16, 1, .18, 1);
 
+      --mobileSyncLead: 120ms;
+      --mobileCardEnterDur: 620ms;
+
       --cardStickyTop: calc(var(--headerH) + var(--safeT) + 26px);
 
       --cardFromVw: 10;
@@ -1389,6 +1392,8 @@
         --stepDistanceDown: 70;
         --stepDistanceUp: 85;
         --sceneLockMs: 180ms;
+        --mobileSyncLead: 110ms;
+        --mobileCardEnterDur: 620ms;
       }
 
       .topbar-nav{ display:none !important; }
@@ -1432,7 +1437,7 @@
         touch-action: pan-y;
       }
       .section-card.mobile-handoff-enter{
-        animation: mobileCardEnter 520ms cubic-bezier(.16, 1, .18, 1) both !important;
+        animation: mobileCardEnter var(--mobileCardEnterDur, 620ms) cubic-bezier(.16, 1, .18, 1) both !important;
         will-change: transform, opacity, filter;
       }
       @keyframes mobileCardEnter{
@@ -4826,6 +4831,14 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         return 900;
       }
 
+      function mobileSyncLeadMs(){
+        return getMsVar("--mobileSyncLead", 120);
+      }
+
+      function mobileCardEnterDurationMs(){
+        return getMsVar("--mobileCardEnterDur", 620);
+      }
+
       function clearAutoRole(){
         if(autoRoleTimer) window.clearTimeout(autoRoleTimer);
         autoRoleTimer = 0;
@@ -4963,6 +4976,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         autoCardPending = true;
 
         const roleDur = stepDurationMs(2);
+        const syncLead = mobileSyncLeadMs();
         autoCardTimer = window.setTimeout(() => {
           autoCardTimer = 0;
           autoCardPending = false;
@@ -4970,7 +4984,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
           lockBody();
           handoffToCards();
-        }, Math.max(40, roleDur + 20));
+        }, Math.max(60, roleDur + syncLead));
       }
 
 
@@ -5017,13 +5031,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         return new Promise((resolve) => {
           window.setTimeout(() => {
             animating = false;
-
-            if(isMobileLayout() && step === 2 && !flowStarted){
-              clearAutoCard();
-              handoffToCards();
-              resolve();
-              return;
-            }
 
             if(step < 3) unlockBody();
             if(step >= 3) handoffToCards();
@@ -5260,17 +5267,25 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         }
 
         requestAnimationFrame(() => {
-          p = 0;
-          pTarget = 1;
-          phase = "opening";
-          scheduleRender();
+          const startOpening = () => {
+            p = 0;
+            pTarget = 1;
+            phase = "opening";
+            scheduleRender();
 
-          if(enteringCard){
-            enteringCard.classList.add("mobile-handoff-enter");
-            window.setTimeout(() => enteringCard.classList.remove("mobile-handoff-enter"), 560);
+            if(enteringCard){
+              enteringCard.classList.add("mobile-handoff-enter");
+              window.setTimeout(() => enteringCard.classList.remove("mobile-handoff-enter"), mobileCardEnterDurationMs() + 40);
+            }
+
+            unlockBody();
+          };
+
+          if(isMobile){
+            window.setTimeout(startOpening, Math.max(0, mobileSyncLeadMs()));
+          } else {
+            startOpening();
           }
-
-          unlockBody();
         });
       }
 
