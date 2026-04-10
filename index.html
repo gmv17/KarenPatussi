@@ -88,7 +88,7 @@
       --treeOpacity: 0.92;
 
       --treeBreathDur: 20s;
-      --treeBreathAmp: 0.045;
+      --treeBreathAmp: 0.055;
       --treePushZ: 60px;
       --treeBreathShadowA: 0.16;
       --treeBreathShadowB: 0.26;
@@ -233,8 +233,10 @@
       opacity: var(--treeOpacity);
       position: relative;
       transform-style: preserve-3d;
-      will-change: filter;
-      animation: treeBreath var(--treeBreathDur) ease-in-out infinite;
+      will-change: transform, filter;
+      animation:
+        treeBreathMotion var(--treeBreathDur) ease-in-out infinite,
+        treeBreathShadow var(--treeBreathDur) ease-in-out infinite;
     }
     .tree img{
       filter: contrast(1.04) saturate(1.02);
@@ -245,10 +247,17 @@
       -webkit-user-drag:none;
       display:block;
       transform: translateZ(0) scale(var(--treeScale));
-      will-change: transform;
-      animation: treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
+      will-change: transform, filter;
     }
-    @keyframes treeBreath{
+    @keyframes treeBreathMotion{
+      0%, 100%{
+        transform: translate3d(0, 0, 0) scale(0.988);
+      }
+      50%{
+        transform: translate3d(0, -4px, 0) scale(1.018);
+      }
+    }
+    @keyframes treeBreathShadow{
       0%, 100%{
         filter:
           drop-shadow(0 22px 60px rgba(0,0,0,.18))
@@ -261,9 +270,6 @@
           drop-shadow(0 12px 28px rgba(0,0,0,.16))
           brightness(1.05) contrast(1.04);
       }
-    }    @keyframes treeScaleBreath{
-      0%, 100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
-      50%{ transform: translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
     }
 
     .tree::after{
@@ -1665,8 +1671,7 @@
     }
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
-      .tree, .tree img{
-      filter: contrast(1.04) saturate(1.02); animation:none !important; }
+      .tree, .tree img{ animation:none !important; }
       .tree::after{ animation:none; opacity: 0; }
       .loader, .site, .brand, .role{ transition:none !important; }
       .section-card.is-active{ animation: none !important; }
