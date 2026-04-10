@@ -2975,25 +2975,10 @@
   max-width:72ch;
 }
 .areas-grid{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
 }
-.area-item{
-  width: 92%;
-  max-width: 860px;
-}
-
-/* esquerda */
-.area-item:nth-child(odd){
-  justify-self: start;
-}
-
-/* direita */
-.area-item:nth-child(even){
-  justify-self: end;
-}
-
 .area-item{
   padding:18px 18px 17px;
   border-radius:20px;
@@ -3678,6 +3663,34 @@
     line-height: 1.06;
     letter-spacing: -0.01em;
   }
+}
+
+
+/* ===== Refinamento Áreas de Atuação (zig-zag + alinhamento título/texto) ===== */
+.areas-grid{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 18px;
+}
+.area-item{
+  width: 92%;
+  max-width: 860px;
+}
+.area-item:nth-child(odd){
+  justify-self: start;
+}
+.area-item:nth-child(even){
+  justify-self: end;
+}
+
+/* título à direita */
+.area-item:nth-child(even) .area-title{
+  text-align: right;
+}
+
+/* texto levemente deslocado */
+.area-item:nth-child(even) .area-text{
+  padding-left: 28px;
 }
 
 </style>
