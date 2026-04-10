@@ -87,11 +87,11 @@
       --treeScale: 0.92;
       --treeOpacity: 0.92;
 
-      --treeBreathDur: 14s;
-      --treeBreathAmp: 0.045;
-      --treePushZ: 60px;
-      --treeBreathShadowA: 0.16;
-      --treeBreathShadowB: 0.26;
+      --treeBreathDur: 22s;
+      --treeBreathAmp: 0.022;
+      --treePushZ: 22px;
+      --treeBreathShadowA: 0.22;
+      --treeBreathShadowB: 0.34;
 
       --glowOpacity: 0.16;
       --glowDur: 6.2s;
@@ -234,6 +234,7 @@
       position: relative;
       transform-style: preserve-3d;
       will-change: filter;
+      filter: drop-shadow(0 28px 68px rgba(0,0,0,.18));
       animation: treeBreath var(--treeBreathDur) ease-in-out infinite;
     }
     .tree img{
@@ -244,16 +245,17 @@
       -webkit-user-drag:none;
       display:block;
       transform: translateZ(0) scale(var(--treeScale));
-      will-change: transform;
+      will-change: transform, filter;
+      filter: contrast(1.03) saturate(1.02) drop-shadow(0 10px 18px rgba(255,255,255,.14));
       animation: treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
     }
     @keyframes treeBreath{
-      0%, 100%{ filter: drop-shadow(0 28px 70px rgba(0,0,0,var(--treeBreathShadowA))) brightness(.98); }
-      50%{ filter: drop-shadow(0 48px 130px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.03); }
+      0%, 100%{ filter: drop-shadow(0 22px 56px rgba(0,0,0,var(--treeBreathShadowA))) brightness(.985) contrast(1.01); }
+      50%{ filter: drop-shadow(0 34px 92px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.02) contrast(1.04); }
     }
     @keyframes treeScaleBreath{
       0%, 100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
-      50%{ transform: translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
+      50%{ transform: translate3d(0,-2px,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
     }
 
     .tree::after{
@@ -1421,9 +1423,9 @@
         -webkit-backdrop-filter: blur(8px);
       }
       :root{
-        --treeBreathDur: 16s;
-        --treeBreathAmp: 0.028;
-        --treePushZ: 28px;
+        --treeBreathDur: 24s;
+        --treeBreathAmp: 0.018;
+        --treePushZ: 14px;
         --glowOpacity: 0.10;
         --glowBlur: 8px;
       }
