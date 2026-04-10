@@ -1652,10 +1652,24 @@
   gap: 14px;
   padding: 20px;
   border-radius: 22px;
+
   background: rgba(255,255,255,.76);
-  border: 1px solid rgba(0,0,0,.05);
-  box-shadow: 0 12px 30px rgba(0,0,0,.04);
+
+  border: 1px solid rgba(26,93,102,.12);
+
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.04),
+    0 0 0 1px rgba(26,93,102,.04);
+
   min-width: 0;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease,
+    transform .25s ease;
 }
       .contact-section-title{
         font-size: clamp(20px, 6vw, 24px);
@@ -3851,6 +3865,13 @@
   }
 }
 
+.contact-section:hover{
+  border-color: rgba(26,93,102,.22);
+  box-shadow:
+    0 16px 34px rgba(0,0,0,.06),
+    0 0 0 1px rgba(26,93,102,.06);
+  transform: translateY(-1px);
+}
 
 </style>
 </head>
