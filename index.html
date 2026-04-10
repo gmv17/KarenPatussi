@@ -2707,6 +2707,7 @@
     inset 0 0 0 1px rgba(255,255,255,.72);
 }
 
+
 .topbar-nav a.nav-agendar::before{
   content:"";
   position:absolute;
@@ -2717,23 +2718,23 @@
   background: linear-gradient(
     100deg,
     transparent 0%,
-    rgba(26,93,102,.03) 40%,
-    rgba(26,93,102,.06) 50%,
-    rgba(26,93,102,.03) 60%,
+    rgba(26,93,102,.015) 40%,
+    rgba(26,93,102,.025) 50%,
+    rgba(26,93,102,.015) 60%,
     transparent 100%
   );
 
   transform: translateX(-120%);
-  animation: navAgendarSweepSoft 6.5s linear infinite;
+  animation: navAgendarSweepUltraSoft 9s linear infinite;
 }
 
 .topbar-nav a.nav-agendar::after{
   content:"";
   position:absolute;
-  top:-40%;
-  bottom:-40%;
-  left:-30%;
-  width:18%;
+  top:-50%;
+  bottom:-50%;
+  left:-40%;
+  width:28%;
 
   pointer-events:none;
   border-radius:inherit;
@@ -2741,17 +2742,36 @@
   background: linear-gradient(
     100deg,
     transparent 0%,
-    rgba(255,255,255,.15) 45%,
-    rgba(255,255,255,.45) 50%,
-    rgba(255,255,255,.15) 55%,
+    rgba(255,255,255,.08) 45%,
+    rgba(255,255,255,.18) 50%,
+    rgba(255,255,255,.08) 55%,
     transparent 100%
   );
 
-  filter: blur(6px);
+  filter: blur(10px);
   transform: translateX(-200%) skewX(-18deg);
 
-  animation: navAgendarShineSoft 6.5s linear infinite;
+  animation: navAgendarShineUltraSoft 9s linear infinite;
 }
+
+@keyframes navAgendarSweepUltraSoft{
+  0%{ transform: translateX(-120%); }
+  100%{ transform: translateX(120%); }
+}
+
+@keyframes navAgendarShineUltraSoft{
+  0%{
+    transform: translateX(-200%) skewX(-18deg);
+    opacity: 0;
+  }
+  10%{ opacity: .18; }
+  90%{ opacity: .12; }
+  100%{
+    transform: translateX(420%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
 
 @keyframes navAgendarSweepSoft{
   0%{ transform: translateX(-120%); }
