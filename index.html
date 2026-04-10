@@ -134,8 +134,6 @@
 
       --wheelScale: 0.35;
       --wheelTrigger: 220;
-      --cardWheelGestures: 2;
-      --cardWheelGestureGap: 650ms;
 
       /* ✅ mais tempo de respiro entre troca de cenas */
       --sceneLockMs: 1780ms;   /* antes 980ms */
@@ -4414,9 +4412,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       let wheelAccum = 0;
       let wheelLast = performance.now();
       let wheelCooldownUntil = 0;
-      let wheelGestureCount = 0;
-      let wheelGestureDir = 0;
-      let wheelGestureLast = 0;
 
       let pendingDir = +1;
       let returnToHeroAfterClose = false;
@@ -4748,35 +4743,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         return dy * base;
       }
 
-      function isPointerInsideActiveScrollArea(target){
-        const active = cards[sceneIndex];
-        if(!active) return false;
-        const sc = active.querySelector("[data-scroll]");
-        if(!sc) return false;
-        return !!(target && (target === sc || sc.contains(target)));
-      }
-
-      function registerCardWheelGesture(dir){
-        const now = performance.now();
-        const maxGap = Math.max(260, getMsVar("--cardWheelGestureGap", 650));
-
-        if(now - wheelGestureLast > maxGap || dir !== wheelGestureDir){
-          wheelGestureCount = 0;
-        }
-
-        wheelGestureLast = now;
-        wheelGestureDir = dir;
-        wheelGestureCount += 1;
-
-        const needed = Math.max(2, Math.round(getNumVar("--cardWheelGestures", 2)));
-        if(wheelGestureCount >= needed){
-          wheelGestureCount = 0;
-          wheelGestureDir = 0;
-          return true;
-        }
-        return false;
-      }
-
       function tryScrollInsideActiveCard(dy){
         const active = cards[sceneIndex];
         if(!active) return { used: false, atEdge: true };
@@ -4826,19 +4792,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           const now = performance.now();
           const dy = scaledWheelDelta(e);
 
-          const pointerInsideScroll = isPointerInsideActiveScrollArea(e.target);
           const res = tryScrollInsideActiveCard(dy);
-
-          if(pointerInsideScroll){
-            wheelAccum = 0;
-            wheelGestureCount = 0;
-            wheelGestureDir = 0;
-            if(res.used){
-              scheduleRender();
-              return;
-            }
-          }
-
           if(res.used && res.moved){
             scheduleRender();
             return;
@@ -4850,19 +4804,17 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
           wheelAccum += dy;
 
-          const dir = dy > 0 ? 1 : -1;
-          const outsideScrollArea = !pointerInsideScroll;
+          const trigger = Math.max(70, getNumVar("--wheelTrigger", 135));
+          const allowKnob = (!res.used) || (res.used && res.atEdge);
 
-          if(outsideScrollArea){
+          if(allowKnob && Math.abs(wheelAccum) >= trigger){
             const wNow = performance.now();
-            if(wNow >= wheelCooldownUntil && registerCardWheelGesture(dir)){
-              if(dir > 0) requestNext();
+            if(wNow >= wheelCooldownUntil){
+              if(wheelAccum > 0) requestNext();
               else requestPrev();
-              wheelCooldownUntil = wNow + 720;
-              wheelAccum = 0;
+              wheelCooldownUntil = wNow + 1000;
             }
-            scheduleRender();
-            return;
+            wheelAccum = 0;
           }
 
           scheduleRender();
