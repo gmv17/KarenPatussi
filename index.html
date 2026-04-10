@@ -85,7 +85,7 @@
 
       --treeYOffset: clamp(10px, 2vh, 34px);
       --treeScale: 0.98;
-      --treeOpacity: 0.92;
+      --treeOpacity: 0.88;
 
       --treeBreathDur: 18s;
       --treeBreathAmp: 0.055;
@@ -258,12 +258,19 @@
       }
     }
     @keyframes treeBreathShadow{
-      0%, 100%{
-        filter:
-          drop-shadow(0 22px 60px rgba(0,0,0,.18))
-          drop-shadow(0 6px 18px rgba(0,0,0,.12))
-          brightness(.97) contrast(1.02);
-      }
+  0%, 100%{
+    filter:
+      drop-shadow(0 12px 26px rgba(0,0,0,.18))
+      drop-shadow(0 4px 10px rgba(0,0,0,.10))
+      brightness(.98) contrast(1.02);
+  }
+  50%{
+    filter:
+      drop-shadow(0 18px 40px rgba(0,0,0,.22))
+      drop-shadow(0 6px 14px rgba(0,0,0,.12))
+      brightness(1.02) contrast(1.03);
+  }
+}
       50%{
         filter:
           drop-shadow(0 48px 140px rgba(0,0,0,.28))
