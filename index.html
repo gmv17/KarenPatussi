@@ -1812,7 +1812,7 @@
         position: relative;
       }
       .section-card:not(.mobile-modal-open) .card-scroll::after{
-        content: "Toque para abrir";
+        content: "Ver mais";
         position: absolute;
         left: 14px;
         right: 14px;
@@ -1891,6 +1891,9 @@
       }
       .mobile-card-close:active{
         transform: scale(.97);
+      }
+      .mobile-card-close[hidden]{
+        display: none !important;
       }
     }
     @media (prefers-reduced-motion: reduce){
