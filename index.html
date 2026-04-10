@@ -559,13 +559,17 @@
       position:absolute;
       left: 14px;
       right: 14px;
-      bottom: 7px;
-      height: 1px;
+      bottom: 6px;
+      height: 2px;
       border-radius: 999px;
-      background: rgba(26,93,102,.34);
+      background: rgba(26,93,102,.35);
       transform: scaleX(0);
       transform-origin: center;
-      transition: transform .24s ease;
+      transition:
+        transform .28s cubic-bezier(.16,1,.18,1),
+        opacity .28s ease,
+        background .28s ease,
+        box-shadow .28s ease;
     }
     .topbar-nav a:hover,
     .topbar-nav a:focus-visible{
@@ -575,17 +579,22 @@
       outline: none;
     }
     .topbar-nav a:hover::after,
-    .topbar-nav a:focus-visible::after{ transform: scaleX(1); }
+    .topbar-nav a:focus-visible::after{
+      transform: scaleX(.75);
+      background: rgba(26,93,102,.5);
+    }
 
     .topbar-nav a.nav-active{
-      background: rgba(255,255,255,.90) !important;
+      background: transparent !important;
       color: var(--brand) !important;
-      box-shadow: 0 2px 12px rgba(26,93,102,.18) !important;
+      box-shadow: none !important;
     }
     .topbar-nav a.nav-active::after{
       transform: scaleX(1) !important;
       background: var(--brand) !important;
       opacity: 1 !important;
+      height: 2.5px;
+      box-shadow: 0 0 6px rgba(26,93,102,.25);
     }
     .drawer-nav a.nav-active{
       color: var(--brand) !important;
@@ -594,14 +603,16 @@
     }
 
     .topbar-nav a.nav-active{
-      background: rgba(255,255,255,.90) !important;
+      background: transparent !important;
       color: var(--brand) !important;
-      box-shadow: 0 2px 12px rgba(26,93,102,.18) !important;
+      box-shadow: none !important;
     }
     .topbar-nav a.nav-active::after{
       transform: scaleX(1) !important;
       background: var(--brand) !important;
       opacity: 1 !important;
+      height: 2.5px;
+      box-shadow: 0 0 6px rgba(26,93,102,.25);
     }
 
     .drawer-nav a.nav-active{
@@ -2693,6 +2704,41 @@
       }
     }
 
+
+    .topbar-nav a.nav-agendamento{
+      background: rgba(255,255,255,.96);
+      border: 1px solid rgba(26,93,102,.34);
+      color: var(--brand);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.7) inset,
+        0 0 10px rgba(26,93,102,.08);
+    }
+    .topbar-nav a.nav-agendamento::after{
+      transform: scaleX(0);
+    }
+    .topbar-nav a.nav-agendamento:hover,
+    .topbar-nav a.nav-agendamento:focus-visible{
+      background: rgba(255,255,255,.98);
+      color: var(--brand);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.8) inset,
+        0 0 12px rgba(26,93,102,.10);
+    }
+    .topbar-nav a.nav-agendamento.nav-active{
+      background: rgba(255,255,255,.96) !important;
+      color: var(--brand) !important;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.7) inset,
+        0 0 10px rgba(26,93,102,.08) !important;
+    }
+    .topbar-nav a.nav-agendamento.nav-active::after{
+      transform: scaleX(1) !important;
+      background: var(--brand) !important;
+      opacity: 1 !important;
+      height: 2.5px;
+      box-shadow: 0 0 6px rgba(26,93,102,.25);
+    }
+
     .topbar-nav a.nav-blog{
       margin-left:10px;
       background: var(--brand);
@@ -3726,32 +3772,6 @@
   }
 }
 
-
-/* === Ajuste refinado botão Agendamento === */
-.topbar-nav a.nav-agendamento{
-  background:#fff;
-  border:1px solid rgba(26,93,102,.35);
-  color:var(--brand);
-  box-shadow:none;
-}
-
-.topbar-nav a.nav-agendamento::after{
-  display:none;
-}
-
-.topbar-nav a.nav-agendamento.nav-active::after{
-  display:block;
-  transform:scaleX(1);
-  height:2.5px;
-  background:var(--brand);
-  box-shadow:0 0 6px rgba(26,93,102,.25);
-}
-
-.topbar-nav a.nav-agendamento:hover{
-  background:rgba(26,93,102,.05);
-  box-shadow:0 0 8px rgba(26,93,102,.12);
-}
-
 </style>
 </head>
 
@@ -3785,7 +3805,7 @@
       <a href="#sobre" data-link data-index="0">Sobre</a>
       <a href="#areas-de-atuacao" data-link data-index="1">Áreas de atuação</a>
       <a href="#como-funciona" data-link data-index="2">Como funciona</a>
-      <a href="#agendar-sessao" data-link data-index="3">Agendar sessão</a>
+      <a href="#agendar-sessao" data-link data-index="3" class="nav-agendamento">Agendar sessão</a>
       <a href="blog.html" class="nav-blog">Além da sessão</a>
     </nav>
 
@@ -3816,7 +3836,7 @@
         <a href="#sobre" data-link data-index="0">Sobre</a>
         <a href="#areas-de-atuacao" data-link data-index="1">Áreas de atuação</a>
         <a href="#como-funciona" data-link data-index="2">Como funciona</a>
-        <a href="#agendar-sessao" data-link data-index="3">Agendar sessão</a>
+        <a href="#agendar-sessao" data-link data-index="3" class="nav-agendamento">Agendar sessão</a>
         <a href="blog.html" class="nav-blog">Além da sessão</a>
       </nav>
 
