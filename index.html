@@ -571,7 +571,22 @@
         background .28s ease,
         box-shadow .28s ease;
     }
-    .topbar-nav a:hover,
+    
+    .topbar-nav a:focus{
+      outline: none;
+    }
+    .topbar-nav a:focus-visible:not(.nav-active){
+      background: transparent;
+      color: rgba(20,28,32,.82);
+      box-shadow: none;
+    }
+    .topbar-nav a:focus-visible:not(.nav-active)::after{
+      transform: scaleX(0);
+      background: rgba(26,93,102,.35);
+      box-shadow: none;
+    }
+
+.topbar-nav a:hover,
     .topbar-nav a:focus-visible{
       background: rgba(255,255,255,.68);
       color: var(--brand);
@@ -4966,10 +4981,21 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         document.querySelectorAll("a[data-link]").forEach(a => {
           const i = parseInt(a.getAttribute("data-index"), 10);
           a.classList.toggle("nav-active", i === index);
+          if(i !== index){
+            a.classList.remove("is-focus-ghost");
+          }
         });
       }
 
       
+
+
+      function clearNavVisualFocus(){
+        const active = document.activeElement;
+        if(active && active.matches && active.matches('a[data-link], .topbar-nav a, .drawer-nav a')){
+          try{ active.blur(); }catch(_){}
+        }
+      }
 
       /* =========================
          HERO: 1 scroll = nome some; frase some automaticamente
@@ -5816,6 +5842,8 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(document.body.classList.contains("is-loading")) return false;
         if(overlay.classList.contains("is-open")) return false;
         if(isTypingContext()) return false;
+
+        clearNavVisualFocus();
 
         if(flowStarted && !prefersReduced()){
           if(dir > 0){
