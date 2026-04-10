@@ -3889,13 +3889,26 @@
 }
 
 
-/* ===== AJUSTE FINO HERO MOBILE (nome maior + mais alto) ===== */
+/* ===== AJUSTE FINO HERO MOBILE (nome em uma linha, levemente maior e mais alto) ===== */
 @media (max-width: 979.98px){
   .brand{
-    transform: translate3d(0, calc(var(--nameY, 0px) - 12px), 0);
+    transform: translate3d(0, calc(var(--nameY, 0px) - 16px), 0);
+    z-index: 2;
   }
   .brand .name{
-    font-size: clamp(72px, 10.5vw, 165px);
+    font-size: clamp(68px, 9.8vw, 158px);
+  }
+  .brand .name .namewrap{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: .22em;
+    padding: 0 8px;
+    white-space: nowrap;
+  }
+  .brand .name .namewrap span:last-child{
+    margin-left: 0;
   }
 }
 
