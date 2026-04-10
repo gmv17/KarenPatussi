@@ -5605,6 +5605,27 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(!canTrigger()) return;
         if(phase === "opening") return;
 
+        const lastIdx = cards.length - 1;
+        const isFooterState = flowStarted && phase === "closed" && p === 0 && sceneIndex === lastIdx;
+
+        if(isFooterState){
+          const footer = document.getElementById("siteFooter");
+          if(footer){
+            footer.classList.remove("is-visible");
+            footer.classList.add("is-hiding");
+          }
+          setLock();
+          pendingDir = 0;
+          pendingNavIndex = sceneIndex;
+          returnToHeroAfterClose = false;
+          phase = "opening";
+          p = 0;
+          pTarget = 1;
+          resetActiveScroll();
+          scheduleRender();
+          return;
+        }
+
         if(sceneIndex === 0){
           setLock();
           pendingDir = -1;
