@@ -3712,6 +3712,20 @@
   border-color: rgba(26,93,102,.14);
 }
 
+
+/* ===== Respiro final extra no card Como funciona (desktop) ===== */
+@media (min-width: 980px){
+  .card--process .card-scroll::after{
+    content:"";
+    display:block;
+    position:relative;
+    height: var(--cardEndSpacer);
+    background:none;
+    margin:0;
+    pointer-events:none;
+  }
+}
+
 </style>
 </head>
 
