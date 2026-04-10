@@ -4478,14 +4478,14 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           ? { sx: -1, sy: 0 }
           : originVector(activeCard.dataset.origin);
 
-        const tSlide = easeOutCubic(clamp(pNow, 0, 1));
-        const tFade  = easeOutQuad(clamp((pNow - 0.03) / 0.97, 0, 1));
+        const tSlide = easeInOutCubic(clamp(pNow, 0, 1));
+        const tFade  = easeInOutQuad(clamp((pNow - 0.06) / 0.94, 0, 1));
 
         const w = wFromPx + (wFullPx - wFromPx) * tSlide;
 
-        const sideX = ((vw * 0.58) + (w * 0.55) + edgeX) * 0.72;
-        const enterY = ((vh * 0.92) + edgeY) * 0.68;
-        const exitY  = ((vh * 0.92) + edgeY) * 0.62;
+        const sideX = ((vw * 0.52) + (w * 0.45) + edgeX) * 0.62;
+        const enterY = ((vh * 0.82) + edgeY) * 0.58;
+        const exitY  = ((vh * 0.82) + edgeY) * 0.52;
 
         let x = 0;
         let y = 0;
