@@ -252,18 +252,15 @@
         transform: translate3d(0, -4px, 0) scale(1.018);
       }
     }
-    
-
-    .tree::after{
-      content:"";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0;
-      filter: none;
-      mix-blend-mode: normal;
-      animation: none;
+    @keyframes treeBreathShadow{0%{filter:none;}100%{filter:none;}}
+      50%{
+        filter:
+          drop-shadow(0 48px 140px rgba(0,0,0,.28))
+          drop-shadow(0 12px 28px rgba(0,0,0,.16))
+          brightness(1.05) contrast(1.04);
+      }
     }
+
     @keyframes glowRise{
       0% { opacity: 0; background-position: 0 140%, 50% 160%; }
       12% { opacity: var(--glowOpacity); }
@@ -320,12 +317,12 @@
       position: relative;
       background: rgba(255,255,255,.18);
 
-      -webkit-mask-image: url("imagens/Logo.webp");
+      -webkit-
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: contain;
 
-      mask-image: url("imagens/Logo.webp");
+      
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
@@ -364,8 +361,7 @@
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
     }
-    @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
-      .loader-logoMark{ display:none; }
+    @supports not ((-webkit- }
       .loader-fallbackImg{ display:block; }
     }
     body.is-loading{
@@ -439,22 +435,20 @@
       transform: translateZ(0);
       flex: 0 0 auto;
     }
-    @supports ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
-      .logo-img{ display:none; }
+    @supports ((-webkit- }
       .logo-mark{
-        -webkit-mask-image: url("imagens/Logo.webp");
+        -webkit-
         -webkit-mask-repeat: no-repeat;
         -webkit-mask-position: center;
         -webkit-mask-size: contain;
 
-        mask-image: url("imagens/Logo.webp");
+        
         mask-repeat: no-repeat;
         mask-position: center;
         mask-size: contain;
       }
     }
-    @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
-      .logo-mark{ display:none; }
+    @supports not ((-webkit- }
     }
     .bar-title .bar-name{
       font-family: var(--titleFont);
@@ -1629,7 +1623,6 @@
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .tree, .tree img{ animation:none !important; }
-      .tree::after{ animation:none; opacity: 0; }
       .loader, .site, .brand, .role{ transition:none !important; }
       .section-card.is-active{ animation: none !important; }
 
@@ -2453,10 +2446,10 @@
         calc(14px + var(--safeB))
         calc(var(--padX) + var(--safeL));
 
-      background: rgba(255,255,255,.92);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border-top: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.97));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(0,0,0,.07);
 
       display: flex;
       align-items: center;
@@ -3078,23 +3071,6 @@
   );
   pointer-events:none;
   mix-blend-mode: multiply;
-}
-
-.tree::after{
-  content:"";
-  position:absolute;
-  bottom:10%;
-  left:50%;
-  transform:translateX(-50%);
-  width:60%;
-  height:30%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255,255,255,0.06),
-    transparent 70%
-  );
-  pointer-events:none;
-  mix-blend-mode: screen;
 }
 
 </style>
