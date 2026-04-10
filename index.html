@@ -1691,6 +1691,53 @@
     }
 
 
+    .card-preview{
+      display:none;
+    }
+
+    @media (max-width: 979.98px){
+      .section-card .card-title{
+        margin-bottom: 0;
+      }
+      .card-preview{
+        display:grid;
+        gap:10px;
+        margin-top: 6px;
+        padding: 14px 14px 13px;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(248,250,250,.94));
+        border: 1px solid rgba(26,93,102,.10);
+        box-shadow: 0 10px 24px rgba(0,0,0,.045);
+      }
+      .card-preview-text{
+        margin: 0;
+        color: rgba(20,28,32,.76);
+        font-size: 13px;
+        line-height: 1.68;
+        font-weight: 500;
+      }
+      .card-preview-meta{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        width: fit-content;
+        color: var(--brand);
+        font: 800 10.5px/1 var(--bodyFont);
+        letter-spacing: .16em;
+        text-transform: uppercase;
+      }
+      .card-preview-meta::after{
+        content:'›';
+        font-size: 15px;
+        line-height: 1;
+        letter-spacing: 0;
+        transform: translateY(-.5px);
+      }
+      .section-card.mobile-modal-open .card-preview{
+        display:none !important;
+      }
+    }
+
     .mobile-card-backdrop,
     .mobile-card-shell{
       display:none;
@@ -4225,6 +4272,35 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       links.forEach((a, i) => a.style.setProperty("--i", String(i)));
 
+      const mobileCardPreviewCopy = {
+        "sobre": "Conheça a trajetória, a escuta clínica e a forma como Karen conduz o trabalho terapêutico.",
+        "areas-de-atuacao": "Veja os principais temas atendidos e encontre com mais facilidade o que conversa com a sua busca.",
+        "como-funciona": "Uma visão clara sobre formato, frequência, primeira sessão e o jeito de conduzir o processo terapêutico.",
+        "agendar-sessao": "Um caminho simples para entrar em contato, tirar dúvidas e solicitar seu atendimento online."
+      };
+
+      function ensureMobileCardPreview(card){
+        if(!card) return null;
+        const inner = card.querySelector('.card-inner');
+        const title = inner ? inner.querySelector('.card-title') : null;
+        if(!inner || !title) return null;
+
+        let preview = card.querySelector('.card-preview');
+        if(!preview){
+          preview = document.createElement('div');
+          preview.className = 'card-preview';
+          preview.innerHTML = '<p class="card-preview-text"></p><span class="card-preview-meta">Toque para abrir</span>';
+          title.insertAdjacentElement('afterend', preview);
+        }
+
+        const previewText = preview.querySelector('.card-preview-text');
+        if(previewText){
+          previewText.textContent = mobileCardPreviewCopy[card.id] || 'Toque para abrir este conteúdo.';
+        }
+
+        return preview;
+      }
+
       function ensureMobileCardCloseButton(card){
         if(!card) return null;
         const inner = card.querySelector(".card-inner");
@@ -4367,6 +4443,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           const scroll = card.querySelector(".card-scroll");
           if(!scroll) return;
 
+          ensureMobileCardPreview(card);
           const closeBtn = ensureMobileCardCloseButton(card);
           if(closeBtn && !closeBtn.dataset.bound){
             closeBtn.addEventListener("click", (e) => {
