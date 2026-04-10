@@ -3665,6 +3665,34 @@
   }
 }
 
+
+/* ===== Refinamento Áreas de Atuação (zig-zag + alinhamento título/texto) ===== */
+.areas-grid{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 18px;
+}
+.area-item{
+  width: 92%;
+  max-width: 860px;
+}
+.area-item:nth-child(odd){
+  justify-self: start;
+}
+.area-item:nth-child(even){
+  justify-self: end;
+}
+
+/* título à direita */
+.area-item:nth-child(even) .area-title{
+  text-align: right;
+}
+
+/* texto levemente deslocado */
+.area-item:nth-child(even) .area-text{
+  padding-left: 28px;
+}
+
 </style>
 </head>
 
