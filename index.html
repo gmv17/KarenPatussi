@@ -4046,6 +4046,24 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         root.style.setProperty("--roleB", String((blurMax * 0.9) * (1 - t)) + "px");
       }
 
+      function syncHeroReverseStepSequence(progress){
+        const t = clamp(progress, 0, 1);
+        const liftName = getNumVar("--liftName", 140);
+        const liftRole = getNumVar("--liftRole", 120);
+        const blurMax  = getNumVar("--fadeBlur", 1.6);
+
+        const roleT = clamp(t * 2, 0, 1);
+        const nameT = clamp((t - 0.5) * 2, 0, 1);
+
+        root.style.setProperty("--roleY", String(-liftRole * (1 - roleT)) + "px");
+        root.style.setProperty("--roleO", String(roleT));
+        root.style.setProperty("--roleB", String((blurMax * 0.9) * (1 - roleT)) + "px");
+
+        root.style.setProperty("--nameY", String(-liftName * (1 - nameT)) + "px");
+        root.style.setProperty("--nameO", String(nameT));
+        root.style.setProperty("--nameB", String(blurMax * (1 - nameT)) + "px");
+      }
+
       function syncMobileHeroWithScroll(){
         if(!isMobileLayout()){
           mobileHeroLatchedHidden = false;
@@ -4098,7 +4116,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           return;
         }
 
-        syncHeroReturnWithCardProgress(t);
+        syncHeroReverseStepSequence(t);
         topbar.classList.toggle("show-brand", t < 0.98);
       }
 
