@@ -1648,10 +1648,29 @@
         border-radius: 16px;
       }
       .contact-section{
-  box-shadow: 0 0 0 1px rgba(26,93,102,.08), 0 8px 24px rgba(26,93,102,.08);
-        padding: 15px 14px;
-        border-radius: 16px;
-      }
+  display:grid;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 22px;
+
+  background: rgba(255,255,255,.76);
+
+  border: 1px solid rgba(26,93,102,.12);
+
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.04),
+    0 0 0 1px rgba(26,93,102,.04);
+
+  min-width: 0;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease,
+    transform .25s ease;
+}
       .contact-section-title{
         font-size: clamp(20px, 6vw, 24px);
       }
@@ -2192,7 +2211,6 @@
     }
 
     .contact-section{
-  box-shadow: 0 0 0 1px rgba(26,93,102,.08), 0 8px 24px rgba(26,93,102,.08);
       display:grid;
       gap: 14px;
       padding: 20px;
@@ -3846,6 +3864,15 @@
     opacity:0;
   }
 }
+
+.contact-section:hover{
+  border-color: rgba(26,93,102,.22);
+  box-shadow:
+    0 16px 34px rgba(0,0,0,.06),
+    0 0 0 1px rgba(26,93,102,.06);
+  transform: translateY(-1px);
+}
+
 </style>
 </head>
 
@@ -6403,29 +6430,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   syncAreasState();
 })();
 </script>
-
-<script>
-document.addEventListener('scroll', ()=>{
-  const sections = document.querySelectorAll('[id]');
-  const navLinks = document.querySelectorAll('.topbar-nav a');
-  let current = "";
-
-  sections.forEach(sec=>{
-    const top = sec.offsetTop - 120;
-    if(window.scrollY >= top){
-      current = sec.getAttribute('id');
-    }
-  });
-
-  navLinks.forEach(a=>{
-    a.classList.remove('nav-active');
-    if(a.getAttribute('href') === "#" + current){
-      a.classList.add('nav-active');
-    }
-  });
-});
-</script>
-
 </body>
 
 </html>
