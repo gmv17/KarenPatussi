@@ -236,7 +236,11 @@
         treeBreathShadow var(--treeBreathDur) ease-in-out infinite;
     }
     .tree img{
-      filter: contrast(1.03) saturate(1.02) brightness(0.98);
+      filter:
+        contrast(1.05)
+        saturate(1.04)
+        brightness(0.985)
+        drop-shadow(0 8px 18px rgba(0,0,0,.10));
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -257,16 +261,40 @@
     @keyframes treeBreathShadow{
       0%, 100%{
         filter:
-          drop-shadow(0 12px 26px rgba(0,0,0,.18))
-          drop-shadow(0 4px 10px rgba(0,0,0,.10))
-          brightness(.98) contrast(1.02);
+          drop-shadow(0 14px 28px rgba(0,0,0,.16))
+          drop-shadow(0 4px 10px rgba(0,0,0,.08))
+          brightness(.985) contrast(1.03);
       }
       50%{
         filter:
-          drop-shadow(0 18px 40px rgba(0,0,0,.22))
-          drop-shadow(0 6px 14px rgba(0,0,0,.12))
-          brightness(1.02) contrast(1.03);
+          drop-shadow(0 22px 42px rgba(0,0,0,.20))
+          drop-shadow(0 8px 18px rgba(0,0,0,.10))
+          brightness(1.02) contrast(1.05);
       }
+    }
+
+    .tree::before{
+      content:"";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(56% 42% at 40% 28%, rgba(255,255,255,.26), rgba(255,255,255,0) 58%),
+        radial-gradient(46% 34% at 64% 62%, rgba(15,35,30,.14), rgba(15,35,30,0) 70%),
+        linear-gradient(120deg, rgba(255,255,255,.10) 12%, rgba(255,255,255,0) 42%, rgba(0,0,0,.10) 82%);
+      mix-blend-mode: soft-light;
+      opacity: .85;
+      filter: blur(1.2px);
+
+      -webkit-mask-image: url("imagens/Tree ring hero.webp");
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      -webkit-mask-position: center;
+
+      mask-image: url("imagens/Tree ring hero.webp");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask-position: center;
     }
 
     .tree::after{
