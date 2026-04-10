@@ -3621,10 +3621,14 @@
 }
 
 
-/* ===== PADRONIZAÇÃO DE TÍTULOS DOS CARDS ===== */
-.card-title{
-  font-size: clamp(20px, 1.8vw, 28px) !important;
-  line-height: 1.1;
+@media (max-width: 979.98px){
+  .card-title{
+    font-size: clamp(19px, 5.4vw, 22px);
+    line-height: 1.08;
+  }
+  #areas-de-atuacao .card-title{
+    font-size: clamp(18px, 5vw, 21px);
+  }
 }
 
 </style>
