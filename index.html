@@ -84,10 +84,10 @@
       --headerH: 56px;
 
       --treeYOffset: clamp(10px, 2vh, 34px);
-      --treeScale: 0.92;
+      --treeScale: 0.98;
       --treeOpacity: 0.92;
 
-      --treeBreathDur: 14s;
+      --treeBreathDur: 20s;
       --treeBreathAmp: 0.045;
       --treePushZ: 60px;
       --treeBreathShadowA: 0.16;
@@ -237,6 +237,7 @@
       animation: treeBreath var(--treeBreathDur) ease-in-out infinite;
     }
     .tree img{
+      filter: contrast(1.04) saturate(1.02);
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -245,7 +246,6 @@
       display:block;
       transform: translateZ(0) scale(var(--treeScale));
       will-change: transform;
-      filter: contrast(1.04) saturate(1.02);
       animation: treeScaleBreath var(--treeBreathDur) ease-in-out infinite;
     }
     @keyframes treeBreath{
@@ -261,6 +261,8 @@
           drop-shadow(0 12px 28px rgba(0,0,0,.16))
           brightness(1.05) contrast(1.04);
       }
+    }
+      50%{ filter: drop-shadow(0 48px 130px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.03); }
     }
     @keyframes treeScaleBreath{
       0%, 100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
@@ -1666,7 +1668,8 @@
     }
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
-      .tree, .tree img{ animation:none !important; }
+      .tree, .tree img{
+      filter: contrast(1.04) saturate(1.02); animation:none !important; }
       .tree::after{ animation:none; opacity: 0; }
       .loader, .site, .brand, .role{ transition:none !important; }
       .section-card.is-active{ animation: none !important; }
