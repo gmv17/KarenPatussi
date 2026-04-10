@@ -4137,6 +4137,59 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         });
       }
 
+      function setupMobileScrollContainment(){
+        cards.forEach((card) => {
+          const scroll = card.querySelector(".card-scroll");
+          if(!scroll || scroll.dataset.touchGuardBound === "true") return;
+
+          let lastY = null;
+
+          const resetTouchGuard = () => {
+            lastY = null;
+          };
+
+          scroll.addEventListener("touchstart", (e) => {
+            if(!isMobileLayout() || !card.classList.contains("is-expanded")) return;
+            if(e.touches && e.touches.length === 1){
+              lastY = e.touches[0].clientY;
+            }
+          }, { passive: true });
+
+          scroll.addEventListener("touchmove", (e) => {
+            if(!isMobileLayout() || !card.classList.contains("is-expanded")) return;
+            if(!(e.touches && e.touches.length === 1)) return;
+
+            const max = scroll.scrollHeight - scroll.clientHeight;
+            if(max <= 1) return;
+
+            const currentY = e.touches[0].clientY;
+            if(lastY == null){
+              lastY = currentY;
+              return;
+            }
+
+            const delta = lastY - currentY;
+            lastY = currentY;
+
+            const top = scroll.scrollTop;
+            const atTop = top <= 0.5;
+            const atBottom = top >= (max - 0.5);
+            const movingDown = delta > 0;
+            const movingUp = delta < 0;
+
+            const shouldKeepInside = (movingDown && !atBottom) || (movingUp && !atTop);
+            if(!shouldKeepInside) return;
+
+            e.preventDefault();
+            scroll.scrollTop = clamp(top + delta, 0, max);
+          }, { passive: false });
+
+          scroll.addEventListener("touchend", resetTouchGuard, { passive: true });
+          scroll.addEventListener("touchcancel", resetTouchGuard, { passive: true });
+          scroll.dataset.touchGuardBound = "true";
+        });
+      }
+
       function finishLoader(){
         if(!loader) return;
         document.body.classList.add("is-ready");
@@ -5088,11 +5141,13 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       window.addEventListener("resize", () => {
         scheduleRender();
         window.setTimeout(setupMobileCardToggles, 80);
+        window.setTimeout(setupMobileScrollContainment, 90);
         window.setTimeout(syncMobileHeroWithScroll, 30);
       }, { passive:true });
       window.addEventListener("orientationchange", () => {
         setTimeout(scheduleRender, 120);
         setTimeout(setupMobileCardToggles, 180);
+        setTimeout(setupMobileScrollContainment, 200);
         setTimeout(syncMobileHeroWithScroll, 220);
       }, { passive:true });
 
@@ -5330,9 +5385,11 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       hideAllCards();
       scheduleRender();
       window.setTimeout(setupMobileCardToggles, 60);
+      window.setTimeout(setupMobileScrollContainment, 80);
       window.setTimeout(syncMobileHeroWithScroll, 60);
       window.addEventListener("load", () => {
         window.setTimeout(setupMobileCardToggles, 120);
+        window.setTimeout(setupMobileScrollContainment, 140);
         window.setTimeout(syncMobileHeroWithScroll, 140);
       }, { once: true });
 
