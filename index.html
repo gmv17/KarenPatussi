@@ -3728,7 +3728,8 @@
 
 
 /* ===== Destaque sutil no menu (Agendamento) ===== */
-.nav-link.cta-subtle{
+@media (min-width: 980px){
+.topbar-nav a.nav-cta-subtle{
   position: relative;
   padding: 6px 12px;
   border-radius: 8px;
@@ -3737,9 +3738,11 @@
   transition: all .25s ease;
 }
 
-.nav-link.cta-subtle:hover{
+.topbar-nav a.nav-cta-subtle:hover,
+.topbar-nav a.nav-cta-subtle:focus-visible{
   background: rgba(26,93,102,.14);
   border-color: rgba(26,93,102,.28);
+}
 }
 
 /* ===== Destaque por profundidade no card Agendamento ===== */
@@ -3790,7 +3793,7 @@
       <a href="#sobre" data-link data-index="0">Sobre</a>
       <a href="#areas-de-atuacao" data-link data-index="1">Áreas de atuação</a>
       <a href="#como-funciona" data-link data-index="2">Como funciona</a>
-      <a href="#agendar-sessao" data-link data-index="3">Agendar sessão</a>
+      <a href="#agendar-sessao" data-link data-index="3" class="nav-cta-subtle">Agendar sessão</a>
       <a href="blog.html" class="nav-blog">Além da sessão</a>
     </nav>
 
@@ -3821,7 +3824,7 @@
         <a href="#sobre" data-link data-index="0">Sobre</a>
         <a href="#areas-de-atuacao" data-link data-index="1">Áreas de atuação</a>
         <a href="#como-funciona" data-link data-index="2">Como funciona</a>
-        <a href="#agendar-sessao" data-link data-index="3">Agendar sessão</a>
+        <a href="#agendar-sessao" data-link data-index="3" class="nav-cta-subtle">Agendar sessão</a>
         <a href="blog.html" class="nav-blog">Além da sessão</a>
       </nav>
 
