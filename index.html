@@ -2563,67 +2563,88 @@
       overflow: hidden;
       isolation: isolate;
       min-width: min(100%, 240px);
-      background: linear-gradient(180deg, rgba(255,255,255,.985), rgba(252,255,255,.94));
+      background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(251,255,255,.955));
       color: var(--brand);
       border: 1px solid rgba(26,93,102,.34);
       box-shadow:
         0 8px 18px rgba(0,0,0,.035),
-        inset 0 0 0 1px rgba(255,255,255,.62);
+        inset 0 0 0 1px rgba(255,255,255,.72);
+    }
+    .contact-btn--primary span{
+      position: relative;
+      z-index: 2;
     }
     .contact-btn--primary::before{
       content:"";
       position:absolute;
-      inset:-18% auto -18% -38%;
-      width:42%;
+      inset:0;
       pointer-events:none;
-      background: linear-gradient(
-        110deg,
-        transparent 0%,
-        rgba(26,93,102,0) 18%,
-        rgba(26,93,102,.07) 34%,
-        rgba(255,255,255,.88) 50%,
-        rgba(26,93,102,.11) 66%,
-        rgba(26,93,102,0) 82%,
-        transparent 100%
-      );
-      filter: blur(6px);
-      opacity: .9;
-      transform: translateX(-170%) skewX(-18deg);
-      transition: transform .95s cubic-bezier(.16,1,.18,1), opacity .3s ease;
+      background: linear-gradient(90deg, rgba(26,93,102,.085), rgba(26,93,102,.02));
+      transform: translateX(-108%);
+      opacity: .92;
       z-index: 0;
-      animation: agendamentoGlow 4.8s cubic-bezier(.16,1,.18,1) infinite;
+      animation: agendamentoSweep 4.8s cubic-bezier(.16,1,.18,1) infinite;
     }
-    @keyframes agendamentoGlow{
+    .contact-btn--primary::after{
+      content:"";
+      position:absolute;
+      top:-22%;
+      bottom:-22%;
+      left:-32%;
+      width:34%;
+      pointer-events:none;
+      background: linear-gradient(110deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.15) 20%,
+        rgba(255,255,255,.88) 50%,
+        rgba(26,93,102,.12) 72%,
+        rgba(255,255,255,0) 100%);
+      filter: blur(5px);
+      transform: translateX(-190%) skewX(-18deg);
+      opacity: 0;
+      z-index: 1;
+      animation: agendamentoShine 4.8s cubic-bezier(.16,1,.18,1) infinite;
+    }
+    @keyframes agendamentoSweep{
+      0%, 62%{
+        transform: translateX(-108%);
+      }
+      100%{
+        transform: translateX(108%);
+      }
+    }
+    @keyframes agendamentoShine{
       0%, 64%{
-        transform: translateX(-170%) skewX(-18deg);
+        transform: translateX(-190%) skewX(-18deg);
         opacity: 0;
       }
       72%{
-        opacity: .92;
+        opacity: .88;
       }
       100%{
-        transform: translateX(430%) skewX(-18deg);
+        transform: translateX(500%) skewX(-18deg);
         opacity: 0;
       }
-    }
-    .contact-btn--primary > *{
-      position: relative;
-      z-index: 1;
     }
     .contact-btn--primary:hover,
     .contact-btn--primary:focus-visible{
       color: var(--brand);
-      background: linear-gradient(180deg, rgba(255,255,255,.998), rgba(250,255,255,.96));
-      border-color: rgba(26,93,102,.46);
+      background: linear-gradient(180deg, rgba(255,255,255,.998), rgba(249,255,255,.965));
+      border-color: rgba(26,93,102,.48);
       box-shadow:
         0 12px 24px rgba(26,93,102,.08),
-        inset 0 0 0 1px rgba(255,255,255,.70);
+        inset 0 0 0 1px rgba(255,255,255,.78);
     }
     .contact-btn--primary:hover::before,
     .contact-btn--primary:focus-visible::before{
-      transform: translateX(430%) skewX(-18deg);
-      opacity: .96;
       animation-play-state: paused;
+      transform: translateX(0%);
+    }
+    .contact-btn--primary:hover::after,
+    .contact-btn--primary:focus-visible::after{
+      animation-play-state: paused;
+      opacity: .92;
+      transform: translateX(340%) skewX(-18deg);
     }
     .contact-btn--ghost{
       min-width: min(100%, 210px);
@@ -4483,7 +4504,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
                     <div class="contact-actions">
                       <div class="contact-buttons">
                         <button type="submit" class="contact-btn contact-btn--primary" data-contact-submit>
-                          Enviar por e-mail
+                          <span>Enviar por e-mail</span>
                         </button>
                         <button type="button" class="contact-btn contact-btn--ghost" id="contactWhatsappBtn">
                           Enviar por WhatsApp
