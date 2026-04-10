@@ -3693,6 +3693,20 @@
   padding-left: 28px;
 }
 
+
+/* ===== Padronização de movimento (Áreas → FAQ) ===== */
+.area-item,
+.faq-item{
+  transition: transform .35s cubic-bezier(.16,1,.18,1), 
+              box-shadow .35s cubic-bezier(.16,1,.18,1);
+}
+
+.area-item:hover,
+.faq-item:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.08);
+}
+
 </style>
 </head>
 
