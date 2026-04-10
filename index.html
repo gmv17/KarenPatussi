@@ -4182,6 +4182,9 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
     </div>
   </footer>
 
+  <div class="mobile-card-backdrop" id="mobileCardBackdrop" aria-hidden="true"></div>
+  <div class="mobile-card-shell" id="mobileCardShell" aria-hidden="true"></div>
+
   <script>
     (() => {
       const root = document.documentElement;
@@ -4221,10 +4224,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       }
 
       links.forEach((a, i) => a.style.setProperty("--i", String(i)));
-      if(mobileCardBackdrop && !mobileCardBackdrop.dataset.bound){
-        mobileCardBackdrop.addEventListener("click", () => closeMobileCardModal());
-        mobileCardBackdrop.dataset.bound = "true";
-      }
 
       function ensureMobileCardCloseButton(card){
         if(!card) return null;
@@ -4246,6 +4245,10 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       const mobileCardShell = document.getElementById("mobileCardShell");
       const mobileCardBackdrop = document.getElementById("mobileCardBackdrop");
+      if(mobileCardBackdrop && !mobileCardBackdrop.dataset.bound){
+        mobileCardBackdrop.addEventListener("click", () => closeMobileCardModal());
+        mobileCardBackdrop.dataset.bound = "true";
+      }
       let mobileOpenCard = null;
       let mobileCardReturnFocus = null;
       let mobileCardScrollTop = 0;
@@ -4426,6 +4429,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       window.addEventListener("load", () => window.setTimeout(finishLoader, Math.max(LOADER_MIN, LOADER_DUR)), { once: true });
       if(document.readyState === "complete") window.setTimeout(finishLoader, Math.max(LOADER_MIN, LOADER_DUR));
       window.addEventListener("pageshow", (e) => { if(e.persisted) finishLoader(); });
+      window.addEventListener("error", () => { try { finishLoader(); } catch(_e){} });
 
       function openMenu(){
         if(!overlay || !openBtn || !drawer) return;
