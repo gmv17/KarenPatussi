@@ -5303,6 +5303,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       let wheelCooldownUntil = 0;
 
       let pendingDir = +1;
+      let pendingNavIndex = null;
       let returnToHeroAfterClose = false;
 
       function originVector(code){
@@ -5452,7 +5453,8 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         });
 
         sceneIndex = 0;
-        updateNavActive(sceneIndex);
+        pendingNavIndex = 0;
+        updateNavActive(-1);
         pendingDir = +1;
         returnToHeroAfterClose = false;
 
@@ -5506,6 +5508,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         lastDir = 0;
         wheelAccum = 0;
         touchAccum = 0;
+        pendingNavIndex = null;
 
         hideAllCards();
         topbar.classList.remove("show-brand");
@@ -5537,10 +5540,14 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       function requestNext(){
         if(!canTrigger()) return;
         if(phase === "opening") return;
+
+        const nextIndex = clamp(sceneIndex + 1, 0, cards.length - 1);
+        if(nextIndex === sceneIndex) return;
+
         setLock();
         pendingDir = +1;
+        pendingNavIndex = nextIndex;
         returnToHeroAfterClose = false;
-        updateNavActive(clamp(sceneIndex + 1, 0, cards.length - 1));
         closeScene();
       }
 
@@ -5551,16 +5558,18 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(sceneIndex === 0){
           setLock();
           pendingDir = -1;
+          pendingNavIndex = -1;
           returnToHeroAfterClose = true;
-          updateNavActive(-1);
           closeScene();
           return;
         }
 
+        const prevIndex = clamp(sceneIndex - 1, 0, cards.length - 1);
+
         setLock();
         pendingDir = -1;
+        pendingNavIndex = prevIndex;
         returnToHeroAfterClose = false;
-        updateNavActive(clamp(sceneIndex - 1, 0, cards.length - 1));
         closeScene();
       }
 
@@ -5595,15 +5604,26 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           }
         }
 
-        if(phase === "opening" && p >= 1){
-          phase = "open";
-          updateNavActive(sceneIndex);
+        if(phase === "opening"){
+          if(pendingNavIndex !== null && p >= 0.72){
+            updateNavActive(pendingNavIndex);
+          }
+
+          if(p >= 1){
+            phase = "open";
+            updateNavActive(sceneIndex);
+            pendingNavIndex = null;
+          }
         }
 
         if(phase === "closing" && returnToHeroAfterClose){
           topbar.classList.remove("show-brand");
           setHeroTransitionMode(false);
           syncHeroReturnWithCardProgress(1 - p);
+
+          if(pendingNavIndex === -1 && p <= 0.28){
+            updateNavActive(-1);
+          }
         }
 
         if(phase === "closing" && p <= 0){
@@ -5619,12 +5639,12 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           const nextIdx = clamp(sceneIndex + pendingDir, 0, cards.length - 1);
           if(nextIdx !== sceneIndex){
             sceneIndex = nextIdx;
-            updateNavActive(sceneIndex);
             phase = "opening";
             pTarget = 1;
             resetActiveScroll();
           } else {
             phase = "closed";
+            pendingNavIndex = null;
           }
         }
 
@@ -5799,10 +5819,8 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
         if(flowStarted && !prefersReduced()){
           if(dir > 0){
-            updateNavActive(clamp(sceneIndex + 1, 0, cards.length - 1));
             requestNext();
           }else{
-            updateNavActive(sceneIndex === 0 ? -1 : clamp(sceneIndex - 1, 0, cards.length - 1));
             requestPrev();
           }
           scheduleRender();
@@ -5898,6 +5916,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       function goToScene(i){
         if(i < 0){
+          pendingNavIndex = -1;
           returnToHeroWithSameMotion();
           return;
         }
@@ -5911,8 +5930,8 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         }
 
         sceneIndex = clamp(i, 0, cards.length - 1);
+        pendingNavIndex = sceneIndex;
         returnToHeroAfterClose = false;
-        updateNavActive(sceneIndex);
 
         setLock();
         p = 0; pTarget = 1;
