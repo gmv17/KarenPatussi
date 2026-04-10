@@ -3587,6 +3587,36 @@
   }
 }
 
+
+/* ===== VER MAIS MAIS VISÍVEL ===== */
+.card-ver-mais{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:10px;
+  margin-bottom:6px;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--brand);
+  opacity:.95;
+}
+.card-ver-mais::after{
+  content:" →";
+  margin-left:6px;
+  font-size:14px;
+}
+
+/* ===== VOLTAR MAIS DESTACADO ===== */
+.mobile-card-close{
+  background: rgba(26,93,102,.12);
+  border: 1px solid rgba(26,93,102,.35);
+  box-shadow: 0 10px 22px rgba(26,93,102,.18);
+}
+.mobile-card-close::before{
+  font-weight:900;
+}
+
 </style>
 </head>
 
