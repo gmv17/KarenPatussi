@@ -3055,6 +3055,10 @@
   line-height:1.85;
   font-size:14.5px;
   font-weight:500;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
 }
 .cf-answer-inner ul{
   padding-left:34px;
@@ -3066,45 +3070,30 @@
   position: relative;
   margin: 10px 0 18px;
   padding: 18px 20px 18px 22px;
-
   background: rgba(26,93,102,.14);
   border: 1px solid rgba(26,93,102,.40);
   border-radius: 18px;
-
-  box-shadow: 
-    0 10px 24px rgba(26,93,102,.10);
-
+  box-shadow: 0 10px 24px rgba(26,93,102,.10);
   color: var(--softInk);
   font-size: 14px;
   line-height: 1.78;
   font-weight: 500;
-
   max-width: 74ch;
 }
-
 .cf-section-note::before{
   content: "Como funciona";
   position: absolute;
   top: -10px;
   left: 16px;
-
   font-size: 10px;
   letter-spacing: .12em;
   text-transform: uppercase;
   font-weight: 700;
-
   color: var(--brand);
   background: #fff;
   padding: 2px 8px;
   border-radius: 999px;
 }
-
-
-
-
-
-
-
 .cf-faq-shell{
   display:grid;
   gap:18px;
@@ -3147,145 +3136,58 @@
   gap:10px;
 }
 @media (max-width: 979.98px){
-  .cf-section-note{
-  position: relative;
-  margin: 10px 0 18px;
-  padding: 18px 20px 18px 22px;
-
-  background: rgba(26,93,102,.14);
-  border: 1px solid rgba(26,93,102,.40);
-  border-radius: 18px;
-
-  box-shadow: 
-    0 10px 24px rgba(26,93,102,.10);
-
-  color: var(--softInk);
-  font-size: 14px;
-  line-height: 1.78;
-  font-weight: 500;
-
-  max-width: 74ch;
-}
-
-.cf-section-note::before{
-  content: "Como funciona";
-  position: absolute;
-  top: -10px;
-  left: 16px;
-
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 700;
-
-  color: var(--brand);
-  background: #fff;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-
-
-
-
-}
-@media (max-width: 979.98px){
   .cf-hero{
-    padding:18px 16px;
-    border-radius:18px;
+    padding:0;
+    border-radius:0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    gap: 8px;
+  }
+  .cf-kicker{
+    margin: 0;
+    font-size: 10.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(20,28,32,.48);
+    font-weight: 800;
+    font-family: var(--bodyFont);
   }
   .cf-heading{
-    font-size:clamp(24px,7vw,32px);
+    font-size: clamp(18px, 5.6vw, 24px);
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: rgba(26,93,102,.85);
   }
-  .cf-hero p,
+  .cf-divider{
+    width: 38px;
+    height: 1px;
+    background: rgba(26,93,102,.18);
+    border-radius: 999px;
+  }
+  .cf-hero p{
+    margin:0;
+    padding:0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    color: var(--softInk);
+    font-size: 14px;
+    line-height: 1.8;
+    font-weight: 500;
+    max-width: none;
+  }
   .cf-answer-inner p,
   .cf-answer-inner ul,
   .cf-section-note{
-  position: relative;
-  margin: 10px 0 18px;
-  padding: 18px 20px 18px 22px;
-
-  background: rgba(26,93,102,.14);
-  border: 1px solid rgba(26,93,102,.40);
-  border-radius: 18px;
-
-  box-shadow: 
-    0 10px 24px rgba(26,93,102,.10);
-
-  color: var(--softInk);
-  font-size: 14px;
-  line-height: 1.78;
-  font-weight: 500;
-
-  max-width: 74ch;
-}
-
-.cf-section-note::before{
-  content: "Como funciona";
-  position: absolute;
-  top: -10px;
-  left: 16px;
-
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 700;
-
-  color: var(--brand);
-  background: #fff;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-
-
-
-
-
-@media (max-width: 979.98px){
-  .cf-section-note{
-  position: relative;
-  margin: 10px 0 18px;
-  padding: 18px 20px 18px 22px;
-
-  background: rgba(26,93,102,.14);
-  border: 1px solid rgba(26,93,102,.40);
-  border-radius: 18px;
-
-  box-shadow: 
-    0 10px 24px rgba(26,93,102,.10);
-
-  color: var(--softInk);
-  font-size: 14px;
-  line-height: 1.78;
-  font-weight: 500;
-
-  max-width: 74ch;
-}
-
-.cf-section-note::before{
-  content: "Como funciona";
-  position: absolute;
-  top: -10px;
-  left: 16px;
-
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 700;
-
-  color: var(--brand);
-  background: #fff;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-
-
-
-
-}
-.cf-question{
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .cf-question{
     padding:16px 42px 16px 16px;
     font-size:14px;
   }
@@ -3296,9 +3198,6 @@
     font-size:10.5px;
   }
 }
-
-
-
 
 /* ===== Remover marca/sombreado branco no topo do card Áreas ===== */
 #areas-de-atuacao::before{
@@ -3382,7 +3281,7 @@
   }
 }
 
-</style>>
+</style>
 </head>
 
 <body class="is-loading">
@@ -5703,395 +5602,3 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 </body>
 
 </html>
-<style>
-.section-card:not(.is-active) .story-media img{
-  filter: none !important;
-}
-
-/* ===== Proteção de nitidez para mídia do card Sobre ===== */
-.story-media,
-.story-media img,
-.story-video,
-.story-video video,
-.story-video iframe{
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.section-card:not(.is-active) .story-media img,
-.section-card:not(.is-active) .story-video video,
-.section-card:not(.is-active) .story-video iframe{
-  filter: none !important;
-}
-
-
-/* ===== COMO FUNCIONA REFINADO ===== */
-.cf-wrap{
-  display:grid;
-  gap:18px;
-  margin-top:8px;
-}
-.cf-hero{
-  display:grid;
-  gap:14px;
-  padding:22px 24px;
-  border-radius:22px;
-  background: rgba(255,255,255,.58);
-  border: 1px solid rgba(0,0,0,.04);
-  box-shadow: 0 8px 20px rgba(0,0,0,.035);
-}
-.cf-kicker{
-  margin:0;
-  font-size:11px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--brand);
-  font-weight:800;
-  font-family:var(--bodyFont);
-}
-.cf-heading{
-  margin:0;
-  color:var(--brand);
-  font-family:var(--titleFont);
-  font-weight:600;
-  font-size:clamp(28px,2.5vw,42px);
-  line-height:1.02;
-  letter-spacing:-.025em;
-}
-.cf-divider{
-  width:38px;
-  height:1px;
-  background: rgba(26,93,102,.18);
-  border-radius:999px;
-}
-.cf-hero p{
-  margin:0;
-  color:var(--softInk);
-  line-height:1.9;
-  font-size:15px;
-  font-family:var(--bodyFont);
-  font-weight:500;
-  max-width:72ch;
-}
-.cf-tabs,
-.cf-subtabs{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-.cf-tab,
-.cf-subtab{
-  appearance:none;
-  border:1px solid rgba(26,93,102,.12);
-  background: rgba(255,255,255,.72);
-  color: rgba(20,28,32,.72);
-  border-radius:999px;
-  min-height:42px;
-  padding:10px 16px;
-  font:700 11px/1 var(--bodyFont);
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  cursor:pointer;
-  transition: background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
-  box-shadow: 0 8px 20px rgba(0,0,0,.04);
-}
-.cf-tab:hover,
-.cf-subtab:hover,
-.cf-tab:focus-visible,
-.cf-subtab:focus-visible{
-  outline:none;
-  color:var(--brand);
-  border-color: rgba(26,93,102,.24);
-  box-shadow: 0 12px 24px rgba(0,0,0,.05);
-}
-.cf-tab.is-active,
-.cf-subtab.is-active{
-  background: rgba(26,93,102,.09);
-  color: var(--brand);
-  border-color: rgba(26,93,102,.55);
-  box-shadow: 0 12px 24px rgba(26,93,102,.10);
-}
-.cf-pane,
-.cf-approach-pane{
-  display:none;
-}
-.cf-pane.is-active,
-.cf-approach-pane.is-active{
-  display:grid;
-  gap:14px;
-}
-.cf-accordion{
-  display:grid;
-  gap:10px;
-}
-.cf-item{
-  border-radius:18px;
-  background: rgba(255,255,255,.52);
-  border:1px solid rgba(0,0,0,.045);
-  box-shadow: 0 10px 22px rgba(0,0,0,.03);
-  overflow:hidden;
-}
-.cf-question{
-  width:100%;
-  appearance:none;
-  border:0;
-  background:transparent;
-  text-align:left;
-  padding:18px 48px 18px 18px;
-  position:relative;
-  cursor:pointer;
-  color:rgba(20,28,32,.88);
-  font:700 15px/1.55 var(--bodyFont);
-}
-
-
-.cf-question::after{
-  content:"+";
-  position:absolute;
-  right:18px;
-  top:50%;
-  transform:translateY(-50%);
-  font:800 24px/1 var(--titleFont); /* mais grosso */
-  color: var(--brand);
-  transition: transform .22s ease, opacity .22s ease;
-}
-
-.cf-item.is-open .cf-question::after{
-  content:"−";
-  color: var(--brand);
-}
-
-
-.cf-answer{
-  display:grid;
-  grid-template-rows:0fr;
-  transition:grid-template-rows .28s ease;
-}
-.cf-item.is-open .cf-answer{
-  grid-template-rows:1fr;
-}
-.cf-answer-inner{
-  overflow:hidden;
-}
-.cf-answer-inner p,
-.cf-answer-inner ul{
-  margin:0;
-  padding:0 18px 18px;
-  color:var(--softInk);
-  line-height:1.85;
-  font-size:14.5px;
-  font-weight:500;
-}
-.cf-answer-inner ul{
-  padding-left:34px;
-}
-.cf-answer-inner li + li{
-  margin-top:6px;
-}
-.cf-section-note{
-  position: relative;
-  margin: 10px 0 18px;
-  padding: 18px 20px 18px 22px;
-
-  background: rgba(26,93,102,.14);
-  border: 1px solid rgba(26,93,102,.40);
-  border-radius: 18px;
-
-  box-shadow: 
-    0 10px 24px rgba(26,93,102,.10);
-
-  color: var(--softInk);
-  font-size: 14px;
-  line-height: 1.78;
-  font-weight: 500;
-
-  max-width: 74ch;
-}
-
-.cf-section-note::before{
-  content: "Como funciona";
-  position: absolute;
-  top: -10px;
-  left: 16px;
-
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 700;
-
-  color: var(--brand);
-  background: #fff;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-
-
-
-
-
-@media (max-width: 979.98px){
-  .cf-section-note{
-  position: relative;
-  margin: 10px 0 18px;
-  padding: 18px 20px 18px 22px;
-
-  background: rgba(26,93,102,.14);
-  border: 1px solid rgba(26,93,102,.40);
-  border-radius: 18px;
-
-  box-shadow: 
-    0 10px 24px rgba(26,93,102,.10);
-
-  color: var(--softInk);
-  font-size: 14px;
-  line-height: 1.78;
-  font-weight: 500;
-
-  max-width: 74ch;
-}
-
-.cf-section-note::before{
-  content: "Como funciona";
-  position: absolute;
-  top: -10px;
-  left: 16px;
-
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 700;
-
-  color: var(--brand);
-  background: #fff;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-
-
-
-
-}
-@media (max-width: 979.98px){
-  .cf-hero{
-    padding:18px 16px;
-    border-radius:18px;
-  }
-  .cf-heading{
-    font-size:clamp(24px,7vw,32px);
-  }
-  .cf-hero p,
-  .cf-answer-inner p,
-  .cf-answer-inner ul,
-  .cf-section-note{
-  position: relative;
-  margin: 10px 0 18px;
-  padding: 18px 20px 18px 22px;
-
-  background: rgba(26,93,102,.14);
-  border: 1px solid rgba(26,93,102,.40);
-  border-radius: 18px;
-
-  box-shadow: 
-    0 10px 24px rgba(26,93,102,.10);
-
-  color: var(--softInk);
-  font-size: 14px;
-  line-height: 1.78;
-  font-weight: 500;
-
-  max-width: 74ch;
-}
-
-.cf-section-note::before{
-  content: "Como funciona";
-  position: absolute;
-  top: -10px;
-  left: 16px;
-
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 700;
-
-  color: var(--brand);
-  background: #fff;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-
-
-
-
-
-@media (max-width: 979.98px){
-  .cf-section-note{
-  position: relative;
-  margin: 10px 0 18px;
-  padding: 18px 20px 18px 22px;
-
-  background: rgba(26,93,102,.14);
-  border: 1px solid rgba(26,93,102,.40);
-  border-radius: 18px;
-
-  box-shadow: 
-    0 10px 24px rgba(26,93,102,.10);
-
-  color: var(--softInk);
-  font-size: 14px;
-  line-height: 1.78;
-  font-weight: 500;
-
-  max-width: 74ch;
-}
-
-.cf-section-note::before{
-  content: "Como funciona";
-  position: absolute;
-  top: -10px;
-  left: 16px;
-
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 700;
-
-  color: var(--brand);
-  background: #fff;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-
-
-
-
-}
-.cf-question{
-    padding:16px 42px 16px 16px;
-    font-size:14px;
-  }
-  .cf-tab,
-  .cf-subtab{
-    min-height:40px;
-    padding:10px 14px;
-    font-size:10.5px;
-  }
-}
-
-
-/* ===== Remover marca/sombreado branco no topo do card Áreas ===== */
-#areas-de-atuacao::before{
-  display: none;
-}
-
-#areas-de-atuacao .card-scroll::before,
-#areas-de-atuacao .card-scroll::after{
-  display: none;
-}
-
-</style>
