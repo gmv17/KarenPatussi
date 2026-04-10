@@ -2801,6 +2801,76 @@
   line-height:1.8;
   font-weight:500;
 }
+.area-question{
+  width:100%;
+  appearance:none;
+  border:0;
+  background:transparent;
+  text-align:left;
+  padding:0;
+  color:var(--brand);
+  font-family:var(--titleFont);
+  font-size:clamp(19px,1.4vw,24px);
+  line-height:1.08;
+  font-weight:600;
+  letter-spacing:-.01em;
+  cursor:default;
+}
+.area-answer{
+  display:block;
+}
+.area-answer-inner{
+  display:grid;
+  gap:10px;
+  padding-top:8px;
+}
+@media (max-width: 979.98px){
+  .area-item{
+    padding:0;
+    overflow:hidden;
+  }
+  .area-question{
+    position:relative;
+    min-height:64px;
+    padding:18px 48px 18px 16px;
+    color:rgba(20,28,32,.88);
+    font:700 15px/1.55 var(--bodyFont);
+    letter-spacing:0;
+    cursor:pointer;
+  }
+  .area-question::after{
+    content:"+";
+    position:absolute;
+    right:18px;
+    top:50%;
+    transform:translateY(-50%);
+    font-family:var(--titleFont);
+    font-weight:900;
+    font-size:26px;
+    line-height:1;
+    color:var(--brand);
+    text-shadow:0 0 0.2px currentColor, 0 0 0.2px currentColor;
+    transition:transform .28s cubic-bezier(.16,1,.18,1), opacity .22s ease;
+  }
+  .area-item.is-open .area-question::after{
+    content:"−";
+  }
+  .area-answer{
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .28s ease;
+  }
+  .area-item.is-open .area-answer{
+    grid-template-rows:1fr;
+  }
+  .area-answer-inner{
+    overflow:hidden;
+    padding-top:0;
+  }
+  .area-answer-inner p{
+    padding:0 16px 18px;
+  }
+}
 @media (max-width: 979.98px){
   .areas-hero{
     padding:18px 16px;
@@ -3431,53 +3501,73 @@
 
                 <div class="areas-grid">
                   <section class="area-item" aria-label="Psicoterapia Sistêmica e Processamento de Traumas">
-                    <h3>Psicoterapia Sistêmica e Processamento de Traumas</h3>
-                    <p>
-                      No atendimento de adultos, casais e famílias, com foco na identificação e reorganização de padrões relacionais que impactam a vida emocional. Utilizo a Terapia EMDR como recurso para o processamento de traumas e memórias que permanecem ativas no presente, contribuindo para respostas emocionais intensas, repetitivas ou desproporcionais.
-                    </p>
-                    <p>
-                      O objetivo é possibilitar que essas experiências sejam integradas de forma menos dolorosa, ampliando a capacidade de regulação emocional e de construção de novas formas de estar no mundo.
-                    </p>
+                    <button class="area-question" type="button" aria-expanded="false">Psicoterapia Sistêmica e Processamento de Traumas</button>
+                    <div class="area-answer">
+                      <div class="area-answer-inner">
+                        <p>
+                          No atendimento de adultos, casais e famílias, com foco na identificação e reorganização de padrões relacionais que impactam a vida emocional. Utilizo a Terapia EMDR como recurso para o processamento de traumas e memórias que permanecem ativas no presente, contribuindo para respostas emocionais intensas, repetitivas ou desproporcionais.
+                        </p>
+                        <p>
+                          O objetivo é possibilitar que essas experiências sejam integradas de forma menos dolorosa, ampliando a capacidade de regulação emocional e de construção de novas formas de estar no mundo.
+                        </p>
+                      </div>
+                    </div>
                   </section>
 
                   <section class="area-item" aria-label="Saúde Sexual e Dinâmicas de Gênero">
-                    <h3>Saúde Sexual e Dinâmicas de Gênero</h3>
-                    <p>
-                      Como sexóloga, trabalho a sexualidade como parte central da saúde psíquica, não reduzida ao desempenho, mas compreendida em sua dimensão relacional, emocional e simbólica. Atendo questões relacionadas a disfunções sexuais, dificuldades de intimidade e comunicação afetiva.
-                    </p>
-                    <p>
-                      Essa atuação é atravessada por uma leitura crítica das dinâmicas de gênero, considerando como construções sociais impactam a forma como mulheres e homens vivenciam o desejo, o corpo e os vínculos. Incluo aqui também o trabalho com masculinidades contemporâneas e seus impasses.
-                    </p>
+                    <button class="area-question" type="button" aria-expanded="false">Saúde Sexual e Dinâmicas de Gênero</button>
+                    <div class="area-answer">
+                      <div class="area-answer-inner">
+                        <p>
+                          Como sexóloga, trabalho a sexualidade como parte central da saúde psíquica, não reduzida ao desempenho, mas compreendida em sua dimensão relacional, emocional e simbólica. Atendo questões relacionadas a disfunções sexuais, dificuldades de intimidade e comunicação afetiva.
+                        </p>
+                        <p>
+                          Essa atuação é atravessada por uma leitura crítica das dinâmicas de gênero, considerando como construções sociais impactam a forma como mulheres e homens vivenciam o desejo, o corpo e os vínculos. Incluo aqui também o trabalho com masculinidades contemporâneas e seus impasses.
+                        </p>
+                      </div>
+                    </div>
                   </section>
 
                   <section class="area-item" aria-label="Psicologia Transcultural e Mobilidade Humana">
-                    <h3>Psicologia Transcultural e Mobilidade Humana</h3>
-                    <p>
-                      Ofereço acompanhamento psicológico para migrantes e expatriados, com foco nas experiências de deslocamento, ruptura e adaptação. A mudança de país frequentemente envolve múltiplas perdas — de referências, pertencimento, identidade e rede de apoio.
-                    </p>
-                    <p>
-                      Meu trabalho consiste em ajudar o paciente a compreender e elaborar este processo, muitas vezes marcado pelo luto migratório, favorecendo a reconstrução de sentido e a possibilidade de se situar subjetivamente em um novo contexto cultural.
-                    </p>
+                    <button class="area-question" type="button" aria-expanded="false">Psicologia Transcultural e Mobilidade Humana</button>
+                    <div class="area-answer">
+                      <div class="area-answer-inner">
+                        <p>
+                          Ofereço acompanhamento psicológico para migrantes e expatriados, com foco nas experiências de deslocamento, ruptura e adaptação. A mudança de país frequentemente envolve múltiplas perdas — de referências, pertencimento, identidade e rede de apoio.
+                        </p>
+                        <p>
+                          Meu trabalho consiste em ajudar o paciente a compreender e elaborar este processo, muitas vezes marcado pelo luto migratório, favorecendo a reconstrução de sentido e a possibilidade de se situar subjetivamente em um novo contexto cultural.
+                        </p>
+                      </div>
+                    </div>
                   </section>
 
                   <section class="area-item" aria-label="Vulnerabilidade, Dependência Química e Contexto Social">
-                    <h3>Vulnerabilidade, Dependência Química e Contexto Social</h3>
-                    <p>
-                      Minha experiência na Proteção Social e Saúde Pública sustenta uma prática clínica que não desconsidera o peso das condições de vida no sofrimento psíquico. Nem todo sofrimento é apenas intrapsíquico — muitas vezes ele é uma resposta coerente a contextos de violência, instabilidade ou exclusão.
-                    </p>
-                    <p>
-                      Atuo no acompanhamento de indivíduos e famílias em situações de alta complexidade, incluindo casos de dependência química, compreendendo a dependência como um fenômeno que afeta e é afetado por toda a rede relacional. O foco é construir possibilidades de cuidado que sejam viáveis dentro da realidade de cada pessoa.
-                    </p>
+                    <button class="area-question" type="button" aria-expanded="false">Vulnerabilidade, Dependência Química e Contexto Social</button>
+                    <div class="area-answer">
+                      <div class="area-answer-inner">
+                        <p>
+                          Minha experiência na Proteção Social e Saúde Pública sustenta uma prática clínica que não desconsidera o peso das condições de vida no sofrimento psíquico. Nem todo sofrimento é apenas intrapsíquico — muitas vezes ele é uma resposta coerente a contextos de violência, instabilidade ou exclusão.
+                        </p>
+                        <p>
+                          Atuo no acompanhamento de indivíduos e famílias em situações de alta complexidade, incluindo casos de dependência química, compreendendo a dependência como um fenômeno que afeta e é afetado por toda a rede relacional. O foco é construir possibilidades de cuidado que sejam viáveis dentro da realidade de cada pessoa.
+                        </p>
+                      </div>
+                    </div>
                   </section>
 
                   <section class="area-item" aria-label="Mediação de Conflitos e Desenvolvimento ao Longo da Vida">
-                    <h3>Mediação de Conflitos e Desenvolvimento ao Longo da Vida</h3>
-                    <p>
-                      Tenho experiência na mediação de conflitos familiares e judiciais, especialmente em situações de separação, guarda e reorganização familiar. O trabalho consiste em facilitar o diálogo em contextos de alta tensão, buscando soluções que minimizem danos emocionais e preservem, sempre que possível, os vínculos envolvidos.
-                    </p>
-                    <p>
-                      Também atuo a partir de uma perspectiva de desenvolvimento humano, acompanhando diferentes fases da vida — da vida adulta ao envelhecimento — considerando os desafios específicos de cada etapa e as transformações que elas exigem.
-                    </p>
+                    <button class="area-question" type="button" aria-expanded="false">Mediação de Conflitos e Desenvolvimento ao Longo da Vida</button>
+                    <div class="area-answer">
+                      <div class="area-answer-inner">
+                        <p>
+                          Tenho experiência na mediação de conflitos familiares e judiciais, especialmente em situações de separação, guarda e reorganização familiar. O trabalho consiste em facilitar o diálogo em contextos de alta tensão, buscando soluções que minimizem danos emocionais e preservem, sempre que possível, os vínculos envolvidos.
+                        </p>
+                        <p>
+                          Também atuo a partir de uma perspectiva de desenvolvimento humano, acompanhando diferentes fases da vida — da vida adulta ao envelhecimento — considerando os desafios específicos de cada etapa e as transformações que elas exigem.
+                        </p>
+                      </div>
+                    </div>
                   </section>
                 </div>
 
@@ -5475,6 +5565,46 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       if(item) item.classList.toggle('is-open');
     });
   });
+})();
+</script>
+
+<script>
+(function(){
+  const root = document.querySelector('#areas-de-atuacao');
+  if(!root) return;
+
+  const mobileQuery = window.matchMedia('(max-width: 979.98px)');
+  const syncAreasState = () => {
+    root.querySelectorAll('.area-item').forEach((item) => {
+      const btn = item.querySelector('.area-question');
+      if(!btn) return;
+      if(mobileQuery.matches){
+        const isOpen = item.classList.contains('is-open');
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      } else {
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  };
+
+  root.querySelectorAll('.area-question').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if(!mobileQuery.matches) return;
+      const item = btn.closest('.area-item');
+      if(!item) return;
+      item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', item.classList.contains('is-open') ? 'true' : 'false');
+    });
+  });
+
+  if(typeof mobileQuery.addEventListener === 'function'){
+    mobileQuery.addEventListener('change', syncAreasState);
+  } else if(typeof mobileQuery.addListener === 'function'){
+    mobileQuery.addListener(syncAreasState);
+  }
+
+  syncAreasState();
 })();
 </script>
 </body>
