@@ -128,7 +128,7 @@
       --cardMaxW: 980px;
 
       /* ✅ principal “manteiga”: maior = mais suave e lento */
-      --cardLag: 0.65;         /* antes 0.28 */
+      --cardLag: 0.74;         /* antes 0.28 */
       --edgeMargin: 46px;
       --edgeMarginY: 76px;
 
@@ -136,7 +136,7 @@
       --wheelTrigger: 220;
 
       /* ✅ mais tempo de respiro entre troca de cenas */
-      --sceneLockMs: 1650ms;   /* antes 980ms */
+      --sceneLockMs: 1820ms;   /* antes 980ms */
 
       --cardScrollTopPad: 14px;
       --cardScrollBottomPad: 28px;
@@ -149,8 +149,8 @@
 
       --paraSize: 14.5px;
 
-      --cardFloatAmp: 3px;
-      --cardFloatDur: 8.6s; /* ✅ flutuação mais lenta */
+      --cardFloatAmp: 2px;
+      --cardFloatDur: 10.8s; /* ✅ flutuação mais lenta */
 
       --softInk: rgba(20,28,32,.92);
       --softInk2: rgba(20,28,32,.78);
@@ -4479,28 +4479,29 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           : originVector(activeCard.dataset.origin);
 
         const tSlide = easeOutCubic(clamp(pNow, 0, 1));
-        const tFade  = easeOutQuad(clamp((pNow - 0.03) / 0.97, 0, 1));
+        const tFade  = easeOutQuad(clamp((pNow - 0.06) / 0.94, 0, 1));
 
         const w = wFromPx + (wFullPx - wFromPx) * tSlide;
 
-        const sideX = (vw * 0.58) + (w * 0.55) + edgeX;
-        const enterY = (vh * 0.92) + edgeY;
-        const exitY  = (vh * 0.92) + edgeY;
+        const sideX = ((vw * 0.42) + (w * 0.32) + edgeX) * 0.72;
+        const enterY = ((vh * 0.42) + edgeY) * 0.78;
+        const exitY  = ((vh * 0.34) + edgeY) * 0.74;
 
         let x = 0;
         let y = 0;
 
         if(phase === "closing"){
-          const tClose = easeOutCubic(clamp(1 - pNow, 0, 1));
+          const tClose = easeInOutCubic(clamp(1 - pNow, 0, 1));
           x = origin.sx * tClose * sideX;
           y = -tClose * exitY;
         } else {
-          x = origin.sx * (1 - tSlide) * sideX;
-          y = (1 - tSlide) * enterY;
+          const tEnter = easeInOutCubic(tSlide);
+          x = origin.sx * (1 - tEnter) * sideX;
+          y = (1 - tEnter) * enterY;
         }
 
-        const o = clamp(mix(0.02, 1.0, tFade), 0, 1);
-        const s = 0.992 + 0.008 * tSlide;
+        const o = clamp(mix(0.04, 1.0, tFade), 0, 1);
+        const s = 0.994 + 0.006 * tSlide;
 
         activeCard.style.setProperty("--p", pNow.toFixed(3));
         activeCard.style.setProperty("--o", o.toFixed(3));
