@@ -5798,8 +5798,13 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(isTypingContext()) return false;
 
         if(flowStarted && !prefersReduced()){
-          if(dir > 0) requestNext();
-          else requestPrev();
+          if(dir > 0){
+            updateNavActive(clamp(sceneIndex + 1, 0, cards.length - 1));
+            requestNext();
+          }else{
+            updateNavActive(sceneIndex === 0 ? -1 : clamp(sceneIndex - 1, 0, cards.length - 1));
+            requestPrev();
+          }
           scheduleRender();
           return true;
         }
