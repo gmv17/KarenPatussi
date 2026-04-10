@@ -559,13 +559,13 @@
       position:absolute;
       left: 14px;
       right: 14px;
-      bottom: 7px;
-      height: 1px;
+      bottom: 6px;
+      height: 2px;
       border-radius: 999px;
-      background: rgba(26,93,102,.34);
+      background: rgba(26,93,102,.35);
       transform: scaleX(0);
       transform-origin: center;
-      transition: transform .24s ease;
+      transition: transform .28s cubic-bezier(.16,1,.18,1), opacity .28s ease, background .28s ease;
     }
     .topbar-nav a:hover,
     .topbar-nav a:focus-visible{
@@ -575,17 +575,22 @@
       outline: none;
     }
     .topbar-nav a:hover::after,
-    .topbar-nav a:focus-visible::after{ transform: scaleX(1); }
+    .topbar-nav a:focus-visible::after{ 
+      transform: scaleX(.75);
+      background: rgba(26,93,102,.5);
+    }
 
     .topbar-nav a.nav-active{
-      background: rgba(255,255,255,.90) !important;
+      background: transparent !important;
       color: var(--brand) !important;
-      box-shadow: 0 2px 12px rgba(26,93,102,.18) !important;
+      box-shadow: none !important;
     }
     .topbar-nav a.nav-active::after{
       transform: scaleX(1) !important;
       background: var(--brand) !important;
       opacity: 1 !important;
+      height: 2.5px;
+      box-shadow: 0 0 6px rgba(26,93,102,.25);
     }
     .drawer-nav a.nav-active{
       color: var(--brand) !important;
@@ -594,14 +599,16 @@
     }
 
     .topbar-nav a.nav-active{
-      background: rgba(255,255,255,.90) !important;
+      background: transparent !important;
       color: var(--brand) !important;
-      box-shadow: 0 2px 12px rgba(26,93,102,.18) !important;
+      box-shadow: none !important;
     }
     .topbar-nav a.nav-active::after{
       transform: scaleX(1) !important;
       background: var(--brand) !important;
       opacity: 1 !important;
+      height: 2.5px;
+      box-shadow: 0 0 6px rgba(26,93,102,.25);
     }
 
     .drawer-nav a.nav-active{
@@ -2693,65 +2700,6 @@
       }
     }
 
-    .topbar-nav a.nav-schedule,
-    .drawer-nav a.nav-schedule{
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      border-radius: 999px;
-      border: 1px solid rgba(26,93,102,.28);
-      background: rgba(255,255,255,.92);
-      color: var(--brand);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.55) inset,
-        0 0 14px rgba(26,93,102,.08);
-    }
-    .topbar-nav a.nav-schedule::before,
-    .drawer-nav a.nav-schedule::before{
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(90deg, rgba(26,93,102,.16), rgba(26,93,102,.06) 55%, rgba(26,93,102,.18));
-      transform: translateX(-103%);
-      transition: transform .62s cubic-bezier(.16,1,.18,1), opacity .28s ease;
-      opacity: .72;
-    }
-    .topbar-nav a.nav-schedule::after,
-    .drawer-nav a.nav-schedule::after{
-      display: none;
-    }
-    .topbar-nav a.nav-schedule:hover,
-    .topbar-nav a.nav-schedule:focus-visible,
-    .drawer-nav a.nav-schedule:hover,
-    .drawer-nav a.nav-schedule:focus-visible{
-      color: var(--brand);
-      background: rgba(255,255,255,.96);
-      border-color: rgba(26,93,102,.34);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.72) inset,
-        0 0 16px rgba(26,93,102,.10),
-        0 10px 22px rgba(26,93,102,.08);
-      outline: none;
-    }
-    .topbar-nav a.nav-schedule:hover::before,
-    .topbar-nav a.nav-schedule:focus-visible::before,
-    .drawer-nav a.nav-schedule:hover::before,
-    .drawer-nav a.nav-schedule:focus-visible::before{
-      transform: translateX(103%);
-    }
-    .topbar-nav a.nav-schedule.nav-active,
-    .drawer-nav a.nav-schedule.nav-active{
-      background: rgba(255,255,255,.95) !important;
-      color: var(--brand) !important;
-      border-color: rgba(26,93,102,.34) !important;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.7) inset,
-        0 0 16px rgba(26,93,102,.10),
-        0 8px 18px rgba(26,93,102,.08) !important;
-      font-weight: 800 !important;
-    }
-
     .topbar-nav a.nav-blog{
       margin-left:10px;
       background: var(--brand);
@@ -3818,7 +3766,7 @@
       <a href="#sobre" data-link data-index="0">Sobre</a>
       <a href="#areas-de-atuacao" data-link data-index="1">Áreas de atuação</a>
       <a href="#como-funciona" data-link data-index="2">Como funciona</a>
-      <a href="#agendar-sessao" class="nav-schedule" data-link data-index="3">Agendar sessão</a>
+      <a href="#agendar-sessao" data-link data-index="3">Agendar sessão</a>
       <a href="blog.html" class="nav-blog">Além da sessão</a>
     </nav>
 
@@ -3849,7 +3797,7 @@
         <a href="#sobre" data-link data-index="0">Sobre</a>
         <a href="#areas-de-atuacao" data-link data-index="1">Áreas de atuação</a>
         <a href="#como-funciona" data-link data-index="2">Como funciona</a>
-        <a href="#agendar-sessao" class="nav-schedule" data-link data-index="3">Agendar sessão</a>
+        <a href="#agendar-sessao" data-link data-index="3">Agendar sessão</a>
         <a href="blog.html" class="nav-blog">Além da sessão</a>
       </nav>
 
