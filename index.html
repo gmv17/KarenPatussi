@@ -3772,6 +3772,78 @@
   }
 }
 
+/* === Ajuste refinado botão Agendamento === */
+.topbar-nav a.nav-agendamento{
+  background:#fff;
+  border:0.5px solid rgba(26,93,102,.10);
+  color:var(--brand);
+  box-shadow:none;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.topbar-nav a.nav-agendamento::before{
+  content:"";
+  position:absolute;
+  inset:-18% -30%;
+  pointer-events:none;
+  z-index:0;
+  background: linear-gradient(
+    100deg,
+    rgba(26,93,102,0) 0%,
+    rgba(26,93,102,.012) 42%,
+    rgba(110,190,170,.045) 50%,
+    rgba(26,93,102,.014) 58%,
+    rgba(26,93,102,0) 100%
+  );
+  transform: translateX(-135%);
+  animation: agendamentoSheen 7.8s cubic-bezier(.4,0,.2,1) infinite;
+}
+
+.topbar-nav a.nav-agendamento > *{
+  position:relative;
+  z-index:1;
+}
+
+.topbar-nav a.nav-agendamento::after{
+  display:none;
+}
+
+.topbar-nav a.nav-agendamento.nav-active::after{
+  display:block;
+  transform:scaleX(1);
+  height:2.5px;
+  background:var(--brand);
+  box-shadow:0 0 6px rgba(26,93,102,.25);
+}
+
+.topbar-nav a.nav-agendamento:hover{
+  background:rgba(26,93,102,.025);
+  box-shadow:0 0 4px rgba(26,93,102,.045);
+}
+
+@keyframes agendamentoSheen{
+  0%{
+    transform: translateX(-135%);
+    opacity:.0;
+  }
+  10%{
+    opacity:.55;
+  }
+  48%{
+    transform: translateX(135%);
+    opacity:.55;
+  }
+  62%{
+    transform: translateX(135%);
+    opacity:0;
+  }
+  100%{
+    transform: translateX(135%);
+    opacity:0;
+  }
+}
 </style>
 </head>
 
