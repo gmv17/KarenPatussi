@@ -87,8 +87,8 @@
       --treeBreathDur: 18s;
       --treeBreathAmp: 0.055;
       --treePushZ: 60px;
-      --;
-      --;
+      --treeBreathShadowA: 0.16;
+      --treeBreathShadowB: 0.26;
 
       --glowOpacity: 0.16;
       --glowDur: 6.2s;
@@ -234,7 +234,7 @@
       animation: treeBreathMotion var(--treeBreathDur) ease-in-out infinite;
     }
     .tree img{
-      /* filter removed */ contrast(1.03) saturate(1.02) brightness(0.98);
+      filter: contrast(1.03) saturate(1.02) brightness(0.98);
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -252,49 +252,17 @@
         transform: translate3d(0, -4px, 0) scale(1.018);
       }
     }
-    @keyframes;}100%{/* filter removed */none;}}
-      50%{
-        /* filter removed */
-          )
-          )
-          brightness(1.05) contrast(1.04);
-      }
-    }
+    
 
     .tree::after{
       content:"";
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background:
-        linear-gradient(180deg,
-          rgba(255,255,255,0) 0%,
-          rgba(255,255,255,0) 35%,
-          rgba(255,255,255,.50) 50%,
-          rgba(255,255,255,0) 65%,
-          rgba(255,255,255,0) 100%
-        ),
-        radial-gradient(closest-side at 50% 50%, var(--glowColor), rgba(26,93,102,0) 62%);
-      background-size: 100% 220%, 120% 120%;
-      background-position: 0 140%, 50% 160%;
-      background-repeat: no-repeat;
-
-      opacity: var(--glowOpacity);
-      /* filter removed */ blur(var(--glowBlur));
-      mix-blend-mode: screen;
-
-      -webkit-mask-image: url("imagens/Tree ring hero.webp");
-      -webkit-mask-repeat: no-repeat;
-      -webkit-mask-size: contain;
-      -webkit-mask-position: center;
-
-      mask-image: url("imagens/Tree ring hero.webp");
-      mask-repeat: no-repeat;
-      mask-size: contain;
-      mask-position: center;
-
-      animation: glowRise var(--glowDur) cubic-bezier(.3, 0, .2, 1) infinite;
-      will-change: opacity, background-position;
+      opacity: 0;
+      filter: none;
+      mix-blend-mode: normal;
+      animation: none;
     }
     @keyframes glowRise{
       0% { opacity: 0; background-position: 0 140%, 50% 160%; }
@@ -362,7 +330,7 @@
       mask-position: center;
       mask-size: contain;
 
-      /* filter removed */ );
+      filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
       transform: translateZ(0);
     }
     .loader-logoMark::after{
@@ -380,7 +348,7 @@
         rgba(255,255,255, .55) 75%,
         rgba(255,255,255,0) 100%
       );
-      /* filter removed */ blur(8px);
+      filter: blur(8px);
       animation: scanUp 1150ms cubic-bezier(.16, 1, .22, 1) infinite;
       will-change: transform;
     }
@@ -392,7 +360,7 @@
       width: var(--loaderLogoW);
       height: auto;
       display:none;
-      /* filter removed */ );
+      filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
     }
@@ -421,8 +389,8 @@
       gap: 12px;
 
       background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.72));
-      backdrop-/* filter removed */ blur(10px);
-      -webkit-backdrop-/* filter removed */ blur(10px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(0,0,0,.07);
 
       transform: translateZ(0);
@@ -439,7 +407,7 @@
 
       opacity: 0;
       transform: translate3d(0, -6px, 0);
-      /* filter removed */ blur(1.2px);
+      filter: blur(1.2px);
       pointer-events: none;
 
       transition:
@@ -450,7 +418,7 @@
     .topbar.show-brand .bar-title{
       opacity: 1;
       transform: translate3d(0, 0, 0);
-      /* filter removed */ blur(0);
+      filter: blur(0);
       pointer-events: auto;
     }
 
@@ -631,8 +599,8 @@
       background:
         radial-gradient(900px 600px at 75% 18%, rgba(0,0,0,.18), rgba(0,0,0,0) 62%),
         rgba(10, 12, 14, .18);
-      backdrop-/* filter removed */ blur(7px);
-      -webkit-backdrop-/* filter removed */ blur(7px);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
       opacity: 0;
       transition: opacity 520ms cubic-bezier(.16,1,.18,1);
     }
@@ -651,8 +619,8 @@
         18px;
 
       background: rgba(255,255,255, 0.52);
-      backdrop-/* filter removed */ blur(26px) saturate(1.12);
-      -webkit-backdrop-/* filter removed */ blur(26px) saturate(1.12);
+      backdrop-filter: blur(26px) saturate(1.12);
+      -webkit-backdrop-filter: blur(26px) saturate(1.12);
 
       border-left: 1px solid rgba(0,0,0,.07);
       box-shadow: 0 22px 72px rgba(0,0,0,.18);
@@ -778,7 +746,7 @@
       opacity: 0;
       transform: translate3d(34px, 0, 0) scaleX(.78);
       transform-origin: right center;
-      /* filter removed */ blur(1.1px);
+      filter: blur(1.1px);
       transition:
         transform 820ms cubic-bezier(.16, 1, .16, 1),
         opacity  820ms cubic-bezier(.16, 1, .16, 1),
@@ -788,7 +756,7 @@
     .overlay.is-open .drawer-nav a{
       opacity: 1;
       transform: translate3d(0,0,0) scaleX(1);
-      /* filter removed */ blur(0);
+      filter: blur(0);
       transition-delay: calc(110ms + (var(--i, 0) * 70ms));
     }
 
@@ -803,13 +771,13 @@
 
       opacity: 0;
       transform: translate3d(16px, 0, 0);
-      /* filter removed */ blur(1.6px);
+      filter: blur(1.6px);
       transition: opacity 760ms cubic-bezier(.16,1,.18,1), transform 760ms cubic-bezier(.16,1,.18,1), filter 760ms cubic-bezier(.16,1,.18,1);
     }
     .overlay.is-open .menu-logo{
       opacity: 1;
       transform: translate3d(0,0,0);
-      /* filter removed */ blur(0);
+      filter: blur(0);
       transition-delay: calc(110ms + (7 * 70ms));
     }
     .menu-logo .logo-box{
@@ -825,7 +793,7 @@
       object-fit: contain;
       opacity: .92;
       display:block;
-      /* filter removed */ );
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.11));
     }
 
     /* ========================= REVEAL DO SITE ========================= */
@@ -834,7 +802,7 @@
       z-index: 2;
       opacity: 0;
       transform: translate3d(0, 10px, 0) scale(.995);
-      /* filter removed */ blur(1.8px);
+      filter: blur(1.8px);
       transition:
         opacity 980ms cubic-bezier(.14,1,.16,1),
         transform 980ms cubic-bezier(.14,1,.16,1),
@@ -844,7 +812,7 @@
     body.is-ready .site{
       opacity: 1;
       transform: translate3d(0, 0, 0) scale(1);
-      /* filter removed */ blur(0);
+      filter: blur(0);
     }
 
     /* ===== HERO ===== */
@@ -881,7 +849,7 @@
       will-change: transform, opacity, filter;
       transform: translate3d(0, calc(var(--nameY, 0px)), 0);
       opacity: var(--nameO, 1);
-      /* filter removed */ blur(var(--nameB, 0px));
+      filter: blur(var(--nameB, 0px));
       transition:
         transform var(--easeDurName) cubic-bezier(.14, 1, .18, 1),
         opacity  var(--easeDurName) ease,
@@ -928,7 +896,7 @@
       will-change: transform, opacity, filter;
       transform: translate3d(0, calc(var(--roleY, 0px)), 0);
       opacity: var(--roleO, 1);
-      /* filter removed */ blur(var(--roleB, 0px));
+      filter: blur(var(--roleB, 0px));
       transition:
         transform var(--easeDurRole) cubic-bezier(.14, 1, .18, 1),
         opacity  var(--easeDurRole) ease,
@@ -953,8 +921,8 @@
       background: rgba(255,255,255, 0.52);
       border: 1px solid rgba(0,0,0,.055);
       box-shadow: 0 18px 54px rgba(0,0,0,.10);
-      backdrop-/* filter removed */ blur(16px) saturate(1.08);
-      -webkit-backdrop-/* filter removed */ blur(16px) saturate(1.08);
+      backdrop-filter: blur(16px) saturate(1.08);
+      -webkit-backdrop-filter: blur(16px) saturate(1.08);
       overflow: hidden;
       position: relative;
     }
@@ -1063,8 +1031,8 @@
       box-shadow: 0 8px 20px rgba(0,0,0,.035);
       position: relative;
       overflow: hidden;
-      backdrop-/* filter removed */ blur(6px);
-      -webkit-backdrop-/* filter removed */ blur(6px);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
 
     .story-block--reverse{
@@ -1097,7 +1065,7 @@
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       image-rendering: auto;
-      /* filter removed */ none !important;
+      filter: none !important;
       will-change: transform;
     }
 
@@ -1316,7 +1284,7 @@
 
       width: min(var(--cardMaxW), calc(var(--wPx, 160) * 1px));
       opacity: var(--o, 0);
-      /* filter removed */ none;
+      filter: none;
 
       --tx: calc(var(--xPx, 0) * 1px);
       --ty: calc(var(--yPx, 0) * 1px);
@@ -1391,7 +1359,7 @@
         max-width: none;
         min-width: 0;
         opacity: 1 !important;
-        /* filter removed */ none !important;
+        filter: none !important;
         transform: none !important;
         pointer-events: auto !important;
         margin: 0;
@@ -1408,23 +1376,23 @@
         0%{
           opacity: 0 !important;
           transform: translate3d(0, 18px, 0) scale(.985) !important;
-          /* filter removed */ blur(2px) !important;
+          filter: blur(2px) !important;
         }
         100%{
           opacity: 1 !important;
           transform: translate3d(0, 0, 0) scale(1) !important;
-          /* filter removed */ blur(0) !important;
+          filter: blur(0) !important;
         }
       }
       .glass-card{
         background: rgba(255,255,255,.90);
-        backdrop-/* filter removed */ blur(10px) saturate(1.02);
-        -webkit-backdrop-/* filter removed */ blur(10px) saturate(1.02);
+        backdrop-filter: blur(10px) saturate(1.02);
+        -webkit-backdrop-filter: blur(10px) saturate(1.02);
         box-shadow: 0 10px 26px rgba(0,0,0,.08);
       }
       .topbar{
-        backdrop-/* filter removed */ blur(8px);
-        -webkit-backdrop-/* filter removed */ blur(8px);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
       }
       :root{
         --treeBreathDur: 16s;
@@ -1632,7 +1600,7 @@
       }
       .drawer-nav a{
         transform: translate3d(16px, 0, 0) scaleX(.94);
-        /* filter removed */ blur(.5px);
+        filter: blur(.5px);
         transition:
           transform 300ms cubic-bezier(.16, 1, .16, 1),
           opacity  240ms cubic-bezier(.16, 1, .16, 1),
@@ -1643,7 +1611,7 @@
       }
       .menu-logo{
         transform: translate3d(10px, 0, 0);
-        /* filter removed */ blur(.8px);
+        filter: blur(.8px);
         transition: opacity 280ms cubic-bezier(.16,1,.18,1), transform 280ms cubic-bezier(.16,1,.18,1), filter 280ms cubic-bezier(.16,1,.18,1);
       }
       .overlay.is-open .menu-logo{
@@ -1670,7 +1638,7 @@
         grid-area: auto;
         position: static !important;
         opacity: 1 !important;
-        /* filter removed */none !important;
+        filter:none !important;
         transform:none !important;
         pointer-events: auto !important;
         width: min(760px, 100%) !important;
@@ -1698,17 +1666,17 @@
       0%{
         transform: scale(.82);
         opacity: 0;
-        /* filter removed */ blur(6px) );
+        filter: blur(6px) drop-shadow(0 10px 28px rgba(0,0,0,.18));
       }
       60%{
         transform: scale(1.06);
         opacity: 1;
-        /* filter removed */ blur(0) );
+        filter: blur(0) drop-shadow(0 18px 44px rgba(0,0,0,.28));
       }
       100%{
         transform: scale(1);
         opacity: 1;
-        /* filter removed */ blur(0) );
+        filter: blur(0) drop-shadow(0 16px 44px rgba(0,0,0,.28));
       }
     }
 
@@ -1785,8 +1753,8 @@
       border: 1px solid rgba(0,0,0,.06);
       box-shadow: 0 26px 70px rgba(0,0,0,.08);
       overflow: hidden;
-      backdrop-/* filter removed */ blur(12px);
-      -webkit-backdrop-/* filter removed */ blur(12px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .contact-form-shell::before{
       content:"";
@@ -2485,10 +2453,10 @@
         calc(14px + var(--safeB))
         calc(var(--padX) + var(--safeL));
 
-      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.97));
-      backdrop-/* filter removed */ blur(14px);
-      -webkit-backdrop-/* filter removed */ blur(14px);
-      border-top: 1px solid rgba(0,0,0,.07);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-top: 0;
 
       display: flex;
       align-items: center;
@@ -2680,7 +2648,7 @@
 .section-card:not(.is-active) .story-media img,
 .section-card:not(.is-active) .story-video video,
 .section-card:not(.is-active) .story-video iframe{
-  /* filter removed */ none !important;
+  filter: none !important;
 }
 
 
@@ -2698,8 +2666,8 @@
   background: rgba(255,255,255,.58);
   border: 1px solid rgba(0,0,0,.04);
   box-shadow: 0 8px 20px rgba(0,0,0,.035);
-  backdrop-/* filter removed */ blur(6px);
-  -webkit-backdrop-/* filter removed */ blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .cf-kicker{
   margin:0;
@@ -2791,8 +2759,8 @@
   border: 1px solid rgba(0,0,0,.04);
   box-shadow: 0 8px 20px rgba(0,0,0,.035);
   overflow:hidden;
-  backdrop-/* filter removed */ blur(6px);
-  -webkit-backdrop-/* filter removed */ blur(6px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .cf-question{
   width:100%;
@@ -5287,7 +5255,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 </html>
 <style>
 .section-card:not(.is-active) .story-media img{
-  /* filter removed */ none !important;
+  filter: none !important;
 }
 
 /* ===== Proteção de nitidez para mídia do card Sobre ===== */
@@ -5305,7 +5273,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 .section-card:not(.is-active) .story-media img,
 .section-card:not(.is-active) .story-video video,
 .section-card:not(.is-active) .story-video iframe{
-  /* filter removed */ none !important;
+  filter: none !important;
 }
 
 
