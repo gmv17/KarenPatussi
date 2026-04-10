@@ -2563,88 +2563,95 @@
       overflow: hidden;
       isolation: isolate;
       min-width: min(100%, 240px);
-      background: linear-gradient(180deg, rgba(255,255,255,.99), rgba(251,255,255,.955));
+      background: #ffffff;
       color: var(--brand);
-      border: 1px solid rgba(26,93,102,.34);
+      border: 1px solid rgba(26,93,102,.52);
       box-shadow:
-        0 8px 18px rgba(0,0,0,.035),
-        inset 0 0 0 1px rgba(255,255,255,.72);
+        0 10px 24px rgba(26,93,102,.08),
+        inset 0 0 0 1px rgba(255,255,255,.92);
     }
     .contact-btn--primary span{
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
     .contact-btn--primary::before{
       content:"";
       position:absolute;
       inset:0;
       pointer-events:none;
-      background: linear-gradient(90deg, rgba(26,93,102,.085), rgba(26,93,102,.02));
-      transform: translateX(-108%);
-      opacity: .92;
       z-index: 0;
-      animation: agendamentoSweep 4.8s cubic-bezier(.16,1,.18,1) infinite;
+      background:
+        linear-gradient(90deg,
+          rgba(26,93,102,.00) 0%,
+          rgba(26,93,102,.06) 14%,
+          rgba(26,93,102,.13) 32%,
+          rgba(26,93,102,.06) 52%,
+          rgba(26,93,102,.00) 70%);
+      transform: translateX(-118%);
+      animation: agendamentoSweep 3.8s cubic-bezier(.16,1,.18,1) infinite;
     }
     .contact-btn--primary::after{
       content:"";
       position:absolute;
-      top:-22%;
-      bottom:-22%;
-      left:-32%;
-      width:34%;
+      top:-30%;
+      bottom:-30%;
+      left:-26%;
+      width:26%;
       pointer-events:none;
-      background: linear-gradient(110deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,.15) 20%,
-        rgba(255,255,255,.88) 50%,
-        rgba(26,93,102,.12) 72%,
-        rgba(255,255,255,0) 100%);
-      filter: blur(5px);
-      transform: translateX(-190%) skewX(-18deg);
-      opacity: 0;
       z-index: 1;
-      animation: agendamentoShine 4.8s cubic-bezier(.16,1,.18,1) infinite;
+      background: linear-gradient(100deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.18) 18%,
+        rgba(255,255,255,.96) 50%,
+        rgba(26,93,102,.16) 72%,
+        rgba(255,255,255,0) 100%);
+      filter: blur(6px);
+      transform: translateX(-230%) skewX(-18deg);
+      animation: agendamentoShine 3.8s cubic-bezier(.16,1,.18,1) infinite;
     }
     @keyframes agendamentoSweep{
-      0%, 62%{
-        transform: translateX(-108%);
+      0%, 18%{
+        transform: translateX(-118%);
+      }
+      58%{
+        transform: translateX(22%);
       }
       100%{
-        transform: translateX(108%);
+        transform: translateX(118%);
       }
     }
     @keyframes agendamentoShine{
-      0%, 64%{
-        transform: translateX(-190%) skewX(-18deg);
+      0%, 22%{
+        transform: translateX(-230%) skewX(-18deg);
         opacity: 0;
       }
+      34%{
+        opacity: .98;
+      }
       72%{
-        opacity: .88;
+        opacity: .72;
       }
       100%{
-        transform: translateX(500%) skewX(-18deg);
+        transform: translateX(560%) skewX(-18deg);
         opacity: 0;
       }
     }
     .contact-btn--primary:hover,
     .contact-btn--primary:focus-visible{
       color: var(--brand);
-      background: linear-gradient(180deg, rgba(255,255,255,.998), rgba(249,255,255,.965));
-      border-color: rgba(26,93,102,.48);
+      background: #ffffff;
+      border-color: rgba(26,93,102,.72);
       box-shadow:
-        0 12px 24px rgba(26,93,102,.08),
-        inset 0 0 0 1px rgba(255,255,255,.78);
+        0 14px 30px rgba(26,93,102,.14),
+        inset 0 0 0 1px rgba(255,255,255,.96);
     }
     .contact-btn--primary:hover::before,
     .contact-btn--primary:focus-visible::before{
-      animation-play-state: paused;
-      transform: translateX(0%);
+      animation-duration: 1.35s;
     }
     .contact-btn--primary:hover::after,
     .contact-btn--primary:focus-visible::after{
-      animation-play-state: paused;
-      opacity: .92;
-      transform: translateX(340%) skewX(-18deg);
+      animation-duration: 1.35s;
     }
     .contact-btn--ghost{
       min-width: min(100%, 210px);
