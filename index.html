@@ -1811,22 +1811,6 @@
         pointer-events: none;
         position: relative;
       }
-      .section-card:not(.mobile-modal-open) .card-scroll::after{
-        content: "Ver mais";
-        position: absolute;
-        left: 14px;
-        right: 14px;
-        bottom: 0;
-        height: 78px;
-        display: flex !important;
-        align-items: end;
-        padding: 0 0 12px;
-        background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.94) 62%);
-        color: var(--brand);
-        font: 800 10.5px/1 var(--bodyFont);
-        letter-spacing: .16em;
-        text-transform: uppercase;
-      }
       .section-card:not(.mobile-modal-open) .card-toggle{
         display: none !important;
       }
@@ -3602,7 +3586,7 @@
         <article class="section-card glass-card card--about" data-card data-origin="tl" id="sobre">
           <div class="card-inner">
             <h2 class="card-title">Sobre</h2>
-              <div class="card-preview"><p class="card-preview-text">Conheça a trajetória, a escuta clínica e a forma como Karen conduz o trabalho terapêutico.</p><span class="card-preview-meta">Toque para abrir</span></div>
+              <div class="card-preview"><p class="card-preview-text">Conheça a trajetória, a escuta clínica e a forma como Karen conduz o trabalho terapêutico.</p><span class="card-preview-meta">Ver mais</span></div>
 
             <div class="card-scroll" data-scroll>
               <div class="about">
@@ -3669,7 +3653,7 @@
         <article class="section-card glass-card card--areas" data-card data-origin="mr" id="areas-de-atuacao">
           <div class="card-inner">
             <h2 class="card-title">Áreas de atuação</h2>
-              <div class="card-preview"><p class="card-preview-text">Veja os principais temas atendidos e encontre com mais facilidade o que conversa com a sua busca.</p><span class="card-preview-meta">Toque para abrir</span></div>
+              <div class="card-preview"><p class="card-preview-text">Veja os principais temas atendidos e encontre com mais facilidade o que conversa com a sua busca.</p><span class="card-preview-meta">Ver mais</span></div>
 
             <div class="card-scroll" data-scroll>
               <div class="areas-wrap">
@@ -3769,7 +3753,7 @@
           <div class="card-inner">
             <div class="card-kicker"></div>
             <h2 class="card-title">Como funciona</h2>
-              <div class="card-preview"><p class="card-preview-text">Uma visão clara sobre formato, frequência, primeira sessão e o jeito de conduzir o processo terapêutico.</p><span class="card-preview-meta">Toque para abrir</span></div>
+              <div class="card-preview"><p class="card-preview-text">Uma visão clara sobre formato, frequência, primeira sessão e o jeito de conduzir o processo terapêutico.</p><span class="card-preview-meta">Ver mais</span></div>
 
             <div class="card-scroll" data-scroll>
               
@@ -4053,7 +4037,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         <article class="section-card glass-card card--process" data-card data-origin="mr" id="agendar-sessao">
           <div class="card-inner">
             <h2 class="card-title">Agendar sessão</h2>
-              <div class="card-preview"><p class="card-preview-text">Um caminho simples para entrar em contato, tirar dúvidas e solicitar seu atendimento online.</p><span class="card-preview-meta">Toque para abrir</span></div>
+              <div class="card-preview"><p class="card-preview-text">Um caminho simples para entrar em contato, tirar dúvidas e solicitar seu atendimento online.</p><span class="card-preview-meta">Ver mais</span></div>
 
             <div class="card-scroll" data-scroll>
               <div class="contact-wrap">
@@ -4326,7 +4310,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(!preview){
           preview = document.createElement('div');
           preview.className = 'card-preview';
-          preview.innerHTML = '<p class="card-preview-text"></p><span class="card-preview-meta">Toque para abrir</span>';
+          preview.innerHTML = '<p class="card-preview-text"></p><span class="card-preview-meta">Ver mais</span>';
           title.insertAdjacentElement('afterend', preview);
         }
 
