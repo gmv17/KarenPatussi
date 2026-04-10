@@ -82,7 +82,7 @@
 
       --treeYOffset: clamp(10px, 2vh, 34px);
       --treeScale: 0.98;
-      --treeOpacity: 0.92;
+      --treeOpacity: 0.88;
 
       --treeBreathDur: 18s;
       --treeBreathAmp: 0.055;
@@ -231,7 +231,9 @@
       position: relative;
       transform-style: preserve-3d;
       will-change: transform, filter;
-      animation: treeBreathMotion var(--treeBreathDur) ease-in-out infinite;
+      animation:
+        treeBreathMotion var(--treeBreathDur) ease-in-out infinite,
+        treeBreathShadow var(--treeBreathDur) ease-in-out infinite;
     }
     .tree img{
       filter: contrast(1.03) saturate(1.02) brightness(0.98);
@@ -252,15 +254,63 @@
         transform: translate3d(0, -4px, 0) scale(1.018);
       }
     }
-    @keyframes treeBreathShadow{0%{filter:none;}100%{filter:none;}}
+    @keyframes treeBreathShadow{
+  0%, 100%{
+    filter:
+      drop-shadow(0 12px 26px rgba(0,0,0,.18))
+      drop-shadow(0 4px 10px rgba(0,0,0,.10))
+      brightness(.98) contrast(1.02);
+  }
+  50%{
+    filter:
+      drop-shadow(0 18px 40px rgba(0,0,0,.22))
+      drop-shadow(0 6px 14px rgba(0,0,0,.12))
+      brightness(1.02) contrast(1.03);
+  }
+}
       50%{
         filter:
-          )
-          )
+          drop-shadow(0 48px 140px rgba(0,0,0,.28))
+          drop-shadow(0 12px 28px rgba(0,0,0,.16))
           brightness(1.05) contrast(1.04);
       }
     }
 
+    .tree::after{
+      content:"";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,0) 35%,
+          rgba(255,255,255,.50) 50%,
+          rgba(255,255,255,0) 65%,
+          rgba(255,255,255,0) 100%
+        ),
+        radial-gradient(closest-side at 50% 50%, var(--glowColor), rgba(26,93,102,0) 62%);
+      background-size: 100% 220%, 120% 120%;
+      background-position: 0 140%, 50% 160%;
+      background-repeat: no-repeat;
+
+      opacity: var(--glowOpacity);
+      filter: blur(var(--glowBlur));
+      mix-blend-mode: screen;
+
+      -webkit-mask-image: url("imagens/Tree ring hero.webp");
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-size: contain;
+      -webkit-mask-position: center;
+
+      mask-image: url("imagens/Tree ring hero.webp");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      mask-position: center;
+
+      animation: glowRise var(--glowDur) cubic-bezier(.3, 0, .2, 1) infinite;
+      will-change: opacity, background-position;
+    }
     @keyframes glowRise{
       0% { opacity: 0; background-position: 0 140%, 50% 160%; }
       12% { opacity: var(--glowOpacity); }
@@ -317,17 +367,17 @@
       position: relative;
       background: rgba(255,255,255,.18);
 
-      
+      -webkit-mask-image: url("imagens/Logo.webp");
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: contain;
 
-      
+      mask-image: url("imagens/Logo.webp");
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
 
-      filter: );
+      filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
       transform: translateZ(0);
     }
     .loader-logoMark::after{
@@ -357,11 +407,12 @@
       width: var(--loaderLogoW);
       height: auto;
       display:none;
-      filter: );
+      filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
     }
-    @supports not (( }
+    @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
+      .loader-logoMark{ display:none; }
       .loader-fallbackImg{ display:block; }
     }
     body.is-loading{
@@ -435,20 +486,22 @@
       transform: translateZ(0);
       flex: 0 0 auto;
     }
-    @supports (( }
+    @supports ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
+      .logo-img{ display:none; }
       .logo-mark{
-        
+        -webkit-mask-image: url("imagens/Logo.webp");
         -webkit-mask-repeat: no-repeat;
         -webkit-mask-position: center;
         -webkit-mask-size: contain;
 
-        
+        mask-image: url("imagens/Logo.webp");
         mask-repeat: no-repeat;
         mask-position: center;
         mask-size: contain;
       }
     }
-    @supports not (( }
+    @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
+      .logo-mark{ display:none; }
     }
     .bar-title .bar-name{
       font-family: var(--titleFont);
@@ -787,7 +840,7 @@
       object-fit: contain;
       opacity: .92;
       display:block;
-      filter: );
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.11));
     }
 
     /* ========================= REVEAL DO SITE ========================= */
@@ -1623,6 +1676,7 @@
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .tree, .tree img{ animation:none !important; }
+      .tree::after{ animation:none; opacity: 0; }
       .loader, .site, .brand, .role{ transition:none !important; }
       .section-card.is-active{ animation: none !important; }
 
@@ -1659,17 +1713,17 @@
       0%{
         transform: scale(.82);
         opacity: 0;
-        filter: blur(6px) );
+        filter: blur(6px) drop-shadow(0 10px 28px rgba(0,0,0,.18));
       }
       60%{
         transform: scale(1.06);
         opacity: 1;
-        filter: blur(0) );
+        filter: blur(0) drop-shadow(0 18px 44px rgba(0,0,0,.28));
       }
       100%{
         transform: scale(1);
         opacity: 1;
-        filter: blur(0) );
+        filter: blur(0) drop-shadow(0 16px 44px rgba(0,0,0,.28));
       }
     }
 
@@ -3071,6 +3125,23 @@
   );
   pointer-events:none;
   mix-blend-mode: multiply;
+}
+
+.tree::after{
+  content:"";
+  position:absolute;
+  bottom:10%;
+  left:50%;
+  transform:translateX(-50%);
+  width:60%;
+  height:30%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255,255,255,0.06),
+    transparent 70%
+  );
+  pointer-events:none;
+  mix-blend-mode: screen;
 }
 
 </style>
