@@ -3889,26 +3889,30 @@
 }
 
 
-/* ===== AJUSTE FINO HERO MOBILE (nome em uma linha, levemente maior e mais alto) ===== */
+/* ===== AJUSTE FINO HERO MOBILE (nome em uma linha, um pouco menor para encaixe) ===== */
 @media (max-width: 979.98px){
   .brand{
-    transform: translate3d(0, calc(var(--nameY, 0px) - 16px), 0);
+    transform: translate3d(0, calc(var(--nameY, 0px) - 14px), 0);
     z-index: 2;
   }
   .brand .name{
-    font-size: clamp(68px, 9.8vw, 158px);
+    font-size: clamp(60px, 8.9vw, 138px);
   }
   .brand .name .namewrap{
     display: inline-flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: .22em;
-    padding: 0 8px;
+    gap: .18em;
+    padding: 0 6px;
     white-space: nowrap;
   }
   .brand .name .namewrap span:last-child{
     margin-left: 0;
+  }
+  .role .pill{
+    font-size: clamp(12px, 3.2vw, 16px);
+    letter-spacing: 0.14em;
   }
 }
 
@@ -4911,7 +4915,8 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
             closeBtn.addEventListener("click", (e) => {
               e.preventDefault();
               e.stopPropagation();
-              closeMobileCardModal();
+              clearKeyboardStepArm();
+          closeMobileCardModal();
             });
             closeBtn.dataset.bound = "true";
           }
@@ -5883,6 +5888,27 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el.isContentEditable;
       }
 
+      let keyboardStepArmedDir = 0;
+      let keyboardStepArmedAt = 0;
+      const KEYBOARD_STEP_WINDOW = 900;
+
+      function consumeKeyboardStep(dir){
+        const now = Date.now();
+        if(keyboardStepArmedDir !== dir || (now - keyboardStepArmedAt) > KEYBOARD_STEP_WINDOW){
+          keyboardStepArmedDir = dir;
+          keyboardStepArmedAt = now;
+          return false;
+        }
+        keyboardStepArmedDir = 0;
+        keyboardStepArmedAt = 0;
+        return true;
+      }
+
+      function clearKeyboardStepArm(){
+        keyboardStepArmedDir = 0;
+        keyboardStepArmedAt = 0;
+      }
+
       function handleKeyboardDirection(dir){
         if(document.body.classList.contains("is-loading")) return false;
         if(overlay.classList.contains("is-open")) return false;
@@ -5890,10 +5916,14 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
         clearNavVisualFocus();
 
+        if(!consumeKeyboardStep(dir)) return true;
+
         if(flowStarted && !prefersReduced()){
           if(dir > 0){
+            clearKeyboardStepArm();
             requestNext();
           }else{
+            clearKeyboardStepArm();
             requestPrev();
           }
           scheduleRender();
@@ -5930,6 +5960,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(overlay.classList.contains("is-open")){
           if(e.key === "Escape"){
             e.preventDefault();
+            clearKeyboardStepArm();
             closeMenu();
           }
           return;
@@ -5960,6 +5991,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
         if(e.key === "Home"){
           e.preventDefault();
+          clearKeyboardStepArm();
           closeMenu();
           unlockBody();
           goToScene(-1);
@@ -5968,11 +6000,16 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
         if(e.key === "End"){
           e.preventDefault();
+          clearKeyboardStepArm();
           closeMenu();
           unlockBody();
           goToScene(cards.length - 1);
         }
       });
+
+      window.addEventListener("wheel", clearKeyboardStepArm, { passive:true });
+      window.addEventListener("touchstart", clearKeyboardStepArm, { passive:true });
+      window.addEventListener("mousedown", clearKeyboardStepArm, { passive:true });
 
       window.addEventListener("resize", () => {
         scheduleRender();
