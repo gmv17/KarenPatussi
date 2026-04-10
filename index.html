@@ -1691,7 +1691,8 @@
     }
 
 
-    .card-preview{
+    .card-preview,
+    .card-preview-meta{
       display:none;
     }
 
@@ -1718,14 +1719,19 @@
         font-weight: 500;
       }
       .card-preview-meta{
-        display:inline-flex;
+        display:flex;
         align-items:center;
+        justify-content:center;
         gap:8px;
-        width: fit-content;
+        width: 100%;
+        margin-top: 8px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(26,93,102,.10);
         color: var(--brand);
         font: 800 10.5px/1 var(--bodyFont);
         letter-spacing: .16em;
         text-transform: uppercase;
+        text-align:center;
       }
       .card-preview-meta::after{
         content:'›';
@@ -1734,7 +1740,8 @@
         letter-spacing: 0;
         transform: translateY(-.5px);
       }
-      .section-card.mobile-modal-open .card-preview{
+      .section-card.mobile-modal-open .card-preview,
+      .section-card.mobile-modal-open .card-preview-meta{
         display:none !important;
       }
     }
@@ -3586,7 +3593,7 @@
         <article class="section-card glass-card card--about" data-card data-origin="tl" id="sobre">
           <div class="card-inner">
             <h2 class="card-title">Sobre</h2>
-              <div class="card-preview"><p class="card-preview-text">Conheça a trajetória, a escuta clínica e a forma como Karen conduz o trabalho terapêutico.</p><span class="card-preview-meta">Ver mais</span></div>
+              <div class="card-preview"><p class="card-preview-text">Conheça a trajetória, a escuta clínica e a forma como Karen conduz o trabalho terapêutico.</p></div><div class="card-preview-meta">Ver mais</div>
 
             <div class="card-scroll" data-scroll>
               <div class="about">
@@ -3653,7 +3660,7 @@
         <article class="section-card glass-card card--areas" data-card data-origin="mr" id="areas-de-atuacao">
           <div class="card-inner">
             <h2 class="card-title">Áreas de atuação</h2>
-              <div class="card-preview"><p class="card-preview-text">Veja os principais temas atendidos e encontre com mais facilidade o que conversa com a sua busca.</p><span class="card-preview-meta">Ver mais</span></div>
+              <div class="card-preview"><p class="card-preview-text">Veja os principais temas atendidos e encontre com mais facilidade o que conversa com a sua busca.</p></div><div class="card-preview-meta">Ver mais</div>
 
             <div class="card-scroll" data-scroll>
               <div class="areas-wrap">
@@ -3753,7 +3760,7 @@
           <div class="card-inner">
             <div class="card-kicker"></div>
             <h2 class="card-title">Como funciona</h2>
-              <div class="card-preview"><p class="card-preview-text">Uma visão clara sobre formato, frequência, primeira sessão e o jeito de conduzir o processo terapêutico.</p><span class="card-preview-meta">Ver mais</span></div>
+              <div class="card-preview"><p class="card-preview-text">Uma visão clara sobre formato, frequência, primeira sessão e o jeito de conduzir o processo terapêutico.</p></div><div class="card-preview-meta">Ver mais</div>
 
             <div class="card-scroll" data-scroll>
               
@@ -4037,7 +4044,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         <article class="section-card glass-card card--process" data-card data-origin="mr" id="agendar-sessao">
           <div class="card-inner">
             <h2 class="card-title">Agendar sessão</h2>
-              <div class="card-preview"><p class="card-preview-text">Um caminho simples para entrar em contato, tirar dúvidas e solicitar seu atendimento online.</p><span class="card-preview-meta">Ver mais</span></div>
+              <div class="card-preview"><p class="card-preview-text">Um caminho simples para entrar em contato, tirar dúvidas e solicitar seu atendimento online.</p></div><div class="card-preview-meta">Ver mais</div>
 
             <div class="card-scroll" data-scroll>
               <div class="contact-wrap">
@@ -4310,8 +4317,12 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         if(!preview){
           preview = document.createElement('div');
           preview.className = 'card-preview';
-          preview.innerHTML = '<p class="card-preview-text"></p><span class="card-preview-meta">Ver mais</span>';
+          preview.innerHTML = '<p class="card-preview-text"></p>';
+          const previewMeta = document.createElement('div');
+          previewMeta.className = 'card-preview-meta';
+          previewMeta.textContent = 'Ver mais';
           title.insertAdjacentElement('afterend', preview);
+          preview.insertAdjacentElement('afterend', previewMeta);
         }
 
         const previewText = preview.querySelector('.card-preview-text');
