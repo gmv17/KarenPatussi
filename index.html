@@ -128,7 +128,7 @@
       --cardMaxW: 980px;
 
       /* ✅ principal “manteiga”: maior = mais suave e lento */
-      --cardLag: 0.69;         /* antes 0.28 */
+      --cardLag: 0.71;         /* antes 0.28 */
       --edgeMargin: 46px;
       --edgeMarginY: 76px;
 
@@ -136,7 +136,7 @@
       --wheelTrigger: 220;
 
       /* ✅ mais tempo de respiro entre troca de cenas */
-      --sceneLockMs: 1720ms;   /* antes 980ms */
+      --sceneLockMs: 1780ms;   /* antes 980ms */
 
       --cardScrollTopPad: 14px;
       --cardScrollBottomPad: 28px;
@@ -4478,14 +4478,14 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           ? { sx: -1, sy: 0 }
           : originVector(activeCard.dataset.origin);
 
-        const tSlide = easeInOutCubic(clamp(pNow, 0, 1));
-        const tFade  = easeInOutQuad(clamp((pNow - 0.08) / 0.92, 0, 1));
+        const tSlide = easeOutCubic(clamp(pNow, 0, 1));
+        const tFade  = easeOutQuad(clamp((pNow - 0.05) / 0.95, 0, 1));
 
         const w = wFromPx + (wFullPx - wFromPx) * tSlide;
 
-        const sideX = ((vw * 0.52) + (w * 0.45) + edgeX) * 0.60;
-        const enterY = ((vh * 0.82) + edgeY) * 0.56;
-        const exitY  = ((vh * 0.82) + edgeY) * 0.50;
+        const sideX = ((vw * 0.56) + (w * 0.50) + edgeX) * 0.68;
+        const enterY = ((vh * 0.88) + edgeY) * 0.63;
+        const exitY  = ((vh * 0.88) + edgeY) * 0.57;
 
         let x = 0;
         let y = 0;
