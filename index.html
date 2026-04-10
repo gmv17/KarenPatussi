@@ -2694,81 +2694,83 @@
       }
     }
 
-    .topbar-nav a.nav-agendar{
-      margin-left: 8px;
-      position: relative;
-      overflow: hidden;
-      background: rgba(255,255,255,.96);
-      color: var(--brand);
-      border: 1px solid rgba(26,93,102,.34);
-      box-shadow:
-        0 8px 18px rgba(26,93,102,.06),
-        inset 0 0 0 1px rgba(255,255,255,.72);
-    }
-    .topbar-nav a.nav-agendar::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      border-radius:inherit;
-      background: linear-gradient(90deg,
-        rgba(26,93,102,0) 0%,
-        rgba(26,93,102,.045) 18%,
-        rgba(26,93,102,.10) 40%,
-        rgba(26,93,102,.045) 62%,
-        rgba(26,93,102,0) 100%);
-      transform: translateX(-115%);
-      animation: navAgendarSweep 4.2s cubic-bezier(.16,1,.18,1) infinite;
-      z-index:0;
-    }
-    .topbar-nav a.nav-agendar::after{
-      content:"";
-      position:absolute;
-      top:-30%;
-      bottom:-30%;
-      left:-22%;
-      width:24%;
-      pointer-events:none;
-      border-radius:inherit;
-      background: linear-gradient(100deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,.18) 20%,
-        rgba(255,255,255,.85) 50%,
-        rgba(26,93,102,.14) 78%,
-        rgba(255,255,255,0) 100%);
-      filter: blur(4px);
-      transform: translateX(-240%) skewX(-18deg);
-      animation: navAgendarShine 4.2s cubic-bezier(.16,1,.18,1) infinite;
-      z-index:0;
-    }
-    .topbar-nav a.nav-agendar:hover,
-    .topbar-nav a.nav-agendar:focus-visible{
-      background: rgba(255,255,255,.99);
-      color: var(--brand);
-      border-color: rgba(26,93,102,.52);
-      box-shadow:
-        0 12px 24px rgba(26,93,102,.10),
-        inset 0 0 0 1px rgba(255,255,255,.82);
-    }
-    .topbar-nav a.nav-agendar.nav-active{
-      background: rgba(255,255,255,.99) !important;
-      color: var(--brand) !important;
-      border-color: rgba(26,93,102,.56) !important;
-      box-shadow:
-        0 12px 24px rgba(26,93,102,.10),
-        inset 0 0 0 1px rgba(255,255,255,.82) !important;
-    }
-    .topbar-nav a.nav-agendar span,
-    .topbar-nav a.nav-agendar{
-      z-index:1;
-    }
-    @keyframes navAgendarSweep{
-      0%,18%{ transform: translateX(-115%); }
-      58%{ transform: translateX(18%); }
-      100%{ transform: translateX(115%); }
-    }
-    @keyframes navAgendarShine{
-      0%,22%{ transform: translateX(-240%) skewX(-18deg); opacity:0; }
+    
+.topbar-nav a.nav-agendar{
+  margin-left: 8px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,.96);
+  color: var(--brand);
+  border: 1px solid rgba(26,93,102,.22);
+  box-shadow:
+    0 6px 14px rgba(26,93,102,.05),
+    inset 0 0 0 1px rgba(255,255,255,.72);
+}
+
+.topbar-nav a.nav-agendar::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(26,93,102,.03) 40%,
+    rgba(26,93,102,.06) 50%,
+    rgba(26,93,102,.03) 60%,
+    transparent 100%
+  );
+
+  transform: translateX(-120%);
+  animation: navAgendarSweepSoft 6.5s linear infinite;
+}
+
+.topbar-nav a.nav-agendar::after{
+  content:"";
+  position:absolute;
+  top:-40%;
+  bottom:-40%;
+  left:-30%;
+  width:18%;
+
+  pointer-events:none;
+  border-radius:inherit;
+
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255,255,255,.15) 45%,
+    rgba(255,255,255,.45) 50%,
+    rgba(255,255,255,.15) 55%,
+    transparent 100%
+  );
+
+  filter: blur(6px);
+  transform: translateX(-200%) skewX(-18deg);
+
+  animation: navAgendarShineSoft 6.5s linear infinite;
+}
+
+@keyframes navAgendarSweepSoft{
+  0%{ transform: translateX(-120%); }
+  100%{ transform: translateX(120%); }
+}
+
+@keyframes navAgendarShineSoft{
+  0%{
+    transform: translateX(-200%) skewX(-18deg);
+    opacity: 0;
+  }
+  10%{ opacity: .35; }
+  90%{ opacity: .25; }
+  100%{
+    transform: translateX(400%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
       34%{ opacity:.9; }
       72%{ opacity:.62; }
       100%{ transform: translateX(560%) skewX(-18deg); opacity:0; }
