@@ -3104,6 +3104,42 @@
   }
 }
 
+
+/* Root depth enhancement */
+.tree::before{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:35%;
+  background: radial-gradient(
+    ellipse at bottom,
+    rgba(0,0,0,0.18) 0%,
+    rgba(0,0,0,0.08) 40%,
+    transparent 75%
+  );
+  pointer-events:none;
+  mix-blend-mode: multiply;
+}
+
+.tree::after{
+  content:"";
+  position:absolute;
+  bottom:10%;
+  left:50%;
+  transform:translateX(-50%);
+  width:60%;
+  height:30%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255,255,255,0.06),
+    transparent 70%
+  );
+  pointer-events:none;
+  mix-blend-mode: screen;
+}
+
 </style>
 </head>
 
