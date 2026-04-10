@@ -261,10 +261,7 @@
           drop-shadow(0 12px 28px rgba(0,0,0,.16))
           brightness(1.05) contrast(1.04);
       }
-    }
-      50%{ filter: drop-shadow(0 48px 130px rgba(0,0,0,var(--treeBreathShadowB))) brightness(1.03); }
-    }
-    @keyframes treeScaleBreath{
+    }    @keyframes treeScaleBreath{
       0%, 100%{ transform: translateZ(0) scale(calc(var(--treeScale) * (1 - var(--treeBreathAmp)))); }
       50%{ transform: translate3d(0,0,var(--treePushZ)) scale(calc(var(--treeScale) * (1 + var(--treeBreathAmp)))); }
     }
