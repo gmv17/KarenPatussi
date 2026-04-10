@@ -4474,25 +4474,30 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         const edgeX = Math.max(0, getNumVar("--edgeMargin", 46));
         const edgeY = Math.max(0, getNumVar("--edgeMarginY", 76));
 
-        // ✅ GARANTIA TOTAL: "Sobre" nasce do canto SUPERIOR ESQUERDO
         const origin = (activeCard.id === "sobre")
-          ? { sx: -1, sy: -1 }
+          ? { sx: -1, sy: 0 }
           : originVector(activeCard.dataset.origin);
 
-        // ✅ sem “back/overshoot” (evita parecer que vem de baixo)
         const tSlide = easeOutCubic(clamp(pNow, 0, 1));
         const tFade  = easeOutQuad(clamp((pNow - 0.03) / 0.97, 0, 1));
 
         const w = wFromPx + (wFullPx - wFromPx) * tSlide;
 
-        // ✅ start fora da tela com viés vertical mais “top-left”
-        const startX = (vw * 0.58) + (w * 0.55) + edgeX;
+        const sideX = (vw * 0.58) + (w * 0.55) + edgeX;
+        const enterY = (vh * 0.92) + edgeY;
+        const exitY  = (vh * 0.92) + edgeY;
 
-        // importante: pro TL, usa um startY que “puxa” claramente de cima
-        const startYBase = (origin.sy < 0) ? (vh * 0.92 + edgeY) : (vh * 0.72 + edgeY);
+        let x = 0;
+        let y = 0;
 
-        const x = origin.sx * (1 - tSlide) * startX;
-        const y = origin.sy * (1 - tSlide) * startYBase;
+        if(phase === "closing"){
+          const tClose = easeOutCubic(clamp(1 - pNow, 0, 1));
+          x = origin.sx * tClose * sideX;
+          y = -tClose * exitY;
+        } else {
+          x = origin.sx * (1 - tSlide) * sideX;
+          y = (1 - tSlide) * enterY;
+        }
 
         const o = clamp(mix(0.02, 1.0, tFade), 0, 1);
         const s = 0.992 + 0.008 * tSlide;
