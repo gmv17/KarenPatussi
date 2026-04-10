@@ -1648,6 +1648,7 @@
         border-radius: 16px;
       }
       .contact-section{
+      border: 1px solid rgba(26,93,102,.18);
         padding: 15px 14px;
         border-radius: 16px;
       }
@@ -2027,21 +2028,11 @@
       border-radius: 30px;
       padding: 26px;
       background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.90));
-      border: 1px solid rgba(26,93,102,.14);
-      box-shadow:
-        0 26px 70px rgba(0,0,0,.08),
-        0 0 0 1px rgba(26,93,102,.04) inset;
+      border: none;
+      box-shadow: 0 26px 70px rgba(0,0,0,.08);
       overflow: hidden;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      transition: border-color .3s ease, box-shadow .3s ease;
-    }
-    .contact-form-shell:hover{
-      border-color: rgba(26,93,102,.22);
-      box-shadow:
-        0 28px 80px rgba(0,0,0,.10),
-        0 0 0 1px rgba(26,93,102,.06) inset,
-        0 0 12px rgba(26,93,102,.06);
     }
     .contact-form-shell::before{
       content:"";
@@ -2201,6 +2192,7 @@
     }
 
     .contact-section{
+      border: 1px solid rgba(26,93,102,.18);
       display:grid;
       gap: 14px;
       padding: 20px;
