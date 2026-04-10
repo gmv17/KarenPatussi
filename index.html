@@ -3890,10 +3890,10 @@
 
 
 
-/* ===== HERO MOBILE: nome acima / árvore ao centro / frase abaixo ===== */
+/* ===== HERO MOBILE: nome e frase próximos da árvore ===== */
 @media (max-width: 979.98px){
   .hero-stage{
-    align-items: stretch;
+    align-items: center;
     justify-content: center;
     padding-top: calc(var(--headerH) + var(--safeT) + 18px);
     padding-bottom: calc(28px + var(--safeB));
@@ -3903,23 +3903,27 @@
     width: 100%;
     min-height: calc(100dvh - var(--headerH) - var(--safeT) - 46px - var(--safeB));
     display: flex;
-    align-items: stretch;
+    align-items: center;
+    justify-content: center;
   }
 
   .content{
     width: 100%;
     min-height: 100%;
-    justify-content: space-between;
+    position: relative;
+    display: flex;
     align-items: center;
-    gap: 0;
+    justify-content: center;
     z-index: 2;
   }
 
   .brand{
-    align-self: center;
-    text-align: center;
-    margin-top: 2px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
     width: 100%;
+    text-align: center;
+    transform: translate3d(-50%, calc(-50% - clamp(112px, 15vh, 138px) + var(--nameY, 0px)), 0);
   }
 
   .brand .name{
@@ -3942,17 +3946,20 @@
   }
 
   .role{
-    align-self: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
     text-align: center;
     margin-top: 0;
-    margin-bottom: 6px;
-    width: 100%;
+    transform: translate3d(-50%, calc(-50% + clamp(118px, 16vh, 148px) + var(--roleY, 0px)), 0);
   }
 
   .role .pill{
+    display: inline-block;
     font-size: clamp(11px, 3.1vw, 14px);
     letter-spacing: .16em;
-    max-width: min(92vw, 320px);
+    max-width: min(88vw, 340px);
     line-height: 1.45;
   }
 
