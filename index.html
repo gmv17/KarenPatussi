@@ -4945,21 +4945,15 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       /* ── Nav active highlight ── */
       function updateNavActive(index){
-        const links = Array.from(document.querySelectorAll("a[data-link]"));
-        links.forEach(a => a.classList.remove("nav-active"));
+        const allLinks = document.querySelectorAll("a[data-link]");
+        allLinks.forEach(a => a.classList.remove("nav-active"));
 
-        const targetIndex = Number(index);
-        if(Number.isNaN(targetIndex)) return;
-
-        links.forEach(a => {
-          const i = Number(a.getAttribute("data-index"));
-          if(i === targetIndex){
+        allLinks.forEach(a => {
+          const i = parseInt(a.getAttribute("data-index"), 10);
+          if(i === index){
             a.classList.add("nav-active");
           }
         });
-      }
-
-);
       }
 
       /* =========================
