@@ -5956,16 +5956,47 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       }
 
 
+
+      function enforceDesktopReloadAtTop(){
+        if(isMobileLayout()) return;
+        try{
+          if("scrollRestoration" in history){
+            history.scrollRestoration = "manual";
+          }
+        }catch(_e){}
+        window.scrollTo(0, 0);
+        flowStarted = false;
+        step = 0;
+        phase = "closed";
+        p = 0;
+        pTarget = 0;
+        sceneIndex = 0;
+        pendingDir = +1;
+        returnToHeroAfterClose = false;
+        clearAutoRole();
+        clearAutoCard();
+        clearAutoDesktopCard();
+        hideAllCards();
+        applyHeroState();
+        updateNavActive(-1);
+      }
+
       setupContactForm();
       applyHeroState();
       hideAllCards();
+      enforceDesktopReloadAtTop();
       scheduleRender();
       window.setTimeout(setupMobileCardModals, 60);
       window.setTimeout(syncMobileHeroWithScroll, 60);
       window.addEventListener("load", () => {
+        enforceDesktopReloadAtTop();
         window.setTimeout(setupMobileCardModals, 120);
         window.setTimeout(syncMobileHeroWithScroll, 140);
       }, { once: true });
+
+      window.addEventListener("pageshow", () => {
+        enforceDesktopReloadAtTop();
+      });
 
       // API interna exposta para o bloco do rodapé
       window.__siteNav = {
