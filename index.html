@@ -252,18 +252,15 @@
         transform: translate3d(0, -4px, 0) scale(1.018);
       }
     }
-    
-
-    .tree::after{
-      content:"";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0;
-      filter: none;
-      mix-blend-mode: normal;
-      animation: none;
+    @keyframes treeBreathShadow{0%{filter:none;}100%{filter:none;}}
+      50%{
+        filter:
+          )
+          )
+          brightness(1.05) contrast(1.04);
+      }
     }
+
     @keyframes glowRise{
       0% { opacity: 0; background-position: 0 140%, 50% 160%; }
       12% { opacity: var(--glowOpacity); }
@@ -320,17 +317,17 @@
       position: relative;
       background: rgba(255,255,255,.18);
 
-      -webkit-mask-image: url("imagens/Logo.webp");
+      
       -webkit-mask-repeat: no-repeat;
       -webkit-mask-position: center;
       -webkit-mask-size: contain;
 
-      mask-image: url("imagens/Logo.webp");
+      
       mask-repeat: no-repeat;
       mask-position: center;
       mask-size: contain;
 
-      filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
+      filter: );
       transform: translateZ(0);
     }
     .loader-logoMark::after{
@@ -360,12 +357,11 @@
       width: var(--loaderLogoW);
       height: auto;
       display:none;
-      filter: drop-shadow(0 16px 44px rgba(0,0,0,.28));
+      filter: );
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
     }
-    @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
-      .loader-logoMark{ display:none; }
+    @supports not (( }
       .loader-fallbackImg{ display:block; }
     }
     body.is-loading{
@@ -439,22 +435,20 @@
       transform: translateZ(0);
       flex: 0 0 auto;
     }
-    @supports ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
-      .logo-img{ display:none; }
+    @supports (( }
       .logo-mark{
-        -webkit-mask-image: url("imagens/Logo.webp");
+        
         -webkit-mask-repeat: no-repeat;
         -webkit-mask-position: center;
         -webkit-mask-size: contain;
 
-        mask-image: url("imagens/Logo.webp");
+        
         mask-repeat: no-repeat;
         mask-position: center;
         mask-size: contain;
       }
     }
-    @supports not ((-webkit-mask-image: url("x.png")) or (mask-image: url("x.png"))){
-      .logo-mark{ display:none; }
+    @supports not (( }
     }
     .bar-title .bar-name{
       font-family: var(--titleFont);
@@ -793,7 +787,7 @@
       object-fit: contain;
       opacity: .92;
       display:block;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,.11));
+      filter: );
     }
 
     /* ========================= REVEAL DO SITE ========================= */
@@ -1629,7 +1623,6 @@
     @media (prefers-reduced-motion: reduce){
       html{ scroll-behavior:auto; }
       .tree, .tree img{ animation:none !important; }
-      .tree::after{ animation:none; opacity: 0; }
       .loader, .site, .brand, .role{ transition:none !important; }
       .section-card.is-active{ animation: none !important; }
 
@@ -1666,17 +1659,17 @@
       0%{
         transform: scale(.82);
         opacity: 0;
-        filter: blur(6px) drop-shadow(0 10px 28px rgba(0,0,0,.18));
+        filter: blur(6px) );
       }
       60%{
         transform: scale(1.06);
         opacity: 1;
-        filter: blur(0) drop-shadow(0 18px 44px rgba(0,0,0,.28));
+        filter: blur(0) );
       }
       100%{
         transform: scale(1);
         opacity: 1;
-        filter: blur(0) drop-shadow(0 16px 44px rgba(0,0,0,.28));
+        filter: blur(0) );
       }
     }
 
@@ -2453,10 +2446,10 @@
         calc(14px + var(--safeB))
         calc(var(--padX) + var(--safeL));
 
-      background: rgba(255,255,255,.92);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border-top: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.97));
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(0,0,0,.07);
 
       display: flex;
       align-items: center;
@@ -3078,23 +3071,6 @@
   );
   pointer-events:none;
   mix-blend-mode: multiply;
-}
-
-.tree::after{
-  content:"";
-  position:absolute;
-  bottom:10%;
-  left:50%;
-  transform:translateX(-50%);
-  width:60%;
-  height:30%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255,255,255,0.06),
-    transparent 70%
-  );
-  pointer-events:none;
-  mix-blend-mode: screen;
 }
 
 </style>
