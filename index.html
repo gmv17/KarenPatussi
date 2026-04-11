@@ -3970,6 +3970,28 @@
   }
 }
 
+
+/* ===== AJUSTE HERO MOBILE (nome acima da copa, sem sobrepor folhas) ===== */
+@media (max-width: 979.98px){
+  .hero-stage{
+    position: relative;
+  }
+  .brand{
+    position: absolute;
+    top: clamp(44px, 7vh, 72px);
+    left: 50%;
+    width: calc(100% - 24px);
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .brand .name{
+    line-height: .98;
+  }
+}
+
 </style>
 </head>
 
