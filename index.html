@@ -3777,6 +3777,22 @@
 
 
 
+@media (max-width: 979.98px){
+  #areas-de-atuacao .areas-grid{
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+  #areas-de-atuacao .area-item{
+    width: 100%;
+    max-width: none;
+    justify-self: stretch !important;
+  }
+  #areas-de-atuacao .area-item:nth-child(odd),
+  #areas-de-atuacao .area-item:nth-child(even){
+    justify-self: stretch !important;
+  }
+}
+
 /* ===== Padronização real de movimento (Áreas + FAQ) ===== */
 .area-item,
 .cf-item{
