@@ -3936,6 +3936,48 @@
   }
 }
 
+
+/* === HERO BUTTON SPACING FIX === */
+.scene-controls{display:flex;flex-direction:column;gap:6mm;}
+
+
+/* === ajuste spacing botoes hero === */
+.scene-controls{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+
+/* === espelhamento perfeito dos botões === */
+.scene-controls{
+  gap:15px !important;
+}
+
+/* botão de cima */
+.scene-btn:first-child{
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.12),
+    inset 0 2px 4px rgba(255,255,255,0.7),
+    inset 0 -3px 6px rgba(0,0,0,0.12);
+}
+
+/* botão de baixo (espelho invertido) */
+.scene-btn:last-child{
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.12),
+    inset 0 -2px 4px rgba(255,255,255,0.7),
+    inset 0 3px 6px rgba(0,0,0,0.12);
+}
+
+
+/* === botões do hero apenas no desktop === */
+@media (max-width: 979.98px){
+  .scene-controls{
+    display: none !important;
+  }
+}
+
 </style>
 </head>
 
