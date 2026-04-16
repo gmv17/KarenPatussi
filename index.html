@@ -981,22 +981,6 @@
       font-family: var(--bodyFont);
     }
 
-    body.hero-hidden .brand,
-    body.hero-hidden .role{
-      opacity: 0 !important;
-      pointer-events: none !important;
-    }
-
-    body.hero-hidden .brand{
-      transform: translate3d(0, calc(var(--nameY, 0px)), 0) !important;
-      filter: blur(var(--nameB, 0px)) !important;
-    }
-
-    body.hero-hidden .role{
-      transform: translate3d(0, calc(var(--roleY, 0px)), 0) !important;
-      filter: blur(var(--roleB, 0px)) !important;
-    }
-
     /* ===== Card base ===== */
     .glass-card{
       border-radius: 18px;
@@ -3793,6 +3777,56 @@
   }
 }
 
+
+/* ===== BOTÃO ORBITAL ===== */
+.nav-orb{
+  position: fixed;
+  top: calc(18px + var(--safeT));
+  right: calc(18px + var(--safeR));
+  width: 58px;
+  height: 58px;
+  z-index: 950;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.orb-ring{
+  position: absolute;
+  border-radius: 50%;
+  border: 1.4px solid rgba(26,93,102,.55);
+  width: 100%;
+  height: 100%;
+}
+.orb-ring.outer{
+  animation: orbRotate 9s linear infinite;
+  opacity: .65;
+}
+.orb-ring.inner{
+  width: 68%;
+  height: 68%;
+  border: 1.2px solid rgba(26,93,102,.85);
+  animation: orbRotateReverse 6s linear infinite;
+}
+.orb-center{
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+  opacity: .7;
+}
+@keyframes orbRotate{
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
+}
+@keyframes orbRotateReverse{
+  from{ transform: rotate(360deg); }
+  to{ transform: rotate(0deg); }
+}
+.nav-orb:hover{
+  transform: scale(1.05);
+}
+
 </style>
 </head>
 
@@ -4884,14 +4918,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         document.body.classList.remove("is-locked");
       }
 
-      function hideHeroCompletely(){
-        document.body.classList.add("hero-hidden");
-      }
-
-      function showHeroAgain(){
-        document.body.classList.remove("hero-hidden");
-      }
-
       function applyHeroState(){
         const liftName = getNumVar("--liftName", 140);
         const liftRole = getNumVar("--liftRole", 120);
@@ -5012,29 +5038,12 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         const headerOffset = (topbar?.offsetHeight || 0) + 10;
 
         /*
-          No mobile, o hero fica realmente desligado depois que entrega para os cards.
-          Antes, como o scroll ainda estava muito perto do fim do hero, um frame acabava
-          recalculando o nome/frase como visíveis de novo.
+          No mobile, o hero agora fica “travado” escondido quando o usuário segue descendo.
+          Isso evita o micro-bug visual em que o nome parece descer de novo antes do card Sobre.
+          O retorno só acontece quando a pessoa realmente sobe de volta para o hero.
         */
         const hideLatchPoint = Math.max(70, heroStage.offsetHeight * 0.24);
         const releaseLatchPoint = Math.max(18, heroStage.offsetHeight * 0.10);
-        const heroResetThreshold = Math.max(14, releaseLatchPoint);
-
-        if(flowStarted){
-          mobileHeroLatchedHidden = true;
-          syncHeroReturnWithCardProgress(0);
-          topbar.classList.add("show-brand");
-
-          if(scrollingUp && currentY <= heroResetThreshold){
-            flowStarted = false;
-            mobileHeroLatchedHidden = false;
-            showHeroAgain();
-            step = 0;
-            clearAutoCard();
-            clearAutoDesktopCard();
-          }
-          return;
-        }
 
         if(scrollingDown && currentY > hideLatchPoint){
           mobileHeroLatchedHidden = true;
@@ -5046,6 +5055,13 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         const revealEnd = Math.max(revealStart + 1, Math.min(vh * 0.54, heroRect.height * 0.58));
         const raw = (cardRect.top - revealStart) / (revealEnd - revealStart);
         const t = clamp(raw, 0, 1);
+
+        if(currentY <= (heroStage.offsetHeight + 80)){
+          flowStarted = false;
+          step = 0;
+          clearAutoCard();
+          clearAutoDesktopCard();
+        }
 
         if(mobileHeroLatchedHidden && currentY > releaseLatchPoint){
           syncHeroReturnWithCardProgress(0);
@@ -5338,7 +5354,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       function handoffToCards(){
         if(flowStarted) return;
         flowStarted = true;
-        hideHeroCompletely();
         topbar.classList.add("show-brand");
 
         lockBody();
@@ -5398,7 +5413,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       async function returnToHeroWithSameMotion(){
         flowStarted = false;
-        showHeroAgain();
         updateNavActive(-1);
         clearAutoRole();
         clearAutoCard();
@@ -5883,7 +5897,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           step = 3;
           applyHeroState();
           flowStarted = true;
-          hideHeroCompletely();
           topbar.classList.add("show-brand");
         }
 
@@ -6102,7 +6115,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       function enforceDesktopReloadAtTop(){
         if(isMobileLayout()) return;
-        showHeroAgain();
         try{
           if("scrollRestoration" in history){
             history.scrollRestoration = "manual";
@@ -6411,6 +6423,28 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   syncAreasState();
 })();
 </script>
+
+<div class="nav-orb" id="navOrb">
+  <div class="orb-ring outer"></div>
+  <div class="orb-ring inner"></div>
+  <div class="orb-center"></div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const orb = document.getElementById('navOrb');
+  if(!orb) return;
+
+  orb.addEventListener('click', () => {
+    window.scrollBy({
+      top: window.innerHeight * 0.9,
+      behavior: 'smooth'
+    });
+  });
+});
+</script>
+
 </body>
 
 </html>
