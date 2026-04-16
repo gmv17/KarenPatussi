@@ -3778,7 +3778,7 @@
 }
 
 
-/* ===== CONTROLE DUPLO DE CENAS ===== */
+/* ===== CONTROLE DUPLO DE CENAS (usa a navegação real do site) ===== */
 .scene-controls{
   position: fixed;
   top: calc(18px + var(--safeT) + 75px);
@@ -3813,15 +3813,15 @@
   outline: none;
   box-shadow: none;
 }
-.scene-btn[disabled]{
+.scene-btn[aria-disabled="true"]{
   opacity: .42;
   cursor: default;
   transform: none;
 }
 .scene-btn .ring{
   position: absolute;
-  border-radius: 50%;
   inset: 0;
+  border-radius: 50%;
   border: 1.4px solid rgba(26,93,102,.58);
   pointer-events: none;
 }
@@ -6475,69 +6475,111 @@ document.addEventListener('DOMContentLoaded', function(){
   const nextBtn = document.getElementById('sceneNext');
   if(!prevBtn || !nextBtn) return;
 
-  const steps = [
-    { id: 'hero', target: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
-    { id: 'sobre', target: () => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
-    { id: 'como-funciona', target: () => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
-    { id: 'areas-de-atuacao', target: () => document.getElementById('areas-de-atuacao')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
-    { id: 'perguntas-frequentes', target: () => document.getElementById('perguntas-frequentes')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
-    { id: 'agendar-sessao', target: () => document.getElementById('agendar-sessao')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
-  ];
+  function desktopLinkByIndex(index){
+    return document.querySelector('.topbar-nav a[data-link][data-index="' + index + '"]')
+      || document.querySelector('.main-nav a[data-link][data-index="' + index + '"]')
+      || document.querySelector('a[data-link][data-index="' + index + '"]');
+  }
 
-  let currentStep = 0;
+  function homeLink(){
+    return document.querySelector('.topbar-nav a[href="#home"][data-link]')
+      || document.querySelector('.main-nav a[href="#home"][data-link]')
+      || document.querySelector('a[href="#home"][data-link]');
+  }
 
-  function detectStep(){
-    const y = window.scrollY || window.pageYOffset || 0;
-    if(y < Math.max(180, window.innerHeight * 0.35)){
-      currentStep = 0;
+  function getState(){
+    const api = window.__siteNav;
+    if(api && typeof api.getState === 'function') return api.getState();
+    return null;
+  }
+
+  function syncButtons(){
+    const state = getState();
+    if(!state){
+      prevBtn.setAttribute('aria-disabled', 'true');
+      nextBtn.removeAttribute('aria-disabled');
+      return;
+    }
+
+    if(!state.flowStarted){
+      prevBtn.setAttribute('aria-disabled', 'true');
+      nextBtn.removeAttribute('aria-disabled');
+      return;
+    }
+
+    if(state.sceneIndex <= 0 && state.phase === 'closed' && state.pendingDir === -1){
+      prevBtn.setAttribute('aria-disabled', 'true');
+    } else {
+      prevBtn.removeAttribute('aria-disabled');
+    }
+
+    if(state.sceneIndex >= state.lastIdx && state.phase === 'closed' && state.pendingDir !== -1){
+      nextBtn.setAttribute('aria-disabled', 'true');
+    } else {
+      nextBtn.removeAttribute('aria-disabled');
+    }
+  }
+
+  function goNext(){
+    const state = getState();
+
+    if(!state || !state.flowStarted){
+      const first = desktopLinkByIndex(0);
+      if(first){ first.click(); syncButtons(); return; }
+    }
+
+    if(state.sceneIndex >= state.lastIdx && state.phase === 'closed' && state.pendingDir !== -1){
       syncButtons();
       return;
     }
 
-    let bestIndex = 1;
-    let bestDistance = Infinity;
+    const targetIndex = Math.min((state ? state.sceneIndex : 0) + 1, state ? state.lastIdx : 0);
+    const link = desktopLinkByIndex(targetIndex);
+    if(link){ link.click(); }
+    window.setTimeout(syncButtons, 120);
+    window.setTimeout(syncButtons, 900);
+  }
 
-    for(let i = 1; i < steps.length; i++){
-      const el = document.getElementById(steps[i].id);
-      if(!el) continue;
-      const top = window.scrollY + el.getBoundingClientRect().top;
-      const distance = Math.abs(top - y - 90);
-      if(distance < bestDistance){
-        bestDistance = distance;
-        bestIndex = i;
-      }
+  function goPrev(){
+    const state = getState();
+
+    if(!state || !state.flowStarted){
+      syncButtons();
+      return;
     }
-    currentStep = bestIndex;
-    syncButtons();
-  }
 
-  function syncButtons(){
-    prevBtn.disabled = currentStep <= 0;
-    nextBtn.disabled = currentStep >= steps.length - 1;
-  }
+    if(state.sceneIndex <= 0){
+      const home = homeLink();
+      if(home){ home.click(); }
+      else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      window.setTimeout(syncButtons, 120);
+      window.setTimeout(syncButtons, 900);
+      return;
+    }
 
-  function goToStep(index){
-    const clamped = Math.max(0, Math.min(index, steps.length - 1));
-    currentStep = clamped;
-    syncButtons();
-    steps[clamped].target();
+    const targetIndex = Math.max(state.sceneIndex - 1, 0);
+    const link = desktopLinkByIndex(targetIndex);
+    if(link){ link.click(); }
+    window.setTimeout(syncButtons, 120);
+    window.setTimeout(syncButtons, 900);
   }
 
   prevBtn.addEventListener('click', function(e){
     e.preventDefault();
-    if(currentStep > 0) goToStep(currentStep - 1);
+    if(prevBtn.getAttribute('aria-disabled') === 'true') return;
+    goPrev();
   });
 
   nextBtn.addEventListener('click', function(e){
     e.preventDefault();
-    if(currentStep < steps.length - 1) goToStep(currentStep + 1);
+    if(nextBtn.getAttribute('aria-disabled') === 'true') return;
+    goNext();
   });
 
-  window.addEventListener('scroll', detectStep, { passive: true });
-  window.addEventListener('resize', detectStep, { passive: true });
-
-  setTimeout(detectStep, 900);
-  syncButtons();
+  window.addEventListener('load', syncButtons, { once: true });
+  window.addEventListener('scroll', syncButtons, { passive: true });
+  window.addEventListener('resize', syncButtons, { passive: true });
+  setTimeout(syncButtons, 800);
 });
 </script>
 
