@@ -6518,7 +6518,7 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   }
 
-  function fireArrow(key){
+  function dispatchArrow(key){
     const ev = new KeyboardEvent('keydown', {
       key,
       code: key,
@@ -6527,6 +6527,11 @@ document.addEventListener('DOMContentLoaded', function(){
     });
     window.dispatchEvent(ev);
     document.dispatchEvent(ev);
+  }
+
+  function fireArrow(key){
+    dispatchArrow(key);
+    window.setTimeout(() => dispatchArrow(key), 28);
   }
 
   prevBtn.addEventListener('click', function(e){
