@@ -3979,6 +3979,21 @@
 }
 
 
+
+/* ===== Ajuste cirúrgico: remove só o brilho girando dos botões do hero ===== */
+.scene-btn::before{
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+.scene-btn::after{
+  animation: none !important;
+}
+
+.scene-btn{
+  --sceneOrbitDur: 0s !important;
+}
+
 </style>
 </head>
 
