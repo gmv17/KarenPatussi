@@ -3780,97 +3780,204 @@
 
 /* ===== CONTROLE DUPLO DE CENAS ===== */
 .scene-controls{
+  --controlsShiftY: 0px;
+  --controlsTilt: 0deg;
+  --controlsScale: 1;
   position: fixed;
-  top: calc(18px + var(--safeT) + 75px);
+  top: 50%;
   right: calc(18px + var(--safeR));
+  transform: translate3d(0, calc(-50% + var(--controlsShiftY)), 0) rotate(var(--controlsTilt)) scale(var(--controlsScale));
+  transform-origin: center center;
   z-index: 950;
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: center;
+  transition: transform .42s cubic-bezier(.16,1,.18,1), opacity .28s ease;
+  will-change: transform;
 }
+
 .scene-btn{
+  --sceneLine: rgba(26,93,102,.92);
+  --sceneGlow: rgba(26,93,102,.34);
+  --sceneBtnShiftY: 0px;
+  --sceneBtnScale: 1;
+  --sceneOrbitDur: 11s;
   position: relative;
-  width: 58px;
-  height: 58px;
+  width: 50px;
+  height: 50px;
   display: grid;
   place-items: center;
   padding: 0;
   border: 0;
-  background: transparent;
+  border-radius: 999px;
+  background: rgba(255,255,255,.07);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow:
+    0 10px 24px rgba(26,93,102,.08),
+    inset 0 1px 0 rgba(255,255,255,.12);
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
-  transition: transform .22s ease, opacity .22s ease;
+  isolation: isolate;
+  transform: translate3d(0, var(--sceneBtnShiftY), 0) scale(var(--sceneBtnScale));
+  transition:
+    transform .32s cubic-bezier(.16,1,.18,1),
+    background .24s ease,
+    box-shadow .24s ease,
+    opacity .24s ease,
+    filter .24s ease;
+  will-change: transform;
 }
-.scene-btn:hover{ transform: scale(1.045); }
+
+.scene-btn::before{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  border-radius:999px;
+  background:
+    conic-gradient(
+      from 0deg,
+      rgba(26,93,102,0) 0deg,
+      rgba(26,93,102,0) 210deg,
+      rgba(26,93,102,.08) 248deg,
+      rgba(26,93,102,.48) 274deg,
+      rgba(255,255,255,.88) 286deg,
+      rgba(26,93,102,.46) 298deg,
+      rgba(26,93,102,.06) 326deg,
+      rgba(26,93,102,0) 360deg
+    );
+  filter: blur(5px);
+  opacity: .78;
+  animation: sceneOrbit var(--sceneOrbitDur) linear infinite;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity .32s ease, filter .32s ease, animation-duration .42s cubic-bezier(.16,1,.18,1);
+}
+
+.scene-controls.is-idle .scene-btn::before{
+  opacity: .44;
+  filter: blur(4px);
+  animation-duration: 17s;
+}
+
+.scene-controls.is-scrolling{
+  --controlsScale: 1.015;
+}
+
+.scene-btn::after{
+  content:"";
+  position:absolute;
+  inset: 4px;
+  border-radius:999px;
+  border: 1.5px solid rgba(26,93,102,.88);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.16),
+    0 0 0 1px rgba(26,93,102,.05);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scene-btn:hover{
+  --sceneBtnShiftY: -1px;
+  --sceneBtnScale: 1.03;
+  background: rgba(255,255,255,.12);
+  box-shadow:
+    0 14px 26px rgba(26,93,102,.12),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+
 .scene-btn:focus,
 .scene-btn:focus-visible,
 .scene-btn:active{
   outline: none;
-  box-shadow: none;
 }
-.scene-btn[aria-disabled="true"]{
-  opacity: .42;
-  cursor: default;
-  transform: none;
-}
-.scene-btn .ring{
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1.4px solid rgba(26,93,102,.58);
-  pointer-events: none;
-}
-.scene-btn .ring.inner{
-  inset: 16%;
-  border-width: 1.15px;
-  border-color: rgba(26,93,102,.86);
-}
-.scene-btn.prev .ring.outer{ animation: orbRotateReverse 9s linear infinite; opacity: .72; }
-.scene-btn.prev .ring.inner{ animation: orbRotate 6.2s linear infinite; }
-.scene-btn.next .ring.outer{ animation: orbRotate 9s linear infinite; opacity: .72; }
-.scene-btn.next .ring.inner{ animation: orbRotateReverse 6.2s linear infinite; }
 
-.scene-btn .arrow{
+.scene-btn:focus-visible{
+  filter: drop-shadow(0 0 0 rgba(0,0,0,0)) drop-shadow(0 0 12px rgba(26,93,102,.14));
+}
+
+.scene-btn[aria-disabled="true"]{
+  opacity: .58;
+  cursor: default;
+  --sceneBtnScale: 1;
+  --sceneBtnShiftY: 0px;
+}
+
+.scene-btn[aria-disabled="true"]::before{
+  opacity: .44;
+  animation-duration: 14s;
+}
+
+.scene-btn svg{
   position: relative;
   z-index: 2;
-  width: 18px;
-  height: 18px;
-  display: block;
+  width: 24px;
+  height: 24px;
+  overflow: visible;
 }
-.scene-btn .arrow::before,
-.scene-btn .arrow::after{
-  content:"";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 10px;
-  height: 1.8px;
-  border-radius: 999px;
-  background: var(--brand);
-  transform-origin: center;
-}
-.scene-btn.prev .arrow::before{ transform: translate(-74%, -20%) rotate(-45deg); }
-.scene-btn.prev .arrow::after{ transform: translate(-26%, -20%) rotate(45deg); }
-.scene-btn.next .arrow::before{ transform: translate(-74%, 220%) rotate(45deg); }
-.scene-btn.next .arrow::after{ transform: translate(-26%, 220%) rotate(-45deg); }
 
-@keyframes orbRotate{
+.scene-btn .arrow-stem,
+.scene-btn .arrow-head{
+  fill: none;
+  stroke: var(--sceneLine);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.scene-btn .arrow-stem{
+  opacity: .96;
+}
+
+.scene-btn .arrow-head{
+  opacity: .98;
+}
+
+.scene-btn:hover .arrow-stem,
+.scene-btn:hover .arrow-head{
+  stroke: rgba(26,93,102,.98);
+}
+
+.scene-btn.prev svg{
+  transform: translateY(-0.5px);
+}
+
+.scene-btn.next svg{
+  transform: translateY(0.5px);
+}
+
+@keyframes sceneOrbit{
   from{ transform: rotate(0deg); }
   to{ transform: rotate(360deg); }
 }
-@keyframes orbRotateReverse{
-  from{ transform: rotate(360deg); }
-  to{ transform: rotate(0deg); }
-}
 
 @media (max-width: 979.98px){
-  .scene-controls{ display:none !important; }
+  .scene-controls{
+    right: calc(12px + var(--safeR));
+    gap: 10px;
+  }
+  .scene-btn{
+    width: 46px;
+    height: 46px;
+  }
+  .scene-btn svg{
+    width: 22px;
+    height: 22px;
+  }
 }
+
+@media (prefers-reduced-motion: reduce){
+  .scene-btn::before{
+    animation: none;
+  }
+}
+
 
 </style>
 </head>
@@ -6470,116 +6577,118 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
+(function(){
+  const controls = document.querySelector('.scene-controls');
   const prevBtn = document.getElementById('scenePrev');
   const nextBtn = document.getElementById('sceneNext');
-  if(!prevBtn || !nextBtn) return;
+  if(!controls || !prevBtn || !nextBtn) return;
 
-  function getState(){
-    const nav = window.__siteNav;
-    if(nav && typeof nav.getState === 'function') return nav.getState();
-    return null;
-  }
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(prefersReduced.matches) return;
 
-  function getNavLinkByIndex(index){
-    return document.querySelector('.topbar-nav a[data-link][data-index="' + index + '"]')
-      || document.querySelector('.main-nav a[data-link][data-index="' + index + '"]')
-      || document.querySelector('.drawer-nav a[data-link][data-index="' + index + '"]')
-      || document.querySelector('a[data-link][data-index="' + index + '"]');
-  }
+  let idleTimer = null;
+  let scrollTimer = null;
+  let lastY = window.scrollY || window.pageYOffset || 0;
+  let targetShift = 0;
+  let currentShift = 0;
+  let targetTilt = 0;
+  let currentTilt = 0;
+  let targetPrevShift = 0;
+  let currentPrevShift = 0;
+  let targetNextShift = 0;
+  let currentNextShift = 0;
+  let rafId = 0;
 
-  function getHomeLink(){
-    return document.querySelector('.topbar-nav a[href="#home"][data-link]')
-      || document.querySelector('.main-nav a[href="#home"][data-link]')
-      || document.querySelector('.drawer-nav a[href="#home"][data-link]')
-      || document.querySelector('a[href="#home"][data-link]');
-  }
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-  function syncButtons(){
-    const state = getState();
+  const setIdle = () => {
+    controls.classList.add('is-idle');
+  };
 
-    if(!state || !state.flowStarted){
-      prevBtn.setAttribute('aria-disabled', 'true');
-      nextBtn.removeAttribute('aria-disabled');
-      return;
+  const wakeControls = () => {
+    controls.classList.remove('is-idle');
+    window.clearTimeout(idleTimer);
+    idleTimer = window.setTimeout(setIdle, 1200);
+  };
+
+  const render = () => {
+    currentShift += (targetShift - currentShift) * 0.12;
+    currentTilt += (targetTilt - currentTilt) * 0.12;
+    currentPrevShift += (targetPrevShift - currentPrevShift) * 0.14;
+    currentNextShift += (targetNextShift - currentNextShift) * 0.14;
+
+    controls.style.setProperty('--controlsShiftY', `${currentShift.toFixed(2)}px`);
+    controls.style.setProperty('--controlsTilt', `${currentTilt.toFixed(2)}deg`);
+    prevBtn.style.setProperty('--sceneBtnShiftY', `${currentPrevShift.toFixed(2)}px`);
+    nextBtn.style.setProperty('--sceneBtnShiftY', `${currentNextShift.toFixed(2)}px`);
+
+    const settling =
+      Math.abs(targetShift - currentShift) < 0.08 &&
+      Math.abs(targetTilt - currentTilt) < 0.08 &&
+      Math.abs(targetPrevShift - currentPrevShift) < 0.08 &&
+      Math.abs(targetNextShift - currentNextShift) < 0.08;
+
+    if(!settling){
+      rafId = window.requestAnimationFrame(render);
+    }else{
+      rafId = 0;
     }
+  };
 
-    if(state.sceneIndex <= 0){
-      prevBtn.removeAttribute('aria-disabled');
-    } else {
-      prevBtn.removeAttribute('aria-disabled');
-    }
+  const tick = () => {
+    if(!rafId) rafId = window.requestAnimationFrame(render);
+  };
 
-    if(state.sceneIndex >= state.lastIdx){
-      nextBtn.setAttribute('aria-disabled', 'true');
-    } else {
-      nextBtn.removeAttribute('aria-disabled');
-    }
-  }
+  const handleScrollReaction = () => {
+    const y = window.scrollY || window.pageYOffset || 0;
+    const delta = y - lastY;
+    lastY = y;
 
-  function clickLink(link){
-    if(!link) return;
-    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-  }
+    const shift = clamp(delta * 0.22, -7, 7);
+    const tilt = clamp(delta * 0.05, -1.8, 1.8);
+    const btnShift = clamp(delta * 0.18, -4, 4);
 
-  prevBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    const state = getState();
+    targetShift = shift;
+    targetTilt = tilt;
+    targetPrevShift = clamp(-btnShift, -4, 4);
+    targetNextShift = clamp(btnShift, -4, 4);
 
-    if(!state || !state.flowStarted){
-      return;
-    }
+    controls.classList.add('is-scrolling');
+    window.clearTimeout(scrollTimer);
+    scrollTimer = window.setTimeout(() => {
+      controls.classList.remove('is-scrolling');
+      targetShift = 0;
+      targetTilt = 0;
+      targetPrevShift = 0;
+      targetNextShift = 0;
+      tick();
+    }, 170);
 
-    if(state.sceneIndex <= 0){
-      clickLink(getHomeLink());
-    } else {
-      clickLink(getNavLinkByIndex(state.sceneIndex - 1));
-    }
+    wakeControls();
+    tick();
+  };
 
-    window.setTimeout(syncButtons, 80);
-    window.setTimeout(syncButtons, 400);
-    window.setTimeout(syncButtons, 1200);
-  });
+  window.addEventListener('scroll', handleScrollReaction, { passive: true });
+  window.addEventListener('mousemove', wakeControls, { passive: true });
+  window.addEventListener('pointerdown', wakeControls, { passive: true });
+  window.addEventListener('keydown', wakeControls);
 
-  nextBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    const state = getState();
-
-    if(!state || !state.flowStarted){
-      clickLink(getNavLinkByIndex(0));
-      window.setTimeout(syncButtons, 80);
-      window.setTimeout(syncButtons, 400);
-      window.setTimeout(syncButtons, 1200);
-      return;
-    }
-
-    if(state.sceneIndex >= state.lastIdx) return;
-
-    clickLink(getNavLinkByIndex(state.sceneIndex + 1));
-
-    window.setTimeout(syncButtons, 80);
-    window.setTimeout(syncButtons, 400);
-    window.setTimeout(syncButtons, 1200);
-  });
-
-  window.addEventListener('load', syncButtons, { once: true });
-  window.addEventListener('scroll', syncButtons, { passive: true });
-  window.addEventListener('resize', syncButtons, { passive: true });
-  setTimeout(syncButtons, 900);
-});
+  wakeControls();
+})();
 </script>
-
 
 <div class="scene-controls" aria-label="Controle de navegação">
   <button class="scene-btn prev" id="scenePrev" type="button" aria-label="Voltar para a cena anterior">
-    <span class="ring outer" aria-hidden="true"></span>
-    <span class="ring inner" aria-hidden="true"></span>
-    <span class="arrow" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path class="arrow-stem" d="M12 16.6 V7.8"></path>
+      <path class="arrow-head" d="M8.7 11.1 L12 7.8 L15.3 11.1"></path>
+    </svg>
   </button>
   <button class="scene-btn next" id="sceneNext" type="button" aria-label="Ir para a próxima cena">
-    <span class="ring outer" aria-hidden="true"></span>
-    <span class="ring inner" aria-hidden="true"></span>
-    <span class="arrow" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path class="arrow-stem" d="M12 7.4 V16.2"></path>
+      <path class="arrow-head" d="M8.7 12.9 L12 16.2 L15.3 12.9"></path>
+    </svg>
   </button>
 </div>
 
