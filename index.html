@@ -4981,6 +4981,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
          ========================= */
       let step = 0, accum = 0, locked = false, animating = false, lastDir = 0, cooldownUntil = 0;
       let flowStarted = false;
+      let buttonHeroAdvanceRunning = false;
 
       let autoRoleTimer = 0;
       let autoRolePending = false;
@@ -6294,6 +6295,70 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         },
         next: () => triggerSameStep(+1),
         prev: () => triggerSameStep(-1),
+        nextByButton: () => {
+          if(flowStarted){
+            requestNext();
+            return;
+          }
+          if(animating || buttonHeroAdvanceRunning) return;
+
+          buttonHeroAdvanceRunning = true;
+          clearAutoRole();
+          clearAutoCard();
+          clearAutoDesktopCard();
+          lockBody();
+
+          animateToStep(1)
+            .then(() => {
+              if(flowStarted || step !== 1) return;
+              lockBody();
+              return animateToStep(2);
+            })
+            .then(() => {
+              if(flowStarted || step !== 2) return;
+              clearAutoRole();
+              clearAutoCard();
+              clearAutoDesktopCard();
+              lockBody();
+              step = 3;
+              applyHeroState();
+              setCooldown();
+              handoffToCards();
+            })
+            .finally(() => {
+              buttonHeroAdvanceRunning = false;
+            });
+        },
+        prevByButton: () => {
+          if(animating) return;
+
+          if(flowStarted){
+            if(phase === "opening") return;
+
+            if(sceneIndex > 0){
+              requestPrev();
+              return;
+            }
+
+            clearAutoRole();
+            clearAutoCard();
+            clearAutoDesktopCard();
+            setLock();
+            pendingDir = -1;
+            pendingNavIndex = -1;
+            returnToHeroAfterClose = true;
+            closeScene();
+            return;
+          }
+
+          clearAutoRole();
+          clearAutoCard();
+          clearAutoDesktopCard();
+          step = 0;
+          applyHeroState();
+          setCooldown();
+          unlockBody();
+        },
         // Estado em tempo real para o rodapé
         getState: () => ({
           flowStarted,
@@ -6567,13 +6632,20 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
     const button = dir > 0 ? nextBtn : prevBtn;
     if(button && button.getAttribute('aria-disabled') === 'true') return;
 
-    if(typeof nav.next !== 'function' || typeof nav.prev !== 'function') return;
-
     if(dir > 0){
-      nav.next();
-    }else{
-      nav.prev();
+      if(typeof nav.nextByButton === 'function'){
+        nav.nextByButton();
+        return;
+      }
+      if(typeof nav.next === 'function') nav.next();
+      return;
     }
+
+    if(typeof nav.prevByButton === 'function'){
+      nav.prevByButton();
+      return;
+    }
+    if(typeof nav.prev === 'function') nav.prev();
   };
 
   const handleSceneButtonActivate = (dir) => (event) => {
