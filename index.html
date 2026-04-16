@@ -3746,7 +3746,7 @@
   z-index: 950;
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 15px;
   align-items: center;
   transition: transform .42s cubic-bezier(.16,1,.18,1), opacity .28s ease;
   will-change: transform;
@@ -3795,16 +3795,6 @@
     inset 0 -4px 10px rgba(0,0,0,0.18);
 }
 
-.scene-btn::before{
-  content:"";
-  position:absolute;
-  inset:-4px;
-  border-radius: 12px !important;
-  opacity: 0 !important;
-  animation: none !important;
-  pointer-events: none;
-}
-
 .scene-btn::after{
   content:"";
   position:absolute;
@@ -3816,7 +3806,6 @@
     0 0 0 1px rgba(26,93,102,.05);
   z-index: 1;
   pointer-events: none;
-  animation: none !important;
 }
 
 .scene-btn:hover{
@@ -3895,10 +3884,9 @@
   border-bottom-left-radius:10px !important;
   border-bottom-right-radius:10px !important;
   box-shadow:
-    0 16px 30px rgba(0,0,0,0.16),
-    0 6px 12px rgba(0,0,0,0.11),
-    inset 0 2px 0 rgba(255,255,255,0.75),
-    inset 0 -3px 8px rgba(0,0,0,0.16);
+    0 10px 22px rgba(0,0,0,0.12),
+    inset 0 2px 4px rgba(255,255,255,0.7),
+    inset 0 -3px 6px rgba(0,0,0,0.12);
 }
 
 .scene-controls .scene-btn:last-child{
@@ -3907,10 +3895,9 @@
   border-bottom-left-radius:14px !important;
   border-bottom-right-radius:14px !important;
   box-shadow:
-    0 18px 36px rgba(0,0,0,0.18),
-    0 6px 12px rgba(0,0,0,0.12),
-    inset 0 -2px 0 rgba(255,255,255,0.75),
-    inset 0 2px 6px rgba(0,0,0,0.10);
+    0 10px 22px rgba(0,0,0,0.12),
+    inset 0 -2px 4px rgba(255,255,255,0.7),
+    inset 0 3px 6px rgba(0,0,0,0.12);
 }
 
 .scene-controls .scene-btn:first-child::after{
@@ -3923,55 +3910,6 @@
   border-bottom-right-radius:12px !important;
 }
 
-@media (max-width: 979.98px){
-  .scene-controls{
-    right: calc(12px + var(--safeR));
-    gap: 10px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce){
-  .scene-btn::before{
-    animation: none;
-  }
-}
-
-
-/* === HERO BUTTON SPACING FIX === */
-.scene-controls{display:flex;flex-direction:column;gap:6mm;}
-
-
-/* === ajuste spacing botoes hero === */
-.scene-controls{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-
-/* === espelhamento perfeito dos botões === */
-.scene-controls{
-  gap:15px !important;
-}
-
-/* botão de cima */
-.scene-btn:first-child{
-  box-shadow:
-    0 10px 22px rgba(0,0,0,0.12),
-    inset 0 2px 4px rgba(255,255,255,0.7),
-    inset 0 -3px 6px rgba(0,0,0,0.12);
-}
-
-/* botão de baixo (espelho invertido) */
-.scene-btn:last-child{
-  box-shadow:
-    0 10px 22px rgba(0,0,0,0.12),
-    inset 0 -2px 4px rgba(255,255,255,0.7),
-    inset 0 3px 6px rgba(0,0,0,0.12);
-}
-
-
-/* === botões do hero apenas no desktop === */
 @media (max-width: 979.98px){
   .scene-controls{
     display: none !important;
@@ -6306,6 +6244,38 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       });
 
       // API interna exposta para o bloco do rodapé
+      function triggerSameStep(dir){
+        const direction = dir > 0 ? 1 : -1;
+
+        if(flowStarted){
+          if(direction > 0){
+            requestNext();
+          }else{
+            requestPrev();
+          }
+          return;
+        }
+
+        if(animating) return;
+
+        if(direction > 0){
+          if(step === 1 && autoRolePending) return;
+          if(step < 3){
+            lockBody();
+            animateToStep(step + 1);
+          }
+          return;
+        }
+
+        if(step === 1 && autoRolePending) clearAutoRole();
+        if(step === 2 && autoDesktopCardPending) clearAutoDesktopCard();
+
+        if(step > 0){
+          lockBody();
+          animateToStep(step - 1);
+        }
+      }
+
       window.__siteNav = {
         isFooterState:  () => flowStarted && phase === "closed" && p === 0 && sceneIndex === cards.length - 1,
         restoreLastCard:() => {
@@ -6322,6 +6292,8 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
             scheduleRender();
           }, 800);
         },
+        next: () => triggerSameStep(+1),
+        prev: () => triggerSameStep(-1),
         // Estado em tempo real para o rodapé
         getState: () => ({
           flowStarted,
@@ -6577,15 +6549,57 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
 <script>
 (function(){
-  const controls = document.querySelector('.scene-controls');
-  const prevBtn = document.getElementById('scenePrev');
-  const nextBtn = document.getElementById('sceneNext');
-  if(!controls || !prevBtn || !nextBtn) return;
+  function initSceneControls(){
+    const controls = document.querySelector('.scene-controls');
+    const prevBtn = document.getElementById('scenePrev');
+    const nextBtn = document.getElementById('sceneNext');
+    if(!controls || !prevBtn || !nextBtn) return false;
 
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if(prefersReduced.matches) return;
+    if(controls.dataset.sceneControlsBound === 'true') return true;
+    controls.dataset.sceneControlsBound = 'true';
 
-  let idleTimer = null;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const runSceneCommand = (dir) => {
+    const nav = window.__siteNav;
+    if(!nav) return;
+
+    const button = dir > 0 ? nextBtn : prevBtn;
+    if(button && button.getAttribute('aria-disabled') === 'true') return;
+
+    if(typeof nav.next !== 'function' || typeof nav.prev !== 'function') return;
+
+    if(dir > 0){
+      nav.next();
+    }else{
+      nav.prev();
+    }
+  };
+
+  const handleSceneButtonActivate = (dir) => (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    runSceneCommand(dir);
+  };
+
+  /*
+    Os botões do hero precisam disparar exatamente o mesmo fluxo do mouse,
+    sem duplicar o comando. Antes o mesmo botão respondia em `click` e `pointerup`,
+    o que gerava acionamento duplo em desktop.
+  */
+  prevBtn.addEventListener('click', handleSceneButtonActivate(-1));
+  nextBtn.addEventListener('click', handleSceneButtonActivate(1));
+
+  [prevBtn, nextBtn].forEach((btn, index) => {
+    btn.addEventListener('keydown', (event) => {
+      if(event.key === 'Enter' || event.key === ' '){
+        event.preventDefault();
+        event.stopPropagation();
+        runSceneCommand(index === 0 ? -1 : 1);
+      }
+    });
+  });
+
   let scrollTimer = null;
   let lastY = window.scrollY || window.pageYOffset || 0;
   let targetShift = 0;
@@ -6599,16 +6613,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
   let rafId = 0;
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-
-  const setIdle = () => {
-    controls.classList.add('is-idle');
-  };
-
-  const wakeControls = () => {
-    controls.classList.remove('is-idle');
-    window.clearTimeout(idleTimer);
-    idleTimer = window.setTimeout(setIdle, 1200);
-  };
 
   const render = () => {
     currentShift += (targetShift - currentShift) * 0.12;
@@ -6662,17 +6666,17 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       targetNextShift = 0;
       tick();
     }, 170);
-
-    wakeControls();
     tick();
   };
 
-  window.addEventListener('scroll', handleScrollReaction, { passive: true });
-  window.addEventListener('mousemove', wakeControls, { passive: true });
-  window.addEventListener('pointerdown', wakeControls, { passive: true });
-  window.addEventListener('keydown', wakeControls);
+    window.addEventListener('scroll', handleScrollReaction, { passive: true });
+    return true;
+  }
 
-  wakeControls();
+  if(!initSceneControls()){
+    window.addEventListener('DOMContentLoaded', initSceneControls, { once: true });
+    window.addEventListener('load', initSceneControls, { once: true });
+  }
 })();
 </script>
 
