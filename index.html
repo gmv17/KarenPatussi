@@ -5012,12 +5012,29 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         const headerOffset = (topbar?.offsetHeight || 0) + 10;
 
         /*
-          No mobile, o hero agora fica “travado” escondido quando o usuário segue descendo.
-          Isso evita o micro-bug visual em que o nome parece descer de novo antes do card Sobre.
-          O retorno só acontece quando a pessoa realmente sobe de volta para o hero.
+          No mobile, o hero fica realmente desligado depois que entrega para os cards.
+          Antes, como o scroll ainda estava muito perto do fim do hero, um frame acabava
+          recalculando o nome/frase como visíveis de novo.
         */
         const hideLatchPoint = Math.max(70, heroStage.offsetHeight * 0.24);
         const releaseLatchPoint = Math.max(18, heroStage.offsetHeight * 0.10);
+        const heroResetThreshold = Math.max(14, releaseLatchPoint);
+
+        if(flowStarted){
+          mobileHeroLatchedHidden = true;
+          syncHeroReturnWithCardProgress(0);
+          topbar.classList.add("show-brand");
+
+          if(scrollingUp && currentY <= heroResetThreshold){
+            flowStarted = false;
+            mobileHeroLatchedHidden = false;
+            showHeroAgain();
+            step = 0;
+            clearAutoCard();
+            clearAutoDesktopCard();
+          }
+          return;
+        }
 
         if(scrollingDown && currentY > hideLatchPoint){
           mobileHeroLatchedHidden = true;
@@ -5029,14 +5046,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         const revealEnd = Math.max(revealStart + 1, Math.min(vh * 0.54, heroRect.height * 0.58));
         const raw = (cardRect.top - revealStart) / (revealEnd - revealStart);
         const t = clamp(raw, 0, 1);
-
-        if(currentY <= (heroStage.offsetHeight + 80)){
-          flowStarted = false;
-          showHeroAgain();
-          step = 0;
-          clearAutoCard();
-          clearAutoDesktopCard();
-        }
 
         if(mobileHeroLatchedHidden && currentY > releaseLatchPoint){
           syncHeroReturnWithCardProgress(0);
