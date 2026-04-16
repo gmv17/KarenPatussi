@@ -1400,11 +1400,11 @@
         pointer-events: auto;
         padding: 10px;
         border-radius: 24px;
-        background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
-        border: 1px solid rgba(255,255,255,.18);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+        border: 1px solid rgba(255,255,255,.14);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
       }
       .section-card{
         grid-area: auto;
@@ -1423,6 +1423,16 @@
         animation: none !important;
         overflow: hidden;
         touch-action: pan-y;
+        -webkit-tap-highlight-color: transparent;
+        tap-highlight-color: transparent;
+        outline: none;
+        user-select: none;
+      }
+      .section-card:focus,
+      .section-card:active,
+      .section-card:focus-visible{
+        outline: none !important;
+        box-shadow: none !important;
       }
       .section-card.mobile-handoff-enter{
         animation: mobileCardEnter var(--mobileCardEnterDur, 620ms) cubic-bezier(.16, 1, .18, 1) both !important;
@@ -1441,31 +1451,42 @@
         }
       }
       .glass-card{
-        background: rgba(255,255,255,.90);
-        backdrop-filter: blur(10px) saturate(1.02);
-        -webkit-backdrop-filter: blur(10px) saturate(1.02);
-        box-shadow: 0 10px 26px rgba(0,0,0,.08);
+        background: rgba(255,255,255,.94);
+        backdrop-filter: blur(5px) saturate(1.01);
+        -webkit-backdrop-filter: blur(5px) saturate(1.01);
+        box-shadow: 0 8px 20px rgba(0,0,0,.06);
       }
       .section-card > .glass-card,
       .section-card.glass-card{
-        background: rgba(255,255,255,.52) !important;
-        border: 1px solid rgba(255,255,255,.20) !important;
-        box-shadow: 0 6px 16px rgba(0,0,0,.045) !important;
-        backdrop-filter: blur(8px) saturate(1.01) !important;
-        -webkit-backdrop-filter: blur(8px) saturate(1.01) !important;
+        background: rgba(255,255,255,.72) !important;
+        border: 1px solid rgba(255,255,255,.18) !important;
+        box-shadow: 0 5px 12px rgba(0,0,0,.04) !important;
+        backdrop-filter: blur(4px) saturate(1.01) !important;
+        -webkit-backdrop-filter: blur(4px) saturate(1.01) !important;
       }
       .topbar{
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
       :root{
         --treeBreathDur: 16s;
         --treeBreathAmp: 0.028;
         --treePushZ: 28px;
-        --glowOpacity: 0.10;
-        --glowBlur: 8px;
+        --glowOpacity: 0;
+        --glowBlur: 0px;
       }
-      .glass-card::before{ opacity:.22; }
+      .tree::before,
+      .tree::after{
+        display: none !important;
+        animation: none !important;
+        filter: none !important;
+        opacity: 0 !important;
+      }
+      .tree,
+      .tree img{
+        filter: none !important;
+      }
+      .glass-card::before{ opacity:.14; }
       .card-inner{
         padding: 18px 15px 16px;
         gap: 12px;
@@ -1730,12 +1751,10 @@
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        background:
-          radial-gradient(900px 620px at 50% 18%, rgba(255,255,255,.12), rgba(255,255,255,0) 62%),
-          rgba(10,12,14,.22);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        transition: opacity 280ms cubic-bezier(.16,1,.18,1), visibility 280ms cubic-bezier(.16,1,.18,1);
+        background: rgba(10,12,14,.16);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        transition: opacity 220ms cubic-bezier(.16,1,.18,1), visibility 220ms cubic-bezier(.16,1,.18,1);
       }
       .mobile-card-shell{
         position: fixed;
@@ -1750,11 +1769,11 @@
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transform: translate3d(0, 20px, 0) scale(.985);
+        transform: translate3d(0, 12px, 0) scale(.992);
         transition:
-          opacity 320ms cubic-bezier(.16,1,.18,1),
-          transform 320ms cubic-bezier(.16,1,.18,1),
-          visibility 320ms cubic-bezier(.16,1,.18,1);
+          opacity 220ms cubic-bezier(.16,1,.18,1),
+          transform 220ms cubic-bezier(.16,1,.18,1),
+          visibility 220ms cubic-bezier(.16,1,.18,1);
       }
       .mobile-card-shell.is-open,
       .mobile-card-backdrop.is-open{
@@ -1778,9 +1797,9 @@
         padding: 14px 14px 12px !important;
         margin-top: 8px !important;
         border-radius: 14px !important;
-        background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(248,250,250,.52)) !important;
-        border: 1px solid rgba(255,255,255,.20) !important;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,.24) !important;
+        background: linear-gradient(180deg, rgba(255,255,255,.70), rgba(248,250,250,.62)) !important;
+        border: 1px solid rgba(255,255,255,.18) !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.18) !important;
         pointer-events: none;
         position: relative;
       }
@@ -1793,7 +1812,7 @@
         overflow: hidden;
         pointer-events: auto !important;
         cursor: default;
-        box-shadow: 0 24px 60px rgba(0,0,0,.14) !important;
+        box-shadow: 0 16px 32px rgba(0,0,0,.10) !important;
       }
       .section-card.mobile-modal-open .card-scroll{
         display: block !important;
@@ -1814,7 +1833,9 @@
       }
       .section-card.mobile-modal-open .glass-card,
       .section-card.mobile-modal-open.glass-card{
-        background: rgba(255,255,255,.96);
+        background: rgba(255,255,255,.98);
+        backdrop-filter: blur(3px) saturate(1.01);
+        -webkit-backdrop-filter: blur(3px) saturate(1.01);
       }
       .mobile-card-close{
         appearance: none;
