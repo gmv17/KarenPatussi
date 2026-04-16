@@ -87,8 +87,6 @@
       --treeBreathDur: 18s;
       --treeBreathAmp: 0.055;
       --treePushZ: 60px;
-      --treeBreathShadowA: 0.16;
-      --treeBreathShadowB: 0.26;
 
       --glowOpacity: 0.16;
       --glowDur: 6.2s;
@@ -150,15 +148,12 @@
       --bodyFont: "Inter", system-ui, sans-serif;
       --titleFont: "Playfair Display", serif;
 
-      --paraSize: 14.5px;
 
       --cardFloatAmp: 2px;
       --cardFloatDur: 9.8s; /* ✅ flutuação mais lenta */
 
       --softInk: rgba(20,28,32,.92);
       --softInk2: rgba(20,28,32,.78);
-      --softBorder: rgba(0,0,0,.07);
-      --softGlass: rgba(255,255,255,.90);
     }
 
     *{ box-sizing:border-box; }
@@ -617,24 +612,6 @@
       font-weight: 800 !important;
     }
 
-    .topbar-nav a.nav-active{
-      background: transparent !important;
-      color: var(--brand) !important;
-      box-shadow: none !important;
-    }
-    .topbar-nav a.nav-active::after{
-      transform: scaleX(1) !important;
-      background: var(--brand) !important;
-      opacity: 1 !important;
-      height: 2.5px;
-      box-shadow: 0 0 6px rgba(26,93,102,.25);
-    }
-
-    .drawer-nav a.nav-active{
-      color: var(--brand) !important;
-      opacity: 1 !important;
-      font-weight: 800 !important;
-    }
 
     .menu-btn{
       appearance: none;
@@ -1129,18 +1106,21 @@
   align-items:start;
   justify-items:end; /* força direita */
 }
-
     .story-media,
     .story-video{
-  display:block;
-  aspect-ratio: 5 / 8;
-  min-height:240px;
-  max-height:380px;
-  overflow:hidden;
-  margin-left:auto;
-  margin-top:40px;
-  border-radius:8px; /* sutil */
-}
+      display:block;
+      aspect-ratio: 5 / 8;
+      min-height:240px;
+      max-height:380px;
+      overflow:hidden;
+      margin-left:auto;
+      margin-top:40px;
+      border-radius:8px; /* sutil */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
 
     .story-media img,
     .story-video video,
@@ -1150,6 +1130,7 @@
       display: block;
       object-fit: cover;
       border: 0;
+      -webkit-transform: translateZ(0);
       transform: translateZ(0);
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
@@ -1157,17 +1138,6 @@
       filter: none !important;
       will-change: transform;
     }
-
-    .story-video{
-  display:block;
-  aspect-ratio: 5 / 8;
-  min-height:240px;
-  max-height:380px;
-  overflow:hidden;
-  margin-left:auto;
-  margin-top:40px;
-  border-radius:8px; /* sutil */
-}
 
     .story-video-placeholder{
       width: 100%;
@@ -1300,20 +1270,13 @@
 
       .story-media,
       .story-video{
-        display:block;
-        aspect-ratio: 5 / 8;
         width: 100%;
         max-width: 320px;
-        min-height: 240px;
-        max-height: 380px;
-        overflow:hidden;
         margin: 0 auto;
-        border-radius: 8px;
       }
 
       .story-media{
         position: relative;
-        overflow:hidden;
         box-shadow: 0 10px 24px rgba(0,0,0,.06);
         background: linear-gradient(180deg, rgba(26,93,102,.08), rgba(26,93,102,.14));
         min-height: 220px;
@@ -1325,16 +1288,6 @@
 
       .story-copy .signature{
         font-size: clamp(28px, 8vw, 38px);
-      }
-
-      .story-copy .story-title{
-        color: var(--brand);
-        font-family: var(--titleFont);
-        font-weight: 600;
-        font-size: clamp(28px, 2.5vw, 42px);
-        line-height: 1.02;
-        letter-spacing: -0.025em;
-        margin: 0 0 14px;
       }
 
       .story-copy .divider{
@@ -1432,9 +1385,9 @@
       .cards-track{
         padding:
           2px
-          calc(14px + var(--safeR))
-          calc(30px + var(--safeB))
-          calc(14px + var(--safeL));
+          calc(10px + var(--safeR))
+          calc(26px + var(--safeB))
+          calc(10px + var(--safeL));
       }
       .cards-track .track-spacer{ display:none; height:0 !important; }
       .cards-stage{
@@ -1445,6 +1398,13 @@
         gap: 14px;
         place-items: stretch;
         pointer-events: auto;
+        padding: 10px;
+        border-radius: 24px;
+        background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+        border: 1px solid rgba(255,255,255,.18);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
       .section-card{
         grid-area: auto;
@@ -1457,7 +1417,9 @@
         transform: none !important;
         pointer-events: auto !important;
         margin: 0;
-        border-radius: 18px;
+        border-radius: 16px;
+        box-shadow: none !important;
+        background: transparent !important;
         animation: none !important;
         overflow: hidden;
         touch-action: pan-y;
@@ -1483,6 +1445,14 @@
         backdrop-filter: blur(10px) saturate(1.02);
         -webkit-backdrop-filter: blur(10px) saturate(1.02);
         box-shadow: 0 10px 26px rgba(0,0,0,.08);
+      }
+      .section-card > .glass-card,
+      .section-card.glass-card{
+        background: rgba(255,255,255,.52) !important;
+        border: 1px solid rgba(255,255,255,.20) !important;
+        box-shadow: 0 6px 16px rgba(0,0,0,.045) !important;
+        backdrop-filter: blur(8px) saturate(1.01) !important;
+        -webkit-backdrop-filter: blur(8px) saturate(1.01) !important;
       }
       .topbar{
         backdrop-filter: blur(8px);
@@ -1523,67 +1493,12 @@
         overflow: clip !important;
         padding-top: 0;
         padding-bottom: 0;
-        transition: max-height 420ms cubic-bezier(.16, 1, .18, 1);
         touch-action: pan-y;
         overscroll-behavior: auto;
         -webkit-overflow-scrolling: touch;
       }
-      .section-card.is-expanded .card-scroll{
-        max-height: min(68dvh, 620px) !important;
-        overflow: auto !important;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-      }
       .card-scroll::before,
       .card-scroll::after{ display:none !important; }
-      .section-card.has-toggle:not(.is-expanded) .card-scroll::after{
-        content:"";
-        position:absolute;
-        left:0;
-        right:0;
-        bottom:0;
-        height:84px;
-        display:block !important;
-        background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.94) 72%);
-        pointer-events:none;
-      }
-      .section-card.is-expanded .card-scroll::after{ display:none !important; }
-      .card-toggle{
-        appearance:none;
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        gap:10px;
-        align-self:flex-start;
-        margin-top: 6px;
-        min-height: 44px;
-        padding: 12px 18px;
-        border-radius: 999px;
-        border: 1px solid rgba(26,93,102,.35);
-        background: rgba(26,93,102,.08);
-        color: var(--brand);
-        box-shadow:
-          0 8px 18px rgba(26,93,102,.14),
-          inset 0 1px 0 rgba(255,255,255,.6);
-        font: 800 11px/1 var(--bodyFont);
-        letter-spacing: .12em;
-        text-transform: uppercase;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-        transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
-      }
-      .card-toggle:active{
-        transform: scale(.96);
-        background: rgba(26,93,102,.15);
-      }
-      .card-toggle::after{
-        content: "+";
-        font-size: 16px;
-        font-weight: 900;
-        line-height: 1;
-        letter-spacing: 0;
-      }
-      .section-card.is-expanded .card-toggle::after{ content: "−"; }
       .end-spacer{ display:none; }
 
       .about,
@@ -1861,16 +1776,13 @@
         max-height: 210px !important;
         overflow: hidden !important;
         padding: 14px 14px 12px !important;
-        margin-top: 10px;
-        border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,250,250,.98));
-        border: 1px solid rgba(26,93,102,.14);
-        box-shadow: 0 10px 24px rgba(0,0,0,.045);
+        margin-top: 8px !important;
+        border-radius: 14px !important;
+        background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(248,250,250,.52)) !important;
+        border: 1px solid rgba(255,255,255,.20) !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.24) !important;
         pointer-events: none;
         position: relative;
-      }
-      .section-card:not(.mobile-modal-open) .card-toggle{
-        display: none !important;
       }
       .section-card.mobile-modal-open{
         position: relative !important;
@@ -1881,7 +1793,7 @@
         overflow: hidden;
         pointer-events: auto !important;
         cursor: default;
-        box-shadow: 0 28px 70px rgba(0,0,0,.14);
+        box-shadow: 0 24px 60px rgba(0,0,0,.14) !important;
       }
       .section-card.mobile-modal-open .card-scroll{
         display: block !important;
@@ -2002,12 +1914,6 @@
       50%{ transform: translateY(-2px); }
     }
 
-    @keyframes subPulse{
-      0%,100%{ opacity: .68; letter-spacing: .22em; }
-      50%{ opacity: .94; letter-spacing: .26em; }
-    }
-
-  
 /* ===== Thin Loader Progress Bar ===== */
 .loader-bar{
   width: min(220px,40vw);
@@ -2986,18 +2892,6 @@
 }
 
 
-/* ===== Proteção de nitidez para mídia do card Sobre ===== */
-.story-media,
-.story-media img,
-.story-video,
-.story-video video,
-.story-video iframe{
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
 .section-card:not(.is-active) .story-media img,
 .section-card:not(.is-active) .story-video video,
 .section-card:not(.is-active) .story-video iframe{
@@ -3572,44 +3466,19 @@
 }
 
 
-/* ===== VER MAIS (card fechado) ===== */
-.card-ver-mais{
-  display:flex;
-  justify-content:center;
-  margin-top:10px;
-  margin-bottom:6px;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(26,93,102,.85);
-  opacity:.9;
-  transition:all .25s ease;
-}
-.card-ver-mais::after{
-  content:" →";
-  margin-left:6px;
-  font-size:13px;
-  transition:transform .25s ease;
-}
-.section-card:hover .card-ver-mais{
-  opacity:1;
-  transform:translateY(-1px);
-}
-.section-card:hover .card-ver-mais::after{
-  transform:translateX(3px);
-}
-
 /* ===== BOTÃO VOLTAR ===== */
 .mobile-card-close{
   font-size:11px;
   font-weight:800;
   letter-spacing:.14em;
   color:var(--brand);
-  background:rgba(255,255,255,.92);
-  border:1px solid rgba(26,93,102,.25);
+  background: rgba(255,255,255,.95);
+  border: 2px solid rgba(26,93,102,.55);
   box-shadow:0 8px 18px rgba(0,0,0,.06);
   transition:all .25s ease;
+}
+.mobile-card-close::before{
+  font-weight:900;
 }
 .mobile-card-close:hover{
   transform:translateY(-1px);
@@ -3617,105 +3486,6 @@
   background:rgba(255,255,255,.98);
 }
 
-
-/* ===== MOBILE: cards agrupados como mesmo conjunto ===== */
-@media (max-width: 979.98px){
-  .cards-track{
-    padding:
-      2px
-      calc(10px + var(--safeR))
-      calc(26px + var(--safeB))
-      calc(10px + var(--safeL));
-  }
-  .cards-stage{
-    gap: 14px !important;
-    padding: 10px;
-    border-radius: 24px;
-    background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
-    border: 1px solid rgba(255,255,255,.18);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-  .section-card{
-    border-radius: 16px !important;
-    box-shadow: none !important;
-    background: transparent !important;
-  }
-  .section-card > .glass-card,
-  .section-card.glass-card{
-    background: rgba(255,255,255,.52) !important;
-    border: 1px solid rgba(255,255,255,.20) !important;
-    box-shadow: 0 6px 16px rgba(0,0,0,.045) !important;
-    backdrop-filter: blur(8px) saturate(1.01) !important;
-    -webkit-backdrop-filter: blur(8px) saturate(1.01) !important;
-  }
-  .section-card:not(.mobile-modal-open) .card-scroll{
-    margin-top: 8px !important;
-    border-radius: 14px !important;
-    background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(248,250,250,.52)) !important;
-    border: 1px solid rgba(255,255,255,.20) !important;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.24) !important;
-  }
-  .card-ver-mais{
-    margin-top: 8px !important;
-    margin-bottom: 2px !important;
-  }
-  .mobile-card-placeholder{
-    display: none !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-  }
-  .section-card.mobile-modal-open{
-    box-shadow: 0 24px 60px rgba(0,0,0,.14) !important;
-  }
-}
-
-
-/* ===== VER MAIS MAIS VISÍVEL ===== */
-.card-ver-mais{
-  display:flex;
-  justify-content:flex-end;
-  margin-top:10px;
-  margin-bottom:6px;
-  font-size:13px;
-  font-weight:800;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--brand);
-  opacity:.95;
-}
-.card-ver-mais::after{
-  content:" →";
-  margin-left:6px;
-  font-size:14px;
-}
-
-
-/* ===== VOLTAR AJUSTADO (mais claro e elegante) ===== */
-.mobile-card-close{
-  background: rgba(255,255,255,.95);
-  border: 2px solid rgba(26,93,102,.55);
-  box-shadow: 0 8px 18px rgba(0,0,0,.06);
-  color: var(--brand);
-}
-
-.mobile-card-close::before{
-  font-weight:900;
-}
-
-
-@media (max-width: 979.98px){
-  .card-title{
-    font-size: clamp(19px, 5.4vw, 22px);
-    line-height: 1.08;
-  }
-  #areas-de-atuacao .card-title{
-    font-size: clamp(17px, 4.6vw, 20px);
-  }
-}
 
 
 /* ===== PADRONIZAÇÃO TÍTULOS INTERNOS DOS CARDS (MOBILE) ===== */
@@ -4803,39 +4573,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       links.forEach((a, i) => a.style.setProperty("--i", String(i)));
 
-      const mobileCardPreviewCopy = {
-        "sobre": "Conheça a trajetória, a escuta clínica e a forma como Karen conduz o trabalho terapêutico.",
-        "areas-de-atuacao": "Veja os principais temas atendidos e encontre com mais facilidade o que conversa com a sua busca.",
-        "como-funciona": "Uma visão clara sobre formato, frequência, primeira sessão e o jeito de conduzir o processo terapêutico.",
-        "agendar-sessao": "Um caminho simples para entrar em contato, tirar dúvidas e solicitar seu atendimento online."
-      };
-
-      function ensureMobileCardPreview(card){
-        if(!card) return null;
-        const inner = card.querySelector('.card-inner');
-        const title = inner ? inner.querySelector('.card-title') : null;
-        if(!inner || !title) return null;
-
-        let preview = card.querySelector('.card-preview');
-        if(!preview){
-          preview = document.createElement('div');
-          preview.className = 'card-preview';
-          preview.innerHTML = '<p class="card-preview-text"></p>';
-          const previewMeta = document.createElement('div');
-          previewMeta.className = 'card-preview-meta';
-          previewMeta.textContent = 'Ver mais';
-          title.insertAdjacentElement('afterend', preview);
-          preview.insertAdjacentElement('afterend', previewMeta);
-        }
-
-        const previewText = preview.querySelector('.card-preview-text');
-        if(previewText){
-          previewText.textContent = mobileCardPreviewCopy[card.id] || 'Toque para abrir este conteúdo.';
-        }
-
-        return preview;
-      }
-
       function ensureMobileCardCloseButton(card){
         if(!card) return null;
         const inner = card.querySelector(".card-inner");
@@ -4979,7 +4716,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           const scroll = card.querySelector(".card-scroll");
           if(!scroll) return;
 
-          ensureMobileCardPreview(card);
           const closeBtn = ensureMobileCardCloseButton(card);
           if(closeBtn && !closeBtn.dataset.bound){
             closeBtn.addEventListener("click", (e) => {
@@ -4991,22 +4727,6 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
             closeBtn.dataset.bound = "true";
           }
 
-          let toggle = card.querySelector(".card-toggle");
-          if(!toggle){
-            toggle = document.createElement("button");
-            toggle.type = "button";
-            toggle.className = "card-toggle";
-            toggle.hidden = true;
-            toggle.tabIndex = -1;
-            toggle.setAttribute("aria-hidden", "true");
-            scroll.insertAdjacentElement("afterend", toggle);
-          } else {
-            toggle.hidden = true;
-            toggle.tabIndex = -1;
-            toggle.setAttribute("aria-hidden", "true");
-          }
-
-          card.classList.remove("has-toggle", "is-expanded");
           if(!card.hasAttribute("tabindex")) card.tabIndex = 0;
 
           if(card.dataset.modalBound === "true") return;
