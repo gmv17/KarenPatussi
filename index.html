@@ -3778,7 +3778,7 @@
 }
 
 
-/* ===== CONTROLE DUPLO DE CENAS (usa a navegação real do site) ===== */
+/* ===== CONTROLE DUPLO DE CENAS ===== */
 .scene-controls{
   position: fixed;
   top: calc(18px + var(--safeT) + 75px);
@@ -6469,96 +6469,105 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 })();
 </script>
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const prevBtn = document.getElementById('scenePrev');
   const nextBtn = document.getElementById('sceneNext');
   if(!prevBtn || !nextBtn) return;
 
-  function getSceneLockMs(){
-    const root = getComputedStyle(document.documentElement);
-    const raw = (root.getPropertyValue('--sceneLockMs') || '').trim();
-    const n = parseFloat(raw.replace('ms',''));
-    return Number.isFinite(n) ? Math.max(180, n) : 1780;
+  function getState(){
+    const nav = window.__siteNav;
+    if(nav && typeof nav.getState === 'function') return nav.getState();
+    return null;
   }
 
-  function isTransitioning(){
-    const nav = window.__siteNav;
-    if(!nav || typeof nav.getState !== 'function') return false;
-    return nav.getState().phase !== 'closed';
+  function getNavLinkByIndex(index){
+    return document.querySelector('.topbar-nav a[data-link][data-index="' + index + '"]')
+      || document.querySelector('.main-nav a[data-link][data-index="' + index + '"]')
+      || document.querySelector('.drawer-nav a[data-link][data-index="' + index + '"]')
+      || document.querySelector('a[data-link][data-index="' + index + '"]');
+  }
+
+  function getHomeLink(){
+    return document.querySelector('.topbar-nav a[href="#home"][data-link]')
+      || document.querySelector('.main-nav a[href="#home"][data-link]')
+      || document.querySelector('.drawer-nav a[href="#home"][data-link]')
+      || document.querySelector('a[href="#home"][data-link]');
   }
 
   function syncButtons(){
-    const nav = window.__siteNav;
-    if(!nav || typeof nav.getState !== 'function'){
+    const state = getState();
+
+    if(!state || !state.flowStarted){
       prevBtn.setAttribute('aria-disabled', 'true');
       nextBtn.removeAttribute('aria-disabled');
       return;
     }
 
-    const state = nav.getState();
-
-    if(!state.flowStarted){
-      prevBtn.setAttribute('aria-disabled', 'true');
-      nextBtn.removeAttribute('aria-disabled');
-      return;
-    }
-
-    if(state.sceneIndex <= 0 && state.phase === 'closed' && state.pendingDir === -1){
-      prevBtn.setAttribute('aria-disabled', 'true');
+    if(state.sceneIndex <= 0){
+      prevBtn.removeAttribute('aria-disabled');
     } else {
       prevBtn.removeAttribute('aria-disabled');
     }
 
-    if(state.sceneIndex >= state.lastIdx && state.phase === 'closed' && state.pendingDir !== -1){
+    if(state.sceneIndex >= state.lastIdx){
       nextBtn.setAttribute('aria-disabled', 'true');
     } else {
       nextBtn.removeAttribute('aria-disabled');
     }
   }
 
-  function dispatchArrow(key){
-    const ev = new KeyboardEvent('keydown', {
-      key,
-      code: key,
-      bubbles: true,
-      cancelable: true
-    });
-    window.dispatchEvent(ev);
-    document.dispatchEvent(ev);
-  }
-
-  function fireArrow(key){
-    dispatchArrow(key);
-    window.setTimeout(() => dispatchArrow(key), 28);
+  function clickLink(link){
+    if(!link) return;
+    link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
   }
 
   prevBtn.addEventListener('click', function(e){
     e.preventDefault();
-    if(prevBtn.getAttribute('aria-disabled') === 'true') return;
-    if(isTransitioning()) return;
-    fireArrow('ArrowUp');
-    window.setTimeout(syncButtons, 120);
-    window.setTimeout(syncButtons, getSceneLockMs() + 220);
+    const state = getState();
+
+    if(!state || !state.flowStarted){
+      return;
+    }
+
+    if(state.sceneIndex <= 0){
+      clickLink(getHomeLink());
+    } else {
+      clickLink(getNavLinkByIndex(state.sceneIndex - 1));
+    }
+
+    window.setTimeout(syncButtons, 80);
+    window.setTimeout(syncButtons, 400);
+    window.setTimeout(syncButtons, 1200);
   });
 
   nextBtn.addEventListener('click', function(e){
     e.preventDefault();
-    if(nextBtn.getAttribute('aria-disabled') === 'true') return;
-    if(isTransitioning()) return;
-    fireArrow('ArrowDown');
-    window.setTimeout(syncButtons, 120);
-    window.setTimeout(syncButtons, getSceneLockMs() + 220);
+    const state = getState();
+
+    if(!state || !state.flowStarted){
+      clickLink(getNavLinkByIndex(0));
+      window.setTimeout(syncButtons, 80);
+      window.setTimeout(syncButtons, 400);
+      window.setTimeout(syncButtons, 1200);
+      return;
+    }
+
+    if(state.sceneIndex >= state.lastIdx) return;
+
+    clickLink(getNavLinkByIndex(state.sceneIndex + 1));
+
+    window.setTimeout(syncButtons, 80);
+    window.setTimeout(syncButtons, 400);
+    window.setTimeout(syncButtons, 1200);
   });
 
   window.addEventListener('load', syncButtons, { once: true });
   window.addEventListener('scroll', syncButtons, { passive: true });
   window.addEventListener('resize', syncButtons, { passive: true });
-  setTimeout(syncButtons, 800);
+  setTimeout(syncButtons, 900);
 });
 </script>
-
 
 
 <div class="scene-controls" aria-label="Controle de navegação">
