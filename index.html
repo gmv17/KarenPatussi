@@ -6470,33 +6470,34 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 </script>
 
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const prevBtn = document.getElementById('scenePrev');
   const nextBtn = document.getElementById('sceneNext');
   if(!prevBtn || !nextBtn) return;
 
-  function getState(){
-    const api = window.__siteNav;
-    if(api && typeof api.getState === 'function') return api.getState();
-    return null;
+  function getSceneLockMs(){
+    const root = getComputedStyle(document.documentElement);
+    const raw = (root.getPropertyValue('--sceneLockMs') || '').trim();
+    const n = parseFloat(raw.replace('ms',''));
+    return Number.isFinite(n) ? Math.max(180, n) : 1780;
   }
 
   function isTransitioning(){
-    const state = getState();
-    if(!state) return false;
-    return state.phase !== 'closed';
+    const nav = window.__siteNav;
+    if(!nav || typeof nav.getState !== 'function') return false;
+    return nav.getState().phase !== 'closed';
   }
 
   function syncButtons(){
-    const state = getState();
-
-    if(!state){
+    const nav = window.__siteNav;
+    if(!nav || typeof nav.getState !== 'function'){
       prevBtn.setAttribute('aria-disabled', 'true');
       nextBtn.removeAttribute('aria-disabled');
       return;
     }
+
+    const state = nav.getState();
 
     if(!state.flowStarted){
       prevBtn.setAttribute('aria-disabled', 'true');
@@ -6533,9 +6534,8 @@ document.addEventListener('DOMContentLoaded', function(){
     if(prevBtn.getAttribute('aria-disabled') === 'true') return;
     if(isTransitioning()) return;
     fireArrow('ArrowUp');
-    window.setTimeout(syncButtons, 80);
-    window.setTimeout(syncButtons, 320);
-    window.setTimeout(syncButtons, 900);
+    window.setTimeout(syncButtons, 120);
+    window.setTimeout(syncButtons, getSceneLockMs() + 220);
   });
 
   nextBtn.addEventListener('click', function(e){
@@ -6543,9 +6543,8 @@ document.addEventListener('DOMContentLoaded', function(){
     if(nextBtn.getAttribute('aria-disabled') === 'true') return;
     if(isTransitioning()) return;
     fireArrow('ArrowDown');
-    window.setTimeout(syncButtons, 80);
-    window.setTimeout(syncButtons, 320);
-    window.setTimeout(syncButtons, 900);
+    window.setTimeout(syncButtons, 120);
+    window.setTimeout(syncButtons, getSceneLockMs() + 220);
   });
 
   window.addEventListener('load', syncButtons, { once: true });
@@ -6554,7 +6553,6 @@ document.addEventListener('DOMContentLoaded', function(){
   setTimeout(syncButtons, 800);
 });
 </script>
-
 
 
 
