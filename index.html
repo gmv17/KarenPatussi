@@ -3778,57 +3778,87 @@
 }
 
 
-/* ===== BOTÃO ORBITAL DE CENAS ===== */
-.nav-orb{
+/* ===== CONTROLE DUPLO DE CENAS ===== */
+.scene-controls{
   position: fixed;
   top: calc(18px + var(--safeT) + 75px);
   right: calc(18px + var(--safeR));
+  z-index: 950;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.scene-btn{
+  position: relative;
   width: 58px;
   height: 58px;
-  z-index: 950;
-  cursor: pointer;
   display: grid;
   place-items: center;
-  background: transparent;
-  border: 0;
   padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   user-select: none;
+  transition: transform .22s ease, opacity .22s ease;
 }
-.nav-orb:focus,
-.nav-orb:focus-visible,
-.nav-orb:active{
+.scene-btn:hover{ transform: scale(1.045); }
+.scene-btn:focus,
+.scene-btn:focus-visible,
+.scene-btn:active{
   outline: none;
   box-shadow: none;
 }
-.orb-ring{
+.scene-btn[disabled]{
+  opacity: .42;
+  cursor: default;
+  transform: none;
+}
+.scene-btn .ring{
   position: absolute;
-  inset: 0;
   border-radius: 50%;
+  inset: 0;
   border: 1.4px solid rgba(26,93,102,.58);
   pointer-events: none;
 }
-.orb-ring.outer{
-  animation: orbRotate 9s linear infinite;
-  opacity: .72;
-}
-.orb-ring.inner{
+.scene-btn .ring.inner{
   inset: 16%;
   border-width: 1.15px;
   border-color: rgba(26,93,102,.86);
-  animation: orbRotateReverse 6.2s linear infinite;
 }
-.orb-center{
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+.scene-btn.prev .ring.outer{ animation: orbRotateReverse 9s linear infinite; opacity: .72; }
+.scene-btn.prev .ring.inner{ animation: orbRotate 6.2s linear infinite; }
+.scene-btn.next .ring.outer{ animation: orbRotate 9s linear infinite; opacity: .72; }
+.scene-btn.next .ring.inner{ animation: orbRotateReverse 6.2s linear infinite; }
+
+.scene-btn .arrow{
+  position: relative;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.scene-btn .arrow::before,
+.scene-btn .arrow::after{
+  content:"";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 1.8px;
+  border-radius: 999px;
   background: var(--brand);
-  opacity: .78;
-  pointer-events: none;
+  transform-origin: center;
 }
+.scene-btn.prev .arrow::before{ transform: translate(-74%, -20%) rotate(-45deg); }
+.scene-btn.prev .arrow::after{ transform: translate(-26%, -20%) rotate(45deg); }
+.scene-btn.next .arrow::before{ transform: translate(-74%, 220%) rotate(45deg); }
+.scene-btn.next .arrow::after{ transform: translate(-26%, 220%) rotate(-45deg); }
+
 @keyframes orbRotate{
   from{ transform: rotate(0deg); }
   to{ transform: rotate(360deg); }
@@ -3837,21 +3867,9 @@
   from{ transform: rotate(360deg); }
   to{ transform: rotate(0deg); }
 }
-.nav-orb:hover{
-  transform: scale(1.045);
-}
-.nav-orb:hover .orb-ring.outer{
-  border-color: rgba(26,93,102,.82);
-}
-.nav-orb:hover .orb-ring.inner{
-  border-color: rgba(26,93,102,1);
-}
-.nav-orb[aria-disabled="true"]{
-  opacity: .42;
-  cursor: default;
-}
+
 @media (max-width: 979.98px){
-  .nav-orb{ display:none !important; }
+  .scene-controls{ display:none !important; }
 }
 
 </style>
@@ -6452,94 +6470,90 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 </script>
 
 <script>
-(function(){
-  const orb = document.getElementById('navOrb');
-  if(!orb) return;
+document.addEventListener('DOMContentLoaded', function(){
+  const prevBtn = document.getElementById('scenePrev');
+  const nextBtn = document.getElementById('sceneNext');
+  if(!prevBtn || !nextBtn) return;
 
-  function getNavState(){
-    return window.__siteNav && typeof window.__siteNav.getState === 'function'
-      ? window.__siteNav.getState()
-      : null;
-  }
+  const steps = [
+    { id: 'hero', target: () => window.scrollTo({ top: 0, behavior: 'smooth' }) },
+    { id: 'sobre', target: () => document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
+    { id: 'como-funciona', target: () => document.getElementById('como-funciona')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
+    { id: 'areas-de-atuacao', target: () => document.getElementById('areas-de-atuacao')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
+    { id: 'perguntas-frequentes', target: () => document.getElementById('perguntas-frequentes')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) },
+    { id: 'agendar-sessao', target: () => document.getElementById('agendar-sessao')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
+  ];
 
-  function getDesktopLinkByIndex(index){
-    return document.querySelector('.main-nav a[data-link][data-index="' + index + '"]')
-      || document.querySelector('.topbar-nav a[data-link][data-index="' + index + '"]')
-      || document.querySelector('a[data-link][data-index="' + index + '"]');
-  }
+  let currentStep = 0;
 
-  function advanceScene(){
-    const state = getNavState();
-
-    if(!state){
-      const first = getDesktopLinkByIndex(0);
-      if(first) first.click();
+  function detectStep(){
+    const y = window.scrollY || window.pageYOffset || 0;
+    if(y < Math.max(180, window.innerHeight * 0.35)){
+      currentStep = 0;
+      syncButtons();
       return;
     }
 
-    if(!state.flowStarted){
-      const first = getDesktopLinkByIndex(0);
-      if(first){
-        first.click();
-      } else {
-        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+    let bestIndex = 1;
+    let bestDistance = Infinity;
+
+    for(let i = 1; i < steps.length; i++){
+      const el = document.getElementById(steps[i].id);
+      if(!el) continue;
+      const top = window.scrollY + el.getBoundingClientRect().top;
+      const distance = Math.abs(top - y - 90);
+      if(distance < bestDistance){
+        bestDistance = distance;
+        bestIndex = i;
       }
-      return;
     }
-
-    const nextIndex = Math.min(state.sceneIndex + 1, state.lastIdx);
-    if(nextIndex === state.sceneIndex && state.sceneIndex === state.lastIdx){
-      orb.setAttribute('aria-disabled', 'true');
-      return;
-    }
-
-    const next = getDesktopLinkByIndex(nextIndex);
-    if(next){
-      next.click();
-      window.requestAnimationFrame(() => {
-        orb.removeAttribute('aria-disabled');
-      });
-    }
+    currentStep = bestIndex;
+    syncButtons();
   }
 
-  orb.addEventListener('click', (e) => {
+  function syncButtons(){
+    prevBtn.disabled = currentStep <= 0;
+    nextBtn.disabled = currentStep >= steps.length - 1;
+  }
+
+  function goToStep(index){
+    const clamped = Math.max(0, Math.min(index, steps.length - 1));
+    currentStep = clamped;
+    syncButtons();
+    steps[clamped].target();
+  }
+
+  prevBtn.addEventListener('click', function(e){
     e.preventDefault();
-    advanceScene();
+    if(currentStep > 0) goToStep(currentStep - 1);
   });
 
-  orb.addEventListener('keydown', (e) => {
-    if(e.key === 'Enter' || e.key === ' '){
-      e.preventDefault();
-      advanceScene();
-    }
+  nextBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    if(currentStep < steps.length - 1) goToStep(currentStep + 1);
   });
 
-  function syncOrbState(){
-    const state = getNavState();
-    if(!state){
-      orb.removeAttribute('aria-disabled');
-      return;
-    }
-    if(state.flowStarted && state.sceneIndex === state.lastIdx && (state.phase === 'closed' || state.phase === 'closing') && state.pendingDir !== -1){
-      orb.setAttribute('aria-disabled', 'true');
-    } else {
-      orb.removeAttribute('aria-disabled');
-    }
-  }
+  window.addEventListener('scroll', detectStep, { passive: true });
+  window.addEventListener('resize', detectStep, { passive: true });
 
-  window.addEventListener('load', syncOrbState, { once: true });
-  window.addEventListener('scroll', syncOrbState, { passive: true });
-  window.addEventListener('resize', syncOrbState, { passive: true });
-  setTimeout(syncOrbState, 800);
-})();
+  setTimeout(detectStep, 900);
+  syncButtons();
+});
 </script>
 
 
-<button class="nav-orb" id="navOrb" type="button" aria-label="Avançar jornada">
-  <span class="orb-ring outer" aria-hidden="true"></span>
-  <span class="orb-ring inner" aria-hidden="true"></span>
-  <span class="orb-center" aria-hidden="true"></span>
-</button>
+<div class="scene-controls" aria-label="Controle de navegação">
+  <button class="scene-btn prev" id="scenePrev" type="button" aria-label="Voltar para a cena anterior">
+    <span class="ring outer" aria-hidden="true"></span>
+    <span class="ring inner" aria-hidden="true"></span>
+    <span class="arrow" aria-hidden="true"></span>
+  </button>
+  <button class="scene-btn next" id="sceneNext" type="button" aria-label="Ir para a próxima cena">
+    <span class="ring outer" aria-hidden="true"></span>
+    <span class="ring inner" aria-hidden="true"></span>
+    <span class="arrow" aria-hidden="true"></span>
+  </button>
+</div>
 
 </body>
 
