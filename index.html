@@ -981,6 +981,22 @@
       font-family: var(--bodyFont);
     }
 
+    body.hero-hidden .brand,
+    body.hero-hidden .role{
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    body.hero-hidden .brand{
+      transform: translate3d(0, calc(var(--nameY, 0px)), 0) !important;
+      filter: blur(var(--nameB, 0px)) !important;
+    }
+
+    body.hero-hidden .role{
+      transform: translate3d(0, calc(var(--roleY, 0px)), 0) !important;
+      filter: blur(var(--roleB, 0px)) !important;
+    }
+
     /* ===== Card base ===== */
     .glass-card{
       border-radius: 18px;
@@ -4868,6 +4884,14 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         document.body.classList.remove("is-locked");
       }
 
+      function hideHeroCompletely(){
+        document.body.classList.add("hero-hidden");
+      }
+
+      function showHeroAgain(){
+        document.body.classList.remove("hero-hidden");
+      }
+
       function applyHeroState(){
         const liftName = getNumVar("--liftName", 140);
         const liftRole = getNumVar("--liftRole", 120);
@@ -5008,6 +5032,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
         if(currentY <= (heroStage.offsetHeight + 80)){
           flowStarted = false;
+          showHeroAgain();
           step = 0;
           clearAutoCard();
           clearAutoDesktopCard();
@@ -5304,6 +5329,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       function handoffToCards(){
         if(flowStarted) return;
         flowStarted = true;
+        hideHeroCompletely();
         topbar.classList.add("show-brand");
 
         lockBody();
@@ -5363,6 +5389,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       async function returnToHeroWithSameMotion(){
         flowStarted = false;
+        showHeroAgain();
         updateNavActive(-1);
         clearAutoRole();
         clearAutoCard();
@@ -5847,6 +5874,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           step = 3;
           applyHeroState();
           flowStarted = true;
+          hideHeroCompletely();
           topbar.classList.add("show-brand");
         }
 
@@ -6065,6 +6093,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       function enforceDesktopReloadAtTop(){
         if(isMobileLayout()) return;
+        showHeroAgain();
         try{
           if("scrollRestoration" in history){
             history.scrollRestoration = "manual";
