@@ -3826,6 +3826,11 @@
 .nav-orb:hover{
   transform: scale(1.05);
 }
+@media (max-width: 979.98px){
+  .nav-orb{
+    display: none;
+  }
+}
 
 </style>
 </head>
@@ -4623,6 +4628,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
       const roleEl = document.getElementById("role");
       const cardsTrack = document.getElementById("cardsTrack");
       const cards = Array.from(document.querySelectorAll("[data-card]"));
+      const navOrb = document.getElementById("navOrb");
 
       const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
       const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -4902,6 +4908,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       let lastMobileScrollY = window.scrollY || window.pageYOffset || 0;
       let mobileHeroLatchedHidden = false;
+      let orbGuidedSequence = false;
 
       function inHeroViewport(){
         const r = heroStage.getBoundingClientRect();
@@ -5075,6 +5082,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       function scheduleAutoRole(){
         if(step !== 1) return;
+        if(orbGuidedSequence) return;
         if(autoRolePending) return;
         autoRolePending = true;
 
@@ -5091,6 +5099,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       function scheduleAutoCardHandoff(){
         if(!isMobileLayout()) return;
+        if(orbGuidedSequence) return;
         if(step !== 2) return;
         if(autoCardPending) return;
         autoCardPending = true;
@@ -5110,6 +5119,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 
       function scheduleAutoDesktopCardHandoff(){
         if(isMobileLayout()) return;
+        if(orbGuidedSequence) return;
         if(step !== 2) return;
         if(autoDesktopCardPending) return;
         autoDesktopCardPending = true;
@@ -5811,6 +5821,62 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         return true;
       }
 
+      function runOrbHeroSequence(){
+        if(flowStarted || animating) return;
+
+        orbGuidedSequence = true;
+        clearAutoRole();
+        clearAutoCard();
+        clearAutoDesktopCard();
+
+        lockBody();
+        animateToStep(1)
+          .then(() => {
+            if(flowStarted) return;
+            lockBody();
+            return animateToStep(2);
+          })
+          .then(() => {
+            if(flowStarted) return;
+            lockBody();
+            step = 3;
+            applyHeroState();
+            setCooldown();
+            handoffToCards();
+          })
+          .finally(() => {
+            orbGuidedSequence = false;
+          });
+      }
+
+      function handleOrbAdvance(){
+        if(document.body.classList.contains("is-loading")) return;
+        if(overlay.classList.contains("is-open")) return;
+        if(animating) return;
+        if(mobileOpenCard) return;
+
+        clearNavVisualFocus();
+        clearKeyboardStepArm();
+
+        if(flowStarted){
+          if(phase === "opening" || phase === "closing") return;
+          requestNext();
+          return;
+        }
+
+        runOrbHeroSequence();
+      }
+
+      if(navOrb){
+        navOrb.addEventListener("click", handleOrbAdvance);
+        navOrb.addEventListener("keydown", (e) => {
+          if(e.key === "Enter" || e.key === " " || e.code === "Space") {
+            e.preventDefault();
+            handleOrbAdvance();
+          }
+        });
+      }
+
       window.addEventListener("scroll", () => {
         syncMobileHeroWithScroll();
       }, { passive:true });
@@ -6424,26 +6490,12 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 })();
 </script>
 
-<div class="nav-orb" id="navOrb">
+<div class="nav-orb" id="navOrb" role="button" tabindex="0" aria-label="Avançar jornada">
   <div class="orb-ring outer"></div>
   <div class="orb-ring inner"></div>
   <div class="orb-center"></div>
 </div>
 
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const orb = document.getElementById('navOrb');
-  if(!orb) return;
-
-  orb.addEventListener('click', () => {
-    window.scrollBy({
-      top: window.innerHeight * 0.9,
-      behavior: 'smooth'
-    });
-  });
-});
-</script>
 
 </body>
 
