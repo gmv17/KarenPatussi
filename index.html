@@ -6470,38 +6470,33 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
 </script>
 
 
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const prevBtn = document.getElementById('scenePrev');
   const nextBtn = document.getElementById('sceneNext');
   if(!prevBtn || !nextBtn) return;
 
-  let lastFire = 0;
-
-  function getSceneLockMs(){
-    const root = getComputedStyle(document.documentElement);
-    const raw = (root.getPropertyValue('--sceneLockMs') || '').trim();
-    const n = parseFloat(raw.replace('ms',''));
-    return Number.isFinite(n) ? Math.max(180, n) : 1780;
+  function getState(){
+    const api = window.__siteNav;
+    if(api && typeof api.getState === 'function') return api.getState();
+    return null;
   }
 
-  function canFire(){
-    const now = performance.now();
-    const minGap = getSceneLockMs() + 120;
-    if(now - lastFire < minGap) return false;
-    lastFire = now;
-    return true;
+  function isTransitioning(){
+    const state = getState();
+    if(!state) return false;
+    return state.phase !== 'closed';
   }
 
   function syncButtons(){
-    const nav = window.__siteNav;
-    if(!nav || typeof nav.getState !== 'function'){
+    const state = getState();
+
+    if(!state){
       prevBtn.setAttribute('aria-disabled', 'true');
       nextBtn.removeAttribute('aria-disabled');
       return;
     }
-
-    const state = nav.getState();
 
     if(!state.flowStarted){
       prevBtn.setAttribute('aria-disabled', 'true');
@@ -6536,19 +6531,21 @@ document.addEventListener('DOMContentLoaded', function(){
   prevBtn.addEventListener('click', function(e){
     e.preventDefault();
     if(prevBtn.getAttribute('aria-disabled') === 'true') return;
-    if(!canFire()) return;
+    if(isTransitioning()) return;
     fireArrow('ArrowUp');
-    window.setTimeout(syncButtons, 120);
-    window.setTimeout(syncButtons, getSceneLockMs() + 220);
+    window.setTimeout(syncButtons, 80);
+    window.setTimeout(syncButtons, 320);
+    window.setTimeout(syncButtons, 900);
   });
 
   nextBtn.addEventListener('click', function(e){
     e.preventDefault();
     if(nextBtn.getAttribute('aria-disabled') === 'true') return;
-    if(!canFire()) return;
+    if(isTransitioning()) return;
     fireArrow('ArrowDown');
-    window.setTimeout(syncButtons, 120);
-    window.setTimeout(syncButtons, getSceneLockMs() + 220);
+    window.setTimeout(syncButtons, 80);
+    window.setTimeout(syncButtons, 320);
+    window.setTimeout(syncButtons, 900);
   });
 
   window.addEventListener('load', syncButtons, { once: true });
@@ -6557,6 +6554,7 @@ document.addEventListener('DOMContentLoaded', function(){
   setTimeout(syncButtons, 800);
 });
 </script>
+
 
 
 
