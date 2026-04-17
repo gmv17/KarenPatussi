@@ -969,16 +969,18 @@
         filter   var(--easeDurRole) ease;
     }
     @media (min-width: 980px){
-      .role { text-align:right; margin-top: 0; margin-left: 40px; max-width: 420px; }
+      .role { text-align:right; margin-top: 0; margin-left: 40px; max-width: 460px; }
     }
     .role .pill{
       display:inline-block;
       font-weight: 600;
       font-size: clamp(14px, 1.5vw, 20px);
       letter-spacing: 0.18em;
+      line-height: 1.36;
       color: var(--muted);
       text-transform: uppercase;
       font-family: var(--bodyFont);
+      text-wrap: balance;
     }
 
     /* ===== Card base ===== */
@@ -4018,6 +4020,63 @@
 
   #agendar-sessao .contact-aside-card{
     padding: 15px !important;
+  }
+}
+
+
+/* ===== Ajuste fino MacBook (1280–1440px) ===== */
+@media (min-width: 1200px) and (max-width: 1440px){
+  .content{
+    gap: clamp(60px, 8vw, 120px);
+  }
+  .brand{
+    max-width: 42%;
+  }
+  .role{
+    max-width: 32%;
+  }
+  .tree{
+    transform: scale(0.92);
+  }
+}
+
+
+
+    /* ===== Ajuste fino do hero em desktop grande ===== */
+    @media (min-width: 980px){
+      .content{
+        gap: clamp(48px, 6vw, 110px);
+      }
+      .brand{
+        max-width: 46%;
+      }
+      .role{
+        max-width: 460px;
+      }
+    }
+
+    /* ===== Ajuste fino MacBook (1280–1440px) ===== */
+    @media (min-width: 1200px) and (max-width: 1440px){
+      .content{
+        gap: clamp(60px, 8vw, 120px);
+      }
+      .brand{
+        max-width: 42%;
+      }
+      .role{
+        max-width: 420px;
+      }
+      .tree{
+        transform: scale(0.92);
+      }
+    }
+
+
+
+/* ===== Ajuste fino: afastar nome da árvore (~2mm) ===== */
+@media (min-width: 980px){
+  .brand{
+    transform: translate3d(-2mm, calc(var(--nameY, 0px)), 0);
   }
 }
 
