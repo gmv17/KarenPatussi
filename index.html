@@ -3916,6 +3916,111 @@
   }
 }
 
+
+.contact-mini{
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(26,93,102,.10);
+  display: grid;
+  gap: 10px;
+}
+.contact-mini-label{
+  margin: 0;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(20,28,32,.48);
+  font-weight: 800;
+}
+.contact-mini-list{
+  display: grid;
+  gap: 10px;
+}
+.contact-mini-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: rgba(20,28,32,.78);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+  transition: color .22s ease, opacity .22s ease, transform .22s ease;
+  width: fit-content;
+}
+.contact-mini-link:hover,
+.contact-mini-link:focus-visible{
+  color: var(--brand);
+  opacity: .92;
+  transform: translateY(-1px);
+  outline: none;
+}
+.contact-mini-icon{
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  display: block;
+}
+.contact-mini-icon path{
+  stroke: var(--brand);
+}
+@media (max-width: 979.98px){
+  .contact-mini{
+    margin-top: 12px;
+    padding-top: 10px;
+    gap: 9px;
+  }
+  .contact-mini-link{
+    font-size: 13.5px;
+  }
+}
+
+
+/* ===== Ajuste fino | Agendar sessão ===== */
+#agendar-sessao .contact-wrap{
+  gap: 12px !important;
+  margin-top: 4px !important;
+}
+
+#agendar-sessao .contact-form-shell{
+  padding: 10px 0 0 !important;
+  border-radius: 0 !important;
+}
+
+#agendar-sessao .contact-layout{
+  gap: 14px !important;
+}
+
+#agendar-sessao .contact-section{
+  gap: 10px !important;
+  padding: 16px !important;
+}
+
+#agendar-sessao .contact-aside-card{
+  padding: 16px !important;
+}
+
+#agendar-sessao .contact-mini{
+  margin-top: 10px !important;
+  padding-top: 10px !important;
+}
+
+@media (max-width: 979.98px){
+  #agendar-sessao .contact-wrap{
+    gap: 10px !important;
+  }
+
+  #agendar-sessao .contact-section{
+    padding: 15px !important;
+    gap: 10px !important;
+  }
+
+  #agendar-sessao .contact-aside-card{
+    padding: 15px !important;
+  }
+}
+
 </style>
 </head>
 
@@ -4611,6 +4716,25 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
                             <li>O telefone pode ser incluído apenas se fizer sentido para você.</li>
                             <li>Uma mensagem breve já permite orientar o caminho mais adequado.</li>
                           </ul>
+
+                          <div class="contact-mini" aria-label="Contatos diretos">
+                            <p class="contact-mini-label">Contatos</p>
+                            <div class="contact-mini-list">
+                              <a class="contact-mini-link" href="mailto:contato@terapiacomkaren.com" aria-label="Enviar e-mail para contato@terapiacomkaren.com">
+                                <svg class="contact-mini-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                  <path d="M4 7.5L11.04 12.78C11.39 13.04 11.56 13.17 11.75 13.22C11.92 13.27 12.08 13.27 12.25 13.22C12.44 13.17 12.61 13.04 12.96 12.78L20 7.5M5.6 19H18.4C19.24 19 19.66 19 19.99 18.84C20.28 18.7 20.52 18.46 20.66 18.17C20.82 17.84 20.82 17.42 20.82 16.58V8.42C20.82 7.58 20.82 7.16 20.66 6.83C20.52 6.54 20.28 6.3 19.99 6.16C19.66 6 19.24 6 18.4 6H5.6C4.76 6 4.34 6 4.01 6.16C3.72 6.3 3.48 6.54 3.34 6.83C3.18 7.16 3.18 7.58 3.18 8.42V16.58C3.18 17.42 3.18 17.84 3.34 18.17C3.48 18.46 3.72 18.7 4.01 18.84C4.34 19 4.76 19 5.6 19Z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>contato@terapiacomkaren.com</span>
+                              </a>
+                              <a class="contact-mini-link" href="tel:+5547996680603" aria-label="Ligar para mais cinquenta e cinco quarenta e sete nove nove seis seis oito zero seis zero três">
+                                <svg class="contact-mini-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                  <path d="M21 16.92V19.92C21 20.47 20.55 20.92 20 20.92C10.65 20.92 3.08 13.35 3.08 4C3.08 3.45 3.53 3 4.08 3H7.09C7.57 3 7.98 3.34 8.07 3.8L8.56 6.73C8.63 7.13 8.5 7.54 8.21 7.82L6.18 9.86C7.42 12.3 9.7 14.58 12.14 15.82L14.18 13.79C14.46 13.5 14.87 13.37 15.27 13.44L18.2 13.93C18.66 14.02 19 14.43 19 14.91V16.92" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>+55 47 99668-0603</span>
+                              </a>
+                            </div>
+                          </div>
+
                         </section>
                       </aside>
                     </div>
