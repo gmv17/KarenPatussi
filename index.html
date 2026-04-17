@@ -2238,6 +2238,18 @@
       min-height: 190px;
       resize: vertical;
     }
+    .field-counter{
+      margin-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+      font: 600 11px/1 var(--bodyFont);
+      letter-spacing: .04em;
+      color: rgba(20,28,32,.42);
+      user-select: none;
+    }
+    .field-counter.is-limit{
+      color: rgba(26,93,102,.78);
+    }
     .field select{
       width: 100%;
       min-width: 0;
@@ -2569,6 +2581,136 @@
     }
     .contact-status.is-warn{
       color: rgba(140,92,20,.96);
+    }
+    .contact-success-toast{
+      position: fixed;
+      inset: 0;
+      z-index: 1400;
+      display: grid;
+      place-items: center;
+      padding:
+        calc(20px + var(--safeT))
+        calc(18px + var(--safeR))
+        calc(20px + var(--safeB))
+        calc(18px + var(--safeL));
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .34s ease, visibility .34s ease;
+    }
+    .contact-success-toast::before{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(10,12,14,.12);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      opacity: 0;
+      transition: opacity .34s ease;
+    }
+    .contact-success-toast.is-visible{
+      opacity: 1;
+      visibility: visible;
+    }
+    .contact-success-toast.is-visible::before{
+      opacity: 1;
+    }
+    .contact-success-toast__panel{
+      position: relative;
+      z-index: 1;
+      width: min(92vw, 430px);
+      padding: 26px 24px 22px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(26,93,102,.14);
+      box-shadow: 0 24px 60px rgba(0,0,0,.12), 0 0 0 1px rgba(26,93,102,.04);
+      backdrop-filter: blur(16px) saturate(1.04);
+      -webkit-backdrop-filter: blur(16px) saturate(1.04);
+      text-align: center;
+      transform: translate3d(0, 18px, 0) scale(.96);
+      transition: transform .4s cubic-bezier(.16,1,.18,1), opacity .34s ease;
+    }
+    .contact-success-toast.is-visible .contact-success-toast__panel{
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    .contact-success-toast__icon{
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 16px;
+      display: block;
+    }
+    .contact-success-toast__icon-circle{
+      fill: rgba(26,93,102,.08);
+      stroke: rgba(26,93,102,.22);
+      stroke-width: 1.5;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .contact-success-toast__icon-ring{
+      fill: none;
+      stroke: rgba(26,93,102,.22);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 157;
+      stroke-dashoffset: 157;
+      opacity: 0;
+    }
+    .contact-success-toast__icon-check{
+      fill: none;
+      stroke: var(--brand);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 36;
+      stroke-dashoffset: 36;
+    }
+    .contact-success-toast.is-visible .contact-success-toast__icon-circle{
+      animation: successToastPulse .62s cubic-bezier(.16,1,.18,1) both;
+    }
+    .contact-success-toast.is-visible .contact-success-toast__icon-ring{
+      opacity: 1;
+      animation: successToastRing .72s cubic-bezier(.16,1,.18,1) .06s both;
+    }
+    .contact-success-toast.is-visible .contact-success-toast__icon-check{
+      animation: successToastCheck .52s cubic-bezier(.22,1,.22,1) .24s both;
+    }
+    .contact-success-toast__kicker{
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(26,93,102,.94);
+      font: 800 10.5px/1 var(--bodyFont);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .contact-success-toast__title{
+      margin: 0 0 8px;
+      color: var(--brand);
+      font-family: var(--titleFont);
+      font-weight: 800;
+      font-size: clamp(24px, 3vw, 30px);
+      line-height: 1.04;
+      letter-spacing: -.02em;
+    }
+    .contact-success-toast__text{
+      margin: 0;
+      color: var(--softInk2);
+      font-size: 14px;
+      line-height: 1.72;
+      font-weight: 500;
+    }
+    @keyframes successToastPulse{
+      0%{ transform: scale(.84); opacity: .55; }
+      60%{ transform: scale(1.04); opacity: 1; }
+      100%{ transform: scale(1); opacity: 1; }
+    }
+    @keyframes successToastRing{
+      0%{ stroke-dashoffset: 157; opacity: 0; }
+      20%{ opacity: 1; }
+      100%{ stroke-dashoffset: 0; opacity: 1; }
+    }
+    @keyframes successToastCheck{
+      0%{ stroke-dashoffset: 36; }
+      100%{ stroke-dashoffset: 0; }
     }
     .contact-hp{
       position: absolute !important;
@@ -4651,9 +4793,10 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
                     class="contact-form"
                     id="contactForm"
                     method="post"
-                    action="/api/contact"
+                    action="https://formsubmit.co/ajax/contato@terapiacomkaren.com"
                     autocomplete="on"
-                    data-endpoint="/api/contact"
+                    data-endpoint="https://formsubmit.co/ajax/contato@terapiacomkaren.com"
+                    data-recipient="contato@terapiacomkaren.com"
                     data-whatsapp="5547996680603"
                   >
                     <div class="contact-layout">
@@ -4749,6 +4892,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
                               autocomplete="off"
                               inputmode="text"
                             >
+                            <input type="hidden" name="_honey" value="">
                           </div>
 
                           <div class="field field--full">
@@ -4759,9 +4903,12 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
                               placeholder="Escreva sua mensagem"
                               required
                               minlength="10"
-                              maxlength="1500"
+                              maxlength="500"
                               enterkeyhint="send"
                             ></textarea>
+                            <div class="field-counter" aria-live="polite">
+                              <span id="contactMessageCounter">0</span>/500
+                            </div>
                           </div>
                         </section>
                       </div>
@@ -4811,6 +4958,7 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
                       <div class="contact-status" id="contactStatus" aria-live="polite"></div>
                     </div>
                   </form>
+
                 </section>
 
                 <div class="end-spacer" aria-hidden="true"></div>
@@ -6247,7 +6395,14 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
         const status = document.getElementById("contactStatus");
         const submitBtn = form.querySelector("[data-contact-submit]");
         const whatsappBtn = document.getElementById("contactWhatsappBtn");
-        const endpoint = form.getAttribute("action") || form.dataset.endpoint || "/api/contact";
+        const messageField = form.elements.message;
+        const messageCounter = document.getElementById("contactMessageCounter");
+        const messageCounterWrap = messageCounter?.closest(".field-counter") || null;
+        let successToastTimer = null;
+
+        const getSuccessToast = () => document.getElementById("contactSuccessToast");
+        const recipientEmail = String(form.dataset.recipient || "contato@terapiacomkaren.com").trim();
+        const endpoint = form.getAttribute("action") || form.dataset.endpoint || `https://formsubmit.co/ajax/${recipientEmail}`;
         const whatsappTarget = String(form.dataset.whatsapp || "").replace(/\D/g, "");
 
         const setStatus = (message, tone = "error") => {
@@ -6255,6 +6410,32 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           status.textContent = message;
           status.classList.toggle("is-ok", tone === "ok");
           status.classList.toggle("is-warn", tone === "warn");
+        };
+
+        const updateMessageCounter = () => {
+          if(!messageField || !messageCounter) return;
+          const current = String(messageField.value || "").length;
+          messageCounter.textContent = String(current);
+          if(messageCounterWrap){
+            messageCounterWrap.classList.toggle("is-limit", current >= 450);
+          }
+        };
+
+        updateMessageCounter();
+        if(messageField){
+          messageField.addEventListener("input", updateMessageCounter);
+        }
+
+        const showSuccessToast = () => {
+          const successToast = getSuccessToast();
+          if(!successToast) return;
+          window.clearTimeout(successToastTimer);
+          successToast.classList.remove("is-visible");
+          void successToast.offsetWidth;
+          successToast.classList.add("is-visible");
+          successToastTimer = window.setTimeout(() => {
+            successToast.classList.remove("is-visible");
+          }, 3000);
         };
 
         const setBusy = (busy) => {
@@ -6314,6 +6495,11 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
             return false;
           }
 
+          if(data.message.length > 500){
+            setStatus("A mensagem pode ter no máximo 500 caracteres.");
+            return false;
+          }
+
           setStatus("");
           return true;
         };
@@ -6350,7 +6536,21 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
           if(!validate(data)) return;
 
           setBusy(true);
-          setStatus("Preparando envio seguro...", "warn");
+          setStatus("Enviando mensagem...", "warn");
+
+          const payload = {
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            phone_is_whatsapp: data.phone_is_whatsapp ? "Sim" : "Não",
+            reason: data.reason,
+            message: data.message,
+            _subject: "Novo contato pelo site - Karen Patussi",
+            _replyto: data.email,
+            _captcha: "false",
+            _honey: "",
+            _template: "table"
+          };
 
           try {
             const response = await fetch(endpoint, {
@@ -6359,23 +6559,44 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
                 "Content-Type": "application/json",
                 "Accept": "application/json"
               },
-              body: JSON.stringify(data)
+              body: JSON.stringify(payload)
             });
 
-            if(response.ok){
+            let result = null;
+            try {
+              result = await response.json();
+            } catch(_jsonError) {}
+
+            if(response.ok && (!result || result.success !== false)){
               form.reset();
-              setStatus("Mensagem enviada com sucesso.", "ok");
+              setStatus("");
+              showSuccessToast();
               return;
             }
 
-            if(response.status === 404 || response.status === 405){
-              setStatus("O formulário já está pronto no front, mas a rota segura /api/contact ainda precisa ser criada na Vercel.", "warn");
-              return;
-            }
+            const fallbackBody = encodeURIComponent([
+              `Nome: ${data.name}`,
+              `Motivo: ${data.reason}`,
+              data.phone ? `Telefone: ${data.phone}${data.phone_is_whatsapp ? ' (WhatsApp)' : ''}` : "",
+              `E-mail: ${data.email}`,
+              "",
+              data.message
+            ].filter(Boolean).join("\n"));
 
-            setStatus("Não foi possível enviar agora. Tente novamente em instantes.");
+            window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(`Contato pelo site — ${data.reason}`)}&body=${fallbackBody}`;
+            setStatus("Não consegui enviar direto pelo formulário, então abri seu aplicativo de e-mail como plano B.", "warn");
           } catch (error) {
-            setStatus("O formulário já está pronto no front, mas o backend seguro ainda precisa ser conectado.", "warn");
+            const fallbackBody = encodeURIComponent([
+              `Nome: ${data.name}`,
+              `Motivo: ${data.reason}`,
+              data.phone ? `Telefone: ${data.phone}${data.phone_is_whatsapp ? ' (WhatsApp)' : ''}` : "",
+              `E-mail: ${data.email}`,
+              "",
+              data.message
+            ].filter(Boolean).join("\n"));
+
+            window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(`Contato pelo site — ${data.reason}`)}&body=${fallbackBody}`;
+            setStatus("Não consegui enviar direto pelo formulário, então abri seu aplicativo de e-mail como plano B.", "warn");
           } finally {
             setBusy(false);
           }
@@ -6949,6 +7170,19 @@ Vou trazer aqui alguns aspectos bastante resumidos a respeito de minha forma de 
     </svg>
   </button>
 </div>
+
+  <div class="contact-success-toast" id="contactSuccessToast" role="status" aria-live="polite" aria-atomic="true">
+    <div class="contact-success-toast__panel">
+      <svg class="contact-success-toast__icon" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+        <circle class="contact-success-toast__icon-circle" cx="36" cy="36" r="28"></circle>
+        <circle class="contact-success-toast__icon-ring" cx="36" cy="36" r="25"></circle>
+        <path class="contact-success-toast__icon-check" d="M24 37.5 32.2 45.7 48.5 28.8"></path>
+      </svg>
+      <span class="contact-success-toast__kicker">Mensagem enviada</span>
+      <h3 class="contact-success-toast__title">Tudo certo.</h3>
+      <p class="contact-success-toast__text">Em breve entraremos em contato.</p>
+    </div>
+  </div>
 
 </body>
 
