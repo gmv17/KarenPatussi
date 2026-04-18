@@ -1,4 +1,4 @@
-    :root{
+:root{
       --brand:#1A5D66;
 
       --text:#0b0d0f;
@@ -4129,6 +4129,44 @@
 
 
 
+/* ===== Card title row com ícone Lattes ===== */
+.card-title-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lattes-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(26,93,102,.18);
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+  color: var(--brand);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.lattes-link:hover,
+.lattes-link:focus-visible{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(26,93,102,.18);
+  background: rgba(255,255,255,.96);
+  outline: none;
+}
+.lattes-link svg{
+  width: 18px;
+  height: 18px;
+  display: block;
+  overflow: visible;
+}
+.lattes-label{ display: none; }
+
 /* ===== Afastar nome da árvore para a esquerda ===== */
 @media (min-width: 980px){
   .brand{
@@ -4171,4 +4209,3 @@
     max-width: 400px;
   }
 }
-
