@@ -1040,24 +1040,43 @@
     }
 
     .story-block--reverse{
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
-  align-items:start;
-  justify-items:end; /* força direita */
-}
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+      align-items: center;
+      justify-items: stretch;
+    }
+
     .story-media,
     .story-video{
       display:block;
-      aspect-ratio: 5 / 8;
-      min-height:240px;
-      max-height:380px;
       overflow:hidden;
-      margin-left:auto;
-      margin-top:40px;
-      border-radius:8px; /* sutil */
+      border-radius:12px;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+    }
+
+    .story-media{
+      aspect-ratio: 5 / 8;
+      min-height:240px;
+      max-height:380px;
+      margin-left:auto;
+      margin-top:40px;
+    }
+
+    /* Vídeo no card Sobre:
+       o arquivo tem faixas pretas laterais embutidas.
+       A janela abaixo fica mais estreita e usa overflow:hidden + object-fit:cover
+       para cortar somente essas laterais, sem deformar o vídeo. */
+    .story-video{
+      width: min(100%, 420px);
+      aspect-ratio: 4 / 3;
+      justify-self: end;
+      align-self: center;
+      margin: 0 0 0 auto;
+      overflow: hidden;
+      background: rgba(255,255,255,.22);
+      box-shadow: 0 12px 28px rgba(0,0,0,.06);
     }
 
     .story-media img,
@@ -1067,6 +1086,7 @@
       height: 100%;
       display: block;
       object-fit: cover;
+      object-position: center center;
       border: 0;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
